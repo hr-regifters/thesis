@@ -188,14 +188,3 @@ no problem getting your changes merged in.
 4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
     to keep the bug fixes.
 5.  continue contributing as before
-
-
-
-
-
-
-
-
-
-
-
