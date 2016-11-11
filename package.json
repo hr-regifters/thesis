@@ -1,0 +1,45 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "description": "our thesis project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hr-regifters/thesis.git"
+  },
+  "keywords": [
+    "gamechanging",
+    "innovation",
+    "paradigm",
+    "shift",
+    "revolution",
+    "node",
+    "express",
+    "mongodb",
+    "react",
+    "redis",
+    "IOT",
+    "services",
+    "integration",
+    "bold",
+    "daring"
+  ],
+  "author": "a1 steak sauce, d$money, leChunky, moustache king",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hr-regifters/thesis/issues"
+  },
+  "homepage": "https://github.com/hr-regifters/thesis#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.7",
+    "passport": "^0.3.2",
+    "request": "^2.78.0"
+  }
+}
