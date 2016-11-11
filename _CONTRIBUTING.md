@@ -3,7 +3,7 @@
 ## General Workflow
 
 1. Fork the repo
-1. Cut a namespaced feature branch from development
+1. Cut a namespaced feature branch from master
   - bug/...
   - feat/...
   - test/...
@@ -17,7 +17,7 @@
   - (test) ...
   - (doc) ...
 1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-    to development or if it is not a finished feature then to your feature branch on development. Include a description of your changes.
+    to development. Include a description of your changes.
 1. Your pull request will be reviewed by another maintainer. The point of code
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
@@ -83,7 +83,7 @@ changes.
 
 Once you are done making changes, you can begin the process of getting
 your code merged into the main repo. Step 1 is to rebase upstream
-changes to the development branch into yours by running this command
+changes into yours by running this command
 from your branch:
 
 ```bash
@@ -153,7 +153,7 @@ Thanks for contributing!
 
 This is just to help you organize your process
 
-- [ ] Did I cut my work branch off of development branch (don't cut new branches from existing feature brances)?
+- [ ] Did I cut my work branch off of my master branch (don't cut new branches from existing feature branches)?
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
@@ -188,14 +188,3 @@ no problem getting your changes merged in.
 4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
     to keep the bug fixes.
 5.  continue contributing as before
-
-
-
-
-
-
-
-
-
-
-
