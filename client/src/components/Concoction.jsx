@@ -1,4 +1,6 @@
-class Concoction extends React.Component {
+import React from 'react';
+
+export default class Concoction extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -12,7 +14,7 @@ class Concoction extends React.Component {
   render() {
     return (
       <div>
-        Concoction{this.props.concoctionInfo.description}
+        Concoction: {this.props.concoctionInfo.description}
         <div>
           Turn Off
         </div>

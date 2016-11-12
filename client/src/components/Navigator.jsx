@@ -1,8 +1,15 @@
-var HomePage(props) => (
+import React from 'react';
+
+import HomeView from './HomeView.jsx';
+import ConcoctionView from './ConcoctionView.jsx';
+import AddConcoctionView from './AddConcoctionView.jsx';
+
+
+const Navigator = (props) => {
   if (props.appState.view === 'home') {
     return (
       <div>
-        <HomeView appState={props.appState} />
+        <HomeView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
     )
     
@@ -18,10 +25,11 @@ var HomePage(props) => (
   } else if (props.appState.view === 'addConcoction')
     return (
       <div>
-        <AddConcoctionView appState={props.appState} />
+        <AddConcoctionView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
     )
 
-)
+}
 
-window.HomePage = HomePage;
+
+export default Navigator;

@@ -1,4 +1,8 @@
-class HomeView extends React.Component {
+import React from 'react';
+
+import Concoction from './Concoction.jsx';
+
+export default class HomeView extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -6,15 +10,16 @@ class HomeView extends React.Component {
   transitionToAddConcoction() {
     //css animations
     //change view on app state to addConcoction
+    this.props.changeViewTo('addConcoction')
   }
 
   render() {
     return (
       <div>
-      {props.appState.concoctions.map(function(concoction) {
+      {this.props.appState.concoctions.map((concoction) => {
         return (
-          <div>
-            <Concoction concoctionInfo={concoction} servicesDetail={props.appState.servicesDetail}/>
+          <div key={concoction.id}>
+            <Concoction concoctionInfo={concoction} servicesDetail={this.props.appState.servicesDetail}/>
           </div>
         )
       })}
@@ -27,4 +32,3 @@ class HomeView extends React.Component {
 }
 
 
-window.HomeView = HomeView;

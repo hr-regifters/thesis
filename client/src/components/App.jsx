@@ -1,4 +1,8 @@
-class App extends React.Component {
+import React from 'react';
+
+import Navigator from './Navigator.jsx'
+
+export default class App extends React.Component {
   constructor(props) {
 		super(props);
     this.state = {
@@ -22,6 +26,22 @@ class App extends React.Component {
               }
             ]
           }
+        },
+        { id: 2,
+          description: 'testConcoction2', 
+          services: {
+            trigger:
+              {serviceName: 'slack',
+                option: '',
+                optionParams: ''
+              },
+            actions: [
+              {serviceName: 'evernote',
+                option: '',
+                optionParams: ''
+              }
+            ]
+          }
         }
       ],
       servicesDetail: 'sevicesDeatailJSON',
@@ -32,13 +52,18 @@ class App extends React.Component {
     }
 	}
 
+  changeViewTo(view, spotlightId) {
+    this.setState({
+      view: view, 
+      spotlightConcoctionId: spotlightId || -1
+    })
+  }
+
 	render() {
     return (
       <div>
-        <HomePage appState={this.state} />
+        <Navigator appState={this.state} changeViewTo={this.changeViewTo.bind(this)} />
       </div>
     )
 	}
 }
-
-window.App = App;
