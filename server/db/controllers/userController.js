@@ -33,7 +33,7 @@ exports.signup = function(req, res) {
   User.findOne({username: username}).then((user) => {
     user ? res.status(401).send(usernameErr) : bcrypt.hash(password, saltRounds, (error, hash) => {
       error ? res.send(error) : User.create({username: username, password: hash, email: email})
-      .then((user) => {res.status(201).send()});
+      .then((user) => {res.status(201).send('success')});
     });
   });
 };
