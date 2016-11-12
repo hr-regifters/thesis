@@ -3,6 +3,7 @@
 # Logs
 logs
 *.log
+.DS_Store
 
 # Runtime data
 pids
@@ -14,6 +15,9 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+
+# Node Modules Directory
+node_modules
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
