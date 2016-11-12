@@ -23,7 +23,7 @@ exports.login = function(req, res) {
   }); 
 };
 
-exports.signup = function(req, res) {
+exports.signup = function(req, res) { 
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
