@@ -1,8 +1,9 @@
 const express = require('express');
-// import controller here
+const utility = require('../../db/controllers/userController')
 
 const router = new express.Router();
 
-// router.get('/', call controllers function)
+router.post('/signup',utility.signup);
+router.post('/login', utility.login);
 
 module.exports = router;
