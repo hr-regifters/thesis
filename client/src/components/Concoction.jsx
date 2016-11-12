@@ -6,12 +6,13 @@ class Concoction extends React.Component {
   transitionToEdit() {
     //css animations
     //change view on app state to concoctionEdit
+    //also pass up the id of the concoction to edit
   }
 
   render() {
     return (
       <div>
-        Concoction
+        Concoction{this.props.concoctionInfo.description}
         <div>
           Turn Off
         </div>

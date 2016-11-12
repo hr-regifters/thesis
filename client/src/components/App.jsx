@@ -4,19 +4,25 @@ class App extends React.Component {
     this.state = {
       user: '',
       view: 'home', //home , concoctionEdit, addConcoction
-      spotlightConcoctionId: '',
+      spotlightConcoctionId: 1,
       //concoctionIds: [''],
       concoctions:[
-        {id: '',
-         description: '', 
-         services: [
-          {trigger: '',
-           triggerOption: '',
-           triggerOptionParams: ''}, 
-           {action: '',
-            actionOption: '',
-            actionOptionParams: ''}
-         ]}
+        { id: 1,
+          description: 'testConcoction', 
+          services: {
+            trigger:
+              {serviceName: 'slack',
+                option: '',
+                optionParams: ''
+              },
+            actions: [
+              {serviceName: 'evernote',
+                option: '',
+                optionParams: ''
+              }
+            ]
+          }
+        }
       ],
       servicesDetail: 'sevicesDeatailJSON',
       connectedServices: {
