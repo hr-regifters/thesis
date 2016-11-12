@@ -4,13 +4,16 @@ const SlackStrategy = require('passport-slack').Strategy;
 const clientID = require('../../../env.js').clientID;
 const clientSecret = require('../../../env.js').clientSecret;
 
-passport.use(new SlackStrategy({
+module.exports = passport.use(new SlackStrategy({
     clientID: clientID,
-    clientSecret: clientSecret
+    clientSecret: clientSecret,
+    scope: 'incoming-webhook users:read'
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ SlackId: profile.id }, function (err, user) {
       return done(err, user);
     });
+    console.log(accessToken, refreshToken, profile)
+    // return done(null, profile);
   }
 ));
