@@ -1,0 +1,1 @@
+iReactDOM.render(<App />, document.getElementById('app'))
