@@ -8,6 +8,10 @@ const userSchema = new Schema({
     unique: true
   },
   password: String,
+  email: {
+    type: String,
+    unique: true
+  },
   Concoctions: [{
     type: Schema.Types.ObjectId,
     ref: 'Concoction'
