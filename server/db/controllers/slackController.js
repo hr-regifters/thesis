@@ -1,8 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 const SlackStrategy = require('passport-slack').Strategy; 
-const clientID = require('../../env.js').clientID;
-const clientSecret = require('../../env.js').clientSecret;
+const clientID = require('../../../env.js').clientID;
+const clientSecret = require('../../../env.js').clientSecret;
 
 passport.use(new SlackStrategy({
     clientID: clientID,
