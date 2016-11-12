@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Trigger extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -11,10 +11,10 @@ export default class Trigger extends React.Component {
         <div>
         Trigger:
         </div>
-        <div onClick={()=>{console.log('authenticate slack')}}>
+        <div onClick={() => { console.log('authenticate slack'); }}>
         Slack
         </div>
       </div>
-    )
+    );
   }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 
 export default class SaveNewConcoction extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -11,7 +11,6 @@ export default class SaveNewConcoction extends React.Component {
       <div>
      Save
       </div>
-    )
+    );
   }
-  
 }

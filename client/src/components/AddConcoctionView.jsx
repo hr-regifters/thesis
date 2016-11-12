@@ -8,30 +8,30 @@ import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class AddConcoctionView extends React.Component {
   constructor(props) {
-    super(props) 
+    super(props);
 
     this.state = {
       trigger: '',
-      actions: []
-    }
+      actions: [],
+    };
   }
 
   render() {
     return (
       <div>
         <Trigger trigger={this.state.trigger} servicesDetail={this.props.appState.servicesDetail} />
-        { this.state.actions.map(function(action) {
+        { this.state.actions.map((action) => {
           return (
             <div>
               <Action action={action} />
             </div>
-          )
+          );
         })}
         <AddAction />
         <CancelNewConcoction changeViewTo={this.props.changeViewTo} />
         <SaveNewConcoction />
       </div>
-    )
+    );
   }
 
 }

@@ -1,26 +1,26 @@
-var servicesDetailJSON = {
-	slack: {
+const servicesDetailJSON = {
+  slack: {
     icon: '',
-		trigger: {
+    trigger: {
       options: [
-        { description: ''.
+        { description: '',
           parameters: [
-            {description: '',
+            { description: '',
               expectedType: 'time, string, url, phoneNumber',
-            required: true
-            }
+              required: true,
+            },
           ],
-          returnData: [ //return data is specific to trigger options
-            {description: 'postURL',
-              type: 'url'}
-          ]
-        }
-      ]
+          returnData: [ // return data is specific to trigger options
+            { description: 'postURL',
+              type: 'url' },
+          ],
+        },
+      ],
     },
-		action: {}
-	},
-	evernote: {
-		trigger: {},
-		action: {}
-	},
-}
+    action: {},
+  },
+  evernote: {
+    trigger: {},
+    action: {},
+  },
+};

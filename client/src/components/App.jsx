@@ -1,69 +1,69 @@
 import React from 'react';
 
-import Navigator from './Navigator.jsx'
+import Navigator from './Navigator.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
-		super(props);
+    super(props);
     this.state = {
       user: '',
-      view: 'home', //home , concoctionEdit, addConcoction
+      view: 'home',  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
-      //concoctionIds: [''],
-      concoctions:[
+      // concoctionIds: [''],
+      concoctions: [
         { id: 1,
-          description: 'testConcoction', 
+          description: 'testConcoction',
           services: {
             trigger:
-              {serviceName: 'slack',
-                option: '',
-                optionParams: ''
-              },
+            { serviceName: 'slack',
+              option: '',
+              optionParams: '',
+            },
             actions: [
-              {serviceName: 'evernote',
+              { serviceName: 'evernote',
                 option: '',
-                optionParams: ''
-              }
-            ]
-          }
+                optionParams: '',
+              },
+            ],
+          },
         },
         { id: 2,
-          description: 'testConcoction2', 
+          description: 'testConcoction2',
           services: {
             trigger:
-              {serviceName: 'slack',
-                option: '',
-                optionParams: ''
-              },
+            { serviceName: 'slack',
+              option: '',
+              optionParams: '',
+            },
             actions: [
-              {serviceName: 'evernote',
+              { serviceName: 'evernote',
                 option: '',
-                optionParams: ''
-              }
-            ]
-          }
-        }
+                optionParams: '',
+              },
+            ],
+          },
+        },
       ],
       servicesDetail: 'sevicesDeatailJSON',
       connectedServices: {
         slack: false,
-        evernote: false
-      }
-    }
-	}
+        evernote: false,
+      },
+    };
+  }
 
   changeViewTo(view, spotlightId) {
     this.setState({
-      view: view, 
-      spotlightConcoctionId: spotlightId || -1
-    })
+      view: view,
+      spotlightConcoctionId: spotlightId || -1,
+    });
   }
 
-	render() {
+  render() {
     return (
       <div>
         <Navigator appState={this.state} changeViewTo={this.changeViewTo.bind(this)} />
       </div>
-    )
-	}
+    );
+  }
 }

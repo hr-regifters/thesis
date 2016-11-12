@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class AddAction extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -11,10 +11,10 @@ export default class AddAction extends React.Component {
         <div>
         Add Action
         </div>
-        <div onClick={()=>{console.log('authenticate evernote')}}>
+        <div onClick={() => { console.log('authenticate evernote'); }}>
         Evernote
         </div>
       </div>
-    )
+    );
   }
 }

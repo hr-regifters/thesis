@@ -11,25 +11,22 @@ const Navigator = (props) => {
       <div>
         <HomeView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
-    )
-    
+    );
   } else if (props.appState.view === 'concoctionEdit') {
-    //use the spotlightConcoctionId to find the correct concoction in the concoctions array
-    //build the concoction view out of the info stored in the object
+    // use the spotlightConcoctionId to find the correct concoction in the concoctions array
+    // build the concoction view out of the info stored in the object
     return (
       <div>
         <ConcoctionView appState={props.appState} />
       </div>
-    )
-
-  } else if (props.appState.view === 'addConcoction')
+    );
+  } else if (props.appState.view === 'addConcoction') {
     return (
       <div>
         <AddConcoctionView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
-    )
-
-}
-
+    );
+  }
+};
 
 export default Navigator;

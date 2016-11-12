@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Action extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
@@ -10,6 +10,6 @@ export default class Action extends React.Component {
       <div>
       Action
       </div>
-    )
+    );
   }
 }
