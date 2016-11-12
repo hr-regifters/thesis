@@ -9,7 +9,7 @@ const noUsernameErr = 'Sorry, username does not exist';
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-exports.login = function(req, res) { 
+exports.login = (req, res) => { 
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
@@ -23,7 +23,7 @@ exports.login = function(req, res) {
   }); 
 };
 
-exports.signup = function(req, res) { 
+exports.signup = (req, res) => { 
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
