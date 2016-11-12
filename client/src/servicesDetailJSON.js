@@ -1,5 +1,6 @@
 var servicesDetailJSON = {
 	slack: {
+    icon: '',
 		trigger: {
       options: [
         {description: ''.

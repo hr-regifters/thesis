@@ -1,1 +1,4 @@
-ConcoctionView.jsx
+
+
+
+window.ConcoctionView = ConcoctionView

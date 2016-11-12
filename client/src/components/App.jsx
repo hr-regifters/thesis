@@ -1,11 +1,11 @@
-class App extends {
+class App extends React.Component {
   constructor(props) {
 		super(props);
     this.state = {
       user: '',
-      view: '', //home , concoction
+      view: 'home', //home , concoctionEdit, addConcoction
       spotlightConcoctionId: '',
-      concoctionIds: [''],
+      //concoctionIds: [''],
       concoctions:[
         {id: '',
          description: '', 
@@ -27,8 +27,12 @@ class App extends {
 	}
 
 	render() {
-    <div>
-      <HomePage appState={this.state} />
-    </div>
+    return (
+      <div>
+        <HomePage appState={this.state} />
+      </div>
+    )
 	}
 }
+
+window.App = App;
