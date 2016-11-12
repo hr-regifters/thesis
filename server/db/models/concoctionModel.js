@@ -1,7 +1,7 @@
-var mongoose = require('../config.js');
-var Schema = mongoose.Schema;
+const mongoose = require('../config.js');
+const Schema = mongoose.Schema;
 
-var concoctionSchema = new Schema({
+const concoctionSchema = new Schema({
   trigger: String,
   triggerOptions: [],
   actions: [],
