@@ -4,6 +4,6 @@ const oauthRouter = require('./routers/oauth');
 
 module.exports = (app) => {
   // app.use('/api/constructor', concoctionConstructor);
-  // app.use('/api/user', userRouter);
+  app.use('/api/user', userRouter);
   app.use('/api/oauth', oauthRouter);
 };
