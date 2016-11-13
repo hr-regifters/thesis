@@ -4,6 +4,7 @@ const webhooksHandler = require('./../main');
 
 module.exports = {
   trigger: (req, res) => {
+    const webhooksHandler = require('./../main');
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
     } else {
@@ -15,9 +16,11 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    post: (str) => {
-      console.log('evernote function performed');
-      return str;
+    post: () => {
+      setTimeout(()=> console.log('evernote post function performed'), 200);
+    },
+    delete: () => {
+      console.log('evernote delete function performed');
     },
   },
 };
