@@ -1,4 +1,5 @@
 const async = require('async');
+// const evernoteCollection = require('./../../../db/models/evernoteModel')
 
 module.exports = {
   trigger: (req, res) => {
