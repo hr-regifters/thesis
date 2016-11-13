@@ -1,6 +1,4 @@
 const async = require('async');
-const webhooksHandler = require('./../main');
-// const evernoteCollection = require('./../../../db/models/evernoteModel')
 
 module.exports = {
   trigger: (req, res) => {
