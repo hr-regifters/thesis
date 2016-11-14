@@ -37,3 +37,13 @@ exports.signup = function(req, res) {
     });
   });
 };
+
+exports.addToken = function(username, API, token) {
+  User.findOne({'username': username})
+    .then(function(user) {
+      user[API] = token;
+      user.save(function(err, updated) {
+        err ? console.log(err) : console.log(updated);
+      });
+    });
+};

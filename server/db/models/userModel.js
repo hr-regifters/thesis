@@ -12,6 +12,7 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
+  slackToken: String,
   Concoctions: [{
     type: Schema.Types.ObjectId,
     ref: 'Concoction'
