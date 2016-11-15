@@ -15,11 +15,11 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    post: () => {
-      setTimeout(()=> console.log('evernote post function performed'), 200);
+    post: (params) => {
+      setTimeout(() => console.log('evernote post function performed', params), 200);
     },
-    delete: () => {
-      console.log('evernote delete function performed');
+    delete: (params) => {
+      console.log('evernote delete function performed', params);
     },
   },
 };
