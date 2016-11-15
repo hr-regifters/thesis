@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use strict"
 const express = require('express');
 const slackConcoction = require('../models/slackTriggerModel');
