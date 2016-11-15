@@ -5,15 +5,14 @@ const Schema = mongoose.Schema;
 const slackTriggerSchema = new Schema({
   trigger: {
     type: String,
-    index: true,
-    unique: true
+    index: true
   },
   action: [{
     slackUserId: String,
     actionApi: String,
     actionKey: String,
     actionFunction: String,
-    actionParams: [{}],
+    actionParams: String,
   }]
   
 });
