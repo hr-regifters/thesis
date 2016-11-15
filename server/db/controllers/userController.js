@@ -38,12 +38,16 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.addToken = function(username, API, token) {
+exports.addSlackToken = (username, token, slackId) => {
   User.findOne({'username': username})
     .then(function(user) {
-      user[API] = token;
-      user.save(function(err, updated) {
+      user.slackToken = token;
+      user.slackId = slackId;
+      user.save((err, updated) => {
         err ? console.log(err) : console.log(updated);
       });
     });
 };
+
+exports.getSlackToken = username => User.findOne(username).then((user) => user.slackToken ? user : "No slack Token");
+

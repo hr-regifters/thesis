@@ -12,7 +12,7 @@ const slackTriggerSchema = new Schema({
     slackUserId: String,
     actionApi: String,
     actionKey: String,
-    actionFunctions: String,
+    actionFunction: String,
     actionParams: [{}],
   }]
   
