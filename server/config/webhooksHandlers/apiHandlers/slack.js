@@ -11,7 +11,7 @@ module.exports = {
       res.status(200).send('registered slack event');
     }
     // fetch db data for users to get actions
-    concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
+    // concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
       arr = [{actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061F7AUR', actionParams: 'post this shit 1'},
              {actionApi: 'evernote', actionFunction:'delete', slackUserId: 'U061F7AUR', actionParams: 'delete first 2'},
              {actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061FAUR', actionParams: 'shouldnt occur'}];
@@ -27,7 +27,7 @@ module.exports = {
           callback();
         }
       }, (error) => { error ? console.log(error) : console.log('slack event successfully processed'); });
-    }).catch((error) => { console.log(error); });
+    // }).catch((error) => { console.log(error); });
 
     // extract actions if trigger is right
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
