@@ -9,7 +9,7 @@ const noUsernameErr = 'Sorry, username does not exist';
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-exports.login = function(req, res) { 
+exports.login = (req, res) => { 
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
@@ -23,7 +23,7 @@ exports.login = function(req, res) {
   }); 
 };
 
-exports.signup = function(req, res) {
+exports.signup = (req, res) => { 
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
@@ -33,17 +33,22 @@ exports.signup = function(req, res) {
   User.findOne({username: username}).then((user) => {
     user ? res.status(401).send(usernameErr) : bcrypt.hash(password, saltRounds, (error, hash) => {
       error ? res.send(error) : User.create({username: username, password: hash, email: email})
-      .then((user) => {res.status(201).send('success')});
+      .then((user) => {res.status(201).send('success')})
+      .catch((error)=>{res.status(401).send('user was not created: ' + error)});
     });
   });
 };
 
-exports.addToken = function(username, API, token) {
+exports.addSlackToken = (username, token, slackId) => {
   User.findOne({'username': username})
     .then(function(user) {
-      user[API] = token;
-      user.save(function(err, updated) {
+      user.slackToken = token;
+      user.slackId = slackId;
+      user.save((err, updated) => {
         err ? console.log(err) : console.log(updated);
       });
     });
 };
+//get slack user id and slack token from the
+exports.getSlackId = username => User.findOne({username: username}).then((user) => user.slackId ? user.slackId : "No slack ID");
+
