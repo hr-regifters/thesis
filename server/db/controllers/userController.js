@@ -27,6 +27,7 @@ exports.signup = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
+  
 
 //   console.log('POST /api/user/signup. username:', username);
 
@@ -39,15 +40,18 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.addSlackToken = (username, token, slackId) => {
-  User.findOne({'username': username})
-    .then(function(user) {
-      user.slackToken = token;
-      user.slackId = slackId;
-      user.save((err, updated) => {
-        err ? console.log(err) : console.log(updated);
-      });
+exports.addTokenAndId = (username, api, token, slackId) => {
+  User.findOne({'username': username}).then((user) => {
+    if (api === 'slackToken') {
+      user[api] = token;
+      user['slackId'] = slackId;
+    } else {
+      user[api] = token;
+    }
+    user.save((err, updated) => {
+      err ? console.log(err) : console.log(updated);
     });
+  });
 };
 //get slack user id and slack token from the
 exports.getSlackId = username => User.findOne({username: username}).then((user) => user.slackId ? user.slackId : "No slack ID");

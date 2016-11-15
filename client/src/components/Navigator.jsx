@@ -3,10 +3,17 @@ import React from 'react';
 import HomeView from './HomeView.jsx';
 import ConcoctionView from './ConcoctionView.jsx';
 import AddConcoctionView from './AddConcoctionView.jsx';
+import Verification from './Verification.jsx';
 
 
 const Navigator = (props) => {
-  if (props.appState.view === 'home') {
+  if (props.appState.view === 'verify') {
+    return (
+      <div>
+        <Verification appState={props.appState} changeViewTo={props.changeViewTo}/>
+      </div>
+    )
+  } else if (props.appState.view === 'home') {
     return (
       <div>
         <HomeView appState={props.appState} changeViewTo={props.changeViewTo} />
