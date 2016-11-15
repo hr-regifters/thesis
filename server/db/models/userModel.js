@@ -12,6 +12,8 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
+  slackToken: String,
+  slackId: String,
   Concoctions: [{
     type: Schema.Types.ObjectId,
     ref: 'Concoction'
