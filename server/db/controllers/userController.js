@@ -9,20 +9,6 @@ const noUsernameErr = 'Sorry, username does not exist';
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-exports.login = function(req, res) { 
-  let username = req.body.username;
-  let password = req.body.password;
-  let email = req.body.email;
-  
-  console.log('POST /api/user/login. username:', username);
-
-  User.findOne({username: username}).then((user) => {
-    !user ? res.status(401).send(noUsernameErr) : bcrypt.compare(password, user.password, (err, success) => {
-      success ? res.status(201).send() : res.status(401).send(incorrectPasswordErr);
-    });
-  }); 
-};
-
 exports.signup = function(req, res) {
   let username = req.body.username;
   let password = req.body.password;

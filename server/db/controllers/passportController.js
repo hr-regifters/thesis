@@ -3,15 +3,16 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const utility = require('./userController');
 
-const SlackStrategy = require('./slackController');
-const EvernoteStrategy = require('./evernoteController');
+const Local = require('./localController');
+const Slack = require('./slackController');
+const Evernote = require('./evernoteController');
 
 module.exports = (app) => {
 
   app.use(cookieParser());
   app.use(session({
     secret: 'cookie_secret',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   }));
 
@@ -23,8 +24,9 @@ module.exports = (app) => {
     done(null, obj);
   });
 
-  passport.use(SlackStrategy);
-  passport.use(EvernoteStrategy);
+  passport.use(Local.Strategy);
+  passport.use(Slack.Strategy);
+  passport.use(Evernote.Strategy);
 
   app.use(passport.initialize());
   app.use(passport.session());
