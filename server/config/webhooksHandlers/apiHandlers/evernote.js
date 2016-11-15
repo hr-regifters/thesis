@@ -16,10 +16,10 @@ module.exports = {
   },
   actions: {
     post: (params) => {
-      setTimeout(() => console.log('evernote post function performed', params), 200);
+      setTimeout(() => console.log('evernote post function performed', params.actionParams), 200);
     },
     delete: (params) => {
-      console.log('evernote delete function performed', params);
+      console.log('evernote delete function performed', params.actionParams);
     },
   },
 };
