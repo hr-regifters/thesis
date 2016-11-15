@@ -36,10 +36,13 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "evernote": "^1.25.82",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.7",
     "passport": "^0.3.2",
+    "passport-evernote": "^1.0.1",
     "passport-slack": "0.0.6",
     "path": "^0.12.7"
   },
