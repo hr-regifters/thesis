@@ -12,21 +12,21 @@ module.exports = {
     }
     // fetch db data for users to get actions
     // slackCtrl.getEvent(req.body.event.type).then((arr) => {
-      arr = [{api: 'evernote', action:'post', slackId: 'U061F7AUR', params: 'post this shit 1'},
-             {api: 'evernote', action:'delete', slackId: 'U061F7AUR', params: 'delete first 2'},
-             {api: 'evernote', action:'post', slackId: 'U061FAUR', params: 'shouldnt occur'}];
+      arr = [{actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061F7AUR', actionParams: 'post this shit 1'},
+             {actionApi: 'evernote', actionFunction:'delete', slackUserId: 'U061F7AUR', actionParams: 'delete first 2'},
+             {actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061FAUR', actionParams: 'shouldnt occur'}];
       async.each(arr, (obj, callback) => {
-        if (req.body['authed_users'].includes(obj.slackId)) {
-          if (obj.api === undefined || obj.action === undefined) {
-            callback('error! api or action property not existing');
+        if (req.body['authed_users'].includes(obj.slackUserId)) {
+          if (obj.actionApi === undefined || obj.actionFunction === undefined) {
+            callback('error! actionApi or actionFunction property not existing');
           } else {
-            webhooksHandler[`${obj.api}Action`][obj.action](obj.params);
+            webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](obj);
             callback();
           }
         } else {
           callback();
         }
-      }, (error) => { error !== null ? console.log(error) : console.log('slack event successfully processed'); });
+      }, (error) => { error ? console.log(error) : console.log('slack event successfully processed'); });
     // }).catch((error) => { console.log(error); });
 
     // extract actions if trigger is right
