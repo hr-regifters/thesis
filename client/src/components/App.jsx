@@ -1,5 +1,5 @@
 import React from 'react';
-import serviceDetail from '../serviceDetailJSON.js';
+import servicesDetail from '../servicesDetailJSON.js';
 
 import Navigator from './Navigator.jsx';
 
@@ -10,13 +10,13 @@ export default class App extends React.Component {
       user: '',
       view: 'verify',  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
-      // concoctionIds: [''],
       concoctions: [
         { id: 2,
           description: 'testConcoction2',
           services: {
             trigger:
-              { serviceName: 'slack',
+              {
+                serviceName: 'slack',
               },
             actions: [
               { serviceName: 'evernote',
