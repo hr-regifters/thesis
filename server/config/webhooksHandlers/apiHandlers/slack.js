@@ -1,6 +1,6 @@
 const async = require('async');
-// const slackCtrl = require('./../../../db/models/slack');
-const concCtrl = require('./../../../db/controllers/concoctionController');
+// const slackCtrl = require('../../../db/models/slack');
+const concCtrl = require('../../../db/controllers/concoctionController');
 
 module.exports = {
   trigger: (req, res) => {

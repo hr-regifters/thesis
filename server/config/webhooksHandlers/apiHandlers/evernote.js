@@ -1,5 +1,5 @@
 const Evernote = require('evernote').Evernote;
-const UserCtrl = require('../../../../db/controllers/userController.js');
+const UserCtrl = require('../../../db/controllers/userController.js');
 const async = require('async');
 // const evernoteCollection = require('./../../../db/models/evernoteModel')
 
