@@ -1,0 +1,68 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "description": "our thesis project",
+  "main": "index.js",
+  "scripts": {
+    "start": "forever server/index.js & webpack -d --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hr-regifters/thesis.git"
+  },
+  "keywords": [
+    "gamechanging",
+    "innovation",
+    "paradigm",
+    "shift",
+    "revolution",
+    "node",
+    "express",
+    "mongodb",
+    "react",
+    "redis",
+    "IOT",
+    "services",
+    "integration",
+    "bold",
+    "daring"
+  ],
+  "author": "a1 steak sauce, d$money, leChunky, moustache king",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hr-regifters/thesis/issues"
+  },
+  "homepage": "https://github.com/hr-regifters/thesis#readme",
+  "dependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "evernote": "^1.25.82",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "forever": "^0.15.3",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.6.7",
+    "passport": "^0.3.2",
+    "passport-evernote": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "passport-slack": "0.0.6",
+    "path": "^0.12.7",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.10.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-react": "^6.6.0"
+  }
+}

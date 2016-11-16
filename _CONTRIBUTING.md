@@ -17,7 +17,7 @@
   - (test) ...
   - (doc) ...
 1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-    to development or if it is not a finished feature then to your feature branch on development. Include a description of your changes.
+    to development. Include a description of your changes.
 1. Your pull request will be reviewed by another maintainer. The point of code
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
@@ -188,10 +188,3 @@ no problem getting your changes merged in.
 4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
     to keep the bug fixes.
 5.  continue contributing as before
-
-
-
-
-
-
-
