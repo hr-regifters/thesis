@@ -1,15 +1,14 @@
-const concoctionConstructor = require('./routers/constructor');
-const userRouter = require('./routers/user');
-const oauthRouter = require('./routers/oauth');
+// const concoctionConstructor = require('./routers/constructor');
+// const userRouter = require('./routers/user');
+// const oauthRouter = require('./routers/oauth');
+const webhookRouter = require('./routers/webhooks');
+// put routers here
 
 module.exports = (app) => {
-  // app.use('/api/constructor', concoctionConstructor);
+  app.use('/api/constructor', checkLogIn, concoctionConstructor);
   app.use('/api/user', userRouter);
-  app.use('/api/oauth', oauthRouter);
-  app.get('/', checkLogIn,
-    function(req, res) {
-      console.log('SUCCESS')
-    })
+  app.use('/api/oauth', checkLogIn, oauthRouter);
+  app.use('/api/webhooks', webhookRouter);
 };
 
 const checkLogIn = function(req, res, next) {
@@ -17,6 +16,6 @@ const checkLogIn = function(req, res, next) {
   if (req.session.user || req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 };

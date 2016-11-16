@@ -12,7 +12,7 @@ module.exports = (app) => {
   app.use(cookieParser());
   app.use(session({
     secret: 'cookie_secret',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
   }));
 

@@ -12,7 +12,10 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
+  slackId: String,
   slackToken: String,
+  evernoteToken: String,
+
   Concoctions: [{
     type: Schema.Types.ObjectId,
     ref: 'Concoction'
