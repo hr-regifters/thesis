@@ -1,9 +1,8 @@
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const utility = require('./userController');
 
-const Local = require('./localController');
+const Local = require('./userController');
 const Slack = require('./slackController');
 const Evernote = require('./evernoteController');
 

@@ -1,5 +1,4 @@
 const passport = require('passport');
-const utility = require('./userController');
 
 const EvernoteStrategy = require('passport-evernote').Strategy;
 const EVERNOTE_ID = require('../../../env.js').EVERNOTE_ID;
@@ -14,8 +13,7 @@ module.exports.Strategy = new EvernoteStrategy({
   callbackURL: 'http://127.0.0.1:1337/api/oauth/evernote/callback',
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    console.log(accessToken, profile);
-    // utility.addToken('alec', 'evernoteToken', accessToken);
-    return done(null, profile);
+    console.log(accessToken);
+    return done(null, accessToken);
   });
 });

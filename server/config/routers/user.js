@@ -7,10 +7,9 @@ const passport = require('passport');
 const router = new express.Router();
 
 router.post('/signup',utility.signup);
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }),
+router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
-    console.log(req.session);
-    res.redirect('/');
+    res.status(201).send('success');
   }
 );
 

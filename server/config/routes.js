@@ -1,6 +1,6 @@
-// const concoctionConstructor = require('./routers/constructor');
-// const userRouter = require('./routers/user');
-// const oauthRouter = require('./routers/oauth');
+const concoctionConstructor = require('./routers/constructor');
+const userRouter = require('./routers/user');
+const oauthRouter = require('./routers/oauth');
 const webhookRouter = require('./routers/webhooks');
 // put routers here
 
@@ -12,8 +12,7 @@ module.exports = (app) => {
 };
 
 const checkLogIn = function(req, res, next) {
-  console.log(req.isAuthenticated());
-  if (req.session.user || req.isAuthenticated()) {
+  if (Object.keys(req.sessionStore.sessions).length !== 0) {
     next();
   } else {
     res.redirect('/');

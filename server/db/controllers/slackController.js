@@ -1,5 +1,5 @@
 const passport = require('passport');
-const utility = require('./userController');
+const User = require('../models/userModel');
 
 const SlackStrategy = require('passport-slack').Strategy;
 const SLACK_ID = require('../../../env.js').SLACK_ID;
@@ -12,8 +12,7 @@ module.exports.Strategy = new SlackStrategy({
   scope: 'incoming-webhook users:read'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    console.log(accessToken, profile);
-    // utility.addToken('alec', 'evernoteToken', accessToken);
-    return done(null, profile);
+    var slackData = [accessToken, profile.id]
+    return done(null, slackData);
   });
 });
