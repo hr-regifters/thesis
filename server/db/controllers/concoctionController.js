@@ -4,20 +4,49 @@ const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('blueBird');
 // generate new concoction
+const getTriggerParams = (api, username) => {
+  if (api === 'slack') {
+    return userController.getSlackId(username).then((slackId) => {
+      if (slackId !== "No slack ID") {
+        return slackId;
+      } else { 
+        res.status(404).send('no slack user id');
+      }
+    })
+  } else {
+    return userController.getUserData(username).then((user) => {
+      return user.api;
+    })
+  } 
+}
+const getActionParams = (actionApi) => userController.getUserData(username).then((user) => {
+  console.log('inside get action params');
+  return 'dummytest'
+})
+
+
 exports.createSlackTrigger = (req,res) => {
+  console.log('line 25');
   const trigger = req.body.trigger;
   const username = req.body.username;
   const actionApi = req.body.actionApi;
-  const actionKey = req.body.actionKey;
+  //i get action key from database
   const actionFunction = req.body.actionFunction;
-  const actionParams = req.body.actionParams; 
+  let actionParams = JSON.parse(req.body.actionParams); // parent notebook, evernote token, 
   let slackUserId;
-  userController.getSlackId(username).then(function(slackId) {
-    if(slackId !== "No slack ID") {
-      slackUserId = slackId;
-      return 
-    } else { res.status(404).send('no slack user id');}
-  }).then(() => {
+  console.log('line 32', actionParams);
+  //get evernote token and append to action params
+  getTriggerParams('slack', username)
+  .then((slackId) => slackUserId = slackId)
+  .then(() => {
+    console.log('line 37 with udpated slackUserID', slackUserId)
+    return getActionParams(actionApi)
+  })
+  .then((apiToken) => {
+    return actionParams[actionApi] = apiToken;
+  })
+  .then(() => {
+    console.log('about to write to db!', actionParams);
     slackConcoction.findOne({trigger: trigger}).then((doc) => {
       if(doc !== null) {
         doc.action.push({
@@ -42,10 +71,9 @@ exports.createSlackTrigger = (req,res) => {
         },function(err,doc) {console.log(err,doc,'line41')})
       }
     })
-  }).catch((noUser) => {console.log("Error, no user found")});
+  })
 }
 
-exports.getSlackEvent = (eventName) => 
-  new Promise((resolve, reject) => {
-    slackConcoction.findOne({trigger: eventName}).then((event)=>(resolve(event.action))).catch((error)=>reject(error));
-  })
+exports.getSlackEvent = (eventName) => {
+  return slackConcoction.findOne({trigger: eventName}).then((event)=>event.action);
+}
