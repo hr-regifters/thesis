@@ -3,7 +3,7 @@
 ## General Workflow
 
 1. Fork the repo
-1. Cut a namespaced feature branch from master
+1. Cut a namespaced feature branch from development
   - bug/...
   - feat/...
   - test/...
@@ -83,7 +83,7 @@ changes.
 
 Once you are done making changes, you can begin the process of getting
 your code merged into the main repo. Step 1 is to rebase upstream
-changes into yours by running this command
+changes to the development branch into yours by running this command
 from your branch:
 
 ```bash
@@ -153,7 +153,7 @@ Thanks for contributing!
 
 This is just to help you organize your process
 
-- [ ] Did I cut my work branch off of my master branch (don't cut new branches from existing feature branches)?
+- [ ] Did I cut my work branch off of development branch (don't cut new branches from existing feature brances)?
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
