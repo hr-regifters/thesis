@@ -54,5 +54,5 @@ exports.addTokenAndId = (username, api, token, slackId) => {
   });
 };
 //get slack user id and slack token from the
-exports.getSlackId = username => User.findOne({username: username}).then((user) => user.slackId ? user.slackId : "No slack ID");
+exports.getSlackId = username => User.findOne({username: username}).then((user) => user ? user.slackId ? user.slackId : "No slack ID" : "No user");
 exports.getUserData = username => User.findOne({username: username}).then((user) => user ? user : "no user");
