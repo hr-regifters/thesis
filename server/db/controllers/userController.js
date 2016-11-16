@@ -11,7 +11,6 @@ const noUsernameErr = 'Sorry, username does not exist';
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-
 exports.Strategy = new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
@@ -28,6 +27,7 @@ exports.signup = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
+  
 
   console.log('POST /api/user/signup. username:', username);
 
@@ -58,4 +58,5 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
   });
 };
 //get slack user id and slack token from the
-exports.getSlackId = username => User.findOne({username: username}).then((user) => user.slackId ? user.slackId : "No slack ID");
+exports.getSlackId = username => User.findOne({username: username}).then((user) => user ? user.slackId ? user.slackId : "No slack ID" : "No user");
+exports.getUserData = username => User.findOne({username: username}).then((user) => user ? user : "no user");

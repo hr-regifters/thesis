@@ -1,6 +1,6 @@
 const async = require('async');
-// const slackCtrl = require('./../../../db/models/slack');
-const concCtrl = require('./../../../db/controllers/concoctionController');
+// const slackCtrl = require('../../../db/models/slack');
+const concCtrl = require('../../../db/controllers/concoctionController');
 
 module.exports = {
   trigger: (req, res) => {
@@ -10,6 +10,25 @@ module.exports = {
     } else {
       res.status(200).send('registered slack event');
     }
+    
+    let slackReqObj = {
+      userId: '',
+      title: '',
+      body: '',
+      links: [],
+      images: [],
+      tagNames: [],
+      actionParams: '',
+    };
+
+    if (req.body.event.type === 'file_created') {
+      slackReqObj.title = 'Upload from Slack';
+      slackReqObj.images = [req.body.event.file.permalink];
+      slackReqObj.body = new Date(req.body.event.file.timestamp * 1000).toString();
+      slackReqObj.tagNames = ['Slack', 'Upload'];
+    }
+
+
     // fetch db data for users to get actions
     concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
       // arr = [{actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061F7AUR', actionParams: 'post this shit 1'},
@@ -20,7 +39,8 @@ module.exports = {
           if (obj.actionApi === undefined || obj.actionFunction === undefined) {
             callback('error! actionApi or actionFunction property not existing');
           } else {
-            webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](obj);
+            slackReqObj.actionParams = obj.actionParams;
+            webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
             callback();
           }
         } else {
