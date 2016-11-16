@@ -1,26 +1,49 @@
-const servicesDetailJSON = {
+exports.servicesDetailJSON = {
   slack: {
+    name: 'slack',
     icon: '',
     trigger: {
       options: [
-        { description: '',
+        { description: 'When a file is uploaded to Slack ',
           parameters: [
-            { description: '',
-              expectedType: 'time, string, url, phoneNumber',
-              required: true,
-            },
-          ],
-          returnData: [ // return data is specific to trigger options
-            { description: 'postURL',
-              type: 'url' },
           ],
         },
       ],
     },
-    action: {},
+    action: {
+      options: [
+        { description: 'Post to a Slack Channel',
+          parameters: [
+            { description: 'Channel Name',
+            },
+          ],
+        },
+      ],
+    },
   },
   evernote: {
-    trigger: {},
-    action: {},
+    name: 'evernote',
+    icon: '',
+    trigger: {
+      options: [
+        { description: 'When a Note with a specific Tag is created',
+          parameters: [
+            { description: 'Tag Name',
+            },
+          ],
+        },
+      ],
+    },
+    action: {
+      options: [
+        { description: 'Create a new Note in a specific Notebook',
+          parameters: [
+            { description: 'Notebook Name',
+              alias: 'parentNotebook',
+            },
+          ],
+        },
+      ],
+    },
   },
 };

@@ -72,4 +72,3 @@ exports.createSlackTrigger = (req,res) => {
   })
 }
 
-
