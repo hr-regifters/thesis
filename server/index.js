@@ -3,7 +3,6 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const app = express();
-const concoctionController = require('./db/controllers/concoctionController.js');
 
 // put server on a cluster to make use of many cores
 
