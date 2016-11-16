@@ -83,13 +83,7 @@ changes.
 
 Once you are done making changes, you can begin the process of getting
 your code merged into the main repo. Step 1 is to rebase upstream
-<<<<<<< HEAD
-changes into yours by running this command
-||||||| merged common ancestors
-changes to the master branch into yours by running this command
-=======
 changes to the development branch into yours by running this command
->>>>>>> bf9ec4c29ec1af6e015299c3d4087e0887107a0f
 from your branch:
 
 ```bash
@@ -159,13 +153,7 @@ Thanks for contributing!
 
 This is just to help you organize your process
 
-<<<<<<< HEAD
-- [ ] Did I cut my work branch off of my master branch (don't cut new branches from existing feature branches)?
-||||||| merged common ancestors
-- [ ] Did I cut my work branch off of master (don't cut new branches from existing feature brances)?
-=======
 - [ ] Did I cut my work branch off of development branch (don't cut new branches from existing feature brances)?
->>>>>>> bf9ec4c29ec1af6e015299c3d4087e0887107a0f
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
@@ -190,7 +178,6 @@ no problem getting your changes merged in.
 [Git Flow]: http://nvie.com/posts/a-successful-git-branching-model/
 [GitHub Flow]: http://scottchacon.com/2011/08/31/github-flow.html
 [Squash]: http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html
-<<<<<<< HEAD
 
 
 ### Releasing a Version
@@ -201,23 +188,3 @@ no problem getting your changes merged in.
 4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
     to keep the bug fixes.
 5.  continue contributing as before
-||||||| merged common ancestors
-=======
-
-
-### Releasing a Version
-
-1.  create a new branch called "Release V X.X.X " (X should be replaced by the version numbering)
-2.  No pulling from development branch anymore, version is frozen!!!
-3.  Do extensive testing of this branch and fix last bugs.
-4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
-    to keep the bug fixes.
-5.  continue contributing as before
-
-
-
-
-
-
-
->>>>>>> bf9ec4c29ec1af6e015299c3d4087e0887107a0f
