@@ -30,10 +30,10 @@ module.exports = {
 
 
     // fetch db data for users to get actions
-    // concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
-      arr = [{actionApi: 'evernote', actionFunction:'postNote', slackUserId: 'U061F7AUR',  actionParams: 'post this shit 1'},
-             {actionApi: 'evernote', actionFunction:'delete', slackUserId: 'U061F7AUR', actionParams: 'delete first 2'},
-             {actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061FAUR', actionParams: 'shouldnt occur'}];
+    concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
+      // arr = [{actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061F7AUR', actionParams: 'post this shit 1'},
+      //        {actionApi: 'evernote', actionFunction:'delete', slackUserId: 'U061F7AUR', actionParams: 'delete first 2'},
+      //        {actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061FAUR', actionParams: 'shouldnt occur'}];
       async.each(arr, (obj, callback) => {
         if (req.body['authed_users'].includes(obj.slackUserId)) {
           if (obj.actionApi === undefined || obj.actionFunction === undefined) {
@@ -47,7 +47,7 @@ module.exports = {
           callback();
         }
       }, (error) => { error ? console.log(error) : console.log('slack event successfully processed'); });
-    // }).catch((error) => { console.log(error); });
+    }).catch((error) => { console.log(error); });
 
     // extract actions if trigger is right
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions

@@ -8,7 +8,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: '',
-      view: 'home',  // home, concoctionEdit, addConcoction
+      view: 'verify',  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
       // concoctionIds: [''],
       concoctions: [
