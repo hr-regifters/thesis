@@ -21,9 +21,10 @@ module.exports = {
 
     if (req.body.event.type === 'file_created') {
       slackReqObj.title = 'Upload from Slack';
+      slackReqObj.images = [req.body.event.file.permalink];
+      slackReqObj.body = new Date(req.body.event.file.timestamp * 1000).toString();
       slackReqObj.tagNames = ['Slack', 'Upload'];
     }
-
 
 
     // fetch db data for users to get actions
