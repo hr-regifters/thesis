@@ -8,10 +8,10 @@ const app = express();
 
 const port = process.env.PORT || 1337;
 
-var credentials = {
-   key  : fs.readFileSync('./../credentials/key.pem'),
-   cert : fs.readFileSync('./../credentials/cert.pem')
-};
+// var credentials = {
+//    key  : fs.readFileSync('./../credentials/key.pem'),
+//    cert : fs.readFileSync('./../credentials/cert.pem')
+// };
 
 require('./db/config.js');
 require('./config/middleware.js')(app, express);
@@ -20,8 +20,8 @@ require('./config/routes.js')(app);
 http.createServer(app).listen(1338, () => {
   console.log(`Http listens on Port 1338`);
 });
-https.createServer(credentials, app).listen(port, () => {
-   console.log(`Https listens on Port ${port}`);
-});
+// https.createServer(credentials, app).listen(port, () => {
+//    console.log(`Https listens on Port ${port}`);
+// });
 
 module.exports = app;
