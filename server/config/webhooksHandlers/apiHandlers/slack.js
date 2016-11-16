@@ -12,11 +12,13 @@ module.exports = {
     }
     
     let slackReqObj = {
+      userId: '',
       title: '',
       body: '',
       links: [],
       images: [],
       tagNames: [],
+      actionParams: '',
     };
 
     if (req.body.event.type === 'file_created') {
@@ -29,7 +31,7 @@ module.exports = {
 
     // fetch db data for users to get actions
     // concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
-      arr = [{actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061F7AUR', actionParams: 'post this shit 1'},
+      arr = [{actionApi: 'evernote', actionFunction:'postNote', slackUserId: 'U061F7AUR',  actionParams: 'post this shit 1'},
              {actionApi: 'evernote', actionFunction:'delete', slackUserId: 'U061F7AUR', actionParams: 'delete first 2'},
              {actionApi: 'evernote', actionFunction:'post', slackUserId: 'U061FAUR', actionParams: 'shouldnt occur'}];
       async.each(arr, (obj, callback) => {
@@ -37,6 +39,7 @@ module.exports = {
           if (obj.actionApi === undefined || obj.actionFunction === undefined) {
             callback('error! actionApi or actionFunction property not existing');
           } else {
+            slackReqObj.actionParams = obj.actionParams;
             webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
             callback();
           }
