@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Trigger from './Trigger.jsx';
+// import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
 import AddAction from './AddAction.jsx';
 import SaveNewConcoction from './SaveNewConcoction.jsx';
@@ -38,11 +38,6 @@ export default class AddConcoctionView extends React.Component {
   render() {
     return (
       <div>
-        <Trigger state={this.state} 
-                 servicesDetail={this.props.appState.servicesDetail}  
-                 modifyTrigger={this.modifyTrigger.bind(this)}
-                 modifyTriggerOption={this.modifyTriggerOption.bind(this)}
-                 modifyTriggerParams={this.modifyTriggerOption.bind(this)} />
         { this.state.actions.map((action) => {
           return (
             <div>
