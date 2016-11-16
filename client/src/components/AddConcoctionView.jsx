@@ -12,14 +12,37 @@ export default class AddConcoctionView extends React.Component {
 
     this.state = {
       trigger: '',
-      actions: [],
+      triggerOption: '',
+      triggerParams: '',
     };
+  }
+
+  modifyTrigger(trig) {
+    this.setState({
+      trigger: trig,
+    });
+  }
+
+  modifyTriggerOption(opt) {
+    this.setState({
+      triggerOption: opt,
+    });
+  }
+
+  modifyTriggerParams(param) {
+    this.setState({
+      triggerParams: param,
+    });
   }
 
   render() {
     return (
       <div>
-        <Trigger trigger={this.state.trigger} servicesDetail={this.props.appState.servicesDetail} />
+        <Trigger state={this.state} 
+                 servicesDetail={this.props.appState.servicesDetail}  
+                 modifyTrigger={this.modifyTrigger.bind(this)}
+                 modifyTriggerOption={this.modifyTriggerOption.bind(this)}
+                 modifyTriggerParams={this.modifyTriggerOption.bind(this)} />
         { this.state.actions.map((action) => {
           return (
             <div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import serviceDetail from '../serviceDetailJSON.js';
 
 import Navigator from './Navigator.jsx';
 
@@ -11,40 +12,20 @@ export default class App extends React.Component {
       spotlightConcoctionId: 1,
       // concoctionIds: [''],
       concoctions: [
-        { id: 1,
-          description: 'testConcoction',
-          services: {
-            trigger:
-            { serviceName: 'slack',
-              option: '',
-              optionParams: '',
-            },
-            actions: [
-              { serviceName: 'evernote',
-                option: '',
-                optionParams: '',
-              },
-            ],
-          },
-        },
         { id: 2,
           description: 'testConcoction2',
           services: {
             trigger:
-            { serviceName: 'slack',
-              option: '',
-              optionParams: '',
-            },
+              { serviceName: 'slack',
+              },
             actions: [
               { serviceName: 'evernote',
-                option: '',
-                optionParams: '',
               },
             ],
           },
         },
       ],
-      servicesDetail: 'sevicesDeatailJSON',
+      servicesDetail: servicesDetail,
       connectedServices: {
         slack: false,
         evernote: false,
