@@ -17,10 +17,13 @@ require('./db/config.js');
 require('./config/middleware.js')(app, express);
 require('./config/routes.js')(app);
 
-
-http.createServer(app).listen(port, () => {
-  console.log(`Http listens on Port ${port}`);
+app.listen(port, () => {
+  console.log(`Server Listening on port ${port}`);
 });
+
+// http.createServer(app).listen(port, () => {
+//   console.log(`Http listens on Port ${port}`);
+// });
 // https.createServer(credentials, app).listen(port, () => {
 //    console.log(`Https listens on Port ${port}`);
 // });
