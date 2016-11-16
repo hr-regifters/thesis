@@ -8,7 +8,7 @@ const Trigger = (props) => {
       <div onClick={ () => {props.modifyTrigger('slack')}}>
       slack
       </div>
-      <div onClick={ () => {props.modifyTrigger('slack')}}>
+      <div onClick={ () => {props.modifyTrigger('evernote')}}>
       evernote
       </div>
     );
