@@ -13,7 +13,8 @@ if (cluster.isMaster) {
   cluster.on('exit', (worker, code, signal) => {
       console.log('Worker ' + worker.id + 'with processid: ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
       console.log('Starting a new worker');
-      cluster.fork();
+      // mitigation for infite loop breaking worker sucks one full cpu core
+      setTimeout(cluster.fork, 4000);
   });
 
 } else {
@@ -22,7 +23,7 @@ if (cluster.isMaster) {
   const http = require('http');
   const fs = require('fs');
   const app = express();
-  
+
   const port = process.env.PORT || 1337;
 
   // const credentials = {
