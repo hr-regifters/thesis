@@ -5,6 +5,7 @@ var cpus = process.env.WEB_CONCURRENCY || require('os').cpus().length;
 
 if (cluster.isMaster && cpus > 1) {
   console.log('Starting Node Cluster');
+
   for (var i = 0; i < cpus; i++) {
     cluster.fork();
   }
