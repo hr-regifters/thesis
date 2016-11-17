@@ -6,7 +6,7 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    console.log(req.body.event.file);
+    console.log(JSON.stringify(req.body.event.file));
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
       return;
