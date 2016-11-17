@@ -2,8 +2,8 @@ const passport = require('passport');
 const User = require('../models/userModel');
 
 const SlackStrategy = require('passport-slack').Strategy;
-const SLACK_ID = require('../../../env.js').SLACK_ID;
-const SLACK_SECRET = require('../../../env.js').SLACK_SECRET;
+const SLACK_ID = process.env.SLACK_ID || require('../../../env.js').SLACK_ID;
+const SLACK_SECRET = process.env.SLACK_SECRET || require('../../../env.js').SLACK_SECRET;
 
 module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Trigger = (props) => {
-  
   if (props.state.trigger === '') {
     //display slack and evernote triggers
     return(
@@ -43,22 +42,22 @@ const Trigger = (props) => {
     );
   }
 
-  // render() {
-  //   return (
-  //     <div>
-  //       <div>
-  //       Trigger:
-  //       </div>
-  //       if trigger is ''
-  //       display slack and evernote triggers
-  //       if triggerOption is ''
-  //       display options for trigger in state
-  //       if triggerParams  is ''
-  //       display params 
+//   // render() {
+//   //   return (
+//   //     <div>
+//   //       <div>
+//   //       Trigger:
+//   //       </div>
+//   //       if trigger is ''
+//   //       display slack and evernote triggers
+//   //       if triggerOption is ''
+//   //       display options for trigger in state
+//   //       if triggerParams  is ''
+//   //       display params 
 
-  //     </div>
-  //   );
-  // }
+//   //     </div>
+//   //   );
+//   // }
 }
 
 export default Trigger;

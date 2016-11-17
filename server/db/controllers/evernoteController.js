@@ -1,8 +1,8 @@
 const passport = require('passport');
 
 const EvernoteStrategy = require('passport-evernote').Strategy;
-const EVERNOTE_ID = require('../../../env.js').EVERNOTE_ID;
-const EVERNOTE_SECRET = require('../../../env.js').EVERNOTE_SECRET;
+const EVERNOTE_ID = process.env.EVERNOTE_ID || require('../../../env.js').EVERNOTE_ID;
+const EVERNOTE_SECRET = process.env.EVERNOTE_SECRET || require('../../../env.js').EVERNOTE_SECRET;
 
 module.exports.Strategy = new EvernoteStrategy({
   requestTokenURL: 'https://sandbox.evernote.com/oauth',
