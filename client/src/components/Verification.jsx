@@ -1,6 +1,7 @@
 "use strict"
 import React from 'react';
-
+import { Col, Row, Grid, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
 import AddAction from './AddAction.jsx';
@@ -59,22 +60,27 @@ export default class Verification extends React.Component {
   render() {
     return (
       <div>
-        <div id="SignUp">
-          <form>
-            <h2>SIGNUP</h2>
-            <input placeholder="what's your name?" id="newUsername" />
-            <input placeholder="password" id="newPassword" />
-            <input placeholder="email" id="newEmail" />
-            <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
-          </form>
-
-          <form>
-            <h2>LOGIN</h2>
-            <input placeholder="what's your name?" id="username" />
-            <input placeholder="password" id="password" />
-            <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
-          </form>
-        </div>
+      <Grid>
+        <row>
+          <div id="register" className="col-sm-5">
+            <form>
+              <h2>SIGNUP</h2>
+              <input placeholder="Username" id="newUsername" />
+              <input placeholder="password" id="newPassword" />
+              <input placeholder="email" id="newEmail" />
+              <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
+            </form>
+          </div>
+          <div id="login" className="col-sm-5">
+            <form>
+              <h2>LOGIN</h2>
+              <input placeholder="username" id="username" />
+              <input placeholder="password" id="password" />
+              <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
+            </form>
+          </div>
+        </row>
+      </Grid>
       </div>
     );
   }

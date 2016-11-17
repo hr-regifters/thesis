@@ -57,7 +57,6 @@ exports.getSlackEvent = (eventName) => {
   return slackConcoction.findOne({trigger: eventName}).then((event)=>event.action);
 }
 
-
 exports.createSlackTrigger = (req,res) => {
   const testObj = {test: 'test'};
   const trigger = req.body.trigger;
