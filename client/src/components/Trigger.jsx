@@ -5,34 +5,40 @@ const Trigger = (props) => {
   if (props.state.trigger === '') {
     //display slack and evernote triggers
     return(
-      <div onClick={ () => {props.modifyTrigger('slack')}}>
-      slack
-      </div>
-      <div onClick={ () => {props.modifyTrigger('evernote')}}>
-      evernote
+      <div>
+        <div onClick={ () => props.modifyTrigger('slack')}>
+          <a href={'http://127.0.0.1:1337/api/oauth/slack'}>slack</a>
+        </div>
+        <div onClick={ () => props.modifyTrigger('evernote')}>
+          <a href={'http://127.0.0.1:1337/api/oauth/evernote'}>evernote</a>
+        </div>
       </div>
     );
   } else if (props.state.triggerOptions === '') {
     //display trigger in state and show options for trigger in state
     return(
       <div>
-      {{props.state.trigger}}
-      </div>
-      <div>
-      {{props.servicesDetail[props.state.trigger].options[0]}}
+        <div>
+          {props.state.trigger}
+        </div>
+        <div>
+          {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[0].description}
+        </div>
       </div>
     );
   } else if (props.state.triggerParams === '') {
     //display trigger and option in state 
     return(
       <div>
-      {{props.state.trigger}}
-      </div>
-      <div>
-      {{props.servicesDetail[props.state.trigger].options[0]}}
-      </div>
-      <div>
-      no parameters
+        <div>
+          {props.state.trigger}
+        </div>
+        <div>
+          {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[0].description}
+        </div>
+        <div>
+          no parameters
+        </div>
       </div>
     );
   }

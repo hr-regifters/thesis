@@ -13,7 +13,6 @@ module.exports.Strategy = new EvernoteStrategy({
   callbackURL: 'http://127.0.0.1:1337/api/oauth/evernote/callback',
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    console.log(accessToken);
     return done(null, accessToken);
   });
 });

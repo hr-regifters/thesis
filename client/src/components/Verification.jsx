@@ -8,19 +8,11 @@ import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class Verification extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
   signUp() {
     let context = this;
     let username = document.getElementById('newUsername').value;
     let password = document.getElementById('newPassword').value;
-    let email = document.getElementById('newPassword').value;
+    let email = document.getElementById('newEmail').value;
     fetch('http://127.0.0.1:1337/api/user/signup', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -28,12 +20,15 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        console.log('success!');
+        context.props.appState.user = username;
         context.props.changeViewTo('home');
       } else {
-        console.log(res);
+        console.log('username/email already taken'); // TODO: input error message saying username/email taken
       }
     });
+    document.getElementById('newUsername').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('newEmail').value = '';
   }
 
   logIn() {
@@ -47,12 +42,14 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        console.log('success!');
+        context.props.appState.user = username;
         context.props.changeViewTo('home');
       } else {
-        console.log(res);
+        console.log('invalid username/password'); // TODO: input error message saying username/password incorrect
       }
     });
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
   }
 
   render() {

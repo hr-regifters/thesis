@@ -14,6 +14,7 @@ export default class AddConcoctionView extends React.Component {
       trigger: '',
       triggerOption: '',
       triggerParams: '',
+      actions: []
     };
   }
 
@@ -43,16 +44,18 @@ export default class AddConcoctionView extends React.Component {
                  modifyTrigger={this.modifyTrigger.bind(this)}
                  modifyTriggerOption={this.modifyTriggerOption.bind(this)}
                  modifyTriggerParams={this.modifyTriggerOption.bind(this)} />
-        { this.state.actions.map((action) => {
-          return (
-            <div>
-              <Action action={action} />
-            </div>
-          );
-        })}
+        { 
+          this.state.actions.map((action) => {
+            return (
+              <div>
+                <Action action={action} />
+              </div>
+            );
+          })
+        }
         <AddAction />
         <CancelNewConcoction changeViewTo={this.props.changeViewTo} />
-        <SaveNewConcoction />
+        <SaveNewConcoction changeViewTo={this.props.changeViewTo}/>
       </div>
     );
   }

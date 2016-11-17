@@ -1,5 +1,5 @@
 import React from 'react';
-import serviceDetail from '../serviceDetailJSON.js';
+import servicesDetail from '../servicesDetailJSON.js';
 
 import Navigator from './Navigator.jsx';
 
