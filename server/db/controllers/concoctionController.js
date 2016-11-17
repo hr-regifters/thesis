@@ -29,7 +29,7 @@ const getActionParams = (actionApi, actionParams, username) => {
 }
 
 exports.getSlackEvent = (eventName) => {
-  return slackConcoction.findOne({trigger: eventName}).then((event)=>event.action);
+  return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
 }
 
 exports.createSlackTrigger = (req,res) => {
@@ -46,16 +46,25 @@ exports.createSlackTrigger = (req,res) => {
   })
   .then(() => {
     actionParams = JSON.stringify(actionParams);
-    slackConcoction.findOne({trigger: trigger}).then((doc) => {
+    slackConcoction.findOne({trigger: trigger})
+    .then((doc) => {
       if(doc !== null) {
-        console.log('updating trigger document');
+        console.log('updating trigger document', actionParams);
         doc.action.push({
           slackUserId: slackUserId,
           actionApi: actionApi,
           actionFunction: actionFunction,
           actionParams: actionParams
         });
-        doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
+        doc.save((err, updated) => {
+          if (err) { 
+            console.log(err); 
+            res.status(402).send(err) 
+          } else { 
+            console.log(updated);
+            res.status(201).send(updated) 
+          }
+        });
       } else {
         console.log('new trigger document about to be created!');
         slackConcoction.create({
@@ -66,9 +75,18 @@ exports.createSlackTrigger = (req,res) => {
             actionFunction: actionFunction,
             actionParams: actionParams
           }]
-        },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
+        }, 
+          (err,doc) => {
+            if (err) { 
+              console.log(err); 
+              res.status(402).send(err) 
+            } else { 
+              console.log(doc);
+              res.status(201).send(doc) 
+            }
+        });
       }
-    })
-  })
+    });
+  });
 }
 
