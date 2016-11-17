@@ -22,9 +22,7 @@ if (cluster.isMaster) {
   const http = require('http');
   const fs = require('fs');
   const app = express();
-
-  // put server on a cluster to make use of many cores
-
+  
   const port = process.env.PORT || 1337;
 
   // const credentials = {
