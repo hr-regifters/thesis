@@ -12,7 +12,6 @@ module.exports = {
     const fileId = req.body.event.file_id;
     slackCtrl.getFile(slackId, fileId)
     .then((file) => {
-      console.log('FILE RECEIVED', file);
       if (req.body.type === 'url_verification') {
         res.json({ challenge: req.body.challenge });
         return;
@@ -32,11 +31,12 @@ module.exports = {
 
       if (req.body.event.type === 'file_created') {
         slackReqObj.title = file.title;
-        slackReqObj.images = [file.permalink];
+        slackReqObj.images = [file.url_private];
         slackReqObj.body = new Date(file.timestamp * 1000).toString();
         slackReqObj.tagNames = ['Slack', 'Upload'];
       }
 
+      console.log('SLACK OBJECT WOOOO', slackReqObj);
 
       // fetch db data for users to get actions
       concCtrl.getSlackEvent(req.body.event.type).then((arr) => {

@@ -21,9 +21,7 @@ module.exports.Strategy = new SlackStrategy({
 
 module.exports.getFile = (slackId, fileId) => {
   User.findOne({ slackId: slackId }, function (err, user) {
-    console.log('TOKEN', user.slackToken);
     request.get(`https://slack.com/api/files.info?token=${user.slackToken}&file=${fileId}&pretty=1`, (err, req, res) => {
-      console.log('RESPONSE FROM REQUEST TO RETRIEVE FILE', res);
       return res.file;
     })
   });
