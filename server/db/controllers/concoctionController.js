@@ -2,7 +2,7 @@
 const express = require('express');
 const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
-const Promise = require('blueBird');
+const Promise = require('bluebird');
 // generate new concoction
 const getTriggerParams = (api, username, res) => {
   if (api === 'slack') {

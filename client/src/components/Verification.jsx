@@ -14,6 +14,7 @@ export default class Verification extends React.Component {
     this.state = {
 
     };
+    this.url = 'https://regifters48.herokuapp.com'
   }
 
   signUp() {
@@ -21,7 +22,7 @@ export default class Verification extends React.Component {
     let username = document.getElementById('newUsername').value;
     let password = document.getElementById('newPassword').value;
     let email = document.getElementById('newPassword').value;
-    fetch('http://127.0.0.1:1337/api/user/signup', {
+    fetch(`${this.url}/api/user/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password, email: email}) //TODO: change to username in cookie 
@@ -40,7 +41,7 @@ export default class Verification extends React.Component {
     let context = this;
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    fetch('http://127.0.0.1:1337/api/user/login', {
+    fetch(`${this.url}/api/user/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password}) //TODO: change to username in cookie 
