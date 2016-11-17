@@ -6,10 +6,10 @@ const Trigger = (props) => {
     return(
       <div>
         <div onClick={ () => props.modifyTrigger('slack')}>
-          <a href={'http://127.0.0.1:1337/api/oauth/slack'}>slack</a>
+          <a href={'https://regifters48.herokuapp.com/api/oauth/slack'}>slack</a>
         </div>
         <div onClick={ () => props.modifyTrigger('evernote')}>
-          <a href={'http://127.0.0.1:1337/api/oauth/evernote'}>evernote</a>
+          <a href={'https://regifters48.herokuapp.com/api/oauth/evernote'}>evernote</a>
         </div>
       </div>
     );
