@@ -10,8 +10,8 @@ const getTriggerParams = (api, username, res) => {
       console.log(slackId);
       if (slackId !== "No slack ID" && slackId !== "No user") {
         return slackId;
-      } else { 
-        res.status(404).send('no slack user or id');
+      } else {
+        throw new error 
       }
     })
   } else {
@@ -74,6 +74,9 @@ exports.createSlackTrigger = (req,res) => {
   .then(() => {
     actionParams = JSON.stringify(actionParams);
     writeSlackModel(trigger, slackUserId, actionApi, actionFunction, actionParams, res);
+  })
+  .catch(function(error) {
+    res.status(404).send('no slack user or id');
   })
 }
 
