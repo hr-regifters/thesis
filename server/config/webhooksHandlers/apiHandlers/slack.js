@@ -6,12 +6,14 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
+    console.log(req.body);
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
+      return;
     } else {
       res.status(200).send('registered slack event');
     }
-    
+
     let slackReqObj = {
       userId: '',
       title: '',
