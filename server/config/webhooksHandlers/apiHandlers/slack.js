@@ -28,7 +28,7 @@ module.exports = {
         tagNames: [],
         actionParams: '',
       };
-
+      console.log(file)
       if (req.body.event.type === 'file_created') {
         slackReqObj.title = file.title;
         slackReqObj.images = [file.url_private];
