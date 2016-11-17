@@ -28,16 +28,43 @@ const getActionParams = (actionApi, actionParams, username) => {
   });
 }
 
+const writeSlackModel = (trigger, slackUserId, actionApi, actionFunction, actionParams, res) => {
+  slackConcoction.findOne({trigger: trigger}).then((doc) => {
+    if(doc !== null) {
+      console.log('updating trigger document');
+      doc.action.push({
+        slackUserId: slackUserId,
+        actionApi: actionApi,
+        actionFunction: actionFunction,
+        actionParams: actionParams
+      });
+      doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
+    } else {
+      console.log('new trigger document about to be created!');
+      slackConcoction.create({
+        trigger: trigger,
+        action: [{
+          slackUserId: slackUserId,
+          actionApi: actionApi,
+          actionFunction: actionFunction,
+          actionParams: actionParams
+        }]
+      },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
+    }
+  })
+}
 exports.getSlackEvent = (eventName) => {
   return slackConcoction.findOne({trigger: eventName}).then((event)=>event.action);
 }
 
+
 exports.createSlackTrigger = (req,res) => {
+  const testObj = {test: 'test'};
   const trigger = req.body.trigger;
   const username = req.body.username;
   const actionApi = req.body.actionApi
   const actionFunction = req.body.actionFunction;
-  let actionParams = JSON.parse(req.body.actionParams);//this needs to be reset to req.body.actionParams;
+  let actionParams = testObj;//this needs to be reset to req.body.actionParams;
   let slackUserId;
   getTriggerParams('slack', username, res)
   .then((slackId) => {
@@ -46,29 +73,7 @@ exports.createSlackTrigger = (req,res) => {
   })
   .then(() => {
     actionParams = JSON.stringify(actionParams);
-    slackConcoction.findOne({trigger: trigger}).then((doc) => {
-      if(doc !== null) {
-        console.log('updating trigger document');
-        doc.action.push({
-          slackUserId: slackUserId,
-          actionApi: actionApi,
-          actionFunction: actionFunction,
-          actionParams: actionParams
-        });
-        doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
-      } else {
-        console.log('new trigger document about to be created!');
-        slackConcoction.create({
-          trigger: trigger,
-          action: [{
-            slackUserId: slackUserId,
-            actionApi: actionApi,
-            actionFunction: actionFunction,
-            actionParams: actionParams
-          }]
-        },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
-      }
-    })
+    writeSlackModel(trigger, slackUserId, actionApi, actionFunction, actionParams, res);
   })
 }
 
