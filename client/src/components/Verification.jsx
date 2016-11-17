@@ -1,5 +1,6 @@
 "use strict"
 import React from 'react';
+import currUrl from './../../../currUrl';
 
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
@@ -13,7 +14,7 @@ export default class Verification extends React.Component {
     let username = document.getElementById('newUsername').value;
     let password = document.getElementById('newPassword').value;
     let email = document.getElementById('newEmail').value;
-    fetch('https://regifters48.herokuapp.com/api/user/signup', {
+    fetch(`${currUrl}/api/user/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password, email: email}) //TODO: change to username in cookie 
@@ -35,7 +36,7 @@ export default class Verification extends React.Component {
     let context = this;
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    fetch('https://regifters48.herokuapp.com/api/user/login', {
+    fetch(`${currUrl}/api/user/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password}) //TODO: change to username in cookie 
