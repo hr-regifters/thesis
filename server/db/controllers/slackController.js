@@ -9,7 +9,7 @@ module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,
   clientSecret: SLACK_SECRET,
   callbackURL: 'https://regifters48.herokuapp.com/api/oauth/slack/callback',
-  scope: 'incoming-webhook users:read files:read'
+  scope: 'incoming-webhook users:read files:read channels:history'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
     var slackData = [accessToken, profile.id];
