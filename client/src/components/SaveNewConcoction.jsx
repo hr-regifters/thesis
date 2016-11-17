@@ -8,7 +8,7 @@ export default class SaveNewConcoction extends React.Component {
 
   saveConcoction() {
     let context = this;
-    fetch('http://127.0.0.1:1337/api/constructor/slack/add', {
+    fetch('https://regifters48.herokuapp.com/api/constructor/slack/add', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

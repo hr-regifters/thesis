@@ -10,7 +10,7 @@ module.exports.Strategy = new EvernoteStrategy({
   userAuthorizationURL: 'https://sandbox.evernote.com/OAuth.action',
   consumerKey: EVERNOTE_ID,
   consumerSecret: EVERNOTE_SECRET,
-  callbackURL: 'http://127.0.0.1:1337/api/oauth/evernote/callback',
+  callbackURL: 'https://regifters48.herokuapp.com/api/oauth/evernote/callback',
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
     return done(null, accessToken);
