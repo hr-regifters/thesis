@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 
 
 export default class SaveNewConcoction extends React.Component {
@@ -8,7 +9,7 @@ export default class SaveNewConcoction extends React.Component {
 
   saveConcoction() {
     let context = this;
-    fetch('https://regifters48.herokuapp.com/api/constructor/slack/add', {
+    fetch(`${currUrl}/api/constructor/slack/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

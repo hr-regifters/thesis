@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 
 const Trigger = (props) => {
   if (props.state.trigger === '') {
@@ -6,10 +7,10 @@ const Trigger = (props) => {
     return(
       <div>
         <div onClick={ () => props.modifyTrigger('slack')}>
-          <a href={'https://regifters48.herokuapp.com/api/oauth/slack'}>slack</a>
+          <a href={`${currUrl}/api/oauth/slack`}>slack</a>
         </div>
         <div onClick={ () => props.modifyTrigger('evernote')}>
-          <a href={'https://regifters48.herokuapp.com/api/oauth/evernote'}>evernote</a>
+          <a href={`${currUrl}/api/oauth/evernote`}>evernote</a>
         </div>
       </div>
     );

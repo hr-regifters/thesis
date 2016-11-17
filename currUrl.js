@@ -1,0 +1,1 @@
+module.exports = 'https://regifters48.herokuapp.com';
