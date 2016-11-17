@@ -1,6 +1,7 @@
 const passport = require('passport');
 const User = require('../models/userModel');
 const currUrl = require('./../../../currUrl');
+const request = require('request');
 
 const SlackStrategy = require('passport-slack').Strategy;
 const SLACK_ID = process.env.SLACK_ID || require('../../../env.js').SLACK_ID;
@@ -17,3 +18,12 @@ module.exports.Strategy = new SlackStrategy({
     return done(null, slackData);
   });
 });
+
+module.exports.getFile = (slackId, fileId) => {
+  User.findOne({ slackId: slackId }, function (err, token) {
+    request.get(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`, (err, req, res) => {
+      console.log('RESPONSE FROM REQUEST TO RETRIEVE FILE', res);
+      return res.body.file;
+    })
+  });
+}
