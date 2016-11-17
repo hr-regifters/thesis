@@ -12,7 +12,7 @@ module.exports.Strategy = new SlackStrategy({
   scope: 'incoming-webhook users:read files:read'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    var slackData = [accessToken, profile.id]
+    var slackData = [accessToken, profile.id];
     return done(null, slackData);
   });
 });
