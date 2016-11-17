@@ -1,6 +1,6 @@
 "use strict"
 import React from 'react';
-import { Col, Row, Grid, Table } from 'react-bootstrap';
+import { Col, Row, Grid, Table, Navigation, Nav } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
@@ -60,9 +60,11 @@ export default class Verification extends React.Component {
   render() {
     return (
       <div>
+      <h1 id="signupTitle" className="animated fadeInDown"> Hack Reaction </h1>
       <Grid>
+
         <row>
-          <div id="register" className="col-sm-5">
+          <div id="register" className="col-sm-5 animated fadeIn box">
             <form>
               <h2>SIGNUP</h2>
               <input placeholder="Username" id="newUsername" />
@@ -71,9 +73,9 @@ export default class Verification extends React.Component {
               <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
             </form>
           </div>
-          <div id="login" className="col-sm-5">
+          <div id="login" className="col-sm-5 animated fadeIn box">
             <form>
-              <h2>LOGIN</h2>
+              <h2>SIGNIN</h2>
               <input placeholder="username" id="username" />
               <input placeholder="password" id="password" />
               <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
