@@ -54,7 +54,7 @@ const writeSlackModel = (trigger, slackUserId, actionApi, actionFunction, action
   })
 }
 exports.getSlackEvent = (eventName) => {
-  return slackConcoction.findOne({trigger: eventName}).then((event)=>event.action);
+  return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
 }
 
 exports.createSlackTrigger = (req,res) => {

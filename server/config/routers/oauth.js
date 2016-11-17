@@ -1,3 +1,4 @@
+"use strict"
 const express = require('express');
 const passport = require('passport');
 const SlackStrategy = require('../../db/controllers/slackController');
@@ -11,8 +12,17 @@ router.get('/slack/callback',
   passport.authorize('slack', { failureRedirect: '/' }),
   // expects req.body to contain username
   function(slackData, res) {
+    const allSessions = slackData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    utility.addTokenAndId(username, 'slackToken', slackData.account[0], slackData.account[1]);
+
     // success redirect should redirect back to concoction and not login
-    utility.addTokenAndId('username', 'slackToken', slackData.account[0], slackData.account[1]);
     res.redirect('/');
   }
 );
@@ -24,7 +34,17 @@ router.get('/evernote/callback',
   passport.authenticate('evernote', { failureRedirect: '/' }),
   function(evernoteData, res) {
     // success redirect should redirect back to concoction and not login
-    utility.addTokenAndId('username', 'evernoteToken', evernoteData.user);
+    const allSessions = evernoteData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    utility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
+
+    // success redirect should redirect back to concoction and not login
     res.redirect('/');
   }
 );

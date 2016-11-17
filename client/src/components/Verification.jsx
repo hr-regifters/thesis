@@ -2,6 +2,7 @@
 import React from 'react';
 import { Col, Row, Grid, Table, Navigation, Nav } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import currUrl from './../../../currUrl';
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
 import AddAction from './AddAction.jsx';
@@ -9,52 +10,48 @@ import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class Verification extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-    this.url = 'https://regifters48.herokuapp.com'
-  }
-
   signUp() {
     let context = this;
     let username = document.getElementById('newUsername').value;
     let password = document.getElementById('newPassword').value;
-    let email = document.getElementById('newPassword').value;
-    fetch(`${this.url}/api/user/signup`, {
+    let email = document.getElementById('newEmail').value;
+    fetch(`${currUrl}/api/user/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password, email: email}) //TODO: change to username in cookie 
     })
     .then(function(res) {
       if (res.status === 201) {
-        console.log('success!');
+        context.props.appState.user = username;
         context.props.changeViewTo('home');
       } else {
-        console.log(res);
+        console.log('username/email already taken'); // TODO: input error message saying username/email taken
       }
     });
+    document.getElementById('newUsername').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('newEmail').value = '';
   }
 
   logIn() {
     let context = this;
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    fetch(`${this.url}/api/user/login`, {
+    fetch(`${currUrl}/api/user/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username: username, password: password}) //TODO: change to username in cookie 
     })
     .then(function(res) {
       if (res.status === 201) {
-        console.log('success!');
+        context.props.appState.user = username;
         context.props.changeViewTo('home');
       } else {
-        console.log(res);
+        console.log('invalid username/password'); // TODO: input error message saying username/password incorrect
       }
     });
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
   }
 
   render() {

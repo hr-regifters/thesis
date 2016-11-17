@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 
 
 export default class SaveNewConcoction extends React.Component {
@@ -6,10 +7,30 @@ export default class SaveNewConcoction extends React.Component {
     super(props);
   }
 
+  saveConcoction() {
+    let context = this;
+    fetch(`${currUrl}/api/constructor/slack/add`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        trigger: 'dummy data',
+        username: 'dummy data',
+        actionApi: 'dummy data',
+        actionFunction: 'dummy data',
+        actionParams: '{"dummy": "data"}' // parent notebook, evernote token, 
+      })
+    })
+    .then(function(res) {
+      if (res.status === 201) {
+        context.props.changeViewTo('home');
+      }
+    });
+  }
+
   render() {
     return (
       <div>
-     Save
+        <button className="saveButton" onClick={this.saveConcoction.bind(this)} type="button">Save</button>
       </div>
     );
   }
