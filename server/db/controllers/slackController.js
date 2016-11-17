@@ -8,7 +8,7 @@ const SLACK_SECRET = process.env.SLACK_SECRET || require('../../../env.js').SLAC
 module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,
   clientSecret: SLACK_SECRET,
-  callbackURL: 'http://127.0.0.1:1337/api/oauth/slack/callback',
+  callbackURL: 'https://regifters48.herokuapp.com/api/oauth/slack/callback',
   scope: 'incoming-webhook users:read files:read'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
