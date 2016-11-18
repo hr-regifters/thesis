@@ -10,6 +10,7 @@ export default class App extends React.Component {
       user: '',
       view: 'verify',  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
+      // concoctionIds: [''],
       concoctions: [
         { id: 2,
           description: 'takes a slack file and adds it to your evernote for you!',
