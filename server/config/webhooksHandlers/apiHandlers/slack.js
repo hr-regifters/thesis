@@ -49,8 +49,6 @@ module.exports = {
               }
             }
           } else {
-            slackReqObj.actionParams = obj.actionParams;
-            webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
             callback();
           }
         }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Slack Event:', req.body.event.type); });
