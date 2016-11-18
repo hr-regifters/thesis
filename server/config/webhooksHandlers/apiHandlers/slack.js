@@ -10,11 +10,10 @@ module.exports = {
       res.json({ challenge: req.body.challenge });
     } else {
       res.status(200).send('registered slack event');
-      const slackId = req.body.authed_users[0];
+      const slackId = req.body['authed_users'][0];
       const fileId = req.body.event.file_id;
       slackCtrl.getFile(slackId, fileId)
       .then((file) => {
-        console.log('FILE RECEIVED', file);
 
         let slackReqObj = {
           slackUserId: '',
@@ -26,19 +25,20 @@ module.exports = {
           actionParams: '',
         };
 
-        console.log('SLACK OBJECT WOOOO', req.body);
-
         // fetch db data for users to get actions
         concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
           async.each(arr, (obj, callback) => {
             if (req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
-              if (obj.actionApi === undefined || obj.actionFunction === undefined) {
+              if (obj.actionApi === undefined || obj.actionFunction === undefined) { // check for additional things like token, api_app_id, timestamp
                 callback('error! actionApi or actionFunction property not existing');
               } else {
                 if (req.body.event.type === 'file_created' && obj.actionApi === 'evernote' && obj.actionFunction === 'postNote') {
                   slackReqObj.title = file.title;
-                  slackReqObj.images = [file.url_private];
-                  slackReqObj.links = [file.url_private_download];
+                  if (file.mimetype.slice(0, 5) === 'image') {
+                    slackReqObj.images = [file.url_private];
+                  } else {
+                    slackReqObj.links = [file.url_private];
+                  }
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                 }
@@ -50,7 +50,7 @@ module.exports = {
             } else {
               callback();
             }
-          }, (error) => { error ? console.log(error) : console.log('slack event successfully processed'); });
+          }, (error) => { error ? console.log(error) : false; });
         }).catch((error) => { console.log(error); });
 
         // extract actions if trigger is right

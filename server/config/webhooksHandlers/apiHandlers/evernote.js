@@ -19,12 +19,12 @@ module.exports = {
   actions: {
     postNote: (paramObj) => {
 
-      const saveNote = function(note) {
+      const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
           if (err) {
             console.log('this is wht we can\'t have nice things', err);
           } else {
-            console.log('are you feeling it now, Mr.Krabs?');
+            console.log('Evernote Note posted');
           }
         });
       };
@@ -42,29 +42,28 @@ module.exports = {
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
 
-      var evernoteToken = UserCtrl.getUserData('slackId', paramObj.slackUserId).evernoteToken;
-      console.log('got evernote token: ', evernoteToken);
-     
-      var client = new Evernote.Client({token: evernoteToken}); //define client with the token from the DB
-      var noteStore = client.getNoteStore();
-      //if parentNotebook is defined
-      if (paramObj.actionParams.parentNotebook) {
-        noteStore.listNotebooks(function(err, notebooks) {
-          if (!err) {
-            // find the guid for the notebook with a name matching 'parentNotebook'
-            var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
-            ourNote.notebookGuid = guid;
-            console.log('going to save Note');
-            saveNote(ourNote);
-          } else {
-            console.log('no notebook with that name...');
-            console.log('writing note to default notebook');
-            saveNote(ourNote);
-          }
-        });
-      } else {
-        saveNote(ourNote);
-      }      
+      UserCtrl.getUserData('slackId', paramObj.slackUserId)
+      .then((user) => user.evernoteToken)
+      .then((evernoteToken) => {
+        var client = new Evernote.Client({token: evernoteToken}); //define client with the token from the DB
+        var noteStore = client.getNoteStore();
+        //if parentNotebook is defined
+        if (paramObj.actionParams.parentNotebook) {
+          noteStore.listNotebooks(function(err, notebooks) {
+            if (!err) {
+              // find the guid for the notebook with a name matching 'parentNotebook'
+              var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
+              ourNote.notebookGuid = guid;
+              saveNote(ourNote, noteStore);
+            } else {
+              console.log('writing note to default notebook');
+              saveNote(ourNote, noteStore);
+            }
+          });
+        } else {
+          saveNote(ourNote, noteStore);
+        }
+      });
     },
     delete: (paramObj) => {
       console.log('evernote delete function performed', params.actionParams);

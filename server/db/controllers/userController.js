@@ -60,6 +60,5 @@ exports.getSlackId = username => User.findOne({username: username}).then((user) 
 exports.getUserData = (userKey, userValue) => {
   let query = {};
   query[userKey] = userValue;
-  console.log('getUserData: ', query);
   return User.findOne(query).then((user) => user ? user : "no user");
 };

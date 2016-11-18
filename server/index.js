@@ -1,7 +1,7 @@
 const cluster = require('cluster');
 // heroku will set WEB_CONCURRENCY  = available dyno memory / WEB_MEMORY, can be force set to a certain value in heroku configs
 // see: https://devcenter.heroku.com/articles/node-concurrency
-var cpus = process.env.WEB_CONCURRENCY || require('os').cpus().length;
+var cpus = process.env.WEB_CONCURRENCY || 1;//require('os').cpus().length;
 
 if (cluster.isMaster && cpus > 1) {
   console.log('Starting Node Cluster');
