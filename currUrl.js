@@ -1,3 +1,2 @@
-module.exports = 'https://regifters48.herokuapp.com';
+module.exports = 'https://regifters48.herokuapp.com'; //'http://localhost:1337'
 
-//'http://localhost:1337'
