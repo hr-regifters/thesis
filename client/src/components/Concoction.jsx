@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Row, Grid, Table, Navigation, Nav, Button } from 'react-bootstrap';
 
 export default class Concoction extends React.Component {
   constructor(props) {
@@ -13,13 +14,14 @@ export default class Concoction extends React.Component {
 
   render() {
     return (
-      <div>
-        Concoction: {this.props.concoctionInfo.description}
-        <div>
-        Turn Off
+      <div className="concoction animated fadeIn">
+        <div className="mainBox">
+          <i className="fa fa-free-code-camp fa-3x"></i>
+          <p> Concoction: {this.props.concoctionInfo.description}</p>
         </div>
-        <div onClick={() => { this.transitionToEdit() }}>
-        Edit
+        <div className="bottomBox">
+          <a>Edit</a>
+          <a>Enable</a>
         </div>
       </div>
     );

@@ -56,7 +56,7 @@ export default class Verification extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="Verification">
       <h1 id="signupTitle" className="animated fadeInDown"> Hack Reaction </h1>
       <Grid>
 
@@ -75,6 +75,7 @@ export default class Verification extends React.Component {
               <h2>SIGNIN</h2>
               <input placeholder="username" id="username" />
               <input placeholder="password" id="password" />
+              <input placeholder="password" id="invisiblefiller" />
               <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
             </form>
           </div>
