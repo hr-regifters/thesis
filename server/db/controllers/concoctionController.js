@@ -28,11 +28,13 @@ const getActionParams = (concObj, username) => {
   });
 }
 
+
 const writeSlackModel = (trigger, concObj, res) => {
   slackConcoction.findOne({trigger: trigger}).then((doc) => {
     if(doc !== null) {
       console.log('updating trigger document');
       doc.action.push({
+
         slackUserId: concObj['slackUserId'],
         actionApi: concObj['actionApi'],
         actionFunction: concObj['actionFunction'],
@@ -59,6 +61,7 @@ exports.getSlackEvent = (eventName) => {
 }
 
 exports.createSlackTrigger = (req,res) => {
+  const testObj = {test: 'test'};
   const trigger = req.body.trigger;
   const username = req.body.username;
   let concObj = {
@@ -67,6 +70,7 @@ exports.createSlackTrigger = (req,res) => {
     actionFunction: req.body.actionFunction,
     actionParams: req.body.actionParams || {}
   };
+
   getTriggerParams('slack', username, res)
   .then((slackId) => {
     concObj['slackUserId'] = slackId;
