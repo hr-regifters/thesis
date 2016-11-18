@@ -234,5 +234,5 @@ nav {
   background-color: #A3434D;
 }
 .pull-right {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
