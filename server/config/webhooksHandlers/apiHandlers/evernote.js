@@ -43,6 +43,7 @@ module.exports = {
       ourNote.tagNames = paramObj.tagNames;
 
       var evernoteToken = UserCtrl.getUserData('slackId', paramObj.slackUserId).evernoteToken;
+      console.log('got evernote token: ', evernoteToken);
      
       var client = new Evernote.Client({token: evernoteToken}); //define client with the token from the DB
       var noteStore = client.getNoteStore();
@@ -53,6 +54,7 @@ module.exports = {
             // find the guid for the notebook with a name matching 'parentNotebook'
             var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
             ourNote.notebookGuid = guid;
+            console.log('going to save Note');
             saveNote(ourNote);
           } else {
             console.log('no notebook with that name...');
