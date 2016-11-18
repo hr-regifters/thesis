@@ -57,6 +57,7 @@
     "passport-slack": "0.0.6",
     "path": "^0.12.7",
     "react": "^15.3.2",
+    "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
     "request": "^2.78.0",
     "request-promise": "^4.1.1",

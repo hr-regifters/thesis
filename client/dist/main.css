@@ -1,0 +1,238 @@
+* {
+/*  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 50px;*/
+  text-align: center;
+}
+h1, h3 {
+  color: #fff;
+}
+a {
+  color: #fff;
+  padding: 10px;
+}
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #294853;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+html {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+body {
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+}
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+nav {
+  margin-bottom: 50px;
+  background-color: #0E6BA8 !important;
+  height: 70px !important;
+}
+#app {
+  height: 100%;
+  width: 100%;
+}
+ #Verification{
+  height: 100%;
+  width: 100%;
+  /*background: linear-gradient(90deg, #0fb8ad, #1fc8db, #2cb5e8);*/
+  background-image: url('background3.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+#HomeView {
+  height: 100%;
+  width: 100%;
+  padding-top: 50px;
+}
+
+/* LOGIN, */
+
+#login {
+  height: 350px;
+  padding: 0px;
+  margin-left: 50px;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0px 3px 15px #999; /* BOX SHADOW HERE DELETE IF YOU DONT LIKE */
+  display: inline-block;
+  animation-duration: 1.5s;
+  animation-delay: .4s;
+}
+
+#login form {
+  text-align: center;
+  margin-top: 0;
+}
+
+#login h2 {
+  background-color: rgba(57,187,192,0.7);
+  padding: 3%;
+  margin-top: 0;
+  color: #fff;
+  margin-bottom: 40px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#login input {
+  width: 80%;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+#login button {
+  background-color: #6a6aad;
+  color: white;
+  border: none;
+  width: 35%;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+/* REGISTER */
+
+#register {
+  height: 350px;
+  padding: 0px;
+  margin-left: 50px;
+  background-color: rgba(255,255,255,0.8);
+  display: inline-block;
+  animation-duration: 1.5s;
+  animation-delay: .4s;
+  box-shadow: 0px 3px 15px #999;
+}
+
+#register form {
+  text-align: center;
+  margin-top: 0;
+}
+
+#register h2 {
+  background-color: rgba(192,79,71,0.7);
+  padding: 3%;
+  margin-top: 0;
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+#register input {
+  width: 80%;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+#register button {
+  background-color: #6a6aad;
+  color: white;
+  border: none;
+  width: 45%;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding: 5px;
+}
+#buttonGroup {
+  margin-bottom: 10px;
+}
+#signupTitle {
+  padding: 3%;
+  padding-top: 8%;
+  margin-top: 0px;
+  color: #fff;
+  margin-bottom: 40px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: 45px;
+}
+.concoction {
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  animation-duration: 1s;
+}
+#concoctions {
+  padding-top: 50px;
+  width: 70%;
+  margin: 0 auto;
+
+}
+.bottomBox {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #143642;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  display: block;
+  height: 80%;
+  width: 100%;
+  color: #fff;
+  font-size: 30px;
+}
+.mainBox {
+  margin: 0 auto;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: block;
+  height: 80%;
+  width: 100%;
+  background-color: #0F8B8D;
+  color: #fff;
+  font-size: 30px;
+
+}
+.full {
+  height: 100%;
+  width: 100%;
+  margin-top: 0px;
+}
+#invisiblefiller {
+  display: none;
+}
+#newConcoctionButton {
+  font-size: 35px;
+  color: #fff;
+  background-color: #FF6978;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding-bottom: 10px;
+  padding-top: 3px;
+  margin: 0 auto;
+  width: 45%;
+}
+#newConcoctionButton:hover {
+  background-color: #A3434D;
+}
+.pull-right {
+  margin-right: 0 !important;
+}
