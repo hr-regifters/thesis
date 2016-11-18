@@ -37,9 +37,8 @@ module.exports = {
                   slackReqObj.title = file.title;
                   if (file.mimetype.slice(0, 5) === 'image') {
                     slackReqObj.images = [file.url_private];
-                  } else {
-                    slackReqObj.links = [file.url_private];
                   }
+                  slackReqObj.links = [file.url_private];
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                   slackReqObj.slackUserId = obj.slackUserId;
