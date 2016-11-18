@@ -1,103 +1,100 @@
 import React from 'react';
 //require('../../dist/main.css');
 
-const AddAction = (props) => {
-  return (
-    <div>
-    </div>
-  )
+const Action = (props) => {
   
-  // if (props.state.trigger === '') {
+  if (props.state.action === '') {
   //   //display slack and evernote triggers
-  //   return(
-  //     <div>
-  //       <div onClick={ () => {props.modifyTriggerReveal()}}>
-  //       Trigger:
-  //       </div>
-  //       <div className={props.state.triggerServicesReveal}>
-  //         {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
-  //           return (
-  //             <div onClick={ () => {props.modifyTrigger(service)}}>
-  //             {service}
-  //             </div>
-  //           );
-  //         })}
-  //       </div>
-  //     </div>
-  //   );
-  // } else if (props.state.trigger !== '' && props.state.triggerOption === '') {
-  //   //display trigger in state and show options for trigger in state
-  //   return(
-  //     <div>
-  //       <div onClick={ () => {props.modifyTriggerReveal()}}>
-  //       Trigger:  {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
-  //       <span onClick={ () => {props.modifyTrigger('')}}>X</span>
-  //       </div>
-  //       <div className={props.state.triggerServicesReveal}>
-  //         {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options.map(function(option, index){
-  //           return (
-  //             <div onClick={ () => {props.modifyTriggerOption(index)}}>
-  //             {option.description}
-  //             </div>
-  //           );
-  //         })}
-  //       </div>
-  //     </div>
-  //   );
-  // } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length === 0) {
-  //   //display trigger and option in state 
-  //   return(
-  //     <div>
-  //       <div onClick={ () => {props.modifyTriggerReveal()}}>
-  //       Trigger: {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
-  //       </div>
-  //       <div className={props.state.triggerServicesReveal}>
-  //         <div>
-  //         {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}
-  //         <span onClick={ () => {props.modifyTriggerOption('')}}>X</span>
-  //         </div>
-  //         <div>
-  //         Save Trigger
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length > 0) {
-  //   //display trigger and option in state 
-  //   return(
-  //    <div>
-  //       <div onClick={ () => {props.modifyTriggerReveal()}}>
-  //       Trigger: {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
-  //       </div>
-  //       <div className={props.state.triggerServicesReveal}>
-  //         <div>
-  //         {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}
-  //         <span onClick={ () => {props.modifyTriggerOption('')}}>X</span>
-  //         </div>
-  //         {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map(function(param) {
-  //           return(
-  //             <div>
-  //             {param.description}: <input id='param' type='text' className={param.alias}></input>
-  //             </div>
-  //           )
-  //         })}
-  //         <div onClick={ () => {props.modifyTriggerParams(document.getElementById('param').value, document.getElementById('param').className)}}>
-  //         Save Trigger
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+    return(
+      <div>
+        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        Action:
+        </div>
+        <div className={props.state.actionServicesReveal}>
+          {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
+            return (
+              <div onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
+              {service}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (props.state.action !== '' && props.state.actionOption === '') {
+    //display trigger in state and show options for trigger in state
+    return(
+      <div>
+        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        Action:  {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
+        <span onClick={ () => {props.modifyAction('', props.actionsIndex)}}>X</span>
+        </div>
+        <div className={props.state.actionServicesReveal}>
+          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options.map(function(option, index){
+            return (
+              <div onClick={ () => {props.modifyActionOption(index, props.actionsIndex)}}>
+              {option.description}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else if (props.state.action !== '' && props.state.actionOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.length === 0) {
+    //display trigger and option in state 
+    return(
+      <div>
+        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        Action: {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
+        </div>
+        <div className={props.state.actionServicesReveal}>
+          <div>
+          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}
+          <span onClick={ () => {props.modifyTriggerOption('', props.actionsIndex)}}>X</span>
+          </div>
+          <div>
+          Save Action
+          </div>
+        </div>
+      </div>
+    );
+  } else if (props.state.action !== '' && props.state.actionOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.length > 0) {
+    //display trigger and option in state 
+    return(
+     <div>
+        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        Action: {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
+        </div>
+        <div className={props.state.actionServicesReveal}>
+          <div>
+          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}
+          <span onClick={ () => {props.modifyActionOption('', props.actionsIndex)}}>X</span>
+          </div>
+          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.map(function(param) {
+            return(
+              <div>
+              {param.description}: <input id='param' type='text' className={param.alias}></input>
+              </div>
+            )
+          })}
+          <div onClick={ () => {props.modifyActionParams(document.getElementById('param').value, document.getElementById('param').className, props.actionsIndex)}}>
+          Save Action
+          </div>
+        </div>
+      </div>
+    );
+  }
 
 };
 
 
-export default AddAction;
+export default Action;
 
 // render params and save to state ----
 // change structure of trigger button to something prettier ----
-// render add action  component
-// render trigger and add action components depending on completemess of state
+//make action component ----
+// make add action  component ----
+// render trigger, action, add action, and save components depending on completeness of state ----
 // style services based on services verified boolean
 // build and send the concoction bundle to the server
 // figure out service authenticating without entire app rerender

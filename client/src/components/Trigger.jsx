@@ -52,7 +52,7 @@ const Trigger = (props) => {
           {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}
           <span onClick={ () => {props.modifyTriggerOption('')}}>X</span>
           </div>
-          <div onClick={ () => {props.modifyTriggerParams()}}>
+          <div onClick={ () => {props.modifyTriggerParams('none', 'none')}}>
           Save Trigger
           </div>
         </div>
@@ -62,7 +62,7 @@ const Trigger = (props) => {
     //display trigger and option in state 
     return(
      <div>
-        <div onClick={ () => {props.modifyTriggerReveal('none', 'none')}}>
+        <div onClick={ () => {props.modifyTriggerReveal()}}>
         Trigger: {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
         </div>
         <div className={props.state.triggerServicesReveal}>

@@ -1,16 +1,26 @@
 import React from 'react';
 
 
-export default class SaveNewConcoction extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const SaveNewConcoction = (props) => {
+  if (!props.state.actions.reduce(function(prev, curr) {
+      var complete = true;
+      if (curr.action === '' || curr.actionOption === '' || curr.actionParams === '') {
+        complete = false;
+      };
+      return prev && complete;
+    }, true) || props.trigger === '' || props.triggerOption === '' || props.triggerParams === '') {
     return (
-      <div>
-     Save
+      <div className='saveDisabled'>
+      Save New Concoction
+      </div>
+    );
+  } else {
+    return (
+      <div className='saveEnabled'>
+      Save New Concoction
       </div>
     );
   }
-}
+};
+
+export default SaveNewConcoction;
