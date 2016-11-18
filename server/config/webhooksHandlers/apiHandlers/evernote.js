@@ -1,5 +1,5 @@
 const Evernote = require('evernote').Evernote;
-const UserCtrl = require('../../../../db/controllers/userController.js');
+const UserCtrl = require('../../../db/controllers/userController.js');
 const async = require('async');
 // const evernoteCollection = require('./../../../db/models/evernoteModel')
 
@@ -17,58 +17,51 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    postNote: (params) => {
+    postNote: (paramObj) => {
 
-      const saveNote = function(note) {
+      const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
           if (err) {
             console.log('this is wht we can\'t have nice things', err);
           } else {
-            console.log('are you feeling it now, Mr.Krabs?');
+            console.log('Evernote Note posted');
           }
         });
       };
 
-        var ourNote = new Evernote.Note;
-        ourNote.title = params.title;
-        var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + noteDetails.body;
-        params.links.forEach(function(link) {
-          noteContent += '<br/><a href="' + link + '">' + link + '</a>';
-        });
-        params.images.forEach(function(image) {
-          noteContent += '<br/><img src="' + image + '"></img>';
-        });
-        noteContent += '</en-note>';
-        ourNote.content = noteContent;
-        ourNote.tagNames = params.tagNames;
+      var ourNote = new Evernote.Note;
+      ourNote.title = paramObj.title;
+      var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + paramObj.body;
+      paramObj.links.forEach(function(link) {
+        noteContent += '<br/><a href="' + link + '">' + link + '</a>';
+      });
+      paramObj.images.forEach(function(image) {
+        noteContent += '<br/><img src="' + image + '"></img>';
+      });
+      noteContent += '</en-note>';
+      ourNote.content = noteContent;
+      ourNote.tagNames = paramObj.tagNames;
 
-
-       
-          var client = new Evernote.Client({token: params.actionParams.evernoteToken}); //define client with the token from the DB
-          var noteStore = client.getNoteStore();
-          //if parentNotebook is defined
-          if (params.actionParams.parentNotebook) {
-            noteStore.listNotebooks(function(err, notebooks) {
-              if (!err) {
-                // find the guid for the notebook with a name matching 'parentNotebook'
-                var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
-                ourNote.notebookGuid = guid;
-                saveNote(ourNote);
-              } else {
-                console.log('no notebook with that name...');
-                console.log('writing note to default notebook');
-                 saveNote(ourNote);
-              }
-            });
+      var client = new Evernote.Client({token: paramObj.actionParams.evernoteToken}); //define client with the token from the DB
+      var noteStore = client.getNoteStore();
+      //if parentNotebook is defined
+      if (paramObj.actionParams.parentNotebook) {
+        noteStore.listNotebooks(function(err, notebooks) {
+          if (!err) {
+            // find the guid for the notebook with a name matching 'parentNotebook'
+            var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
+            ourNote.notebookGuid = guid;
+            saveNote(ourNote, noteStore);
           } else {
-            saveNote(ourNote);
+            console.log('writing note to default notebook');
+            saveNote(ourNote, noteStore);
           }
-
-
-
-      
+        });
+      } else {
+        saveNote(ourNote, noteStore);
+      }
     },
-    delete: (params) => {
+    delete: (paramObj) => {
       console.log('evernote delete function performed', params.actionParams);
     },
   },

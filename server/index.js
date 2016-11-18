@@ -1,27 +1,54 @@
-const express = require('express');
-const https = require('https');
-const http = require('http');
-const fs = require('fs');
-const app = express();
+const cluster = require('cluster');
+// heroku will set WEB_CONCURRENCY  = available dyno memory / WEB_MEMORY, can be force set to a certain value in heroku configs
+// see: https://devcenter.heroku.com/articles/node-concurrency
+var cpus = process.env.WEB_CONCURRENCY || 1; //require('os').cpus().length; // activate the require if a worker for each core is desired
 
-// put server on a cluster to make use of many cores
+if (cluster.isMaster && cpus > 1) {
+  console.log('Starting Node Cluster');
 
-const port = process.env.PORT || 1337;
+  for (var i = 0; i < cpus; i++) {
+    cluster.fork();
+  }
 
-// const credentials = {
-//    key  : fs.readFileSync('./../credentials/key.pem'),
-//    cert : fs.readFileSync('./../credentials/cert.pem')
-// };
+  cluster.on('online', (worker) => {
+      console.log(`Worker ${worker.id} with processid ${worker.process.pid} is online`);
+  });
 
-require('./db/config.js');
-require('./config/middleware.js')(app, express);
-require('./config/routes.js')(app);
+  cluster.on('exit', (worker, code, signal) => {
+      console.log('Worker ' + worker.id + 'with processid: ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+      console.log('Starting a new worker');
+      // mitigation for infinite loop breaking worker sucks one full cpu core
+      setTimeout(cluster.fork, 4000);
+  });
 
-http.createServer(app).listen(1338, () => {
-  console.log('Http listens on Port 1338');
-});
-// https.createServer(credentials, app).listen(port, () => {
-//    console.log(`Https listens on Port ${port}`);
-// });
+} else {
+  const express = require('express');
+  const https = require('https');
+  const http = require('http');
+  const fs = require('fs');
+  const app = express();
 
-module.exports = app;
+  const port = process.env.PORT || 1337;
+
+  // const credentials = {
+  //    key  : fs.readFileSync('./../credentials/key.pem'),
+  //    cert : fs.readFileSync('./../credentials/cert.pem')
+  // };
+
+  require('./db/config.js');
+  require('./config/middleware.js')(app, express);
+  require('./config/routes.js')(app);
+
+  app.listen(port, () => {
+    console.log(`Server Listening on port ${port}`);
+  });
+
+  // http.createServer(app).listen(port, () => {
+  //   console.log(`Http listens on Port ${port}`);
+  // });
+  // https.createServer(credentials, app).listen(port, () => {
+  //    console.log(`Https listens on Port ${port}`);
+  // });
+
+  module.exports = app;
+}
