@@ -1,7 +1,11 @@
 const passport = require('passport');
 const User = require('../models/userModel');
 const currUrl = require('./../../../currUrl');
+<<<<<<< HEAD
 const request = require('request-promise');
+=======
+const request = require('request');
+>>>>>>> afb8a07be974b357b8e5155c4a583d118333d0ae
 
 const SlackStrategy = require('passport-slack').Strategy;
 const SLACK_ID = process.env.SLACK_ID || require('../../../env.js').SLACK_ID;
