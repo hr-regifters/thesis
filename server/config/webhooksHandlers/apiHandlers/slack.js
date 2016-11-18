@@ -26,7 +26,7 @@ module.exports = {
           actionParams: '',
         };
 
-        console.log('SLACK OBJECT WOOOO', typeof req.body['authed_users']);
+        console.log('SLACK OBJECT WOOOO', Array.isArray(req.body['authed_users']));
 
         // fetch db data for users to get actions
         concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
