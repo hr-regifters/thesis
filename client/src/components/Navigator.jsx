@@ -9,13 +9,13 @@ import Verification from './Verification.jsx';
 const Navigator = (props) => {
   if (props.appState.view === 'verify') {
     return (
-      <div>
+      <div className="full">
         <Verification appState={props.appState} changeViewTo={props.changeViewTo}/>
       </div>
     )
   } else if (props.appState.view === 'home') {
     return (
-      <div>
+      <div className="full">
         <HomeView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
     );
@@ -23,13 +23,13 @@ const Navigator = (props) => {
     // use the spotlightConcoctionId to find the correct concoction in the concoctions array
     // build the concoction view out of the info stored in the object
     return (
-      <div>
+      <div className="full">
         <ConcoctionView appState={props.appState} />
       </div>
     );
   } else if (props.appState.view === 'addConcoction') {
     return (
-      <div>
+      <div className="full">
         <AddConcoctionView appState={props.appState} changeViewTo={props.changeViewTo} />
       </div>
     );

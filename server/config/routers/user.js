@@ -1,12 +1,12 @@
 const express = require('express');
-  
-const utility = require('../../db/controllers/userController');
+const UserCtrl = require('../../db/controllers/userController');
 const passport = require('passport');
 
 
 const router = new express.Router();
 
-router.post('/signup',utility.signup);
+router.get('/concoctions', UserCtrl.getUserConcoctions);
+router.post('/signup', UserCtrl.signup);
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
     req.session.user = req.body.username;

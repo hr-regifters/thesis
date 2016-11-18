@@ -42,28 +42,24 @@ module.exports = {
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
 
-      UserCtrl.getUserData('slackId', paramObj.slackUserId)
-      .then((user) => user.evernoteToken)
-      .then((evernoteToken) => {
-        var client = new Evernote.Client({token: evernoteToken}); //define client with the token from the DB
-        var noteStore = client.getNoteStore();
-        //if parentNotebook is defined
-        if (paramObj.actionParams.parentNotebook) {
-          noteStore.listNotebooks(function(err, notebooks) {
-            if (!err) {
-              // find the guid for the notebook with a name matching 'parentNotebook'
-              var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
-              ourNote.notebookGuid = guid;
-              saveNote(ourNote, noteStore);
-            } else {
-              console.log('writing note to default notebook');
-              saveNote(ourNote, noteStore);
-            }
-          });
-        } else {
-          saveNote(ourNote, noteStore);
-        }
-      });
+      var client = new Evernote.Client({token: paramObj.actionParams.evernoteToken}); //define client with the token from the DB
+      var noteStore = client.getNoteStore();
+      //if parentNotebook is defined
+      if (paramObj.actionParams.parentNotebook) {
+        noteStore.listNotebooks(function(err, notebooks) {
+          if (!err) {
+            // find the guid for the notebook with a name matching 'parentNotebook'
+            var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
+            ourNote.notebookGuid = guid;
+            saveNote(ourNote, noteStore);
+          } else {
+            console.log('writing note to default notebook');
+            saveNote(ourNote, noteStore);
+          }
+        });
+      } else {
+        saveNote(ourNote, noteStore);
+      }
     },
     delete: (paramObj) => {
       console.log('evernote delete function performed', params.actionParams);
