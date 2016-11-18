@@ -236,3 +236,19 @@ nav {
 .pull-right {
   margin-right: 0 !important;
 }
+
+.show {
+
+}
+
+.hide {
+  display: none;
+}
+
+.saveDisabled {
+  text-decoration: line-through;
+}
+
+.saveEnabled {
+
+}

@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import currUrl from './../../../currUrl';
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
-import AddAction from './AddAction.jsx';
 import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
