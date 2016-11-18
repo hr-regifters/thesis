@@ -9,6 +9,9 @@ const AddConcoctionNav = (props) => {
   if (props.state.trigger === '' || props.state.triggerOption === '' || props.state.triggerParams === '') {
     return (
       <div>
+        <div>
+        Description: <input id='desc' type='text'></input>
+        </div>
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}  
                      modifyTrigger={props.modifyTrigger}
@@ -30,12 +33,18 @@ const AddConcoctionNav = (props) => {
     }, true)) {
     return (
       <div>
+        <div>
+        Description: <input id='desc' type='text'></input>
+        </div>
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}  
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
                      modifyTriggerReveal={props.modifyTriggerReveal} />
+
+            <div>
+            </div>
 
             {props.state.actions.map(function(action, index) {
               return(
@@ -57,6 +66,9 @@ const AddConcoctionNav = (props) => {
   } else {
     return (
       <div>
+        <div>
+        Description: <input id='desc' type='text'></input>
+        </div>
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}  
                      modifyTrigger={props.modifyTrigger}
@@ -77,7 +89,7 @@ const AddConcoctionNav = (props) => {
             })}
 
             <div onClick={ () => {props.addNewAction()}}>
-            ADD A NEW ACTION
+            Add New Action
             </div>
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
 

@@ -7,6 +7,7 @@ export default class AddConcoctionView extends React.Component {
     super(props);
 
     this.state = {
+      description: '',
       trigger: '',
       triggerOption: '',
       triggerParams: '',
@@ -20,6 +21,12 @@ export default class AddConcoctionView extends React.Component {
         },
       ],
     };
+  }
+
+  modifyDescription(desc) {
+    this.setState({
+      description: desc,
+    });
   }
 
   modifyTrigger(trig) {
@@ -129,7 +136,8 @@ export default class AddConcoctionView extends React.Component {
                            modifyActionParams={this.modifyActionParams.bind(this)}
                            modifyActionReveal={this.modifyActionReveal.bind(this)} 
                            changeViewTo={this.props.changeViewTo} 
-                           addNewAction={this.addNewAction.bind(this)} />
+                           addNewAction={this.addNewAction.bind(this)}
+                           modifyDescription={this.modifyDescription} />
       </div>
     );
   }
