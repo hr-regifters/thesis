@@ -31,7 +31,7 @@ module.exports = {
 
       var ourNote = new Evernote.Note;
       ourNote.title = paramObj.title;
-      var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + noteDetails.body;
+      var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + paramObj.body;
       paramObj.links.forEach(function(link) {
         noteContent += '<br/><a href="' + link + '">' + link + '</a>';
       });
