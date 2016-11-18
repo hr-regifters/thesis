@@ -25,6 +25,7 @@ module.exports.getFile = (slackId, fileId) => {
     return request(`https://slack.com/api/files.info?token=${user.slackToken}&file=${fileId}&pretty=1`)
   })
   .then((fileObj) => {
+    console.log(fileObj);
     return fileObj.file;
   });
 }
