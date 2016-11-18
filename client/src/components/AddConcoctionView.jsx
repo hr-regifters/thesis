@@ -2,7 +2,6 @@ import React from 'react';
 
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
-import AddAction from './AddAction.jsx';
 import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
@@ -14,6 +13,15 @@ export default class AddConcoctionView extends React.Component {
       trigger: '',
       triggerOption: '',
       triggerParams: '',
+      triggerServicesReveal: 'hide',
+
+      actions: [
+        { action: '',
+          actionOption: '',
+          actionParams: '',
+          triggerServicesReveal: '',
+        },
+      ],
     };
   }
 
@@ -29,9 +37,26 @@ export default class AddConcoctionView extends React.Component {
     });
   }
 
-  modifyTriggerParams(param) {
+  modifyTriggerParams(param, alias) {
+    console.log(param, alias);
     this.setState({
-      triggerParams: param,
+      triggerParams: {
+        param: param,
+        alias: alias,
+      },
+    });
+    this.modifyTriggerReveal();
+  }
+
+  modifyTriggerReveal() {
+    var status;
+    if (this.state.triggerServicesReveal === 'show') {
+      status = 'hide';
+    } else {
+      status = 'show';
+    }
+    this.setState({
+      triggerServicesReveal: status,
     });
   }
 
@@ -42,7 +67,8 @@ export default class AddConcoctionView extends React.Component {
                  servicesDetail={this.props.appState.servicesDetail}  
                  modifyTrigger={this.modifyTrigger.bind(this)}
                  modifyTriggerOption={this.modifyTriggerOption.bind(this)}
-                 modifyTriggerParams={this.modifyTriggerOption.bind(this)} />
+                 modifyTriggerParams={this.modifyTriggerParams.bind(this)}
+                 modifyTriggerReveal={this.modifyTriggerReveal.bind(this)} />
         { this.state.actions.map((action) => {
           return (
             <div>
@@ -50,7 +76,7 @@ export default class AddConcoctionView extends React.Component {
             </div>
           );
         })}
-        <AddAction />
+        <Action />
         <CancelNewConcoction changeViewTo={this.props.changeViewTo} />
         <SaveNewConcoction />
       </div>

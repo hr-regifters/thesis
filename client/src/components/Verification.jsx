@@ -1,12 +1,6 @@
 "use strict"
 import React from 'react';
 
-import Trigger from './Trigger.jsx';
-import Action from './Action.jsx';
-import AddAction from './AddAction.jsx';
-import SaveNewConcoction from './SaveNewConcoction.jsx';
-import CancelNewConcoction from './CancelNewConcoction.jsx';
-
 export default class Verification extends React.Component {
   constructor(props) {
     super(props);

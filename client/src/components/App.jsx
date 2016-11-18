@@ -1,5 +1,5 @@
 import React from 'react';
-import serviceDetail from '../serviceDetailJSON.js';
+import servicesDetail from '../servicesDetailJSON.js';
 
 import Navigator from './Navigator.jsx';
 
@@ -8,9 +8,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: '',
-      view: 'verify',  // home, concoctionEdit, addConcoction
-      spotlightConcoctionId: 1,
-      // concoctionIds: [''],
+      view: 'home',  // home, concoctionEdit, addConcoction, verify
       concoctions: [
         { id: 2,
           description: 'testConcoction2',
