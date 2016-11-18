@@ -41,9 +41,22 @@ exports.signup = (req, res) => {
     });
   });
 };
+exports.addConcoction = (username, concoction, trigger) => { 
+  User.findOne({username: username}).then((user) => {
+    if (!user) {
+      throw new error;
+    } else {
+      concoction['trigger'] = trigger;
+      user.Concoctions.push(concoction);
+      user.save((err, updated) => {
+        console.log('added concoction to user');
+      });
+    }
+  })
+}
 
 exports.addTokenAndId = (username, apiToken, token, slackId) => {
-  User.findOne({'username': username}).then((user) => {
+  User.findOne({username: username}).then((user) => {
     if (apiToken === 'slackToken') {
       user[apiToken] = token;
       user['slackId'] = slackId;
@@ -57,8 +70,11 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
 };
 //get slack user id and slack token from the
 exports.getSlackId = username => User.findOne({username: username}).then((user) => user ? user.slackId ? user.slackId : "No slack ID" : "No user");
+
 exports.getUserData = (userKey, userValue) => {
   let query = {};
   query[userKey] = userValue;
   return User.findOne(query).then((user) => user ? user : "no user");
 };
+
+
