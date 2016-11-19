@@ -33,7 +33,7 @@ export default class AddConcoctionView extends React.Component {
          username: context.props.appState.user,
          actionApi: context.state.actions[0].action,
          actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
-         actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
+         actionParams: JSON.stringify(context.state.actions[0].actionParams), // parent notebook, evernote token,
        }),
      })
      .then(function(res) {
@@ -96,7 +96,7 @@ export default class AddConcoctionView extends React.Component {
   modifyActionParams(param, alias, index) {
     var temp = this.state.actions;
     temp[index].actionParams = {};
-    temp[index].actionParams[alias] = param
+    temp[index].actionParams[alias] = param;
     this.setState({
       actions: temp,
     });
