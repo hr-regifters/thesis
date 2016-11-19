@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 //require('../../dist/main.css');
 
 const Action = (props) => {
@@ -14,7 +15,12 @@ const Action = (props) => {
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
             return (
               <div key={service} onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
-              {service}
+                {
+                  props.connectedServices[service] ?
+                  <a>{service}</a>
+                  :
+                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
+                }
               </div>
             );
           })}

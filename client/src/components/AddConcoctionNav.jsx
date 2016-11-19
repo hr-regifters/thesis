@@ -56,6 +56,7 @@ const AddConcoctionNav = (props) => {
                 <Action key={index} actionsIndex={index}
                     state={props.state.actions[index]}
                     servicesDetail={props.servicesDetail}
+                    connectedServices={props.connectedServices}
                     modifyAction={props.modifyAction}
                     modifyActionOption={props.modifyActionOption}
                     modifyActionParams={props.modifyActionParams}
@@ -88,6 +89,7 @@ const AddConcoctionNav = (props) => {
                             <Action key={index} actionsIndex={index}
                                 state={props.state.actions[index]}
                                 servicesDetail={props.servicesDetail}
+                                connectedServices={props.connectedServices}
                                 modifyAction={props.modifyAction}
                                 modifyActionOption={props.modifyActionOption}
                                 modifyActionParams={props.modifyActionParams}

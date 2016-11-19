@@ -83,7 +83,7 @@ exports.getUserConcoctions = (req, res) => {
     };
     data.concoctions = user.concoctions;
     for (var key in user) {
-      if (key.slice(key.length - 5, key.length) === 'Token') {
+      if (key.slice(key.length - 5, key.length) === 'Token' && user[key] != undefined) {
         data.oauths.push(key.slice(0, key.length - 5));
       }
     }
