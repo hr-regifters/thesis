@@ -30,7 +30,7 @@ export default class AddConcoctionView extends React.Component {
        headers: {'Content-Type': 'application/json'},
        body: JSON.stringify({
          trigger: context.state.trigger,
-         username: 'dummy data',
+         username: context.props.appState.user,
          actionApi: context.state.actions[0].action,
          actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
          actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
