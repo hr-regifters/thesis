@@ -13,6 +13,7 @@ module.exports = {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type]) {
       res.status(200).send('registered slack event');
+      console.log(req.body);
 
       let slackReqObj = {
         slackUserId: '',
@@ -42,7 +43,7 @@ module.exports = {
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                   slackReqObj.slackUserId = obj.slackUserId;
-                  slackReqObj.actionParams = obj.actionParams;
+                  slackReqObj.actionParams = JSON.parse(obj.actionParams);
                   webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote postNote action: ', error); });
