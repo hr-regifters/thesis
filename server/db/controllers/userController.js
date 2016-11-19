@@ -80,7 +80,6 @@ exports.getUserConcoctions = (req, res) => {
   .then((user) => {
     var data = {
       oauths: [],
-      concoctions: [],
     };
     data.concoctions = user.concoctions;
     if (data.concoctions.length > 0) {
