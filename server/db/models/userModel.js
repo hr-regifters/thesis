@@ -15,7 +15,6 @@ const userSchema = new Schema({
   slackId: String,
   slackToken: String,
   evernoteToken: String,
-
   concoctions: []
 });
 

@@ -9,7 +9,10 @@ const Trigger = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
-        Trigger:
+        <div className="inline">
+        <h1>Trigger:   <i className="fa fa-caret-down"></i></h1>
+        
+        </div>
         </div>
         <div className={props.state.triggerServicesReveal}>
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
@@ -33,14 +36,16 @@ const Trigger = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
-        Trigger:  {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
-        <span onClick={ () => {props.modifyTrigger('')}}>X</span>
+        <div className="inline">
+        <h1><span onClick={ () => {props.modifyTrigger('')}}>X</span>{props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} Trigger <i className="fa fa-caret-down"></i></h1>   
+        </div>
+        
         </div>
         <div className={props.state.triggerServicesReveal}>
           {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options.map(function(option, index){
             return (
               <div key={index} onClick={ () => {props.modifyTriggerOption(index)}}>
-              {option.description}
+                <h3><i className="fa fa-square-o"></i> {option.description}</h3>
               </div>
             );
           })}
@@ -52,7 +57,7 @@ const Trigger = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
-        Trigger: {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
+        <h1>{props.servicesDetail.servicesDetailJSON[props.state.trigger].icon}  Trigger:   <i className="fa fa-caret-down"></i></h1> 
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
@@ -70,11 +75,11 @@ const Trigger = (props) => {
     return(
      <div>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
-        Trigger: {props.servicesDetail.servicesDetailJSON[props.state.trigger].icon} {props.state.trigger}
+        <h1>{props.servicesDetail.servicesDetailJSON[props.state.trigger].icon}   Trigger:   <i className="fa fa-caret-down"></i></h1> 
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
-          {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}
+          <h3><i className="fa fa-square-o"></i> {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}</h3>
           <span onClick={ () => {props.modifyTriggerOption('')}}>X</span>
           </div>
           {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map(function(param) {
