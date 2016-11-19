@@ -11,7 +11,7 @@ const getTriggerParams = (api, username, res) => {
       if (slackId !== "No slack ID" && slackId !== "No user") {
         return slackId;
       } else {
-        throw new Error('odfnosdfn')
+        throw new Error('no slack id or user found');
       }
     })
   } else {
