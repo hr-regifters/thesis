@@ -9,9 +9,12 @@ const listenTo = {
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
+    var currentTime = Number(new Date());
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
-    } else if (listenTo[req.body.event.type]) {
+    } else if (listenTo[req.body.event.type] && req.body.event['event_ts'] * 1000 > currentTime - 10800000
+      && req.body.event.event_ts * 1000 < currentTime && req.body.token === 'a1w5cdEEWMlk4t8TZ60TOX43'
+      && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       console.log(req.body);
       let slackReqObj = {
@@ -29,7 +32,8 @@ module.exports = {
         async.each(arr, (obj, callback) => {
           if (req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
             if (obj.actionApi === undefined || obj.actionFunction === undefined) { // check for additional things like token, api_app_id, timestamp
-              callback('error! actionApi or actionFunction property not existing');
+              console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.slackUserId}`);
+              callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionApi === 'evernote' && obj.actionFunction === 'postNote') {
                 slackCtrl.getFile(req.body['authed_users'][0], req.body.event.file_id)
@@ -52,12 +56,15 @@ module.exports = {
             callback();
           }
         }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Slack Event:', req.body.event.type); });
-      }).catch((error) => { console.log(error); });
+      }).catch((error) => {
+        res.status(500).send('Server Error in Slack trigger');
+        console.log(error);
+      });
 
         // extract actions if trigger is right
         // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
     } else {
-      res.status(200).send('Event type unknown');
+      res.status(200).send('A problem occurred while processing event');
     }
   },
   actions: {
