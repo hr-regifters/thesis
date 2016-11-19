@@ -29,11 +29,11 @@ export default class AddConcoctionView extends React.Component {
        method: 'POST',
        headers: {'Content-Type': 'application/json'},
        body: JSON.stringify({
-         trigger: context.state.trigger,
+         trigger: context.props.appState.servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias,
          username: context.props.appState.user,
          actionApi: context.state.actions[0].action,
          actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
-         actionParams: JSON.stringify(context.state.actions[0].actionParams), // parent notebook, evernote token,
+         actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
        }),
      })
      .then(function(res) {
@@ -41,6 +41,13 @@ export default class AddConcoctionView extends React.Component {
          context.props.changeViewTo('home');
        }
      });
+     // console.log({
+     //     trigger: context.props.appState.servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias,
+     //     username: context.props.appState.user,
+     //     actionApi: context.state.actions[0].action,
+     //     actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
+     //     actionParams: JSON.stringify(context.state.actions[0].actionParams), // parent notebook, evernote token,
+     //   });
   }
 
   modifyTrigger(trig) {
