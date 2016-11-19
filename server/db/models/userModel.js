@@ -16,7 +16,7 @@ const userSchema = new Schema({
   slackToken: String,
   evernoteToken: String,
 
-  Concoctions: []
+  concoctions: []
 });
 
 module.exports = mongoose.model('User', userSchema);

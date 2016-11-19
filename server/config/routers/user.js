@@ -1,11 +1,12 @@
 const express = require('express');
 const UserCtrl = require('../../db/controllers/userController');
 const passport = require('passport');
+const checkLogin = require('./../utilities/checkLogin');
 
 
 const router = new express.Router();
 
-router.get('/concoctions', UserCtrl.getUserConcoctions);
+router.get('/concoctions', checkLogin, UserCtrl.getUserConcoctions);
 router.post('/signup', UserCtrl.signup);
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
