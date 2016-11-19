@@ -13,7 +13,13 @@ module.exports = (app) => {
 };
 
 const checkLogIn = function(req, res, next) {
-  if (Object.keys(req.sessionStore.sessions).length !== 0) {
+  let valid = false;
+  for (let key in req.sessionStore.sessions) {
+    if (JSON.parse(req.sessionStore.sessions[key]).hasOwnProperty('passport')) {
+      valid = true;
+    }
+  }
+  if (valid) {
     next();
   } else {
     res.redirect('/');

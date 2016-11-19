@@ -21,22 +21,24 @@ const getTriggerParams = (api, username, res) => {
   } 
 }
 
-const getActionParams = (actionApi, actionParams, username) => { 
-  return userController.getUserData(username).then((user) => {
-    actionParams[actionApi] ='dummytest'; 
+const getActionParams = (concObj, username) => { 
+  return userController.getUserData('username', username).then((user) => {
+    concObj['actionParams'][concObj['actionApi']] = user.evernoteToken;
     return //needs to be evernote api
   });
 }
 
-const writeSlackModel = (trigger, slackUserId, actionApi, actionFunction, actionParams, res) => {
+
+const writeSlackModel = (trigger, concObj, res) => {
   slackConcoction.findOne({trigger: trigger}).then((doc) => {
     if(doc !== null) {
       console.log('updating trigger document');
       doc.action.push({
-        slackUserId: slackUserId,
-        actionApi: actionApi,
-        actionFunction: actionFunction,
-        actionParams: actionParams
+
+        slackUserId: concObj['slackUserId'],
+        actionApi: concObj['actionApi'],
+        actionFunction: concObj['actionFunction'],
+        actionParams: concObj['actionParams']
       });
       doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
     } else {
@@ -44,15 +46,16 @@ const writeSlackModel = (trigger, slackUserId, actionApi, actionFunction, action
       slackConcoction.create({
         trigger: trigger,
         action: [{
-          slackUserId: slackUserId,
-          actionApi: actionApi,
-          actionFunction: actionFunction,
-          actionParams: actionParams
+          slackUserId: concObj['slackUserId'],
+          actionApi: concObj['actionApi'],
+          actionFunction: concObj['actionFunction'],
+          actionParams: concObj['actionParams']
         }]
       },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
     }
   })
 }
+
 exports.getSlackEvent = (eventName) => {
   return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
 }
@@ -61,18 +64,22 @@ exports.createSlackTrigger = (req,res) => {
   const testObj = {test: 'test'};
   const trigger = req.body.trigger;
   const username = req.body.username;
-  const actionApi = req.body.actionApi
-  const actionFunction = req.body.actionFunction;
-  let actionParams = testObj;//this needs to be reset to req.body.actionParams;
-  let slackUserId;
+  let concObj = {
+    slackUserId: '',
+    actionApi: req.body.actionApi, 
+    actionFunction: req.body.actionFunction,
+    actionParams: req.body.actionParams || {}
+  };
+
   getTriggerParams('slack', username, res)
   .then((slackId) => {
-    slackUserId = slackId;
-    return getActionParams(actionApi, actionParams, username)
+    concObj['slackUserId'] = slackId;
+    return getActionParams(concObj, username)
   })
   .then(() => {
-    actionParams = JSON.stringify(actionParams);
-    writeSlackModel(trigger, slackUserId, actionApi, actionFunction, actionParams, res);
+    concObj['actionParams'] = JSON.stringify(concObj['actionParams']);
+    writeSlackModel(trigger, concObj, res);
+    userController.addConcoction(username, concObj, trigger);
   })
   .catch(function(error) {
     res.status(404).send('no slack user or id');
