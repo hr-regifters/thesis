@@ -74,7 +74,7 @@ export default class Verification extends React.Component {
               <h2>SIGNIN</h2>
               <input placeholder="username" id="username" />
               <input placeholder="password" id="password" />
-              <input placeholder="password" id="invisiblefiller" />
+              <input placeholder="email" id="invisiblefillera" />
               <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
             </form>
           </div>

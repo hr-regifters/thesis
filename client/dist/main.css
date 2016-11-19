@@ -7,10 +7,15 @@
 }
 h1, h3 {
   color: #fff;
+  font-family: 'Rubik', sans-serif;
+}
+h2, h3, p {
+  font-family: 'Rubik', sans-serif;
 }
 a {
   color: #fff;
   padding: 10px;
+  font-family: 'Rubik', sans-serif;
 }
 a:hover {
   color: #fff;
@@ -73,11 +78,16 @@ nav {
   display: inline-block;
   animation-duration: 1.5s;
   animation-delay: .4s;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 #login form {
   text-align: center;
   margin-top: 0;
+
 }
 
 #login h2 {
@@ -90,24 +100,34 @@ nav {
   margin-left: 0px;
   padding-left: 0px;
   padding-right: 0px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
 }
 
 #login input {
   width: 80%;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 5px;
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
 }
 
 #login button {
   background-color: #6a6aad;
   color: white;
   border: none;
-  width: 35%;
+  width: 21%;
   text-transform: uppercase;
   text-align: center;
   margin-top: 20px;
   font-size: 1.2em;
-  padding: 5px;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 /* REGISTER */
@@ -121,6 +141,10 @@ nav {
   animation-duration: 1.5s;
   animation-delay: .4s;
   box-shadow: 0px 3px 15px #999;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 #register form {
@@ -134,24 +158,35 @@ nav {
   margin-top: 0;
   color: #fff;
   margin-bottom: 40px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
 }
 
 #register input {
   width: 80%;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 5px;
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+
 }
 
 #register button {
   background-color: #6a6aad;
   color: white;
   border: none;
-  width: 45%;
+  width: 21%;
   text-transform: uppercase;
   text-align: center;
   margin-top: 20px;
   font-size: 1.2em;
-  padding: 5px;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 #buttonGroup {
   margin-bottom: 10px;
@@ -166,7 +201,8 @@ nav {
   margin-left: 0px;
   padding-left: 0px;
   padding-right: 0px;
-  font-size: 45px;
+  font-size: 70px;
+  font-family: 'Marck Script', cursive;
 }
 .concoction {
   z-index: 100;
@@ -248,7 +284,9 @@ nav {
 .saveDisabled {
   text-decoration: line-through;
 }
-
+.Mod {
+  width: 98%;
+}
 .saveEnabled {
 
 }
