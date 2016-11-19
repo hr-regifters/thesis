@@ -38,7 +38,7 @@ const Trigger = (props) => {
         <div className={props.state.triggerServicesReveal}>
           {props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options.map(function(option, index){
             return (
-              <div onClick={ () => {props.modifyTriggerOption(index)}}>
+              <div key={index} onClick={ () => {props.modifyTriggerOption(index)}}>
               {option.description}
               </div>
             );

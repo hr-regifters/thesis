@@ -22,7 +22,7 @@ const AddConcoctionNav = (props) => {
 
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
             
-            <SaveNewConcoction state={props.state} />
+            <SaveNewConcoction state={props.state} saveConcoction={props.saveConcoction} />
           </div>
     )
   } else if (!props.state.actions.reduce(function(prev, curr) {
@@ -50,7 +50,7 @@ const AddConcoctionNav = (props) => {
 
             {props.state.actions.map(function(action, index) {
               return(
-                <Action actionsIndex={index}
+                <Action key={index} actionsIndex={index}
                     state={props.state.actions[index]}
                     servicesDetail={props.servicesDetail}
                     modifyAction={props.modifyAction}
@@ -62,7 +62,7 @@ const AddConcoctionNav = (props) => {
 
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
 
-            <SaveNewConcoction state={props.state} />
+            <SaveNewConcoction state={props.state} saveConcoction={props.saveConcoction} />
           </div>
     ) 
   } else {
@@ -81,7 +81,7 @@ const AddConcoctionNav = (props) => {
             
             {props.state.actions.map(function(action, index) {
                           return(
-                            <Action actionsIndex={index}
+                            <Action key={index} actionsIndex={index}
                                 state={props.state.actions[index]}
                                 servicesDetail={props.servicesDetail}
                                 modifyAction={props.modifyAction}
@@ -96,7 +96,7 @@ const AddConcoctionNav = (props) => {
             </div>
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
 
-            <SaveNewConcoction state={props.state} />
+            <SaveNewConcoction state={props.state} saveConcoction={props.saveConcoction} />
           </div>
 
     );

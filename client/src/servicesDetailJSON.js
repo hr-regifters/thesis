@@ -5,6 +5,7 @@ exports.servicesDetailJSON = {
     trigger: {
       options: [
         { description: 'When a file is uploaded to Slack ',
+          alias: 'file_created',
           parameters: [
           ],
         },
@@ -13,6 +14,7 @@ exports.servicesDetailJSON = {
     action: {
       options: [
         { description: 'Post to a Slack Channel',
+          alias: 'none',
           parameters: [
             { description: 'Channel Name',
               alias: 'channelName',
@@ -28,6 +30,7 @@ exports.servicesDetailJSON = {
     trigger: {
       options: [
         { description: 'When a Note with a specific Tag is created',
+          alias: 'none',
           parameters: [
             { description: 'Tag Name',
               alias: 'tagName',
@@ -35,6 +38,7 @@ exports.servicesDetailJSON = {
           ],
         },
         { description: 'When a Note in a Specific Notebook is created',
+          alias: 'none',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
@@ -42,6 +46,7 @@ exports.servicesDetailJSON = {
           ],
         },
         { description: 'When a note in a any Notebook is created',
+          alias: 'none',
           parameters: [
           ],
         },
@@ -50,6 +55,7 @@ exports.servicesDetailJSON = {
     action: {
       options: [
         { description: 'Create a new Note in a specific Notebook',
+          alias: 'postNote',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
