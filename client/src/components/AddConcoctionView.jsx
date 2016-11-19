@@ -95,10 +95,8 @@ export default class AddConcoctionView extends React.Component {
 
   modifyActionParams(param, alias, index) {
     var temp = this.state.actions;
-    temp[index].actionParams = {
-        param: param,
-        alias: alias,
-      };
+    temp[index].actionParams = {};
+    temp[index].actionParams[alias] = param
     this.setState({
       actions: temp,
     });
