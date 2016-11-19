@@ -82,16 +82,12 @@ exports.getUserConcoctions = (req, res) => {
       oauths: [],
     };
     data.concoctions = user.concoctions;
-    if (data.concoctions.length > 0) {
-      for (var key in user) {
-        if (key.slice(key.length - 5, key.length) === 'Token') {
-          data.oauths.push(key.slice(0, key.length - 5));
-        }
+    for (var key in user) {
+      if (key.slice(key.length - 5, key.length) === 'Token') {
+        data.oauths.push(key.slice(0, key.length - 5));
       }
-      res.status(200).json(data);
-    } else {
-      res.status(204).send('no concoctions registered');
     }
+    res.status(200).json(data);
   })
-  .catch((error) => { console.log('error in getUserConcoctions: ', error); });
+  .catch((error) => { console.log('error in getUserConcoctions: ', error); res.status(500).send('Server error at fetching concoctions'); });
 };
