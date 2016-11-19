@@ -7,7 +7,6 @@ const Promise = require('bluebird');
 const getTriggerParams = (api, username, res) => {
   if (api === 'slack') {
     return userController.getSlackId(username).then((slackId) => {
-      console.log(slackId);
       if (slackId !== "No slack ID" && slackId !== "No user") {
         return slackId;
       } else {
