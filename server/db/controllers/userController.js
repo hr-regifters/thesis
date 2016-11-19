@@ -26,9 +26,6 @@ exports.signup = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
-  
-
-  console.log('POST /api/user/signup. username:', username);
 
   User.findOne({username: username}).then((user) => {
     user ? res.status(401).send(usernameErr) : bcrypt.hash(password, saltRounds, (error, hash) => {
@@ -47,9 +44,9 @@ exports.addConcoction = (username, concoction, trigger) => {
       throw new error;
     } else {
       concoction['trigger'] = trigger;
-      user.Concoctions.push(concoction);
+      user.concoctions.push(concoction);
       user.save((err, updated) => {
-        console.log('added concoction to user');
+        if (err) { console.log(err); };
       });
     }
   })
@@ -64,6 +61,7 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
       user[apiToken] = token;
     }
     user.save((err, updated) => {
+      if (err) { console.log(err) };
       // err ? console.log(err) : console.log(updated);
     });
   });
@@ -77,4 +75,23 @@ exports.getUserData = (userKey, userValue) => {
   return User.findOne(query).then((user) => user ? user : "no user");
 };
 
-
+exports.getUserConcoctions = (req, res) => {
+  exports.getUserData('username', req.query.username)
+  .then((user) => {
+    var data = {
+      oauths: [],
+    };
+    data.concoctions = user.concoctions;
+    if (data.concoctions.length > 0) {
+      for (var key in user) {
+        if (key.slice(key.length - 5, key.length) === 'Token') {
+          data.oauths.push(key.slice(0, key.length - 5));
+        }
+      }
+      res.status(200).json(data);
+    } else {
+      res.status(204).send('no concoctions registered');
+    }
+  })
+  .catch((error) => { console.log('error in getUserConcoctions: ', error); });
+};

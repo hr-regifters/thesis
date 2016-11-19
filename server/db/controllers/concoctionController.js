@@ -7,11 +7,10 @@ const Promise = require('bluebird');
 const getTriggerParams = (api, username, res) => {
   if (api === 'slack') {
     return userController.getSlackId(username).then((slackId) => {
-      console.log(slackId);
       if (slackId !== "No slack ID" && slackId !== "No user") {
         return slackId;
       } else {
-        throw new error 
+        throw new Error('no slack id or user found');
       }
     })
   } else {
@@ -82,7 +81,7 @@ exports.createSlackTrigger = (req,res) => {
     userController.addConcoction(username, concObj, trigger);
   })
   .catch(function(error) {
-    res.status(404).send('no slack user or id');
+    res.status(405).send(error);
   })
 }
 

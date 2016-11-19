@@ -21,7 +21,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        context.props.appState.user = username;
+        context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
         console.log('username/email already taken'); // TODO: input error message saying username/email taken
@@ -43,7 +43,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        context.props.appState.user = username;
+        context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
         console.log('invalid username/password'); // TODO: input error message saying username/password incorrect
