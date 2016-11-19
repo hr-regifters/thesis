@@ -13,7 +13,7 @@ module.exports = {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type]) {
       res.status(200).send('registered slack event');
-
+      console.log(req.body)
       let slackReqObj = {
         slackUserId: '',
         title: '',
