@@ -41,10 +41,10 @@ export default class HomeView extends React.Component {
     return (
       <div id="HomeView">
         <nav className="navbar navbar-default navbar-fixed-top"> 
-          <div className="container-fluid">
-            <h3 className = "navbar-left">Profile</h3>
-            <h3 className="navbar-right"> My Apps </h3>
-            <h1 className ="navbar"> Hack Reactions</h1>
+          <div className="container-fluid Mod">
+          <h3 className="pull-right"> My Apps </h3>
+          <h3 className="pull-right"> Profile </h3>
+          <h1 className ="navbar-left"> Regift3d</h1>
           </div>
         </nav>
         <div id="concoctions">

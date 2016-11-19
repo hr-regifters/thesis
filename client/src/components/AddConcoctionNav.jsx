@@ -8,10 +8,11 @@ import CancelNewConcoction from './CancelNewConcoction.jsx';
 const AddConcoctionNav = (props) => {
   if (props.state.trigger === '' || props.state.triggerOption === '' || props.state.triggerParams === '') {
     return (
-      <div>
-        <div>
-        Description: <input id='desc' type='text'></input>
-        </div>
+      <div id="addConcBox">
+       {// <div>
+        //Description: <input id='desc' type='text'></input>
+        //</div>
+      }
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}
                      connectedServices={props.connectedServices}
@@ -34,9 +35,11 @@ const AddConcoctionNav = (props) => {
     }, true)) {
     return (
       <div>
-        <div>
-        Description: <input id='desc' type='text'></input>
-        </div>
+        {
+          // <div>
+        // Description: <input id='desc' type='text'></input>
+        // </div>
+      }
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}
                      connectedServices={props.connectedServices}
@@ -68,10 +71,11 @@ const AddConcoctionNav = (props) => {
     ) 
   } else {
     return (
-      <div>
-        <div>
-        Description: <input id='desc' type='text'></input>
-        </div>
+      <div >
+        {//<div>
+        //Description: <input id='desc' type='text'></input>
+        //</div>
+        }
         <Trigger state={props.state} 
                      servicesDetail={props.servicesDetail}
                      connectedServices={props.connectedServices}
