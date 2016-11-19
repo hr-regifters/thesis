@@ -56,7 +56,7 @@ export default class Verification extends React.Component {
   render() {
     return (
       <div id="Verification">
-      <h1 id="signupTitle" className="animated fadeInDown"> Hack Reaction </h1>
+      <h1 id="signupTitle" className="animated fadeInDown"> Regift3d </h1>
       <Grid>
 
         <row>

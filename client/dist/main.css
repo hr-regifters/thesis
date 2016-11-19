@@ -5,7 +5,7 @@
   margin-bottom: 50px;*/
   text-align: center;
 }
-h1, h3 {
+h1, h3, i {
   color: #fff;
   font-family: 'Rubik', sans-serif;
 }
@@ -44,9 +44,8 @@ hr {
   margin-bottom: 5px;
 }
 nav {
-  margin-bottom: 50px;
   background-color: #0E6BA8 !important;
-  height: 70px !important;
+  height: 8% !important;
 }
 #app {
   height: 100%;
@@ -291,6 +290,83 @@ input:focus {
 .Mod {
   width: 98%;
 }
-.saveEnabled {
 
+
+/*================================================== Styling for AddConcoction Nav =============================================*/
+.inline {
+  display: inline-block;
 }
+#concViewGrid {
+  padding-top: 8%;
+  width: 100%;
+}
+#concoctionMakerCol {
+  height: 90%;
+  padding-top: 3%;
+}
+#concoctionMakerBox {
+  background-color: #0F8B8D;
+  height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
