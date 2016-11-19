@@ -6,6 +6,7 @@ const request = require('request-promise');
 const SlackStrategy = require('passport-slack').Strategy;
 const SLACK_ID = process.env.SLACK_ID || require('../../../env.js').SLACK_ID;
 const SLACK_SECRET = process.env.SLACK_SECRET || require('../../../env.js').SLACK_SECRET;
+const token = process.env.slackAppToken || require('../../../env.js').slackAppToken;
 
 module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,
@@ -21,7 +22,6 @@ module.exports.Strategy = new SlackStrategy({
 });
 
 module.exports.getFile = (slackId, fileId) => {
-  const token = 'xoxp-41796934391-76814112084-107473085062-013f901abd34434104fbaef1d04318fe';
   return request(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`)
   .then((fileObj) => {
     fileObj = JSON.parse(fileObj);
