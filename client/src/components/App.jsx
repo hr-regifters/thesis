@@ -11,86 +11,7 @@ export default class App extends React.Component {
       view: 'verify',  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
       // concoctionIds: [''],
-      concoctions: [
-        // { id: 2,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-        // { id: 7,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-        // { id: 8,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-        // { id: 9,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-        // { id: 4,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-        // { id: 5,
-        //   description: 'takes a slack file and adds it to your evernote for you!',
-        //   services: {
-        //     trigger:
-        //       {
-        //         serviceName: 'slack',
-        //       },
-        //     actions: [
-        //       { serviceName: 'evernote',
-        //       },
-        //     ],
-        //   },
-        // },
-      ],
+      concoctions: [],
       servicesDetail: servicesDetail,
       connectedServices: {
         slack: false,
@@ -106,10 +27,16 @@ export default class App extends React.Component {
     });
   }
 
+  changeState(state, val) {
+    var temp = this.state;
+    temp[state] = val;
+    this.setState(temp);
+  }
+
   render() {
     return (
       <div className="full">
-        <Navigator appState={this.state} changeViewTo={this.changeViewTo.bind(this)} />
+        <Navigator appState={this.state} changeState={this.changeState.bind(this)} changeViewTo={this.changeViewTo.bind(this)} />
       </div>
     );
   }

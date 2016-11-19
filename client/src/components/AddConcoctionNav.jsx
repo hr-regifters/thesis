@@ -13,7 +13,8 @@ const AddConcoctionNav = (props) => {
         Description: <input id='desc' type='text'></input>
         </div>
         <Trigger state={props.state} 
-                     servicesDetail={props.servicesDetail}  
+                     servicesDetail={props.servicesDetail}
+                     connectedServices={props.connectedServices}
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
@@ -37,7 +38,8 @@ const AddConcoctionNav = (props) => {
         Description: <input id='desc' type='text'></input>
         </div>
         <Trigger state={props.state} 
-                     servicesDetail={props.servicesDetail}  
+                     servicesDetail={props.servicesDetail}
+                     connectedServices={props.connectedServices}
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
@@ -70,7 +72,8 @@ const AddConcoctionNav = (props) => {
         Description: <input id='desc' type='text'></input>
         </div>
         <Trigger state={props.state} 
-                     servicesDetail={props.servicesDetail}  
+                     servicesDetail={props.servicesDetail}
+                     connectedServices={props.connectedServices}
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}

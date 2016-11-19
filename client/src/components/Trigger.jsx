@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 //require('../../dist/main.css');
 
 const Trigger = (props) => {
@@ -14,7 +15,12 @@ const Trigger = (props) => {
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
             return (
               <div onClick={ () => {props.modifyTrigger(service)}}>
-              {service}
+                {
+                  props.connectedServices[service] ?
+                  <a>{service}</a>
+                  :
+                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
+                }
               </div>
             );
           })}
