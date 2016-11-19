@@ -48,7 +48,7 @@ const AddConcoctionNav = (props) => {
 
             {props.state.actions.map(function(action, index) {
               return(
-                <Action actionsIndex={index}
+                <Action key={index} actionsIndex={index}
                     state={props.state.actions[index]}
                     servicesDetail={props.servicesDetail}
                     modifyAction={props.modifyAction}
@@ -78,7 +78,7 @@ const AddConcoctionNav = (props) => {
             
             {props.state.actions.map(function(action, index) {
                           return(
-                            <Action actionsIndex={index}
+                            <Action key={index} actionsIndex={index}
                                 state={props.state.actions[index]}
                                 servicesDetail={props.servicesDetail}
                                 modifyAction={props.modifyAction}
