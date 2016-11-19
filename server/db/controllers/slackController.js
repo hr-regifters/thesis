@@ -22,7 +22,7 @@ module.exports.Strategy = new SlackStrategy({
 
 module.exports.getFile = (slackId, fileId) => {
   const token = 'xoxp-41796934391-76814112084-107473085062-013f901abd34434104fbaef1d04318fe';
-  request(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`)
+  return request(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`)
   .then((fileObj) => {
     fileObj = JSON.parse(fileObj);
     if (fileObj.ok) {
