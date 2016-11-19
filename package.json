@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "forever server/index.js & webpack -d --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha server/tests/routesSpec.js"
   },
   "repository": {
     "type": "git",
@@ -65,10 +65,12 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.10.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "^6.6.0"
+    "eslint-plugin-react": "^6.6.0",
+    "mocha": "^3.1.2"
   }
 }
