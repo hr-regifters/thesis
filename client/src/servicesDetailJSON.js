@@ -1,7 +1,7 @@
 exports.servicesDetailJSON = {
   slack: {
     name: 'slack',
-    icon: '',
+    icon: '<slack icon>',
     trigger: {
       options: [
         { description: 'When a file is uploaded to Slack ',
@@ -15,6 +15,7 @@ exports.servicesDetailJSON = {
         { description: 'Post to a Slack Channel',
           parameters: [
             { description: 'Channel Name',
+              alias: 'channelName',
             },
           ],
         },
@@ -23,13 +24,25 @@ exports.servicesDetailJSON = {
   },
   evernote: {
     name: 'evernote',
-    icon: '',
+    icon: '<evernote icon>',
     trigger: {
       options: [
         { description: 'When a Note with a specific Tag is created',
           parameters: [
             { description: 'Tag Name',
+              alias: 'tagName',
             },
+          ],
+        },
+        { description: 'When a Note in a Specific Notebook is created',
+          parameters: [
+            { description: 'Notebook Name',
+              alias: 'parentNotebook',
+            },
+          ],
+        },
+        { description: 'When a note in a any Notebook is created',
+          parameters: [
           ],
         },
       ],

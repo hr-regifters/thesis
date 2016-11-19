@@ -16,10 +16,7 @@ const userSchema = new Schema({
   slackToken: String,
   evernoteToken: String,
 
-  Concoctions: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Concoction'
-  }]
+  Concoctions: []
 });
 
 module.exports = mongoose.model('User', userSchema);
