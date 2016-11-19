@@ -1,4 +1,5 @@
 import React from 'react';
+import currUrl from './../../../currUrl';
 
 import AddConcoctionNav from './AddConcoctionNav.jsx';
 
@@ -7,7 +8,6 @@ export default class AddConcoctionView extends React.Component {
     super(props);
 
     this.state = {
-      description: '',
       trigger: '',
       triggerOption: '',
       triggerParams: '',
@@ -23,10 +23,24 @@ export default class AddConcoctionView extends React.Component {
     };
   }
 
-  modifyDescription(desc) {
-    this.setState({
-      description: desc,
-    });
+  saveConcoction(desc) {
+      let context = this;
+     fetch(`${currUrl}/api/constructor/slack/add`, {
+       method: 'POST',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({
+         trigger: context.state.trigger,
+         username: context.props.appState.user,
+         actionApi: context.state.actions[0].action,
+         actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
+         actionParams: JSON.stringify(context.state.actions[0].actionParams), // parent notebook, evernote token,
+       }),
+     })
+     .then(function(res) {
+       if (res.status === 201) {
+         context.props.changeViewTo('home');
+       }
+     });
   }
 
   modifyTrigger(trig) {
@@ -42,7 +56,6 @@ export default class AddConcoctionView extends React.Component {
   }
 
   modifyTriggerParams(param, alias) {
-    console.log(param, alias);
     this.setState({
       triggerParams: {
         param: param,
@@ -82,15 +95,12 @@ export default class AddConcoctionView extends React.Component {
 
   modifyActionParams(param, alias, index) {
     var temp = this.state.actions;
-    temp[index].actionParams = {
-        param: param,
-        alias: alias,
-      };
+    temp[index].actionParams = {};
+    temp[index].actionParams[alias] = param;
     this.setState({
       actions: temp,
     });
     this.modifyActionReveal(index);
-    console.log(this.state);
   }
 
   modifyActionReveal(index) {
@@ -137,7 +147,7 @@ export default class AddConcoctionView extends React.Component {
                            modifyActionReveal={this.modifyActionReveal.bind(this)} 
                            changeViewTo={this.props.changeViewTo} 
                            addNewAction={this.addNewAction.bind(this)}
-                           modifyDescription={this.modifyDescription} />
+                           saveConcoction={this.saveConcoction.bind(this)} />
       </div>
     );
   }
