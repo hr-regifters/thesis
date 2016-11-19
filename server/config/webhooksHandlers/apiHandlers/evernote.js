@@ -18,7 +18,7 @@ module.exports = {
   },
   actions: {
     postNote: (paramObj) => {
-
+      
       const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
           if (err) {
