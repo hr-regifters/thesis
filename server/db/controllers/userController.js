@@ -78,10 +78,6 @@ exports.getUserData = (userKey, userValue) => {
 };
 
 exports.getUserConcoctions = (req, res) => {
-
-  console.log(req.query);
-
-
   exports.getUserData('username', req.query.username)
   .then((user) => {
     console.log('user is: ', user);

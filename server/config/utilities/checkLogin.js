@@ -1,3 +1,4 @@
+"use strict"
 module.exports = (req, res, next) => {
   let valid = false;
   for (let key in req.sessionStore.sessions) {
