@@ -91,6 +91,7 @@ nav {
 }
 
 #login h2 {
+ /* background: linear-gradient(90deg, #39BBC0,  #C04F47);*/
   background-color: rgba(57,187,192,0.7);
   padding: 3%;
   margin-top: 0;
@@ -171,8 +172,11 @@ nav {
   font-size: 20px;
   background-color: transparent;
 
-}
 
+}
+input:focus {
+    outline:none;
+}
 #register button {
   background-color: #6a6aad;
   color: white;
