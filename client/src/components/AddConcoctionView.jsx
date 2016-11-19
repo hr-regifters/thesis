@@ -154,6 +154,8 @@ export default class AddConcoctionView extends React.Component {
                            modifyActionReveal={this.modifyActionReveal.bind(this)} 
                            changeViewTo={this.props.changeViewTo} 
                            addNewAction={this.addNewAction.bind(this)}
+                           connectedServices={this.props.appState.connectedServices}
+                           modifyDescription={this.modifyDescription}
                            saveConcoction={this.saveConcoction.bind(this)} />
       </div>
     );

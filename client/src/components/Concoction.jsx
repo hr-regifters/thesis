@@ -2,10 +2,6 @@ import React from 'react';
 import { Col, Row, Grid, Table, Navigation, Nav, Button } from 'react-bootstrap';
 
 export default class Concoction extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   transitionToEdit() {
     // css animations
     // change view on app state to concoctionEdit
@@ -17,7 +13,7 @@ export default class Concoction extends React.Component {
       <div className="concoction animated fadeIn">
         <div className="mainBox">
           <i className="fa fa-free-code-camp fa-3x"></i>
-          <p> Concoction: {this.props.concoctionInfo.description}</p>
+          <p> Concoction: When I {this.props.concoctionInfo.trigger} to Slack, {this.props.concoctionInfo.actionFunction} to {this.props.concoctionInfo.actionApi}</p>
         </div>
         <div className="bottomBox">
           <a>Edit</a>
