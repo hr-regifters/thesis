@@ -17,11 +17,11 @@ export default class HomeView extends React.Component {
       if (res.status === 200) {
         return res.json();
       } else {
-        throw new Error('No concoctions retrieved');
+        throw new Error('Cannot retrieve concoctions');
       }
     })
     .then((concObj) => {
-      // context.setState({concoctions: concObj.concoctions});
+      console.log('CONCOBJ', concObj);
       context.props.changeState('concoctions', concObj.concoctions);
       concObj['oauths'].forEach((api) => 
         context.props.appState.connectedServices[api] = true
