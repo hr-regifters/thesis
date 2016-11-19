@@ -14,11 +14,19 @@ module.exports.Strategy = new SlackStrategy({
   scope: 'incoming-webhook users:read files:read channels:history'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
+    console.log(accessToken)
     var slackData = [accessToken, profile.id];
     return done(null, slackData);
   });
 });
 
-module.exports.getFile = (slackId, fileId) => User.findOne({ slackId: slackId })
-  .then((user) => request(`https://slack.com/api/files.info?token=${user.slackToken}&file=${fileId}&pretty=1`))
-  .then((fileObj) => JSON.parse(fileObj).file);
+module.exports.getFile = (slackId, fileId) => 
+  const token = 'xoxp-41796934391-76814112084-107473085062-013f901abd34434104fbaef1d04318fe';
+  request(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`)
+  .then((fileObj) => { 
+    if (ok) {
+      return JSON.parse(fileObj).file}
+    } else {
+      throw new Error(fileObj);
+    }
+  }).catch((error) => { console.log('Error in slackCtrl getFile: ', error); });
