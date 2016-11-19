@@ -47,7 +47,7 @@ exports.addConcoction = (username, concoction, trigger) => {
       throw new error;
     } else {
       concoction['trigger'] = trigger;
-      user.Concoctions.push(concoction);
+      user.concoctions.push(concoction);
       user.save((err, updated) => {
         console.log('added concoction to user');
       });
@@ -77,4 +77,21 @@ exports.getUserData = (userKey, userValue) => {
   return User.findOne(query).then((user) => user ? user : "no user");
 };
 
-
+exports.getUserConcoctions = (req, res) => {
+  exports.getUserData('username', req.query.username)
+  .then((user) => {
+    console.log('user is: ', user);
+    var data = {
+      oauths: [],
+      concoctions: [],
+    };
+    data.concoctions = user.concoctions;
+    for (var key in user) {
+      if (key.slice(key.length - 5, key.length) === 'Token') {
+        data.oauths.push(key.slice(0, key.length - 5));
+      }
+    }
+    res.json(data);
+  })
+  .catch((error) => { console.log('error in getUserConcoctions: ', error) });
+};
