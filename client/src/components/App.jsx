@@ -12,84 +12,84 @@ export default class App extends React.Component {
       spotlightConcoctionId: 1,
       // concoctionIds: [''],
       concoctions: [
-        { id: 2,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
-        { id: 7,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
-        { id: 8,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
-        { id: 9,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
-        { id: 4,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
-        { id: 5,
-          description: 'takes a slack file and adds it to your evernote for you!',
-          services: {
-            trigger:
-              {
-                serviceName: 'slack',
-              },
-            actions: [
-              { serviceName: 'evernote',
-              },
-            ],
-          },
-        },
+        // { id: 2,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
+        // { id: 7,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
+        // { id: 8,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
+        // { id: 9,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
+        // { id: 4,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
+        // { id: 5,
+        //   description: 'takes a slack file and adds it to your evernote for you!',
+        //   services: {
+        //     trigger:
+        //       {
+        //         serviceName: 'slack',
+        //       },
+        //     actions: [
+        //       { serviceName: 'evernote',
+        //       },
+        //     ],
+        //   },
+        // },
       ],
       servicesDetail: servicesDetail,
       connectedServices: {

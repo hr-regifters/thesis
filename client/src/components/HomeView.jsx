@@ -4,8 +4,23 @@ import { Button } from 'react-bootstrap';
 import Concoction from './Concoction.jsx';
 
 export default class HomeView extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    let context = this;
+    fetch(`${currUrl}/api/user/concoctions?username=${this.props.appState.user}`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(function(res) {
+      if (res.status === 200) {
+        let res = JSON.parse(res);
+        context.props.appState.concoctions = res.body.concoctions;
+        res.body.oauths.forEach((api) => 
+          context.props.appState.connectedServices[api] = true
+        );
+      } else {
+        console.log('concoctions not received');
+      }
+    });
   }
 
   transitionToAddConcoction() {
