@@ -5,7 +5,7 @@ exports.servicesDetailJSON = {
     trigger: {
       options: [
         { description: 'When a file is uploaded to Slack ',
-          alias: 'none',
+          alias: 'file_created',
           parameters: [
           ],
         },
