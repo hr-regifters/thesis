@@ -13,7 +13,7 @@ const Action = (props) => {
         <div className={props.state.actionServicesReveal}>
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
             return (
-              <div onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
+              <div key={service} onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
               {service}
               </div>
             );
@@ -32,7 +32,7 @@ const Action = (props) => {
         <div className={props.state.actionServicesReveal}>
           {props.servicesDetail.servicesDetailJSON[props.state.action].action.options.map(function(option, index){
             return (
-              <div onClick={ () => {props.modifyActionOption(index, props.actionsIndex)}}>
+              <div key={index} onClick={ () => {props.modifyActionOption(index, props.actionsIndex)}}>
               {option.description}
               </div>
             );
@@ -72,7 +72,7 @@ const Action = (props) => {
           </div>
           {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.map(function(param) {
             return(
-              <div>
+              <div key={param.alias}>
               {param.description}: <input id='param' type='text' className={param.alias}></input>
               </div>
             )

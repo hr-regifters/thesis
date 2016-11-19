@@ -30,7 +30,7 @@ describe ('server routes for webhooks', () => {
   });
 
   it('should 404 when asked for a nonexistent endpoint', (done) => {
-    request('http://127.0.0.1:1337/arglebargle', (error, res, body) => {
+    request(`${currUrl}/arglebargle`, (error, res, body) => {
       expect(res.statusCode).to.equal(404);
       done();
     });
