@@ -6,12 +6,13 @@ const request = require('request-promise');
 const SlackStrategy = require('passport-slack').Strategy;
 const SLACK_ID = process.env.SLACK_ID || require('../../../env.js').SLACK_ID;
 const SLACK_SECRET = process.env.SLACK_SECRET || require('../../../env.js').SLACK_SECRET;
+const token = process.env.slackAppToken || require('../../../env.js').slackAppToken;
 
 module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,
   clientSecret: SLACK_SECRET,
   callbackURL: `${currUrl}/api/oauth/slack/callback`,
-  scope: 'incoming-webhook users:read files:read channels:history'
+  scope: 'incoming-webhook users:read files:read channels:history pins:read'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
     var slackData = [accessToken, profile.id];
@@ -19,6 +20,15 @@ module.exports.Strategy = new SlackStrategy({
   });
 });
 
-module.exports.getFile = (slackId, fileId) => User.findOne({ slackId: slackId })
-  .then((user) => request(`https://slack.com/api/files.info?token=${user.slackToken}&file=${fileId}&pretty=1`))
-  .then((fileObj) => JSON.parse(fileObj).file);
+module.exports.getFile = (slackId, fileId) => {
+  return request(`https://slack.com/api/files.info?token=${token}&file=${fileId}&pretty=1`)
+  .then((fileObj) => {
+    fileObj = JSON.parse(fileObj);
+    if (fileObj.ok) {
+      return fileObj.file;
+    } else {
+      throw new Error(fileObj);
+    }
+  })
+  .catch((error) => { console.log('Error in slackCtrl getFile: ', error); });
+};

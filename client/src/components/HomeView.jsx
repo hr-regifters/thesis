@@ -1,11 +1,34 @@
+"use strict"
+
 import React from 'react';
 import { Col, Row, Grid, Table, Navigation, Nav, NavItem } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import Concoction from './Concoction.jsx';
+import currUrl from './../../../currUrl';
 
 export default class HomeView extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    let context = this;
+    fetch(`${currUrl}/api/user/concoctions?username=${this.props.appState.user}`, {
+      method: 'GET',
+      // headers: {'Content-Type': 'application/json'},
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error('Cannot retrieve concoctions');
+      }
+    })
+    .then((concObj) => {
+      console.log('CONCOBJ', concObj);
+      context.props.changeState('concoctions', concObj.concoctions);
+      concObj['oauths'].forEach((api) => 
+        context.props.appState.connectedServices[api] = true
+      )
+      context.props.changeState('connectedServices', context.props.appState.connectedServices)
+    })
+    .catch((err) => { console.log(err) });
   }
 
   transitionToAddConcoction() {
@@ -18,23 +41,19 @@ export default class HomeView extends React.Component {
     return (
       <div id="HomeView">
         <nav className="navbar navbar-default navbar-fixed-top"> 
-          <div className="container-fluid">
-          <h3 className = "navbar-left">Profile</h3>
-          <h3 className="navbar-right"> My Apps </h3>
-          <h1 className ="navbar"> Hack Reactions</h1>
-
+          <div className="container-fluid Mod">
+          <h3 className="pull-right"> My Apps </h3>
+          <h3 className="pull-right"> Profile </h3>
+          <h1 className ="navbar-left"> Regift3d</h1>
           </div>
         </nav>
         <div id="concoctions">
-
-
           <div className="container-fluid"> 
             <Row>
-
               {
                 this.props.appState.concoctions.map((concoction) => {
                   return (
-                    <Col xs={4} key={concoction.id}>
+                    <Col xs={4}>
                       <Concoction concoctionInfo={concoction} servicesDetail={this.props.appState.servicesDetail} />
                     </Col>
                   );
@@ -48,7 +67,6 @@ export default class HomeView extends React.Component {
             </Row>
           </div>
         </div>
-
       </div>
     );
   }

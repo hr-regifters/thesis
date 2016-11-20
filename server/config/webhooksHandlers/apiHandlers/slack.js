@@ -3,7 +3,8 @@ const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const listenTo = {
-  file_created: true
+  file_created: true,
+  pin_added: true
 };
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type]) {
       res.status(200).send('registered slack event');
-
+      console.log(req.body)
       let slackReqObj = {
         slackUserId: '',
         title: '',

@@ -21,7 +21,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        context.props.appState.user = username;
+        context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
         console.log('username/email already taken'); // TODO: input error message saying username/email taken
@@ -43,7 +43,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        context.props.appState.user = username;
+        context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
         console.log('invalid username/password'); // TODO: input error message saying username/password incorrect
@@ -56,7 +56,7 @@ export default class Verification extends React.Component {
   render() {
     return (
       <div id="Verification">
-      <h1 id="signupTitle" className="animated fadeInDown"> Hack Reaction </h1>
+      <h1 id="signupTitle" className="animated fadeInDown"> Regift3d </h1>
       <Grid>
 
         <row>
@@ -74,7 +74,7 @@ export default class Verification extends React.Component {
               <h2>SIGNIN</h2>
               <input placeholder="username" id="username" />
               <input placeholder="password" id="password" />
-              <input placeholder="password" id="invisiblefiller" />
+              <input placeholder="email" id="invisiblefillera" />
               <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
             </form>
           </div>

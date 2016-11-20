@@ -1,6 +1,6 @@
 import React from 'react';
 import currUrl from './../../../currUrl';
-
+import { Col, Row, Grid, Table, Navigation, Nav, NavItem } from 'react-bootstrap';
 import AddConcoctionNav from './AddConcoctionNav.jsx';
 
 export default class AddConcoctionView extends React.Component {
@@ -139,22 +139,40 @@ export default class AddConcoctionView extends React.Component {
 
   render() {
     return (
-      <div>
-        <AddConcoctionNav  state={this.state} 
-                           servicesDetail={this.props.appState.servicesDetail}  
-                           modifyTrigger={this.modifyTrigger.bind(this)}
-                           modifyTriggerOption={this.modifyTriggerOption.bind(this)}
-                           modifyTriggerParams={this.modifyTriggerParams.bind(this)}
-                           modifyTriggerReveal={this.modifyTriggerReveal.bind(this)}
 
-                           servicesDetail={this.props.appState.servicesDetail}
-                           modifyAction={this.modifyAction.bind(this)}
-                           modifyActionOption={this.modifyActionOption.bind(this)}
-                           modifyActionParams={this.modifyActionParams.bind(this)}
-                           modifyActionReveal={this.modifyActionReveal.bind(this)} 
-                           changeViewTo={this.props.changeViewTo} 
-                           addNewAction={this.addNewAction.bind(this)}
-                           saveConcoction={this.saveConcoction.bind(this)} />
+      <div className="full">
+      <nav className="navbar navbar-default navbar-fixed-top"> 
+        <div className="container-fluid Mod">
+        <h3 className="pull-right"> My Apps </h3>
+        <h3 className="pull-right"> Profile </h3>
+        <h1 className ="navbar-left"> Regift3d</h1>
+        </div>
+      </nav>
+      <Grid id="concViewGrid" className='full'>
+      <Row className = 'full'>
+        <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
+        <div id="concoctionMakerBox">
+          <AddConcoctionNav  state={this.state} 
+                             servicesDetail={this.props.appState.servicesDetail}  
+                             modifyTrigger={this.modifyTrigger.bind(this)}
+                             modifyTriggerOption={this.modifyTriggerOption.bind(this)}
+                             modifyTriggerParams={this.modifyTriggerParams.bind(this)}
+                             modifyTriggerReveal={this.modifyTriggerReveal.bind(this)}
+
+                             servicesDetail={this.props.appState.servicesDetail}
+                             modifyAction={this.modifyAction.bind(this)}
+                             modifyActionOption={this.modifyActionOption.bind(this)}
+                             modifyActionParams={this.modifyActionParams.bind(this)}
+                             modifyActionReveal={this.modifyActionReveal.bind(this)} 
+                             changeViewTo={this.props.changeViewTo} 
+                             addNewAction={this.addNewAction.bind(this)}
+                             connectedServices={this.props.appState.connectedServices}
+                             modifyDescription={this.modifyDescription}
+                             saveConcoction={this.saveConcoction.bind(this)} />
+        </div>
+        </Col>
+      </Row>
+      </Grid>
       </div>
     );
   }
