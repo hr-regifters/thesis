@@ -8,6 +8,11 @@
 h1, h3, h2, i {
   color: #fff;
   font-family: 'Rubik', sans-serif;
+
+}
+h2, h3, p {
+  font-family: 'Rubik', sans-serif;
+
 }
 h2, h3, p {
   font-family: 'Rubik', sans-serif;
@@ -309,6 +314,7 @@ input:focus {
   background-color: #0F8B8D;
   height: 100%;
 }
+
 input {
   border-radius: 20px;
   color: black;
@@ -327,6 +333,10 @@ input {
   width: 27%;
   display: inline-block;
 }
+
+
+
+
 
 
 
