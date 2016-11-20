@@ -17,7 +17,7 @@ module.exports = {
       && req.body.event.event_ts * 1000 < currentTime && req.body.token === 'a1w5cdEEWMlk4t8TZ60TOX43'
       && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
-      console.log(req.body.event.item);
+      console.log(req.body);
       let slackReqObj = {
         slackUserId: '',
         title: '',
@@ -31,9 +31,7 @@ module.exports = {
         // fetch db data for users to get actions
       concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
         async.each(arr, (obj, callback) => {
-          console.log('before the user check: ', obj);
           if (req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
-            console.log('after authed users: ', obj.slackUserId)
             if (obj.actionApi === undefined || obj.actionFunction === undefined) { // check for additional things like token, api_app_id, timestamp
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.slackUserId}`);
               callback();
