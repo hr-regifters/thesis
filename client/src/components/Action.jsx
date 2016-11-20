@@ -9,19 +9,19 @@ const Action = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-        Action:
+        <h1>Action   <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
             return (
-              <div key={service} onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
+              <h3 className='serviceBttn' key={service} onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
                 {
                   props.connectedServices[service] ?
                   <a>{service}</a>
                   :
                   <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
                 }
-              </div>
+              </h3>
             );
           })}
         </div>
@@ -32,14 +32,13 @@ const Action = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-        Action:  {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
-        <span onClick={ () => {props.modifyAction('', props.actionsIndex)}}>X</span>
+          <h1><i className="fa fa-reply" onClick={ () => {props.modifyAction('', props.actionsIndex)}}></i>  <img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           {props.servicesDetail.servicesDetailJSON[props.state.action].action.options.map(function(option, index){
             return (
               <div key={index} onClick={ () => {props.modifyActionOption(index, props.actionsIndex)}}>
-              {option.description}
+                <h2><i className="fa fa-square-o"></i> {option.description}</h2>
               </div>
             );
           })}
@@ -51,12 +50,11 @@ const Action = (props) => {
     return(
       <div>
         <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-        Action: {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
+          <h1><img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}
-          <span onClick={ () => {props.modifyTriggerOption('', props.actionsIndex)}}>X</span>
+          <h2><i onClick={ () => {props.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           <div>
           Save Action
@@ -69,12 +67,11 @@ const Action = (props) => {
     return(
      <div>
         <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-        Action: {props.servicesDetail.servicesDetailJSON[props.state.action].icon} {props.state.action}
+        <h1><img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}
-          <span onClick={ () => {props.modifyActionOption('', props.actionsIndex)}}>X</span>
+          <h2><i onClick={ () => {props.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           {props.servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.map(function(param) {
             return(
