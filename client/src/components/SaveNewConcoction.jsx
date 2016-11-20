@@ -10,15 +10,13 @@ const SaveNewConcoction = (props) => {
       return prev && complete;
     }, true) || props.trigger === '' || props.triggerOption === '' || props.triggerParams === '') {
     return (
-      <div className='saveDisabled'>
-      Save New Concoction
-      </div>
+      <div></div>
     );
   } else {
     // props.saveConcoction(document.getElementById('desc').value)
     return (
       <div className='saveEnabled' onClick={ () => {props.saveConcoction()}}>
-      Save New Concoction
+      <h2 className='saveBttn'>Save New Concoction</h2>
       </div>
     );
   }

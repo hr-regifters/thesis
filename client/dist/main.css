@@ -333,6 +333,16 @@ input {
   width: 27%;
   display: inline-block;
 }
+.workWindow2 {
+  background-color: #0d7f81;
+  margin: 0px;
+  padding: 10px;
+}
+.workWindow1 {
+  background-color: #0c7476;
+  margin: 0px;
+  padding: 10px;
+}
 
 
 

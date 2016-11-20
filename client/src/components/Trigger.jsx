@@ -7,15 +7,10 @@ const Trigger = (props) => {
   if (props.state.trigger === '') {
     //display slack and evernote triggers
     return(
-      <div>
+      <div className='workWindow1'>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
         <div className="inline">
-<<<<<<< HEAD
         <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
-=======
-        <h1>Trigger:   <i className="fa fa-caret-down"></i></h1>
->>>>>>> ae5064b0213de4175c00216821438d157a8b2513
-        
         </div>
         </div>
         <div className={props.state.triggerServicesReveal}>
@@ -38,7 +33,7 @@ const Trigger = (props) => {
   } else if (props.state.trigger !== '' && props.state.triggerOption === '') {
     //display trigger in state and show options for trigger in state
     return(
-      <div>
+      <div className='workWindow1'>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
         <div className="inline">
         <h1><i className="fa fa-reply" onClick={ () => {props.modifyTrigger('')}}></i>  <img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.trigger].icon}></img> Trigger <i className="fa fa-caret-down"></i></h1>   
@@ -62,7 +57,7 @@ const Trigger = (props) => {
   } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length === 0) {
     //display trigger and option in state 
     return(
-      <div>
+      <div className='workWindow1'>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
         <h1><img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.trigger].icon}></img>  Trigger   <i className="fa fa-caret-down"></i></h1> 
 
@@ -80,7 +75,7 @@ const Trigger = (props) => {
   } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && props.servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length > 0) {
     //display trigger and option in state 
     return(
-     <div>
+     <div className='workWindow1'>
         <div onClick={ () => {props.modifyTriggerReveal()}}>
         <h1><img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.trigger].icon}></img>   Trigger   <i className="fa fa-caret-down"></i></h1> 
         </div>
