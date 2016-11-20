@@ -37,7 +37,7 @@ module.exports = {
               callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionApi === 'evernote' && obj.actionFunction === 'postNote') {
-                slackCtrl.getFile(req.body['authed_users'][0], req.body.event.file_id)
+                slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
                   slackReqObj.title = file.title;
                   if (file.mimetype.slice(0, 5) === 'image') {
@@ -52,20 +52,32 @@ module.exports = {
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote postNote action: ', error); });
               } else if (req.body.event.type === 'pin_added' && obj.actionApi === 'evernote' && obj.actionFunction === 'postNote') {
-                slackCtrl.getFile(req.body['authed_users'][0], req.body.event.file_id)
-                .then((file) => {
-                  slackReqObj.title = file.title;
-                  if (file.mimetype.slice(0, 5) === 'image') {
-                    slackReqObj.images = [file.url_private];
-                  }
-                  slackReqObj.links = [file.url_private];
-                  slackReqObj.body = new Date(file.timestamp * 1000).toString();
-                  slackReqObj.tagNames = ['Slack', 'Upload'];
+                if (req.body.event.item.type === 'file') {
+                  slackCtrl.getFile(req.body.event.item.file_id)
+                  .then((file) => {
+                    slackReqObj.title = file.title;
+                    if (file.mimetype.slice(0, 5) === 'image') {
+                      slackReqObj.images = [file.url_private];
+                    }
+                    slackReqObj.links = [file.url_private];
+                    slackReqObj.body = new Date(file.timestamp * 1000).toString();
+                    slackReqObj.tagNames = ['Slack', 'Upload'];
+                    slackReqObj.slackUserId = obj.slackUserId;
+                    slackReqObj.actionParams = JSON.parse(obj.actionParams);
+                    webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                    callback();
+                  }).catch((error) => { console.log('Error in file_created and evernote postNote action: ', error); });
+                } else if (req.body.event.item.type === 'message') {
+                  var msg = req.body.event.item.message;
+                  slackReqObj.title = msg.text;
+                  slackReqObj.links = [msg.permalink];
+                  slackReqObj.body = new Date(req.body.event.item.created * 1000).toString();
+                  slackReqObj.tagNames = ['Slack', 'Pin'];
                   slackReqObj.slackUserId = obj.slackUserId;
                   slackReqObj.actionParams = JSON.parse(obj.actionParams);
                   webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
                   callback();
-                }).catch((error) => { console.log('Error in file_created and evernote postNote action: ', error); });
+                }
               }
             }
           } else {
