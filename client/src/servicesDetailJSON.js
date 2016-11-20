@@ -9,6 +9,11 @@ exports.servicesDetailJSON = {
           parameters: [
           ],
         },
+        { description: 'When a message is pinned in Slack ',
+          alias: 'pin_added',
+          parameters: [
+          ],
+        },
       ],
     },
     action: {
