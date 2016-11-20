@@ -3,7 +3,8 @@ const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const listenTo = {
-  file_created: true
+  file_created: true,
+  pin_added: true
 };
 
 module.exports = {
