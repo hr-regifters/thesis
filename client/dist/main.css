@@ -5,13 +5,19 @@
   margin-bottom: 50px;*/
   text-align: center;
 }
-h1, h3, i {
+h1, h3, h2, i {
   color: #fff;
   font-family: 'Rubik', sans-serif;
+
+}
+h2, h3, p {
+  font-family: 'Rubik', sans-serif;
+
 }
 h2, h3, p {
   font-family: 'Rubik', sans-serif;
 }
+
 a {
   color: #fff;
   padding: 10px;
@@ -291,6 +297,9 @@ input:focus {
   width: 98%;
 }
 
+.icon {
+  padding: 10px;
+}
 
 /*================================================== Styling for AddConcoction Nav =============================================*/
 .inline {
@@ -308,6 +317,36 @@ input:focus {
   background-color: #0F8B8D;
   height: 100%;
 }
+
+input {
+  border-radius: 20px;
+  color: black;
+}
+.saveBttn {
+  border-style: solid;
+  border-color: #fff;
+  border-radius: 20px;
+  border-width: 4px;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+.serviceBttn {
+  width: 27%;
+  display: inline-block;
+}
+.workWindow2 {
+  background-color: #0d7f81;
+  margin: 0px;
+  padding: 10px;
+}
+.workWindow1 {
+  background-color: #0c7476;
+  margin: 0px;
+  padding: 10px;
+}
+
 
 
 

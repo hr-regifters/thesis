@@ -1,10 +1,10 @@
 exports.servicesDetailJSON = {
   slack: {
     name: 'slack',
-    icon: '<slack icon>',
+    icon: 'https://www.slack.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When a file is uploaded to Slack ',
+        { description: 'When a file is uploaded in Slack ',
           alias: 'file_created',
           parameters: [
           ],
@@ -31,7 +31,7 @@ exports.servicesDetailJSON = {
   },
   evernote: {
     name: 'evernote',
-    icon: '<evernote icon>',
+    icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: [
         { description: 'When a Note with a specific Tag is created',
@@ -70,4 +70,13 @@ exports.servicesDetailJSON = {
       ],
     },
   },
+  fitbit: {},
+  strava: {},
+  twitch: {},
+  facebook: {},
+  twitter: {},
+  github: {},
+  instagram: {},
+  googleCalendar: {},
+  SMS: {},
 };

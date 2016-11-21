@@ -97,8 +97,8 @@ const AddConcoctionNav = (props) => {
               );
             })}
 
-            <div onClick={ () => {props.addNewAction()}}>
-            Add New Action
+            <div>
+              <h2 onClick={ () => {props.addNewAction()}} className='saveBttn'>Add New Action</h2>
             </div>
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
 
