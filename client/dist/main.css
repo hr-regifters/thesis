@@ -297,6 +297,9 @@ input:focus {
   width: 98%;
 }
 
+.icon {
+  padding: 10px;
+}
 
 /*================================================== Styling for AddConcoction Nav =============================================*/
 .inline {
