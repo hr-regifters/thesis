@@ -4,7 +4,7 @@ exports.servicesDetailJSON = {
     icon: 'https://www.slack.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When a file is uploaded to Slack ',
+        { description: 'When a file is uploaded in Slack ',
           alias: 'file_created',
           parameters: [
           ],

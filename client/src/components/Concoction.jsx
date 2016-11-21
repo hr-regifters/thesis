@@ -13,7 +13,7 @@ export default class Concoction extends React.Component {
       <div className="concoction animated fadeIn">
         <div className="mainBox">
           <i className="fa fa-free-code-camp fa-3x"></i>
-          <p> Concoction: When I {this.props.concoctionInfo.trigger} to Slack, {this.props.concoctionInfo.actionFunction} to {this.props.concoctionInfo.actionApi}</p>
+          <p> Concoction: {this.props.concoctionInfo.description}</p>
         </div>
         <div className="bottomBox">
           <a>Edit</a>
