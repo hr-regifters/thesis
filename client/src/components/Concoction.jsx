@@ -12,8 +12,10 @@ export default class Concoction extends React.Component {
     return (
       <div className="concoction animated fadeIn">
         <div className="mainBox">
-          <i className="fa fa-free-code-camp fa-3x"></i>
-          <p> Concoction: When I {this.props.concoctionInfo.trigger} to Slack, {this.props.concoctionInfo.actionFunction} to {this.props.concoctionInfo.actionApi}</p>
+          <img className='icon' src={`https://www.slack.com/favicon.ico`}></img>
+          <i className="fa fa-arrow-right fa-1x"></i>
+          <img className='icon' src={`https://www.evernote.com/favicon.ico`}></img>
+          <p>{this.props.concoctionInfo.description}</p>
         </div>
         <div className="bottomBox">
           <a>Edit</a>

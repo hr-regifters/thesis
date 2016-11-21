@@ -24,30 +24,28 @@ export default class AddConcoctionView extends React.Component {
   }
 
   saveConcoction(desc) {
-      let context = this;
-     fetch(`${currUrl}/api/constructor/slack/add`, {
-       method: 'POST',
-       headers: {'Content-Type': 'application/json'},
-       body: JSON.stringify({
-         trigger: context.props.appState.servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias,
-         username: context.props.appState.user,
-         actionApi: context.state.actions[0].action,
-         actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
-         actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
-       }),
-     })
-     .then(function(res) {
-       if (res.status === 201) {
-         context.props.changeViewTo('home');
-       }
-     });
-     // console.log({
-     //     trigger: context.props.appState.servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias,
-     //     username: context.props.appState.user,
-     //     actionApi: context.state.actions[0].action,
-     //     actionFunction: context.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias,
-     //     actionParams: JSON.stringify(context.state.actions[0].actionParams), // parent notebook, evernote token,
-     //   });
+    let context = this;
+    let trigger = this.props.appState.servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias;
+    let actionFunction = this.props.appState.servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
+    let actionApi = this.state.actions[0].action;
+    console.log(this.state.trigger)
+    fetch(`${currUrl}/api/constructor/${this.state.trigger}/add`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        trigger: trigger,
+        username: context.props.appState.user,
+        actionApi: actionApi,
+        actionFunction: actionFunction,
+        actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
+        description: `If a ${trigger.slice(0, trigger.indexOf('_'))} is ${trigger.slice(trigger.indexOf('_') + 1)} in ${context.state.trigger}, ${actionFunction} to ${actionApi}`
+      }),
+    })
+    .then(function(res) {
+      if (res.status === 201) {
+        context.props.changeViewTo('home');
+      }
+    });
   }
 
   modifyTrigger(trig) {
