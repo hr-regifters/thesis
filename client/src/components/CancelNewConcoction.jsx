@@ -9,7 +9,7 @@ export default class CancelNewConcoction extends React.Component {
   render() {
     return (
       <div onClick={() => { this.props.changeViewTo('home'); }}>
-      Cancel
+      <h2 className='saveBttn'>Cancel</h2>
       </div>
     );
   }
