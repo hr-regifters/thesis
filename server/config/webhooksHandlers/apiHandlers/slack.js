@@ -61,12 +61,12 @@ module.exports = {
                     }
                     slackReqObj.links = [file.url_private];
                     slackReqObj.body = new Date(file.timestamp * 1000).toString();
-                    slackReqObj.tagNames = ['Slack', 'Upload'];
+                    slackReqObj.tagNames = ['Slack', 'Pin'];
                     slackReqObj.slackUserId = obj.slackUserId;
                     slackReqObj.actionParams = JSON.parse(obj.actionParams);
                     webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
                     callback();
-                  }).catch((error) => { console.log('Error in file_created and evernote postNote action: ', error); });
+                  }).catch((error) => { console.log('Error in pin_added and evernote postNote action: ', error); });
                 } else if (req.body.event.item.type === 'message') {
                   var msg = req.body.event.item.message;
                   slackReqObj.title = msg.text;

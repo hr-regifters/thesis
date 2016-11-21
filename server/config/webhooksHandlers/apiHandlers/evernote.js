@@ -22,7 +22,7 @@ module.exports = {
       const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
           if (err) {
-            console.log('this is wht we can\'t have nice things', err);
+            console.log('Note not saved', err);
           } else {
             console.log('Evernote Note posted');
           }
@@ -41,7 +41,7 @@ module.exports = {
       noteContent += '</en-note>';
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
-
+      console.log('EVERNOTE TOKEN', paramObj.actionParams.evernote);
       var client = new Evernote.Client({token: paramObj.actionParams.evernote}); //define client with the token from the DB
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
@@ -66,4 +66,3 @@ module.exports = {
     },
   },
 };
-// createNote(1, noteDetails, 'Whateves');
