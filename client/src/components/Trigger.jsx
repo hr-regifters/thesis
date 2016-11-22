@@ -7,26 +7,34 @@ const Trigger = (props) => {
   if (props.state.trigger === '') {
     //display slack and evernote triggers
     return(
-      <div className='workWindow1'>
-        <div onClick={ () => {props.modifyTriggerReveal()}}>
-        <div className="inline">
-        <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
+      <div>
+        <div id="myModal" className="modal" style={{display: props.state.modalReveal}}>
+          <div className="modal-content">
+            <span onClick={() => {props.hideModal()}} className="close">×</span>
+            <iframe src={`${currUrl}/api/oauth/${props.state.serviceToConnect}`} width="600px" height="600px"></iframe>
+          </div>
         </div>
-        </div>
-        <div className={props.state.triggerServicesReveal}>
-          {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
-            console.log(props.connectedServices)
-            return (
-              <h3 className='serviceBttn' onClick={ () => {props.modifyTrigger(service)}}>
-                {
-                  props.connectedServices[service] ?
-                  <a>{service}</a>
-                  :
-                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
-                }
-              </h3>
-            );
-          })}
+        <div className='workWindow1'>
+          <div onClick={ () => {props.modifyTriggerReveal()}}>
+          <div className="inline">
+          <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
+          </div>
+          </div>
+          <div className={props.state.triggerServicesReveal}>
+            {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
+              console.log(props.connectedServices);
+              return (
+                <h3 className='serviceBttn' >
+                  {
+                    props.connectedServices[service] ?
+                    <a onClick={ () => {props.modifyTrigger(service)}}>{service}</a>
+                    :
+                    <a onClick={() => {props.connectService(service)}}>{service}</a>
+                  }
+                </h3>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

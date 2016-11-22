@@ -7,23 +7,31 @@ const Action = (props) => {
   if (props.state.action === '') {
   //   //display slack and evernote triggers
     return(
-      <div className='workWindow2'>
-        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-        <h1>Action   <i className="fa fa-caret-down"></i></h1>
+      <div>
+        <div id="myModal" className="modal" style={{display: props.modalReveal}}>
+          <div className="modal-content">
+            <span onClick={() => {props.hideModal()}} className="close">×</span>
+            <iframe src={`${currUrl}/api/oauth/${props.serviceToConnect}`} width="600px" height="600px"></iframe>
+          </div>
         </div>
-        <div className={props.state.actionServicesReveal}>
-          {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
-            return (
-              <h3 className='serviceBttn' key={service} onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>
-                {
-                  props.connectedServices[service] ?
-                  <a>{service}</a>
-                  :
-                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
-                }
-              </h3>
-            );
-          })}
+        <div className='workWindow2'>
+          <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+          <h1>Action   <i className="fa fa-caret-down"></i></h1>
+          </div>
+          <div className={props.state.actionServicesReveal}>
+            {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
+              return (
+                <h3 className='serviceBttn' key={service}>
+                  {
+                    props.connectedServices[service] ?
+                    <a onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>{service}</a>
+                    :
+                    <a onClick={() => {props.connectService(service)}}>{service}</a>
+                  }
+                </h3>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
