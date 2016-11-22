@@ -13,6 +13,7 @@ const slackTriggerSchema = new Schema({
     actionFunction: String,
     actionParams: String,
     description: String,
+    enabled: Boolean,
   }]
   
 });
