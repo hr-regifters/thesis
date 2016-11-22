@@ -9,6 +9,6 @@ module.exports = (req, res, next) => {
   if (valid) {
     next();
   } else {
-    res.redirect('/');
+    res.status(404).send('invalid user');
   }
 };
