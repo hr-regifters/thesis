@@ -10,7 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-exports.Strategy = new LocalStrategy(
+exports.Login = new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
@@ -22,22 +22,22 @@ exports.Strategy = new LocalStrategy(
   }
 );
 
-exports.signup = (req, res) => { 
-  let username = req.body.username;
-  let password = req.body.password;
-  let email = req.body.email;
-
-  User.findOne({username: username}).then((user) => {
-    user ? res.status(401).send(usernameErr) : bcrypt.hash(password, saltRounds, (error, hash) => {
-      error ? res.send(error) : User.create({username: username, password: hash, email: email})
-      .then((user) => {
-        passport.authenticate('local', { failureRedirect: '/' });
-        res.status(201).send('success');
-      })
-      .catch((error)=>{res.status(401).send('user was not created: ' + error)});
+exports.Signup = new LocalStrategy({
+    passReqToCallback: true
+  },
+  function(req, username, password, done) {
+    User.findOne({username: username}).then((user) => {
+      user ? done(null, false) : bcrypt.hash(password, saltRounds, (error, hash) => {
+        error ? done(null, false) : User.create({username: username, password: hash, email: req.body.email})
+        .then((user) => {
+          done(null, true);
+        })
+        .catch((error)=>{done(null, false)});
+      });
     });
-  });
-};
+  }
+)
+
 exports.addConcoction = (username, concoction, trigger) => { 
   User.findOne({username: username}).then((user) => {
     if (!user) {
