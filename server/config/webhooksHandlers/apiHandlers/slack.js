@@ -2,6 +2,8 @@
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
+const request = require('request');
+const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken;
 const listenTo = {
   file_created: true,
   pin_added: true,
@@ -96,6 +98,10 @@ module.exports = {
     }
   },
   actions: {
-
+    post_message: (paramObj) => {
+      let channel = encodeURIComponent(paramObj.actionParams.channel);
+      let message = encodeURIComponent(paramObj.actionParams.text);
+      request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
+    };
   },
 };
