@@ -39,6 +39,7 @@ const writeSlackModel = (trigger, concObj, res) => {
         actionFunction: concObj['actionFunction'],
         actionParams: concObj['actionParams'],
         description: concObj['description'],
+        enabled: concObj['enabled'],
       });
       doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
     } else {
@@ -51,6 +52,7 @@ const writeSlackModel = (trigger, concObj, res) => {
           actionFunction: concObj['actionFunction'],
           actionParams: concObj['actionParams'],
           description: concObj['description'],
+          enabled: concObj['enabled'],
         }]
       },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
     }
@@ -67,16 +69,17 @@ exports.createSlackTrigger = (req,res) => {
   const username = req.body.username;
   let concObj = {
     slackUserId: '',
-    actionApi: req.body.actionApi, 
+    actionApi: req.body.actionApi,
     actionFunction: req.body.actionFunction,
     actionParams: req.body.actionParams || {},
-    description: req.body.description
+    description: req.body.description,
+    enabled: true,
   };
 
   getTriggerParams('slack', username, res)
   .then((slackId) => {
     concObj['slackUserId'] = slackId;
-    return getActionParams(concObj, username)
+    return getActionParams(concObj, username);
   })
   .then(() => {
     concObj['actionParams'] = JSON.stringify(concObj['actionParams']);
