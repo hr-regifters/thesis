@@ -9,6 +9,25 @@ import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class Verification extends React.Component {
+  componentDidMount() {
+    let context = this;
+    fetch(`${currUrl}/api/user/authenticate`, {
+      method: 'GET',
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error('Cannot register username');
+      }
+    })
+    .then((username) => {
+      context.props.changeState('user', username);
+      context.props.changeViewTo('home');
+    })
+    .catch((err) => { console.log(err) });
+  }
+
   signUp() {
     let context = this;
     let username = document.getElementById('newUsername').value;
