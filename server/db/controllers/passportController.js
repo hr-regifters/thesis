@@ -12,7 +12,7 @@ module.exports = (app) => {
   app.use(session({
     secret: 'cookie_secret',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
   }));
 
   passport.serializeUser((user, done) => {

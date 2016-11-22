@@ -15,7 +15,6 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           {Object.keys(props.servicesDetail.servicesDetailJSON).map(function(service) {
-            console.log(props.connectedServices)
             return (
               <h3 className='serviceBttn' onClick={ () => {props.modifyTrigger(service)}}>
                 {
