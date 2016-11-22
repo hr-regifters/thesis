@@ -19,7 +19,9 @@ const AddConcoctionNav = (props) => {
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
-                     modifyTriggerReveal={props.modifyTriggerReveal} />
+                     modifyTriggerReveal={props.modifyTriggerReveal}
+                     connectService={props.connectService}
+                     hideModal={props.hideModal} />
 
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
             
@@ -46,7 +48,9 @@ const AddConcoctionNav = (props) => {
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
-                     modifyTriggerReveal={props.modifyTriggerReveal} />
+                     modifyTriggerReveal={props.modifyTriggerReveal}
+                     connectService={props.connectService}
+                     hideModal={props.hideModal} />
 
             <div>
             </div>
@@ -60,7 +64,11 @@ const AddConcoctionNav = (props) => {
                     modifyAction={props.modifyAction}
                     modifyActionOption={props.modifyActionOption}
                     modifyActionParams={props.modifyActionParams}
-                    modifyActionReveal={props.modifyActionReveal} />
+                    modifyActionReveal={props.modifyActionReveal}
+                    modalReveal={props.state.modalReveal}
+                    connectService={props.connectService}
+                    serviceToConnect={props.state.serviceToConnect}
+                    hideModal={props.hideModal} />
               );
             })}
 
@@ -82,7 +90,10 @@ const AddConcoctionNav = (props) => {
                      modifyTrigger={props.modifyTrigger}
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
-                     modifyTriggerReveal={props.modifyTriggerReveal} />
+                     modifyTriggerReveal={props.modifyTriggerReveal}
+                     connectService={props.connectService}
+                     serviceToConnect={props.state.serviceToConnect}
+                     hideModal={props.hideModal} />
             
             {props.state.actions.map(function(action, index) {
                           return(
@@ -93,12 +104,15 @@ const AddConcoctionNav = (props) => {
                                 modifyAction={props.modifyAction}
                                 modifyActionOption={props.modifyActionOption}
                                 modifyActionParams={props.modifyActionParams}
-                                modifyActionReveal={props.modifyActionReveal} />
+                                modifyActionReveal={props.modifyActionReveal}
+                                modalReveal={props.state.modalReveal}
+                                connectService={props.connectService}
+                                hideModal={props.hideModal} />
               );
             })}
 
-            <div>
-              <h2 onClick={ () => {props.addNewAction()}} className='saveBttn'>Add New Action</h2>
+            <div onClick={ () => {props.addNewAction()}}>
+            Add New Action
             </div>
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
 

@@ -11,7 +11,6 @@ export default class HomeView extends React.Component {
     let context = this;
     fetch(`${currUrl}/api/user/concoctions?username=${this.props.appState.user}`, {
       method: 'GET',
-      // headers: {'Content-Type': 'application/json'},
     })
     .then((res) => {
       if (res.status === 200) {
@@ -21,12 +20,27 @@ export default class HomeView extends React.Component {
       }
     })
     .then((concObj) => {
-      console.log('CONCOBJ', concObj);
       context.props.changeState('concoctions', concObj.concoctions);
       concObj['oauths'].forEach((api) => 
         context.props.appState.connectedServices[api] = true
       )
       context.props.changeState('connectedServices', context.props.appState.connectedServices)
+    })
+    .catch((err) => { console.log(err) });
+  }
+
+  logout() {
+    let context = this;
+    fetch(`${currUrl}/api/user/logout`, {
+      method: 'GET',
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log('Successful logout');
+        context.props.changeViewTo('verify');
+      } else {
+        throw new Error('Cannot log out');
+      }
     })
     .catch((err) => { console.log(err) });
   }
@@ -44,7 +58,9 @@ export default class HomeView extends React.Component {
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
           <h3 className="pull-right"> My Concoctions </h3>
-          
+          <div onClick={() => { this.logout() }}>
+            <h3 className="pull-right"> Logout </h3>
+          </div>
           <h3 className ="navbar-left"> Regift3d</h3>
           </div>
         </nav>
@@ -52,6 +68,7 @@ export default class HomeView extends React.Component {
           <div className="container-fluid"> 
             <Row>
               {
+                this.props.appState.concoctions !== undefined ?
                 this.props.appState.concoctions.map((concoction) => {
                   return (
                     <Col xs={4}>
@@ -59,6 +76,7 @@ export default class HomeView extends React.Component {
                     </Col>
                   );
                 })
+                : null
               }
             </Row>
             <Row>
