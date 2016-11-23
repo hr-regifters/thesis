@@ -11,21 +11,13 @@ import CancelNewConcoction from './CancelNewConcoction.jsx';
 export default class Verification extends React.Component {
   componentDidMount() {
     let context = this;
-    fetch(`${currUrl}/api/user/authenticate`, {
-      method: 'GET',
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        throw new Error('Cannot register username');
-      }
-    })
-    .then((username) => {
-      context.props.changeState('user', username);
+    let authenticate = localStorage.getItem('regiftUsername');
+    if (authenticate) {
+      context.props.changeState('user', authenticate);
       context.props.changeViewTo('home');
-    })
-    .catch((err) => { console.log(err) });
+    } else {
+      console.log('not authenticated');
+    }
   }
 
   signUp() {
@@ -40,6 +32,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
+        localStorage.setItem('regiftUsername', username);
         context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
@@ -62,6 +55,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
+        localStorage.setItem('regiftUsername', username);
         context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {

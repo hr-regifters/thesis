@@ -37,6 +37,7 @@ export default class HomeView extends React.Component {
     .then((res) => {
       if (res.status === 200) {
         console.log('Successful logout');
+        localStorage.removeItem('regiftUsername');
         context.props.changeViewTo('verify');
       } else {
         throw new Error('Cannot log out');
