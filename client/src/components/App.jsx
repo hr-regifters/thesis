@@ -24,13 +24,10 @@ export default class App extends React.Component {
 
     this.state = {
       user: '',
-      view: 'verify',  // home, addConcoction, verify
+      view: 'home',  // home, addConcoction, verify
       spotlightConcoctionId: 1,
       concoctions: [],
-      connectedServices: {
-        slack: false,
-        evernote: false,
-      },
+      connectedServices: {},
       trigger: '',
       triggerOption: '',
       triggerParams: '',
@@ -64,10 +61,7 @@ export default class App extends React.Component {
       view: view,  // home, concoctionEdit, addConcoction
       spotlightConcoctionId: 1,
       //concoctions: [],
-      connectedServices: {
-        slack: false,
-        evernote: false,
-      },
+      connectedServices: {},
       trigger: '',
       triggerOption: '',
       triggerParams: '',
