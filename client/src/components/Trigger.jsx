@@ -8,34 +8,26 @@ const Trigger = (props) => {
   if (props.state.trigger === '') {
     //display slack and evernote triggers
     return(
-      <div>
-        <div id="myModal" className="modal" style={{display: props.state.modalReveal}}>
-          <div className="modal-content">
-            <span onClick={() => {props.hideModal()}} className="close">×</span>
-            <iframe src={`${currUrl}/api/oauth/${props.state.serviceToConnect}`} width="600px" height="600px"></iframe>
-          </div>
+      <div className='workWindow1'>
+        <div onClick={ () => {props.modifyTriggerReveal()}}>
+        <div className="inline">
+        <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
         </div>
-        <div className='workWindow1'>
-          <div onClick={ () => {props.modifyTriggerReveal()}}>
-          <div className="inline">
-          <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
-          </div>
-          </div>
-          <div className={props.state.triggerServicesReveal}>
-            {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
-              console.log(props.connectedServices);
-              return (
-                <h3 className='serviceBttn' >
-                  {
-                    props.connectedServices[service] ?
-                    <a onClick={ () => {props.modifyTrigger(service)}}>{service}</a>
-                    :
-                    <a onClick={() => {props.connectService(service)}}>{service}</a>
-                  }
-                </h3>
-              );
-            })}
-          </div>
+        </div>
+        <div className={props.state.triggerServicesReveal}>
+          {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
+            console.log(props.connectedServices);
+            return (
+              <h3 className='serviceBttn' >
+                {
+                  props.connectedServices[service] ?
+                  <a onClick={ () => {props.modifyTrigger(service)}}>{service}</a>
+                  :
+                  <a href="javascript:void(0)" onClick={() => {window.open(`${currUrl}/api/oauth/${service}`, '', 'scrollbars=yes,menubar=no,width=500, resizable=yes,toolbar=no,location=no,status=no')}}>{service}</a>
+                }
+              </h3>
+            );
+          })}
         </div>
       </div>
     );

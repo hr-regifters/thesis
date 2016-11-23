@@ -21,7 +21,8 @@ const AddConcoctionNav = (props) => {
                      modifyTriggerParams={props.modifyTriggerParams}
                      modifyTriggerReveal={props.modifyTriggerReveal}
                      connectService={props.connectService}
-                     hideModal={props.hideModal} />
+                     hideModal={props.hideModal}
+                     fetchConnectedServices={props.fetchConnectedServices} />
 
             <CancelNewConcoction changeViewTo={props.changeViewTo} />
             
@@ -49,8 +50,7 @@ const AddConcoctionNav = (props) => {
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
                      modifyTriggerReveal={props.modifyTriggerReveal}
-                     connectService={props.connectService}
-                     hideModal={props.hideModal} />
+                     fetchConnectedServices={props.fetchConnectedServices} />
 
             <div>
             </div>
@@ -68,7 +68,8 @@ const AddConcoctionNav = (props) => {
                     modalReveal={props.state.modalReveal}
                     connectService={props.connectService}
                     serviceToConnect={props.state.serviceToConnect}
-                    hideModal={props.hideModal} />
+                    hideModal={props.hideModal}
+                    fetchConnectedServices={props.fetchConnectedServices} />
               );
             })}
 
@@ -91,9 +92,7 @@ const AddConcoctionNav = (props) => {
                      modifyTriggerOption={props.modifyTriggerOption}
                      modifyTriggerParams={props.modifyTriggerParams}
                      modifyTriggerReveal={props.modifyTriggerReveal}
-                     connectService={props.connectService}
-                     serviceToConnect={props.state.serviceToConnect}
-                     hideModal={props.hideModal} />
+                     fetchConnectedServices={props.fetchConnectedServices} />
             
             {props.state.actions.map(function(action, index) {
                           return(
@@ -105,9 +104,7 @@ const AddConcoctionNav = (props) => {
                                 modifyActionOption={props.modifyActionOption}
                                 modifyActionParams={props.modifyActionParams}
                                 modifyActionReveal={props.modifyActionReveal}
-                                modalReveal={props.state.modalReveal}
-                                connectService={props.connectService}
-                                hideModal={props.hideModal} />
+                                fetchConnectedServices={props.fetchConnectedServices} />
               );
             })}
 

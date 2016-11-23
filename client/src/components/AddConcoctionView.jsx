@@ -49,20 +49,6 @@ export default class AddConcoctionView extends React.Component {
     });
   }
 
-  connectService(service) {
-    this.setState({
-      serviceToConnect: service,
-      modalReveal: 'block',
-    });
-  }
-
-  hideModal() {
-    //this.fetchConnectedServices();
-    this.setState({
-        modalReveal: 'none',
-      });
-  }
-
 
   saveConcoction(desc) {
     let context = this;
@@ -204,11 +190,7 @@ export default class AddConcoctionView extends React.Component {
                              modifyActionReveal={this.modifyActionReveal.bind(this)} 
                              changeViewTo={this.props.changeViewTo} 
                              addNewAction={this.addNewAction.bind(this)}
-                             connectedServices={this.state.connectedServices}
-                             modifyDescription={this.modifyDescription}
-                             saveConcoction={this.saveConcoction.bind(this)}
-                             connectService={this.connectService.bind(this)}
-                             hideModal={this.hideModal.bind(this)} />
+                             fetchConnectedServices={fetchConnectedServices.bind(this)} />
         </div>
         </Col>
       </Row>
