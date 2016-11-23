@@ -46,13 +46,14 @@ module.exports = {
       //if parentNotebook is defined
       if (paramObj.actionParams.parentNotebook) {
         noteStore.listNotebooks(function(err, notebooks) {
-          console.log(typeof notebooks)
-          // find the guid for the notebook with a name matching 'parentNotebook'
-          var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
-          if (notebook.length !== 0) {
-            var guid = notebook[0].guid;
-            ourNote.notebookGuid = guid;
-            saveNote(ourNote, noteStore);
+          if (typeof notebook === 'object') {
+            // find the guid for the notebook with a name matching 'parentNotebook'
+            var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+            if (notebook.length !== 0) {
+              var guid = notebook[0].guid;
+              ourNote.notebookGuid = guid;
+              saveNote(ourNote, noteStore);
+            }
           } else {
             console.log('writing note to default notebook');
             saveNote(ourNote, noteStore);
