@@ -2,6 +2,7 @@ const concoctionConstructor = require('./routers/constructor');
 const userRouter = require('./routers/user');
 const oauthRouter = require('./routers/oauth');
 const webhookRouter = require('./routers/webhooks');
+const checkLogin = require('./utilities/checkLogin');
 // put routers here
 
 module.exports = (app) => {
