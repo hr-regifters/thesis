@@ -23,7 +23,7 @@ export default class Verification extends React.Component {
     })
     .then((username) => {
       context.props.changeState('user', username);
-      context.props.changeViewTo('home');
+      //context.props.changeViewTo('home'); needs to redirect back to verify only if you cannot authenticate, app component should also use componentdidmount to see if the user should bee on that view, incase you can modify session storage
     })
     .catch((err) => { console.log(err) });
   }
