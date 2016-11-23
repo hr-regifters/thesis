@@ -47,14 +47,15 @@ router.get('/github', passport.authenticate('github'));
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(githubData, res) {
-    const allSessions = slackData.sessionStore.sessions;
-    let username = '';
-    for (let session in allSessions) {
-      session = JSON.parse(allSessions[session]);
-      if (session.hasOwnProperty('user')) {
-        username = session['user'];
-      }
-    }
+    // const allSessions = github.sessionStore.sessions;
+    // let username = '';
+    // for (let session in allSessions) {
+    //   session = JSON.parse(allSessions[session]);
+    //   if (session.hasOwnProperty('user')) {
+    //     username = session['user'];
+    //   }
+    // }
+    console.log(githubData.session.passport.user);
     // utility.addTokenAndId(username, 'githubToken', githubData.session.passport.user);
     res.redirect('/');
   }
