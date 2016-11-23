@@ -48,7 +48,7 @@ module.exports = {
       if (parentNotebook) {
         noteStore.listNotebooks(function(err, notebooks) {
           // find the guid for the notebook with a name matching 'parentNotebook'
-          var notebook = notebooks.filter(function(notebook){ console.log(notebook.name.toLowerCase()); return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+          var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
           if (notebook.length !== 0) {
             var guid = notebook[0].guid;
             ourNote.notebookGuid = guid;
