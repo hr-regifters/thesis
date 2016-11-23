@@ -1,6 +1,5 @@
 "use strict"
 module.exports = (req, res, next) => {
-  console.log(req.sessionStore.sessions)
   let valid = false;
   for (let key in req.sessionStore.sessions) {
     if (JSON.parse(req.sessionStore.sessions[key]).hasOwnProperty('passport')) {

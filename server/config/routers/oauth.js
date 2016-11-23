@@ -8,7 +8,7 @@ const router = new express.Router();
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
 router.get('/slack/callback',
-  passport.authorize('slack', { successRedirect: '/', failureRedirect: '/' }),
+  passport.authorize('slack', { failureRedirect: '/' }),
   function(slackData, res) {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
@@ -27,7 +27,7 @@ router.get('/slack/callback',
 router.get('/evernote', checkLogin, passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
-  passport.authenticate('evernote', { successRedirect: '/', failureRedirect: '/' }),
+  passport.authenticate('evernote', { failureRedirect: '/' }),
   function(evernoteData, res) {
     const allSessions = evernoteData.sessionStore.sessions;
     let username = '';
@@ -37,6 +37,7 @@ router.get('/evernote/callback',
         username = session['user'];
       }
     }
+    console.log(evernoteData.user, username)
     utility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
 
     res.redirect('/');
@@ -46,7 +47,7 @@ router.get('/evernote/callback',
 router.get('/github', checkLogin, passport.authenticate('github'));
 
 router.get('/github/callback',
-  passport.authenticate('github', { successRedirect: '/', failureRedirect: '/' }),
+  passport.authenticate('github', { failureRedirect: '/' }),
   function(githubData, res) {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
