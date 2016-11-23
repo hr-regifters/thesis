@@ -50,8 +50,8 @@ module.exports = {
           console.log(typeof notebooks === 'object')
           if (typeof notebooks === 'object') {
             // find the guid for the notebook with a name matching 'parentNotebook'
-            console.log('hi')
-            var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+            console.log('parent notebook', parentNotebook)
+            var notebook = notebooks.filter(function(notebook){ console.log(notebook.name.toLowerCase()); return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
             console.log('notebook', notebook);
             if (notebook.length !== 0) {
               var guid = notebook[0].guid;
