@@ -5,7 +5,7 @@ const session = require('express-session');
 const Local = require('./userController');
 const Slack = require('./slackController');
 const Evernote = require('./evernoteController');
-//const Github = require('./githubController');
+const Github = require('./githubController');
 
 module.exports = (app) => {
 
@@ -31,7 +31,7 @@ module.exports = (app) => {
   passport.use('local-signup', Local.Signup);
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
-  //passport.use(Github.Strategy);
+  passport.use(Github.Strategy);
 
   return passport;
 };
