@@ -20,49 +20,8 @@ export default class AddConcoctionView extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
-      connectedServices: {},
-      serviceToConnect: '',
-      modalReveal: 'none',
     };
   }
-
-  componentDidMount() {
-    //this.fetchConnectedServices();
-  }
-
-  fetchConnectedServices() {
-    //fetch a users connected services and change the state
-    let context = this;
-    fetch('???', {
-      method: 'GET',
-      headers: {},
-      body: JSON.stringify({
-        username: context.props.appState.user,
-      })
-    })
-    .then(function(res) {
-      if (res.status === 201) {
-        context.setState({
-          connectedServices: res.body.connectedServices,
-        });
-      }
-    });
-  }
-
-  connectService(service) {
-    this.setState({
-      serviceToConnect: service,
-      modalReveal: 'block',
-    });
-  }
-
-  hideModal() {
-    //this.fetchConnectedServices();
-    this.setState({
-        modalReveal: 'none',
-      });
-  }
-
 
   saveConcoction(desc) {
     let context = this;
@@ -197,6 +156,7 @@ export default class AddConcoctionView extends React.Component {
                              modifyTriggerOption={this.modifyTriggerOption.bind(this)}
                              modifyTriggerParams={this.modifyTriggerParams.bind(this)}
                              modifyTriggerReveal={this.modifyTriggerReveal.bind(this)}
+
                              servicesDetail={this.props.appState.servicesDetail}
                              modifyAction={this.modifyAction.bind(this)}
                              modifyActionOption={this.modifyActionOption.bind(this)}
@@ -204,11 +164,9 @@ export default class AddConcoctionView extends React.Component {
                              modifyActionReveal={this.modifyActionReveal.bind(this)} 
                              changeViewTo={this.props.changeViewTo} 
                              addNewAction={this.addNewAction.bind(this)}
-                             connectedServices={this.state.connectedServices}
+                             connectedServices={this.props.appState.connectedServices}
                              modifyDescription={this.modifyDescription}
-                             saveConcoction={this.saveConcoction.bind(this)}
-                             connectService={this.connectService.bind(this)}
-                             hideModal={this.hideModal.bind(this)} />
+                             saveConcoction={this.saveConcoction.bind(this)} />
         </div>
         </Col>
       </Row>
