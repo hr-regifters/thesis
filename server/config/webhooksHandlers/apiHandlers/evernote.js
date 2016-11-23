@@ -44,7 +44,8 @@ module.exports = {
       var client = new Evernote.Client({sandbox: false, token: paramObj.actionParams.evernote}); //define client with the token from the DB
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
-      if (paramObj.actionParams.parentNotebook) {
+      var parentNotebook = paramObj.actionParams.parentNotebook;
+      if (parentNotebook) {
         noteStore.listNotebooks(function(err, notebooks) {
           console.log(typeof notebooks)
           console.log(typeof notebooks === 'object')
