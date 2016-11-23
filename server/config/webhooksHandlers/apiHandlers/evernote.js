@@ -41,7 +41,7 @@ module.exports = {
       noteContent += '</en-note>';
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
-      var client = new Evernote.Client({token: paramObj.actionParams.evernote}); //define client with the token from the DB
+      var client = new Evernote.Client({sandbox: false, token: paramObj.actionParams.evernote}); //define client with the token from the DB
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
       if (paramObj.actionParams.parentNotebook) {
