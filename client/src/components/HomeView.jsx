@@ -20,7 +20,6 @@ export default class HomeView extends React.Component {
       }
     })
     .then((concObj) => {
-      console.log(concObj);
       context.props.changeState('concoctions', concObj.concoctions);
       concObj['oauths'].forEach((api) => 
         context.props.appState.connectedServices[api] = true
