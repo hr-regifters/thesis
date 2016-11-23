@@ -37,7 +37,6 @@ router.get('/evernote/callback',
         username = session['user'];
       }
     }
-    console.log(evernoteData.user, username)
     utility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
 
     res.redirect('/');
