@@ -126,7 +126,6 @@ const AddConcoctionNav = (props) => {
                       actionsIndex={index}
                       state={props.appState.actions[index]}
                       connectedServices={props.appState.connectedServices}
-                      funcs={actionFuncs}
                       funcs={actionFuncs} />
             );
           })}
