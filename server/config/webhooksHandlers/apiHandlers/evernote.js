@@ -17,7 +17,7 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    postNote: (paramObj) => {
+    post_note: (paramObj) => {
       
       const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
@@ -33,7 +33,7 @@ module.exports = {
       ourNote.title = paramObj.title;
       var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + paramObj.body;
       paramObj.links.forEach(function(link) {
-        noteContent += '<br/><a href="' + link + '">' + link + '</a>';
+        noteContent += '<br/><br/><a href="' + link + '">' + link + '</a>';
       });
       paramObj.images.forEach(function(image) {
         noteContent += '<br/><img src="' + image + '"></img>';

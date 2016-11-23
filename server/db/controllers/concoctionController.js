@@ -4,7 +4,7 @@ const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
-// generate new concoction
+
 exports.queryConcoctions = (req, res) => {
   pool.query({
     text: 'SELECT * FROM concoctions;'
@@ -13,9 +13,7 @@ exports.queryConcoctions = (req, res) => {
     res.status(201).send(rows.rows);
   }); 
 }
-// exports.getSlackEvent = (eventName) => {
-//   return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
-// }
+
 const getActionIdandToken = (concObj, username, res) => {
   if (concObj['actionapi'] === 'slack') {
     return userController.getUserData('username', username).then((user) => {
@@ -57,10 +55,9 @@ const writeConcoction = function(concObj, res) {
     console.log(err);
     console.log(rows, 'fucking wrote this shit bruh');
     res.status(201).send(rows);
-  })
+  });
 }
 exports.createConcoction = (req,res) => {
-  const testObj = {test: 'test'};
   const username = req.body.username;
   let concObj = {
     userid: '',
@@ -81,8 +78,7 @@ exports.createConcoction = (req,res) => {
     writeConcoction(concObj, res);
   }).catch(function(error) {
     res.status(405).send(error);
-  })
-  
+  })  
 }
 
 const getConcoctions = (api, event) => {
