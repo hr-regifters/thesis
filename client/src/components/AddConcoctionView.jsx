@@ -178,11 +178,12 @@ export default class AddConcoctionView extends React.Component {
         <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
         <div id="concoctionMakerBox">
           <AddConcoctionNav  state={this.state} 
-                             servicesDetail={this.props.appState.servicesDetail}  
+                             connectedServices={this.props.appState.connectedServices}  
                              modifyTrigger={this.modifyTrigger.bind(this)}
                              modifyTriggerOption={this.modifyTriggerOption.bind(this)}
                              modifyTriggerParams={this.modifyTriggerParams.bind(this)}
                              modifyTriggerReveal={this.modifyTriggerReveal.bind(this)}
+
                              servicesDetail={this.props.appState.servicesDetail}
                              modifyAction={this.modifyAction.bind(this)}
                              modifyActionOption={this.modifyActionOption.bind(this)}
@@ -190,7 +191,7 @@ export default class AddConcoctionView extends React.Component {
                              modifyActionReveal={this.modifyActionReveal.bind(this)} 
                              changeViewTo={this.props.changeViewTo} 
                              addNewAction={this.addNewAction.bind(this)}
-                             fetchConnectedServices={fetchConnectedServices.bind(this)} />
+                             fetchConnectedServices={this.fetchConnectedServices.bind(this)} />
         </div>
         </Col>
       </Row>

@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require('express');
 const UserCtrl = require('../../db/controllers/userController');
 const passport = require('passport');
