@@ -9,7 +9,6 @@ import currUrl from './../../../currUrl';
 export default class HomeView extends React.Component {
   componentDidMount() {
     let context = this;
-    console.log(this.props.appState, 'line 12');
     fetch(`${currUrl}/api/user/concoctions?username=${this.props.appState.user}`, {
       method: 'GET',
     })
