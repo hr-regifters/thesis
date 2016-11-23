@@ -60,7 +60,7 @@ exports.servicesDetailJSON = {
     action: {
       options: [
         { description: 'Create a new Note in a specific Notebook',
-          alias: 'postNote',
+          alias: 'post_note',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',

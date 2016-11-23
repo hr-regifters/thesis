@@ -8,31 +8,23 @@ const Action = (props) => {
   if (props.state.action === '') {
   //   //display slack and evernote triggers
     return(
-      <div>
-        <div id="myModal" className="modal" style={{display: props.modalReveal}}>
-          <div className="modal-content">
-            <span onClick={() => {props.hideModal()}} className="close">×</span>
-            <iframe src={`${currUrl}/api/oauth/${props.serviceToConnect}`} width="600px" height="600px"></iframe>
-          </div>
+      <div className='workWindow2'>
+        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
+        <h1>Action   <i className="fa fa-caret-down"></i></h1>
         </div>
-        <div className='workWindow2'>
-          <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-          <h1>Action   <i className="fa fa-caret-down"></i></h1>
-          </div>
-          <div className={props.state.actionServicesReveal}>
-            {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
-              return (
-                <h3 className='serviceBttn' key={service}>
-                  {
-                    props.connectedServices[service] ?
-                    <a onClick={ () => {props.modifyAction(service, props.actionsIndex)}}>{service}</a>
-                    :
-                    <a onClick={() => {props.connectService(service)}}>{service}</a>
-                  }
-                </h3>
-              );
-            })}
-          </div>
+        <div className={props.state.actionServicesReveal}>
+          {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
+            return (
+              <h3 className='serviceBttn' key={service}>
+                {
+                  props.connectedServices[service] ?
+                  <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{service}</a>
+                  :
+                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
+                }
+              </h3>
+            );
+          })}
         </div>
       </div>
     );
@@ -40,13 +32,13 @@ const Action = (props) => {
     //display trigger in state and show options for trigger in state
     return(
       <div className='workWindow2'>
-        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
-          <h1><i className="fa fa-reply" onClick={ () => {props.modifyAction('', props.actionsIndex)}}></i>  <img className='icon' src={props.servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
+        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
+          <h1><i className="fa fa-reply" onClick={ () => {props.funcs.modifyAction('', props.actionsIndex)}}></i>  <img className='icon' src={servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           {servicesDetail.servicesDetailJSON[props.state.action].action.options.map(function(option, index){
             return (
-              <div key={index} onClick={ () => {props.modifyActionOption(index, props.actionsIndex)}}>
+              <div key={index} onClick={ () => {props.funcs.modifyActionOption(index, props.actionsIndex)}}>
                 <h2><i className="fa fa-square-o"></i> {option.description}</h2>
               </div>
             );
@@ -58,15 +50,15 @@ const Action = (props) => {
     //display trigger and option in state 
     return(
       <div className='workWindow2'>
-        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
           <h1><img className='icon' src={servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          <h2><i onClick={ () => {props.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
+          <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           <div>
-          <h2 onClick={ () => {props.modifyActionParams('none', 'none', props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+          <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>
@@ -75,12 +67,12 @@ const Action = (props) => {
     //display trigger and option in state 
     return(
      <div className='workWindow2'>
-        <div onClick={ () => {props.modifyActionReveal(props.actionsIndex)}}>
+        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
         <h1><img className='icon' src={servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          <h2><i onClick={ () => {props.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
+          <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.map(function(param) {
             return(
@@ -90,7 +82,7 @@ const Action = (props) => {
             )
           })}
           <div>
-            <h2 onClick={ () => {props.modifyActionParams(document.getElementById('param').value, document.getElementById('param').className, props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+            <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementById('param').value, document.getElementById('param').className, props.actionsIndex)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>

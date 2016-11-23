@@ -12,7 +12,7 @@ module.exports.Strategy = new SlackStrategy({
   clientID: SLACK_ID,
   clientSecret: SLACK_SECRET,
   callbackURL: `${currUrl}/api/oauth/slack/callback`,
-  scope: 'incoming-webhook users:read files:read channels:history pins:read'
+  scope: 'incoming-webhook users:read files:read pins:read'
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
     var slackData = [accessToken, profile.id];

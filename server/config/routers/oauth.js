@@ -2,9 +2,10 @@
 const express = require('express');
 const passport = require('passport');
 const utility = require('../../db/controllers/userController');
+const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 
-router.get('/slack', passport.authenticate('slack'));
+router.get('/slack', checkLogin, passport.authenticate('slack'));
 
 router.get('/slack/callback',
   passport.authorize('slack', { failureRedirect: '/' }),
@@ -23,7 +24,7 @@ router.get('/slack/callback',
   }
 );
 
-router.get('/evernote', passport.authenticate('evernote'));
+router.get('/evernote', checkLogin, passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
   passport.authenticate('evernote', { failureRedirect: '/' }),
@@ -42,20 +43,19 @@ router.get('/evernote/callback',
   }
 );
 
-router.get('/github', passport.authenticate('github'));
+router.get('/github', checkLogin, passport.authenticate('github'));
 
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(githubData, res) {
-    // const allSessions = github.sessionStore.sessions;
-    // let username = '';
-    // for (let session in allSessions) {
-    //   session = JSON.parse(allSessions[session]);
-    //   if (session.hasOwnProperty('user')) {
-    //     username = session['user'];
-    //   }
-    // }
-    console.log(githubData.session.passport.user);
+    const allSessions = githubData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
     // utility.addTokenAndId(username, 'githubToken', githubData.session.passport.user);
     res.redirect('/');
   }
