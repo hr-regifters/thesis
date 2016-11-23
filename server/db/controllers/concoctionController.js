@@ -3,88 +3,112 @@ const express = require('express');
 const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
+const pool = (require('../config.js').pool);
 // generate new concoction
-const getTriggerParams = (api, username, res) => {
-  if (api === 'slack') {
-    return userController.getSlackId(username).then((slackId) => {
-      if (slackId !== "No slack ID" && slackId !== "No user") {
-        return slackId;
+exports.queryConcoctions = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM concoctions;'
+  }, function(err, rows) {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
+}
+// exports.getSlackEvent = (eventName) => {
+//   return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
+// }
+const getActionIdandToken = (concObj, username, res) => {
+  if (concObj['actionapi'] === 'slack') {
+    return userController.getUserData('username', username).then((user) => {
+      console.log('line 10 fired', user.slackid)
+      if (user.slackid && user.slacktoken) {
+        concObj['userid'] = user.id;
+        concObj['actionuserid'] = user.slackid;
+        concObj['actiontoken'] = user.slacktoken;
+        console.log(concObj);
+        return concObj;
       } else {
-        throw new Error('no slack id or user found');
+        res.status(405).send('oooooooooooooooooooooooo Duck');
       }
     })
+  } else if (concObj['actionapi'] === 'evernote') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.evernotetoken) {
+        concObj['userid'] = user.id;
+        concObj['actiontoken'] = user.evernotetoken;
+        console.log(concObj);
+        return concObj;
+      } else {
+        res.status(405).send('DUUUUUUUUUUUUUUUUUUCK');
+      }
+    })    
   } else {
-    return userController.getUserData(username).then((user) => {
-      return user.api;
-    })
+    res.status(405).send('duck duck duckduck duck duckduck duck duckduck duck GOOSE');
   } 
 }
-
-const getActionParams = (concObj, username) => { 
-  return userController.getUserData('username', username).then((user) => {
-    concObj['actionParams'][concObj['actionApi']] = user.evernoteToken;
-    return //needs to be evernote api
-  });
-}
-
-
-const writeSlackModel = (trigger, concObj, res) => {
-  slackConcoction.findOne({trigger: trigger}).then((doc) => {
-    if(doc !== null) {
-      console.log('updating trigger document');
-      doc.action.push({
-
-        slackUserId: concObj['slackUserId'],
-        actionApi: concObj['actionApi'],
-        actionFunction: concObj['actionFunction'],
-        actionParams: concObj['actionParams'],
-        description: concObj['description'],
-      });
-      doc.save((err, updated) => err ? res.status(402).send(err) : res.status(201).send(updated));
-    } else {
-      console.log('new trigger document about to be created!');
-      slackConcoction.create({
-        trigger: trigger,
-        action: [{
-          slackUserId: concObj['slackUserId'],
-          actionApi: concObj['actionApi'],
-          actionFunction: concObj['actionFunction'],
-          actionParams: concObj['actionParams'],
-          description: concObj['description'],
-        }]
-      },(err,doc) => err ? res.status(402).send(err) : res.status(201).send(doc));
-    }
+const writeConcoction = function(concObj, res) {
+  pool.query({
+    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, actionapi, actionevent,\
+    actionuserid, actiontoken, actionparams, enable, description) \
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],'{}',
+    concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
+    '{}',concObj['enable'], concObj['description']]
+  }, function(err, rows) {
+    console.log(err);
+    console.log(rows, 'fucking wrote this shit bruh');
+    res.status(201).send(rows);
   })
 }
-
-exports.getSlackEvent = (eventName) => {
-  return slackConcoction.findOne({trigger: eventName}).then((event) => event.action);
-}
-
-exports.createSlackTrigger = (req,res) => {
+exports.createConcoction = (req,res) => {
   const testObj = {test: 'test'};
-  const trigger = req.body.trigger;
   const username = req.body.username;
   let concObj = {
-    slackUserId: '',
-    actionApi: req.body.actionApi, 
-    actionFunction: req.body.actionFunction,
-    actionParams: req.body.actionParams || {},
-    description: req.body.description
+    userid: '',
+    triggerapi: req.body.triggerApi,
+    triggerevent: req.body.trigger,
+    triggerparams: req.body.triggerparams || {}, 
+    actionapi: req.body.actionApi,
+    actionevent: req.body.actionEvent,
+    actionuserid: '',
+    actiontoken: '',
+    actionparams: req.body.actionParams || {},
+    enable: req.body.enable|| true, //this is a boolean 
+    description: req.body.description 
   };
-
-  getTriggerParams('slack', username, res)
-  .then((slackId) => {
-    concObj['slackUserId'] = slackId;
-    return getActionParams(concObj, username)
-  })
-  .then(() => {
-    concObj['actionParams'] = JSON.stringify(concObj['actionParams']);
-    writeSlackModel(trigger, concObj, res);
-    userController.addConcoction(username, concObj, trigger);
-  })
-  .catch(function(error) {
+//get action id, token, and userId
+  getActionIdandToken(concObj, username, res)
+  .then((concObj) => {
+    writeConcoction(concObj, res);
+  }).catch(function(error) {
     res.status(405).send(error);
+  })
+  
+}
+
+const getConcoctions = (api, event) => {
+  return pool.query({
+    text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
+  }, function(err,rows) {
+    return err ? err : rows.rows; 
+  })
+}
+
+exports.toggleConcoction = (req,res) => {
+  const concId = req.body.concId;
+  return pool.query({
+    text: 'SELECT enable FROM concoctions WHERE id = \'' + concId + '\';'
+  }, function(err, rows) {
+    if (err) {
+      return err
+    } else {
+      const toggle = !rows.rows[0].enable;
+      pool.query({
+        text: 'UPDATE concoctions \
+        SET enable = ' + toggle + ' WHERE id = \'' + concId + '\';' 
+      }, function(err, rows) {
+        res.status(201).send('updated bruh');
+      })
+    }
   })
 }
 

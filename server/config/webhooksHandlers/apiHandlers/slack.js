@@ -29,6 +29,7 @@ module.exports = {
       };
 
         // fetch db data for users to get actions
+        //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
       concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
         async.each(arr, (obj, callback) => {
           if (req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
