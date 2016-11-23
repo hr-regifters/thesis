@@ -315,6 +315,11 @@ input:focus {
   height: 100%;
 }
 
+#addConcBox {
+  background-color: #11aaad;
+  padding-bottom: 20px;
+}
+
 input {
   border-radius: 20px;
   color: black;
@@ -343,29 +348,6 @@ input {
   margin: 0px;
   padding: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
