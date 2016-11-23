@@ -12,28 +12,77 @@ const pool = Promise.promisifyAll(require('../config.js').pool);
 const incorrectPasswordErr = 'Incorrect password entered';
 const usernameErr = 'Username in use';
 
-exports.Strategy = new LocalStrategy(
+exports.login = new LocalStrategy(
   function(username, password, done) {
     pool.query({
         text: 'SELECT * FROM users \
           WHERE username = \'' + username + '\';'
       }, 
 
-      function(err, rows) {
-        if (rows.rowCount > 0) {
-          bcrypt.compare(password, rows.rows[0].password, (err, user) => {
-            err ? done(null, false) : done(null, user);
-          })
-    // User.findOne({ username: username }, function (err, user) {
-    //   if (err) { return done(err); }
-    //   if (!user) { return done(null, false); }
-    //   bcrypt.compare(password, user.password, (err, user) => {
-    //     err ? done(null, false) : done(null, user);
-        }
+    function(err, rows) {
+      if (rows.rowCount > 0) {
+        bcrypt.compare(password, rows.rows[0].password, (err, user) => {
+          err ? done(null, false) : done(null, user);
+        })
+      }
     })
-    // });
   }
 );
+exports.Signup = new LocalStrategy(
+  function(req, username, password, done) {
+    pool.query({
+      text: 'SELECT * FROM users \
+        WHERE username = \'' + username + '\';'
+    }, 
+
+    function(err, rows) {
+      if (rows.rowCount > 0) {
+        done(null,false)
+      } else {
+        bcrypt.hash(password, saltRounds, (error, hash) => {
+          password = hash;
+          pool.query({
+            text: 'INSERT INTO users(username, email, password) \
+              VALUES($1, $2, $3)',
+            values: [username, req.body.email, password]
+          },
+          function(err, rows) {
+            if (!err) {
+              done(null,true)
+            }
+          })
+        })
+      }
+    })
+  }
+);
+exports.Login = new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      bcrypt.compare(password, user.password, (err, user) => {
+        err ? done(null, false) : done(null, user);
+      });
+    });
+  }
+);
+
+exports.Signup = new LocalStrategy({
+    passReqToCallback: true
+  },
+  function(req, username, password, done) {
+    User.findOne({username: username}).then((user) => {
+      user ? done(null, false) : bcrypt.hash(password, saltRounds, (error, hash) => {
+        error ? done(null, false) : User.create({username: username, password: hash, email: req.body.email})
+        .then((user) => {
+          done(null, true);
+        })
+        .catch((error)=>{done(null, false)});
+      });
+    });
+  }
+)
 
 exports.signup = (req, res) => {
   let username = req.body.username;
@@ -120,8 +169,11 @@ exports.getUserConcoctions = (req, res) => {
     pool.query({
       text: 'SELECT enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
     }, function(err, rows) {
-      rows.rows.push(tokenArray);
-      res.status(200).send(rows.rows)
+      const obj = {
+        concoctions: rows.rows,
+        oauths: tokenArray
+      }
+      res.status(200).send(obj)
     })
     }
   })

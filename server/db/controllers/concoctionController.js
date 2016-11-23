@@ -25,7 +25,7 @@ const getActionIdandToken = (concObj, username, res) => {
         console.log(concObj);
         return concObj;
       } else {
-        res.status(405).send('oooooooooooooooooooooooo Duck');
+        res.status(405).send('cant find user');
       }
     })
   } else if (concObj['actionapi'] === 'evernote') {
@@ -36,11 +36,11 @@ const getActionIdandToken = (concObj, username, res) => {
         console.log(concObj);
         return concObj;
       } else {
-        res.status(405).send('DUUUUUUUUUUUUUUUUUUCK');
+        res.status(405).send('cant find user');
       }
     })    
   } else {
-    res.status(405).send('duck duck duckduck duck duckduck duck duckduck duck GOOSE');
+    res.status(405).send('cant find user');
   } 
 }
 const writeConcoction = function(concObj, res) {
