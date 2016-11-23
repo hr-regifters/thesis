@@ -8,6 +8,7 @@ const checkLogin = require('./../utilities/checkLogin');
 const router = new express.Router();
 
 router.get('/concoctions', checkLogin, UserCtrl.getUserConcoctions);
+
 router.post('/signup', passport.authenticate('local-signup', { failureRedirect: '/' }),
   function(req, res) {
     req.session.user = req.body.username;

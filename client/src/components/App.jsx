@@ -2,7 +2,9 @@ import React from 'react';
 import servicesDetail from '../servicesDetailJSON.js';
 
 import Navigator from './Navigator.jsx';
-
+//query localstorage
+//if session = true, default view = home
+//else default view equals verify
 export default class App extends React.Component {
   constructor(props) {
     super(props);
