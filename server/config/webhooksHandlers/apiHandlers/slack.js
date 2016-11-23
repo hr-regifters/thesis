@@ -40,7 +40,6 @@ module.exports = {
               callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionApi === 'evernote' && obj.actionFunction === 'post_note') {
-                console.log('FILE CREATED')
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
                   slackReqObj.title = file.title;

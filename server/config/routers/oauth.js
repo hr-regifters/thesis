@@ -49,7 +49,7 @@ router.get('/github', checkLogin, passport.authenticate('github'));
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(githubData, res) {
-    const allSessions = slackData.sessionStore.sessions;
+    const allSessions = githubData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
       session = JSON.parse(allSessions[session]);
