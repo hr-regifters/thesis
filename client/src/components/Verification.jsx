@@ -12,7 +12,6 @@ export default class Verification extends React.Component {
   componentDidMount() {
     let context = this;
     let authenticate = localStorage.getItem('regiftUsername');
-    console.log(authenticate);
     if(authenticate) {
       context.props.changeState('user', authenticate);
       context.props.changeViewTo('home');
