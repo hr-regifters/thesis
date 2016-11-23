@@ -23,9 +23,9 @@ exports.Login = new LocalStrategy(
       if (rows.rowCount > 0) {
         bcrypt.compare(password, rows.rows[0].password, (err, user) => {
           err ? done(null, false) : done(null, user);
-        })
+        });
       }
-    })
+    });
   }
 );
 exports.Signup = new LocalStrategy(
@@ -34,10 +34,9 @@ exports.Signup = new LocalStrategy(
       text: 'SELECT * FROM users \
         WHERE username = \'' + username + '\';'
     }, 
-
     function(err, rows) {
       if (rows.rowCount > 0) {
-        done(null,false)
+        done(null,false);
       } else {
         bcrypt.hash(password, saltRounds, (error, hash) => {
           password = hash;
@@ -48,12 +47,12 @@ exports.Signup = new LocalStrategy(
           },
           function(err, rows) {
             if (!err) {
-              done(null,true)
+              done(null,true);
             }
-          })
-        })
+          });
+        });
       }
-    })
+    });
   }
 );
 
@@ -67,18 +66,17 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
         console.log(rows)
       }
     }
-  )
+  );
   if (slackId) {
     pool.query({
       text: 'UPDATE users SET  slackId = \'' + slackId + '\'  WHERE username = \'' + username + '\';'
     }, 
-      (err,rows) => {
-        if (err) { return err} else {
-          console.log(rows)
-        }
-      })
+    (err,rows) => {
+      if (err) { return err} else {
+        console.log(rows)
+      }
+    });
   }
-
 }
 
 exports.getUserData = (userKey, userValue) => {
@@ -86,31 +84,29 @@ exports.getUserData = (userKey, userValue) => {
     pool.query({
       text: 'SELECT * FROM users WHERE ' + userKey + ' = \'' + userValue + '\';'
     }, (err,rows) => err ? reject(err) : resolve(rows.rows[0]))
-  })
+  });
 }
 
 exports.getUserConcoctions = (req, res) => {
   const username = req.body.username || req.query.username;
-  console.log(username);
   pool.query({
     text: 'SELECT * FROM users WHERE username = \'' + username + '\';'
-  }, function(err, rows) {
+  }, 
+  function(err, rows) {
     if(rows.rowCount > 0) {
-      console.log(rows.rows);
-    var userId = rows.rows[0].id;
-    var tokenArray = [];
-    rows.rows[0].slacktoken ? tokenArray.push('slacktoken') : tokenArray;
-    rows.rows[0].evernotetoken ? tokenArray.push('evernotetoken') : tokenArray;
-    pool.query({
-      text: 'SELECT enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
-    }, function(err, rows) {
-      const obj = {
-        concoctions: rows.rows,
-        oauths: tokenArray
-      }
-      res.status(200).send(obj)
-    })
+      var userId = rows.rows[0].id;
+      var tokenArray = [];
+      rows.rows[0].slacktoken ? tokenArray.push('slacktoken') : tokenArray;
+      rows.rows[0].evernotetoken ? tokenArray.push('evernotetoken') : tokenArray;
+      pool.query({
+        text: 'SELECT enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
+      }, function(err, rows) {
+        const obj = {
+          concoctions: rows.rows,
+          oauths: tokenArray
+        }
+        res.status(200).send(obj)
+      });
     }
-  })
-
+  });
 }
