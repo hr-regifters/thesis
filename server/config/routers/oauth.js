@@ -7,7 +7,7 @@ const router = new express.Router();
 router.get('/slack', passport.authenticate('slack'));
 
 router.get('/slack/callback',
-  passport.authorize('slack', { failureRedirect: '/' }),
+  passport.authorize('slack', { successRedirect: '/', failureRedirect: '/' }),
   function(slackData, res) {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
@@ -26,7 +26,7 @@ router.get('/slack/callback',
 router.get('/evernote', passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
-  passport.authenticate('evernote', { failureRedirect: '/' }),
+  passport.authenticate('evernote', { successRedirect: '/', failureRedirect: '/' }),
   function(evernoteData, res) {
     const allSessions = evernoteData.sessionStore.sessions;
     let username = '';
@@ -45,7 +45,7 @@ router.get('/evernote/callback',
 router.get('/github', passport.authenticate('github'));
 
 router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
+  passport.authenticate('github', { successRedirect: '/', failureRedirect: '/' }),
   function(githubData, res) {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
