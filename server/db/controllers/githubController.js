@@ -11,7 +11,6 @@ module.exports.Strategy = new GithubStrategy({
   callbackURL: `${currUrl}/api/oauth/github/callback`
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    console.log(accessToken)
     return done(null, accessToken);
   });
 });
