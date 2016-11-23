@@ -38,7 +38,7 @@ export default class AddConcoctionView extends React.Component {
         actionApi: actionApi,
         actionFunction: actionFunction,
         actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
-        description: `If a ${trigger.slice(0, trigger.indexOf('_'))} is ${trigger.slice(trigger.indexOf('_') + 1)} in ${context.state.trigger}, ${actionFunction} to ${actionApi}`
+        description: `If a ${trigger.slice(0, trigger.indexOf('_'))} is ${trigger.slice(trigger.indexOf('_') + 1)} in ${context.state.trigger}, ${actionFunction.slice(0, actionFunction.indexOf('_'))} ${actionFunction.slice(actionFunction.indexOf('_') + 1)} to ${actionApi}`
       }),
     })
     .then(function(res) {
