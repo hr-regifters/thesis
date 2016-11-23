@@ -27,7 +27,8 @@ module.exports = (app) => {
     done(null, obj);
   });
 
-  passport.use(Local.Strategy);
+  passport.use('local-login', Local.Login);
+  passport.use('local-signup', Local.Signup);
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
   //passport.use(Github.Strategy);

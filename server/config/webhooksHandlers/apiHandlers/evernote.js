@@ -17,7 +17,7 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    postNote: (paramObj) => {
+    post_note: (paramObj) => {
       
       const saveNote = function(note, noteStore) {
         noteStore.createNote(note, function(err, note) {
@@ -41,14 +41,16 @@ module.exports = {
       noteContent += '</en-note>';
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
-      var client = new Evernote.Client({token: paramObj.actionParams.evernote}); //define client with the token from the DB
+      var client = new Evernote.Client({sandbox: false, token: paramObj.actionParams.evernote}); //define client with the token from the DB
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
-      if (paramObj.actionParams.parentNotebook) {
+      var parentNotebook = paramObj.actionParams.parentNotebook;
+      if (parentNotebook) {
         noteStore.listNotebooks(function(err, notebooks) {
-          if (!err) {
-            // find the guid for the notebook with a name matching 'parentNotebook'
-            var guid = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()})[0].guid;
+          // find the guid for the notebook with a name matching 'parentNotebook'
+          var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+          if (notebook.length !== 0) {
+            var guid = notebook[0].guid;
             ourNote.notebookGuid = guid;
             saveNote(ourNote, noteStore);
           } else {
