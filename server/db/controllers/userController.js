@@ -28,7 +28,9 @@ exports.Login = new LocalStrategy(
     });
   }
 );
-exports.Signup = new LocalStrategy(
+exports.Signup = new LocalStrategy({
+    passReqToCallback: true
+  },
   function(req, username, password, done) {
     pool.query({
       text: 'SELECT * FROM users \
