@@ -8,7 +8,6 @@ const checkLogin = require('./../utilities/checkLogin');
 const router = new express.Router();
 
 router.get('/concoctions', checkLogin, UserCtrl.getUserConcoctions);
-
 router.post('/signup', passport.authenticate('local-signup', { failureRedirect: '/' }),
   function(req, res) {
     req.session.user = req.body.username;
@@ -19,18 +18,6 @@ router.post('/login', passport.authenticate('local-login', { failureRedirect: '/
   function(req, res) {
     req.session.user = req.body.username;
     res.status(201).send('success');
-  }
-);
-router.get('/authenticate', checkLogin,
-  function(req, res) {
-    let username = '';
-    for (let key in req.sessionStore.sessions) {
-      let session = JSON.parse(req.sessionStore.sessions[key]);
-      if (session.hasOwnProperty('user')) {
-        username = session['user'];
-      }
-    }
-    res.status(200).json(username);
   }
 );
 router.get('/logout',
