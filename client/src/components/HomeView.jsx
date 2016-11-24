@@ -7,28 +7,6 @@ import Concoction from './Concoction.jsx';
 import currUrl from './../../../currUrl';
 
 export default class HomeView extends React.Component {
-  componentDidMount() {
-    let context = this;
-    fetch(`${currUrl}/api/user/concoctions?username=${this.props.appState.user}`, {
-      method: 'GET',
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        throw new Error('Cannot retrieve concoctions');
-      }
-    })
-    .then((concObj) => {
-      context.props.changeState('concoctions', concObj.concoctions);
-      concObj['oauths'].forEach((api) => 
-        context.props.appState.connectedServices[api] = true
-      )
-      context.props.changeState('connectedServices', context.props.appState.connectedServices)
-    })
-    .catch((err) => { console.log(err) });
-  }
-
   logout() {
     let context = this;
     fetch(`${currUrl}/api/user/logout`, {
@@ -39,6 +17,7 @@ export default class HomeView extends React.Component {
         console.log('Successful logout');
         localStorage.removeItem('regiftUsername');
         context.props.changeViewTo('verify');
+        sessionStorage.setItem('appState', '{}');
       } else {
         throw new Error('Cannot log out');
       }

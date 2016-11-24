@@ -10,11 +10,10 @@ import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class Verification extends React.Component {
   componentDidMount() {
-    let context = this;
     let authenticate = localStorage.getItem('regiftUsername');
     if (authenticate) {
-      context.props.changeState('user', authenticate);
-      context.props.changeViewTo('home');
+      this.props.changeState('user', authenticate);
+      this.props.changeViewTo('home');
     } else {
       console.log('not authenticated');
     }

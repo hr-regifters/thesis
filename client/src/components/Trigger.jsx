@@ -16,14 +16,13 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
-            {console.log(props.state.connectedServices)}
             return (
               <h3 key={service} className='serviceBttn' >
                 {
                   props.state.connectedServices[service] ?
                   <a onClick={ () => {props.funcs.modifyTrigger(service)}}>{service}</a>
                   :
-                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>               
+                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
                 }
               </h3>
             );
