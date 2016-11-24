@@ -19,7 +19,7 @@ module.exports = {
       method: 'POST',
       headers: {
         // Authorization: 'Basic Qkhlc3NlbGRpZWNrOmJhc2hlbjEzMzc=',
-        Authorization: 'token dd9bddf53f9e8629e0644622a555e993db5a8ade',
+        Authorization: 'token XXXXXXXX',
         'User-Agent': env.GITHUB_ID,
         'Content-Type': 'application/json',
       },
