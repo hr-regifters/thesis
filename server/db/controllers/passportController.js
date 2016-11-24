@@ -33,6 +33,7 @@ module.exports = (app) => {
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
   passport.use(Github.Strategy);
+  passport.use(Fitbit.Strategy);
 
   return passport;
 };
