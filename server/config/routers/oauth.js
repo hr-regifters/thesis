@@ -61,4 +61,22 @@ router.get('/github/callback',
   }
 );
 
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }));
+
+router.get('/fitbit/callback', 
+  passport.authenticate('fitbit', { failureRedirect: '/'}),
+  function(fitbitData, res) {
+    const allSessions = fitbitData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    // utility.addTokenAndId(username, 'fitbitToken', fitbitData.session.passport.user);
+    res.redirect('/');
+  }
+);
+
 module.exports = router;

@@ -24,7 +24,7 @@ export default class App extends React.Component {
 
     this.state = {
       user: '',
-      view: 'home',  // home, addConcoction, verify
+      view: 'verify',  // home, addConcoction, verify
       spotlightConcoctionId: 1,
       concoctions: [],
       connectedServices: {},
@@ -57,10 +57,7 @@ export default class App extends React.Component {
 
   changeViewTo(view) {
     this.setState({
-      user: '',
-      view: view,
-      spotlightConcoctionId: 1,
-      connectedServices: {},
+      view: view,  // home, concoctionEdit, addConcoction
       trigger: '',
       triggerOption: '',
       triggerParams: '',
