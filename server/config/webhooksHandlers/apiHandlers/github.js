@@ -47,4 +47,4 @@ module.exports = {
   },
 };
 
-module.exports.trigger();
+// module.exports.trigger();

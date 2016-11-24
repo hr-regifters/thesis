@@ -82,7 +82,7 @@ exports.createConcoction = (req,res) => {
   })  
 }
 
-const getConcoctions = (api, event) => {
+exports.getConcoctions = (api, event) => {
   return pool.query({
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
   }, function(err,rows) {
