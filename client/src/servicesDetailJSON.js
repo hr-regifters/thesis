@@ -1,6 +1,6 @@
 exports.servicesDetailJSON = {
   slack: {
-    name: 'slack',
+    name: 'Slack',
     icon: 'https://www.slack.com/favicon.ico',
     trigger: {
       options: [
@@ -30,7 +30,7 @@ exports.servicesDetailJSON = {
     },
   },
   evernote: {
-    name: 'evernote',
+    name: 'Evernote',
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: [
