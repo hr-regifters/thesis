@@ -6,6 +6,7 @@ const Local = require('./userController');
 const Slack = require('./slackController');
 const Evernote = require('./evernoteController');
 const Github = require('./githubController');
+const Fitbit = require('./fitbitController')
 
 module.exports = (app) => {
 
@@ -32,6 +33,7 @@ module.exports = (app) => {
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
   passport.use(Github.Strategy);
+  passport.use(Fitbit.Strategy);
 
   return passport;
 };
