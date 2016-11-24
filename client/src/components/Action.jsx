@@ -19,9 +19,9 @@ const Action = (props) => {
                 <h3 className='serviceBttn' key={service}>
                   {
                     props.connectedServices[service] ?
-                    <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{service}</a>
+                    <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{servicesDetail.servicesDetailJSON[service].name}</a>
                     :
-                    <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
+                    <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail.servicesDetailJSON[service].name}</a>
                   }
                 </h3>
               );
