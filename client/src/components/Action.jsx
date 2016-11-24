@@ -10,7 +10,7 @@ const Action = (props) => {
     return(
       <div className='workWindow2'>
         <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
-        <h1>Action   <i className="fa fa-caret-down"></i></h1>
+          <h1>Action   <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
@@ -55,10 +55,10 @@ const Action = (props) => {
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
+            <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           <div>
-          <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+            <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>
@@ -68,16 +68,16 @@ const Action = (props) => {
     return(
      <div className='workWindow2'>
         <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
-        <h1><img className='icon' src={servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
+          <h1><img className='icon' src={servicesDetail.servicesDetailJSON[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-          <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
+            <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           {servicesDetail.servicesDetailJSON[props.state.action].action.options[props.state.actionOption].parameters.map(function(param) {
             return(
               <div key={param.alias}>
-              <h2>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
+                <h2>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
               </div>
             )
           })}
@@ -88,9 +88,6 @@ const Action = (props) => {
       </div>
     );
   }
-
 };
 
-
 export default Action;
-
