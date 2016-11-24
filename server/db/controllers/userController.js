@@ -28,6 +28,7 @@ exports.Login = new LocalStrategy(
     });
   }
 );
+
 exports.Signup = new LocalStrategy({
     passReqToCallback: true
   },
@@ -96,12 +97,12 @@ exports.getUserConcoctions = (req, res) => {
   }, 
   function(err, rows) {
     if(rows.rowCount > 0) {
-      var userId = rows.rows[0].id;
-      var tokenArray = [];
-      rows.rows[0].slacktoken ? tokenArray.push('slacktoken') : tokenArray;
-      rows.rows[0].evernotetoken ? tokenArray.push('evernotetoken') : tokenArray;
+      let userId = rows.rows[0].id;
+      let tokenArray = [];
+      rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
+      rows.rows[0].evernotetoken ? tokenArray.push('evernote') : tokenArray;
       pool.query({
-        text: 'SELECT enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
+        text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
       }, function(err, rows) {
         const obj = {
           concoctions: rows.rows,
