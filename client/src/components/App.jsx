@@ -113,7 +113,6 @@ export default class App extends React.Component {
 
   getConcoctions() {
     let context = this;
-    console.log('getting concoctions')
     fetch(`${currUrl}/api/user/concoctions?username=${this.state.user}`, {
       method: 'GET',
     })
@@ -125,7 +124,6 @@ export default class App extends React.Component {
       }
     })
     .then((concObj) => {
-      console.log('concObj', concObj);
       context.changeState('concoctions', concObj.concoctions);
       concObj['oauths'].forEach((api) => 
         context.state.connectedServices[api] = true
