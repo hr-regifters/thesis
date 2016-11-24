@@ -6,5 +6,4 @@ const router = new express.Router();
 router.post('/add', concoctionConstructor.createConcoction);
 router.post('/changeEnabled', concoctionConstructor.toggleConcoction);
 
-
 module.exports = router;
