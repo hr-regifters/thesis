@@ -6,6 +6,7 @@ const Local = require('./userController');
 const Slack = require('./slackController');
 const Evernote = require('./evernoteController');
 const Github = require('./githubController');
+const Fitbit = require('./fitbitController')
 
 module.exports = (app) => {
 
