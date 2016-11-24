@@ -37,11 +37,11 @@ export default class HomeView extends React.Component {
       <div id="HomeView">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-          <h3 className="pull-right"> My Concoctions </h3>
+            <h3 className="pull-right"> My Concoctions </h3>
           <div onClick={() => { this.logout() }}>
             <h3 className="pull-right"> Logout </h3>
           </div>
-          <h3 className ="navbar-left"> Regift3d</h3>
+            <h3 className ="navbar-left"> Regift3d</h3>
           </div>
         </nav>
         <div id="concoctions">

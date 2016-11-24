@@ -68,30 +68,29 @@ export default class Verification extends React.Component {
   render() {
     return (
       <div id="Verification">
-      <h1 id="signupTitle" className="animated fadeInDown"> Regift3d </h1>
-      <Grid>
-
-        <row>
-          <div id="register" className="col-sm-5 animated fadeIn box">
-            <form>
-              <h2>SIGNUP</h2>
-              <input placeholder="username" id="newUsername" />
-              <input placeholder="password" id="newPassword" />
-              <input placeholder="email" id="newEmail" />
-              <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
-            </form>
-          </div>
-          <div id="login" className="col-sm-5 animated fadeIn box">
-            <form>
-              <h2>SIGNIN</h2>
-              <input placeholder="username" id="username" />
-              <input placeholder="password" id="password" />
-              <input placeholder="email" id="invisiblefillera" />
-              <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
-            </form>
-          </div>
-        </row>
-      </Grid>
+        <h1 id="signupTitle" className="animated fadeInDown"> Regift3d </h1>
+        <Grid>
+          <row>
+            <div id="register" className="col-sm-5 animated fadeIn box">
+              <form>
+                <h2>SIGNUP</h2>
+                <input placeholder="username" id="newUsername" />
+                <input placeholder="password" id="newPassword" />
+                <input placeholder="email" id="newEmail" />
+                <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
+              </form>
+            </div>
+            <div id="login" className="col-sm-5 animated fadeIn box">
+              <form>
+                <h2>SIGNIN</h2>
+                <input placeholder="username" id="username" />
+                <input placeholder="password" id="password" />
+                <input placeholder="email" id="invisiblefillera" />
+                <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
+              </form>
+            </div>
+          </row>
+        </Grid>
       </div>
     );
   }

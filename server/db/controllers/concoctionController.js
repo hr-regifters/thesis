@@ -17,23 +17,20 @@ exports.queryConcoctions = (req, res) => {
 const getActionIdandToken = (concObj, username, res) => {
   if (concObj['actionapi'] === 'slack') {
     return userController.getUserData('username', username).then((user) => {
-      console.log('line 10 fired', user.slackid)
       if (user.slackid && user.slacktoken) {
         concObj['userid'] = user.id;
         concObj['actionuserid'] = user.slackid;
         concObj['actiontoken'] = user.slacktoken;
-        console.log(concObj);
         return concObj;
       } else {
         res.status(405).send('cant find user');
       }
-    })
+    });
   } else if (concObj['actionapi'] === 'evernote') {
     return userController.getUserData('username', username).then((user) => {
       if (user.evernotetoken) {
         concObj['userid'] = user.id;
         concObj['actiontoken'] = user.evernotetoken;
-        console.log(concObj);
         return concObj;
       } else {
         res.status(405).send('cant find user');
@@ -53,7 +50,6 @@ const writeConcoction = function(concObj, res) {
     '{}',concObj['enable'], concObj['description']]
   }, function(err, rows) {
     console.log(err);
-    console.log(rows, 'fucking wrote this shit bruh');
     res.status(201).send(rows);
   });
 }
@@ -62,8 +58,8 @@ exports.createConcoction = (req,res) => {
   let concObj = {
     userid: '',
     triggerapi: req.body.triggerApi,
-    triggerevent: req.body.triggerevent,
-    triggerparams: req.body.triggerparams || {}, 
+    triggerevent: req.body.triggerEvent,
+    triggerparams: req.body.triggerParams || {}, 
     actionapi: req.body.actionApi,
     actionevent: req.body.actionEvent,
     actionuserid: '',
@@ -78,7 +74,7 @@ exports.createConcoction = (req,res) => {
     writeConcoction(concObj, res);
   }).catch(function(error) {
     res.status(405).send(error);
-  })  
+  });
 }
 
 const getConcoctions = (api, event) => {
@@ -86,7 +82,7 @@ const getConcoctions = (api, event) => {
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
   }, function(err,rows) {
     return err ? err : rows.rows; 
-  })
+  });
 }
 
 exports.toggleConcoction = (req,res) => {
@@ -103,8 +99,8 @@ exports.toggleConcoction = (req,res) => {
         SET enable = ' + toggle + ' WHERE id = \'' + concId + '\';' 
       }, function(err, rows) {
         res.status(201).send('updated bruh');
-      })
+      });
     }
-  })
+  });
 }
 

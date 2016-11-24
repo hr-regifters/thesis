@@ -15,9 +15,9 @@ class ConcoctionView extends React.Component {
   render() {
     return (
       <div>
-         <div>description:{this.state.concoction.description}</div>
+        <div>description:{this.state.concoction.description}</div>
         <div>trigger:{this.state.concoction.services.trigger.serviceName}</div>
-        { this.state.concoction.services.actions.map((action) => {
+        {this.state.concoction.services.actions.map((action) => {
           return (
             <div>
             action:{action.serviceName}

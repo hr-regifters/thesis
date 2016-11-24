@@ -16,7 +16,7 @@ const SaveNewConcoction = (props) => {
     // props.saveConcoction(document.getElementById('desc').value)
     return (
       <div className='saveEnabled' onClick={ () => {props.saveConcoction()}}>
-      <h2 className='saveBttn'>Save New Concoction</h2>
+        <h2 className='saveBttn'>Save New Concoction</h2>
       </div>
     );
   }

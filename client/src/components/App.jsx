@@ -46,6 +46,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getConcoctions();
     if (sessionStorage.getItem('appState') === undefined) {
       sessionStorage.setItem('appState', JSON.stringify(this.state));
     } else {
@@ -100,7 +101,7 @@ export default class App extends React.Component {
         username: context.state.user,
         actionApi: actionApi,
         actionEvent: actionEvent,
-        actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
+        actionParams: context.state.actions[0].actionParams,
         description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${context.state.trigger}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${actionApi}`,
       }),
     })
@@ -220,7 +221,6 @@ export default class App extends React.Component {
       actions: temp,
     });
   }
-
 
   render() {
     return (
