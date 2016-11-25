@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS concoctions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id            BIGSERIAL   PRIMARY KEY,
