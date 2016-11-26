@@ -37,9 +37,9 @@ module.exports = {
         console.log("GOT CONCOCTIONS", arr);
         async.each(arr.rows, (obj, callback) => {
           console.log("LOOKING AT EACH CONCOCTION", obj);
-          if (obj.enabled && req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
+          if (obj.enabled && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
-              console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.slackUserId}`);
+              console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
               callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
@@ -52,7 +52,7 @@ module.exports = {
                   slackReqObj.links = [file.url_private];
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
-                  slackReqObj.slackUserId = obj.slackUserId;
+                  slackReqObj.slackUserId = obj.triggeruserid;
                   slackReqObj.actionParams = JSON.parse(obj.actionparams);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
@@ -68,7 +68,7 @@ module.exports = {
                     slackReqObj.links = [file.url_private];
                     slackReqObj.body = new Date(file.timestamp * 1000).toString();
                     slackReqObj.tagNames = ['Slack', 'Pin'];
-                    slackReqObj.slackUserId = obj.slackUserId;
+                    slackReqObj.slackUserId = obj.triggeruserid;
                     slackReqObj.actionParams = JSON.parse(obj.actionparams);
                     webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                     callback();
@@ -79,13 +79,13 @@ module.exports = {
                   slackReqObj.links = [msg.permalink];
                   slackReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;
                   slackReqObj.tagNames = ['Slack', 'Pin'];
-                  slackReqObj.slackUserId = obj.slackUserId;
+                  slackReqObj.slackUserId = obj.triggeruserid;
                   slackReqObj.actionParams = JSON.parse(obj.actionparams);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                userCtrl.getUserData('slackId', obj.slackUserId).then((user) => {
+                userCtrl.getUserData('slackId', obj.triggeruserid).then((user) => {
                   slackReqObj.username = user.username;
                   slackReqObj.actionParams = JSON.parse(obj.actionparams);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
