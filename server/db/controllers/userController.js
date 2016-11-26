@@ -72,7 +72,7 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
   );
   if (slackId) {
     pool.query({
-      text: 'UPDATE users SET  slackId = \'' + slackId + '\'  WHERE username = \'' + username + '\';'
+      text: 'UPDATE users SET slackId = \'' + slackId + '\'  WHERE username = \'' + username + '\';'
     }, 
     (err,rows) => {
       if (err) { return err} else {
@@ -102,7 +102,7 @@ exports.getUserConcoctions = (req, res) => {
       rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
       rows.rows[0].evernotetoken ? tokenArray.push('evernote') : tokenArray;
       pool.query({
-        text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams FROM concoctions WHERE userId = \'' + userId + '\';'
+        text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams, triggeruserid FROM concoctions WHERE userId = \'' + userId + '\';'
       }, function(err, rows) {
         const obj = {
           concoctions: rows.rows,

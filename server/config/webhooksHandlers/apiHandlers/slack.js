@@ -38,11 +38,11 @@ module.exports = {
         async.each(arr.rows, (obj, callback) => {
           console.log("LOOKING AT EACH CONCOCTION", obj);
           if (obj.enabled && req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
-            if (obj.actionApi === undefined || obj.actionFunction === undefined) {
+            if (obj.actionapi === undefined || obj.actionevent === undefined) {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.slackUserId}`);
               callback();
             } else {
-              if (req.body.event.type === 'file_created' && obj.actionApi === 'evernote' && obj.actionFunction === 'post_note') {
+              if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
                   slackReqObj.title = file.title;
@@ -53,11 +53,11 @@ module.exports = {
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                   slackReqObj.slackUserId = obj.slackUserId;
-                  slackReqObj.actionParams = JSON.parse(obj.actionParams);
-                  webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote post_note action: ', error); });
-              } else if (req.body.event.type === 'pin_added' && obj.actionApi === 'evernote' && obj.actionFunction === 'post_note') {
+              } else if (req.body.event.type === 'pin_added' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
                 if (req.body.event.item.type === 'file') {
                   slackCtrl.getFile(req.body.event.item.file_id)
                   .then((file) => {
@@ -69,8 +69,8 @@ module.exports = {
                     slackReqObj.body = new Date(file.timestamp * 1000).toString();
                     slackReqObj.tagNames = ['Slack', 'Pin'];
                     slackReqObj.slackUserId = obj.slackUserId;
-                    slackReqObj.actionParams = JSON.parse(obj.actionParams);
-                    webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                    slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                    webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                     callback();
                   }).catch((error) => { console.log('Error in pin_added file and evernote post_note action: ', error); });
                 } else if (req.body.event.item.type === 'message') {
@@ -80,20 +80,20 @@ module.exports = {
                   slackReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;
                   slackReqObj.tagNames = ['Slack', 'Pin'];
                   slackReqObj.slackUserId = obj.slackUserId;
-                  slackReqObj.actionParams = JSON.parse(obj.actionParams);
-                  webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }
-              } else if (obj.actionApi === 'slack' && obj.actionFunction === 'post_message') {
+              } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
                 userCtrl.getUserData('slackId', obj.slackUserId).then((user) => {
                   slackReqObj.username = user.username;
-                  slackReqObj.actionParams = JSON.parse(obj.actionParams);
-                  webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('error Slack action post_message', error); });
-              } else if (obj.actionApi === 'twilio' && obj.actionFunction === 'send_sms') {
-                slackReqObj = JSON.parse(obj.actionParams);
-                webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+              } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_sms') {
+                slackReqObj = JSON.parse(obj.actionparams);
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
               }
             }

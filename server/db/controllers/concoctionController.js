@@ -35,42 +35,60 @@ const getActionIdandToken = (concObj, username, res) => {
       } else {
         res.status(405).send('cant find user');
       }
-    })    
+    });
   } else {
     res.status(405).send('cant find user');
-  } 
+  }
 }
+
+const getTriggerId = (concObj, username, res) => {
+  if (concObj['triggerapi'] === 'slack') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.slackid) {
+        concObj['triggeruserid'] = user.slackid;
+        return concObj;
+      } else {
+        res.status(405).send('cant find user');
+      }
+    });
+  } else {
+    res.status(405).send('cant find user');
+  }
+}
+
 const writeConcoction = function(concObj, res) {
   pool.query({
-    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, actionapi, actionevent,\
+    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],'{}',
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'],
     concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
-    '{}',concObj['enable'], concObj['description']]
+    concObj['actionparams'],concObj['enable'], concObj['description']]
   }, function(err, rows) {
     console.log(err);
     res.status(201).send(rows);
   });
 }
 
-exports.createConcoction = (req,res) => {
+exports.createConcoction = (req, res) => {
   const username = req.body.username;
   let concObj = {
     userid: '',
     triggerapi: req.body.triggerApi,
     triggerevent: req.body.triggerEvent,
-    triggerparams: req.body.triggerParams || {}, 
+    triggerparams: req.body.triggerParams || {},
+    triggeruserid: '',
     actionapi: req.body.actionApi,
     actionevent: req.body.actionEvent,
     actionuserid: '',
     actiontoken: '',
     actionparams: req.body.actionParams || {},
-    enable: req.body.enable|| true, //this is a boolean 
+    enable: req.body.enable || true, //this is a boolean 
     description: req.body.description 
   };
 //get action id, token, and userId
   getActionIdandToken(concObj, username, res)
+  .then((concObj) => getTriggerId(concObj, username, res))
   .then((concObj) => {
     writeConcoction(concObj, res);
   }).catch(function(error) {
