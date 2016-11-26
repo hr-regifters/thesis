@@ -42,30 +42,25 @@ module.exports = {
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
       var client = new Evernote.Client({sandbox: false, token: paramObj.actionParams.evernote}); //define client with the token from the DB
-      console.log('line 45');
-      client.getNoteStore()
-      .then((noteStore) => {
-        var parentNotebook = paramObj.actionParams.parentNotebook;
-        console.log(parentNotebook);
-        if (parentNotebook) {
-          noteStore.listNotebooks(function(err, notebooks) {
-            // find the guid for the notebook with a name matching 'parentNotebook'
-            var notebook = notebooks.filter(function(notebook){ console.log(notebook, typeof notebook, notebook.name, typeof notebook.name); return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
-            if (notebook.length !== 0) {
-              var guid = notebook[0].guid;
-              ourNote.notebookGuid = guid;
-              console.log('writing note to specified notebook');
-              saveNote(ourNote, noteStore);
-            } else {
-              console.log('writing note to default notebook');
-              saveNote(ourNote, noteStore);
-            }
-          });
-        } else {
-          saveNote(ourNote, noteStore);
-        }
-      })
-      .catch((err) => { console.log(err, 'Error when saving note to evernote') });
+      var noteStore = client.getNoteStore();
+      //if parentNotebook is defined
+      var parentNotebook = paramObj.actionParams.parentNotebook;
+      if (parentNotebook) {
+        noteStore.listNotebooks(function(err, notebooks) {
+          // find the guid for the notebook with a name matching 'parentNotebook'
+          var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+          if (notebook.length !== 0) {
+            var guid = notebook[0].guid;
+            ourNote.notebookGuid = guid;
+            saveNote(ourNote, noteStore);
+          } else {
+            console.log('writing note to default notebook');
+            saveNote(ourNote, noteStore);
+          }
+        });
+      } else {
+        saveNote(ourNote, noteStore);
+      }
     },
     delete: (paramObj) => {
       console.log('evernote delete function performed', params.actionParams);
