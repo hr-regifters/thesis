@@ -19,7 +19,6 @@ module.exports = {
       && req.body.event.event_ts * 1000 < currentTime && req.body.token === 'a1w5cdEEWMlk4t8TZ60TOX43'
       && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
-      console.log(req.body);
       let slackReqObj = {
         slackUserId: '',
         title: '',
@@ -28,14 +27,15 @@ module.exports = {
         images: [],
         tagNames: [],
         actionParams: '',
+        to: '',
+
       };
 
         // fetch db data for users to get actions
         //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
-      concCtrl.getSlackEvent(req.body.event.type).then((arr) => {
-        async.each(arr, (obj, callback) => {
+      concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
+        async.each(arr.rows, (obj, callback) => {
           if (obj.enabled && req.body['authed_users'].indexOf(obj.slackUserId) !== -1) {
-            console.log('into async', obj);
             if (obj.actionApi === undefined || obj.actionFunction === undefined) {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.slackUserId}`);
               callback();
@@ -89,6 +89,10 @@ module.exports = {
                   webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('error Slack action post_message', error); });
+              } else if (obj.actionApi === 'twilio' && obj.actionFunction === 'send_sms') {
+                slackReqObj = JSON.parse(obj.actionParams);
+                webhooksHandler[`${obj.actionApi}Action`][obj.actionFunction](slackReqObj);
+                callback();
               }
             }
           } else {

@@ -53,6 +53,7 @@ const writeConcoction = function(concObj, res) {
     res.status(201).send(rows);
   });
 }
+
 exports.createConcoction = (req,res) => {
   const username = req.body.username;
   let concObj = {
@@ -77,7 +78,7 @@ exports.createConcoction = (req,res) => {
   });
 }
 
-const getConcoctions = (api, event) => {
+exports.getConcoctions = (api, event) => {
   return pool.query({
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
   }, function(err,rows) {
