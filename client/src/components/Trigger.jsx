@@ -18,9 +18,12 @@ const Trigger = (props) => {
                 <h3 key={service} className='serviceBttn' >
                   {
                     props.state.connectedServices[service] ?
-                    <a onClick={ () => {props.funcs.modifyTrigger(service)}}>{servicesDetail[service].name}</a>
+                      <a onClick={ () => {props.funcs.modifyTrigger(service)}}>{servicesDetail[service].name}</a>
                     :
-                    <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail[service].name}</a>
+                    service.slice(0, 6) === 'google' ?
+                      <a href={`${currUrl}/api/oauth/google`}>{servicesDetail[service].name}</a>
+                      :
+                      <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail[service].name}</a>
                   }
                 </h3>
               );

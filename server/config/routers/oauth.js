@@ -74,7 +74,29 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
-    // utility.addTokenAndId(username, 'fitbitToken', fitbitData.session.passport.user);
+    // utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
+    res.redirect('/');
+  }
+);
+
+router.get('/google', checkLogin, passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/drive',
+          'https://www.googleapis.com/auth/plus.login']
+}));
+
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (googleData, res) => {
+    const allSessions = googleData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    console.log(googleData.user);
+    // utility.addTokenAndId(username, 'githubToken', googleData.user);
     res.redirect('/');
   }
 );
