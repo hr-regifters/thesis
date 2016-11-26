@@ -12,7 +12,7 @@ const listenTo = {
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    var currentTime = Number(new Date());
+    const currentTime = Number(new Date());
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type] && req.body.event['event_ts'] * 1000 > currentTime - 10800000
@@ -74,7 +74,7 @@ module.exports = {
                     callback();
                   }).catch((error) => { console.log('Error in pin_added file and evernote post_note action: ', error); });
                 } else if (req.body.event.item.type === 'message') {
-                  var msg = req.body.event.item.message;
+                  const msg = req.body.event.item.message;
                   slackReqObj.title = msg.text.split(' ').slice(0,3).join(' ') + '...';
                   slackReqObj.links = [msg.permalink];
                   slackReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;

@@ -1,7 +1,7 @@
+"use strict"
 const Evernote = require('evernote').Evernote;
 const UserCtrl = require('../../../db/controllers/userController.js');
 const async = require('async');
-// const evernoteCollection = require('./../../../db/models/evernoteModel')
 
 module.exports = {
   trigger: (req, res) => {
@@ -18,9 +18,8 @@ module.exports = {
   },
   actions: {
     post_note: (paramObj) => {
-      
-      const saveNote = function(note, noteStore) {
-        noteStore.createNote(note, function(err, note) {
+      const saveNote = (note, noteStore) => {
+        noteStore.createNote(note, (err, note) => {
           if (err) {
             console.log('Note not saved', err);
           } else {
@@ -29,27 +28,25 @@ module.exports = {
         });
       };
 
-      var ourNote = new Evernote.Note;
+      let ourNote = new Evernote.Note;
       ourNote.title = paramObj.title;
-      var noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + paramObj.body;
-      paramObj.links.forEach(function(link) {
+      let noteContent = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml.dtd"><en-note>' + paramObj.body;
+      paramObj.links.forEach((link) => {
         noteContent += '<br/><br/><a href="' + link + '">' + link + '</a>';
       });
-      paramObj.images.forEach(function(image) {
+      paramObj.images.forEach((image) => {
         noteContent += '<br/><img src="' + image + '"></img>';
       });
       noteContent += '</en-note>';
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
-      var client = new Evernote.Client({sandbox: false, token: paramObj.actionToken}); //define client with the token from the DB
-      var noteStore = client.getNoteStore();
-      //if parentNotebook is defined
-      var parentNotebook = paramObj.actionParams.parentNotebook;
-      noteStore.listNotebooks(function(err, notebooks) {
-        // find the guid for the notebook with a name matching 'parentNotebook'
-        var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+      let client = new Evernote.Client({sandbox: false, token: paramObj.actionToken}); //define client with the token from the DB
+      let noteStore = client.getNoteStore();
+      let parentNotebook = paramObj.actionParams.parentNotebook;
+      noteStore.listNotebooks((err, notebooks) => {
+        let notebook = notebooks.filter((notebook) => { return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
         if (notebook.length !== 0) {
-          var guid = notebook[0].guid;
+          let guid = notebook[0].guid;
           ourNote.notebookGuid = guid;
           saveNote(ourNote, noteStore);
         } else {

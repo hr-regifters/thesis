@@ -9,7 +9,7 @@ router.get('/slack', checkLogin, passport.authenticate('slack'));
 
 router.get('/slack/callback',
   passport.authorize('slack', { failureRedirect: '/' }),
-  function(slackData, res) {
+  (slackData, res) => {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -28,7 +28,7 @@ router.get('/evernote', checkLogin, passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
   passport.authenticate('evernote', { failureRedirect: '/' }),
-  function(evernoteData, res) {
+  (evernoteData, res) => {
     const allSessions = evernoteData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -47,7 +47,7 @@ router.get('/github', checkLogin, passport.authenticate('github'));
 
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
-  function(githubData, res) {
+  (githubData, res) => {
     const allSessions = githubData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -65,7 +65,7 @@ router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['act
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
-  function(fitbitData, res) {
+  (fitbitData, res) => {
     const allSessions = fitbitData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {

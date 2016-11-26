@@ -6,9 +6,9 @@ export default class Concoction extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      enabledClass: 'disabledBtn',
+      enableClass: 'disabledBtn',
     };
-    this.enabled = false;
+    this.enable = false;
   }
 
   transitionToEdit() {
@@ -17,9 +17,9 @@ export default class Concoction extends React.Component {
     // also pass up the id of the concoction to edit
   }
 
-  changeEnabled() {
+  changeEnable() {
     const context = this;
-    fetch(`${currUrl}/api/constructor/changeEnabled`, {
+    fetch(`${currUrl}/api/constructor/toggleEnable`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -29,9 +29,9 @@ export default class Concoction extends React.Component {
     .then((res) => {
       if (res.status === 201) {
         context.setState({
-          enabledClass: context.state.enabledClass === 'enabledBtn' ? 'disabledBtn' : 'enabledBtn',
+          enableClass: context.state.enableClass === 'enableBtn' ? 'disabledBtn' : 'enableBtn',
         });
-        context.enabled = !context.enabled;
+        context.enable = !context.enable;
       } else {
         console.log('unsuccesful toggle')
       }
@@ -39,9 +39,9 @@ export default class Concoction extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.concoctionInfo.enabled) {
-      this.state.enabledClass = 'enabledBtn';
-      this.enabled = true;
+    if (this.props.concoctionInfo.enable) {
+      this.state.enableClass = 'enableBtn';
+      this.enable = true;
     }
   }
 
@@ -49,14 +49,14 @@ export default class Concoction extends React.Component {
     return (
       <div className="concoction animated fadeIn">
         <div className="mainBox">
-          <img className='icon' src={`https://www.slack.com/favicon.ico`}></img>
+          <img className='icon' src={`https://www.${this.props.concoctionInfo.triggerapi}.com/favicon.ico`}></img>
           <i className="fa fa-arrow-right fa-1x"></i>
-          <img className='icon' src={`https://www.evernote.com/favicon.ico`}></img>
+          <img className='icon' src={`https://www.${this.props.concoctionInfo.actionapi}.com/favicon.ico`}></img>
           <p>{this.props.concoctionInfo.description}</p>
         </div>
         <div className="bottomBox">
           <a>Edit</a>
-          <a className={this.state.enabledClass} onClick={this.changeEnabled.bind(this)}>Enable</a>
+          <a className={this.state.enableClass} onClick={this.changeEnable.bind(this)}>Enable</a>
         </div>
       </div>
     );

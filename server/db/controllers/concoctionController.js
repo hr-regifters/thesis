@@ -8,7 +8,7 @@ const pool = (require('../config.js').pool);
 exports.queryConcoctions = (req, res) => {
   pool.query({
     text: 'SELECT * FROM concoctions;'
-  }, function(err, rows) {
+  }, (err, rows) => {
     console.log(err, rows.rows)
     res.status(201).send(rows.rows);
   }); 
@@ -56,7 +56,7 @@ const getTriggerId = (concObj, username, res) => {
   }
 }
 
-const writeConcoction = function(concObj, res) {
+const writeConcoction = (concObj, res) => {
   pool.query({
     text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
@@ -64,7 +64,7 @@ const writeConcoction = function(concObj, res) {
     values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'],
     concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
     concObj['actionparams'],concObj['enable'], concObj['description']]
-  }, function(err, rows) {
+  }, (err, rows) => {
     console.log(err);
     res.status(201).send(rows);
   });
@@ -91,7 +91,7 @@ exports.createConcoction = (req, res) => {
   .then((concObj) => getTriggerId(concObj, username, res))
   .then((concObj) => {
     writeConcoction(concObj, res);
-  }).catch(function(error) {
+  }).catch((error) => {
     res.status(405).send(error);
   });
 }
@@ -99,7 +99,7 @@ exports.createConcoction = (req, res) => {
 exports.getConcoctions = (api, event) => {
   return pool.query({
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
-  }, function(err,rows) {
+  }, (err,rows) => {
     return err ? err : rows.rows; 
   });
 }
@@ -108,7 +108,7 @@ exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({
     text: 'SELECT enable FROM concoctions WHERE id = \'' + concId + '\';'
-  }, function(err, rows) {
+  }, (err, rows) => {
     if (err) {
       return err;
     } else {
@@ -116,7 +116,7 @@ exports.toggleConcoction = (req, res) => {
       pool.query({
         text: 'UPDATE concoctions \
         SET enable = ' + toggle + ' WHERE id = \'' + concId + '\';' 
-      }, function(err, rows) {
+      }, (err, rows) => {
         res.status(201).send('concoction successfully toggled');
       });
     }

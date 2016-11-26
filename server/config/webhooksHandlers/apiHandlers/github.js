@@ -4,12 +4,10 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
-// const env = require ('./../../../../env');
 const listenTo = {
   file_created: true,
   pin_added: true,
 };
-
 
 module.exports = {
   trigger: (req, res) => {
