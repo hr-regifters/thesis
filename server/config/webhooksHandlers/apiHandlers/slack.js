@@ -49,6 +49,8 @@ module.exports = {
                 console.log('got inside line 48');
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
+                  console.log('got inside line 51', file);
+                  console.log(JSON.parse(obj.actionparams));
                   slackReqObj.title = file.title;
                   if (file.mimetype.slice(0, 5) === 'image') {
                     slackReqObj.images = [file.url_private];
