@@ -50,7 +50,7 @@ module.exports = {
         console.log('line 50 evernote.js')
         noteStore.listNotebooks(function(err, notebooks) {
           // find the guid for the notebook with a name matching 'parentNotebook'
-          var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+          var notebook = notebooks.filter(function(notebook){ console.log(notebook, typeof notebook, notebook.name, typeof notebook.name); return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
           if (notebook.length !== 0) {
             var guid = notebook[0].guid;
             ourNote.notebookGuid = guid;
