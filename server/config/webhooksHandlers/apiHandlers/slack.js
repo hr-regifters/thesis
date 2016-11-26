@@ -52,6 +52,7 @@ module.exports = {
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                   slackReqObj.slackUserId = obj.triggeruserid;
                   slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                  console.log('SLACKREQOBJ', slackReqObj);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote post_note action: ', error); });

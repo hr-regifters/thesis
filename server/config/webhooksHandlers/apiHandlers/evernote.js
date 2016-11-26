@@ -42,9 +42,11 @@ module.exports = {
       ourNote.content = noteContent;
       ourNote.tagNames = paramObj.tagNames;
       var client = new Evernote.Client({sandbox: false, token: paramObj.actionParams.evernote}); //define client with the token from the DB
+      console.log('line 45');
       client.getNoteStore()
       .then((noteStore) => {
         var parentNotebook = paramObj.actionParams.parentNotebook;
+        console.log(parentNotebook);
         if (parentNotebook) {
           noteStore.listNotebooks(function(err, notebooks) {
             // find the guid for the notebook with a name matching 'parentNotebook'
