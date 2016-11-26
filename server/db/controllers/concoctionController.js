@@ -104,20 +104,20 @@ exports.getConcoctions = (api, event) => {
   });
 }
 
-exports.toggleConcoction = (req,res) => {
+exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({
     text: 'SELECT enable FROM concoctions WHERE id = \'' + concId + '\';'
   }, function(err, rows) {
     if (err) {
-      return err
+      return err;
     } else {
       const toggle = !rows.rows[0].enable;
       pool.query({
         text: 'UPDATE concoctions \
         SET enable = ' + toggle + ' WHERE id = \'' + concId + '\';' 
       }, function(err, rows) {
-        res.status(201).send('updated bruh');
+        res.status(201).send('concoction successfully toggled');
       });
     }
   });

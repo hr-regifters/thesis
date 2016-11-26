@@ -24,7 +24,6 @@ class ConcoctionView extends React.Component {
             </div>
           );
         })}
-        <AddServiceWindow servicesDetail={this.props.appState.servicesDetail} />
       </div>
     );
   }

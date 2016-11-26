@@ -18,19 +18,23 @@ export default class Concoction extends React.Component {
   }
 
   changeEnabled() {
-    this.setState({
-      enabledClass: this.state.enabledClass === 'enabledBtn' ? 'disabledBtn' : 'enabledBtn',
-    });
-    this.enabled = this.enabled === true ? false : true;
+    const context = this;
     fetch(`${currUrl}/api/constructor/changeEnabled`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        enabled: this.enabled,
-      }),
+        concId: context.props.concoctionInfo.id
+      })
+    })
+    .then((res) => {
+      if (res.status === 201) {
+        context.setState({
+          enabledClass: context.state.enabledClass === 'enabledBtn' ? 'disabledBtn' : 'enabledBtn',
+        });
+        context.enabled = !context.enabled;
+      } else {
+        console.log('unsuccesful toggle')
+      }
     });
   }
 

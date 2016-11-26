@@ -52,7 +52,7 @@ export default class HomeView extends React.Component {
                 this.props.appState.concoctions.map((concoction) => {
                   return (
                     <Col xs={4}>
-                      <Concoction concoctionInfo={concoction} servicesDetail={this.props.appState.servicesDetail} />
+                      <Concoction concoctionInfo={concoction} />
                     </Col>
                   );
                 })
