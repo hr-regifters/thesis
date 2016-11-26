@@ -14,16 +14,18 @@ const Action = (props) => {
         </div>
         <div className={props.state.actionServicesReveal}>
           {Object.keys(servicesDetail.servicesDetailJSON).map(function(service) {
-            return (
-              <h3 className='serviceBttn' key={service}>
-                {
-                  props.connectedServices[service] ?
-                  <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{service}</a>
-                  :
-                  <a href={`${currUrl}/api/oauth/${service}`}>{service}</a>
-                }
-              </h3>
-            );
+            if (servicesDetail.servicesDetailJSON[service].action.options[0] !== 'none') {
+              return (
+                <h3 className='serviceBttn' key={service}>
+                  {
+                    props.connectedServices[service] ?
+                    <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{servicesDetail.servicesDetailJSON[service].name}</a>
+                    :
+                    <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail.servicesDetailJSON[service].name}</a>
+                  }
+                </h3>
+              );
+            }
           })}
         </div>
       </div>
