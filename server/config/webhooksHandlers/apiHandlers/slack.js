@@ -34,23 +34,15 @@ module.exports = {
         // fetch db data for users to get actions
         //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
       concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
-        console.log(req.body);
-        console.log("GOT CONCOCTIONS", arr);
         async.each(arr.rows, (obj, callback) => {
-          console.log("LOOKING AT EACH CONCOCTION", obj);
-          console.log(typeof obj);
-          if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
-            console.log('got inside line 42');
+          if (obj.enabled && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
               callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
-                console.log('got inside line 48');
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
-                  console.log('got inside line 51', file);
-                  console.log(JSON.parse(obj.actionparams));
                   slackReqObj.title = file.title;
                   if (file.mimetype.slice(0, 5) === 'image') {
                     slackReqObj.images = [file.url_private];
@@ -60,7 +52,6 @@ module.exports = {
                   slackReqObj.tagNames = ['Slack', 'Upload'];
                   slackReqObj.slackUserId = obj.triggeruserid;
                   slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                  console.log('SLACKREQOBJ', slackReqObj);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote post_note action: ', error); });
