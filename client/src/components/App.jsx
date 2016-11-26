@@ -102,7 +102,7 @@ export default class App extends React.Component {
         actionApi: actionApi,
         actionEvent: actionEvent,
         actionParams: context.state.actions[0].actionParams,
-        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${context.state.trigger}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${actionApi}`,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail.servicesDetailJSON[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${servicesDetail.servicesDetailJSON[actionApi].name}`,
       }),
     })
     .then(function(res) {
