@@ -45,7 +45,9 @@ module.exports = {
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
       var parentNotebook = paramObj.actionParams.parentNotebook;
+      console.log(parentNotebook)
       if (parentNotebook) {
+        console.log('line 50 evernote.js')
         noteStore.listNotebooks(function(err, notebooks) {
           // find the guid for the notebook with a name matching 'parentNotebook'
           var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
