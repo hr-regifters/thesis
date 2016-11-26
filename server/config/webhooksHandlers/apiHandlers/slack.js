@@ -39,7 +39,7 @@ module.exports = {
         async.each(arr.rows, (obj, callback) => {
           console.log("LOOKING AT EACH CONCOCTION", obj);
           console.log(typeof obj);
-          if (obj.enabled && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
+          if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
             console.log('got inside line 42');
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
