@@ -92,7 +92,6 @@ exports.getUserData = (userKey, userValue) => {
 
 exports.getUserConcoctions = (req, res) => {
   const username = req.body.username || req.query.username;
-  console.log(username, req.body.username, req.query.username)
   pool.query({
     text: 'SELECT * FROM users WHERE username = \'' + username + '\';'
   }, 
