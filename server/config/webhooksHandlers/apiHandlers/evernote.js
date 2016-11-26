@@ -45,23 +45,23 @@ module.exports = {
       var noteStore = client.getNoteStore();
       //if parentNotebook is defined
       var parentNotebook = paramObj.actionParams.parentNotebook;
-      if (parentNotebook) {
-        noteStore.listNotebooks(function(err, notebooks) {
-          // find the guid for the notebook with a name matching 'parentNotebook'
-          console.log(notebooks, notebook);
-          // var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
-          if (notebook.length !== 0) {
-            var guid = notebook[0].guid;
-            ourNote.notebookGuid = guid;
-            saveNote(ourNote, noteStore);
-          } else {
-            console.log('writing note to default notebook');
-            saveNote(ourNote, noteStore);
-          }
-        });
-      } else {
+      // if (parentNotebook) {
+      //   noteStore.listNotebooks(function(err, notebooks) {
+      //     // find the guid for the notebook with a name matching 'parentNotebook'
+      //     var notebook = notebooks.filter(function(notebook){ return parentNotebook.toLowerCase() === notebook.name.toLowerCase()});
+      //     if (notebook.length !== 0) {
+      //       var guid = notebook[0].guid;
+      //       ourNote.notebookGuid = guid;
+      //       saveNote(ourNote, noteStore);
+      //     } else {
+      //       console.log('writing note to default notebook');
+      //       saveNote(ourNote, noteStore);
+      //     }
+      //   });
+      // } else {
+        console.log('writing note to default notebook');
         saveNote(ourNote, noteStore);
-      }
+      // }
     },
     delete: (paramObj) => {
       console.log('evernote delete function performed', params.actionParams);
