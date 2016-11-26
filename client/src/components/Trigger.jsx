@@ -65,7 +65,7 @@ const Trigger = (props) => {
             <h2><i onClick={ () => {props.funcs.modifyTriggerOption('')}} className="fa fa-window-close"></i> {servicesDetail.servicesDetailJSON[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
           </div>
           <div>
-            <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none')}} className='saveBttn'>Save Trigger</h2>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none')}} className='saveBttn'>Next Step</h2>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@ const Trigger = (props) => {
               )
             })}
           <div>
-            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementById('param').value, document.getElementById('param').className)}} className='saveBttn'>Save Trigger</h2>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementById('param').value, document.getElementById('param').className)}} className='saveBttn'>Next Step</h2>
           </div>
         </div>
       </div>
