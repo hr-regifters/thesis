@@ -35,7 +35,7 @@ module.exports = {
         //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
       concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
         async.each(arr.rows, (obj, callback) => {
-          if (obj.enabled && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
+          if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
               callback();
