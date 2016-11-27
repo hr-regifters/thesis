@@ -36,7 +36,7 @@ const getActionIdandToken = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
-  } else if (concObj['actionapi'] === 'SMS') {
+  } else if (concObj['actionapi'] === 'twilio') {
     return userController.getUserData('username', username).then((user) => {
       if (user) {
         concObj['userid'] = user.id;

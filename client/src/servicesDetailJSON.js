@@ -70,7 +70,7 @@ module.exports = {
       ],
     },
   },
-  SMS: {
+  twilio: {
     name: 'SMS',
     icon: '',
     trigger: {
@@ -82,10 +82,10 @@ module.exports = {
           alias: 'send_sms',
           parameters: [
             { description: 'Phone Number',
-              alias: 'recipient',
+              alias: 'phoneNumber',
             },
             { description: 'Message',
-              alias: 'text',
+              alias: 'message',
             }
           ],
         },
