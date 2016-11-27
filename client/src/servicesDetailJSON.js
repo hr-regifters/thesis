@@ -79,7 +79,7 @@ module.exports = {
     action: {
       options: [
         { description: 'Send a Text Message',
-          alias: 'send_sms',
+          alias: 'send_text',
           parameters: [
             { description: 'Phone Number',
               alias: 'phoneNumber',

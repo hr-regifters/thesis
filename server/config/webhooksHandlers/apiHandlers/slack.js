@@ -93,7 +93,7 @@ module.exports = {
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('error Slack action post_message', error); });
-              } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_sms') {
+              } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
                 slackReqObj = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();

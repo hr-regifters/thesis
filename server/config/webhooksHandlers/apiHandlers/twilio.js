@@ -10,7 +10,7 @@ module.exports = {
     console.log('there is no twilio trigger, so why do you call it?');
   },
   actions: {
-    send_sms: (paramObj) => {
+    send_text: (paramObj) => {
       let smsObj = {
         to: paramObj.phoneNumber,
         from: sendingNumber,
