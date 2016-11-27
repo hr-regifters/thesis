@@ -62,8 +62,8 @@ exports.createConcoction = (req,res) => {
   let concObj = {
     userid: '',
     triggerapi: req.body.triggerApi,
-    triggerevent: req.body.triggerevent,
-    triggerparams: req.body.triggerparams || {}, 
+    triggerevent: req.body.triggerEvent,
+    triggerparams: req.body.triggerParams || {}, 
     actionapi: req.body.actionApi,
     actionevent: req.body.actionEvent,
     actionuserid: '',

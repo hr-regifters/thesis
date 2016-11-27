@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS concoctions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id            BIGSERIAL   PRIMARY KEY,
@@ -8,6 +9,7 @@ CREATE TABLE users (
   slackId       VARCHAR(10),
   slackToken    VARCHAR(80),
   evernoteToken VARCHAR(100),
+  fitbitToken   VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
