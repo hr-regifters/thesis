@@ -19,7 +19,7 @@ module.exports = {
     action: {
       options: [
         { description: 'Post to a Slack Channel',
-          alias: 'none',
+          alias: 'post_message',
           parameters: [
             { description: 'Channel Name',
               alias: 'channelName',
