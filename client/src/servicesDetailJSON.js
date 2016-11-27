@@ -24,6 +24,9 @@ module.exports = {
             { description: 'Channel Name',
               alias: 'channelName',
             },
+            { description: 'Message',
+              alias: 'text',
+            }
           ],
         },
       ],

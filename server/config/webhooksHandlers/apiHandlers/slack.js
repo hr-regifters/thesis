@@ -115,7 +115,7 @@ module.exports = {
     post_message: (paramObj) => {
       // userCtrl.getUserData('username', paramObj.username).then((user) => {
         console.log(paramObj);
-        const token = paramObj.actionToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
+        const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
         let channel = encodeURIComponent(paramObj.actionParams.channelName);
         let message = encodeURIComponent(paramObj.actionParams.text);
         request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
