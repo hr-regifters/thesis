@@ -37,8 +37,14 @@ const getActionIdandToken = (concObj, username, res) => {
       }
     });
   } else if (concObj['actionapi'] === 'SMS') {
-    console.log('get action id and token')
-    return concObj;
+    return userController.getUserData('username', username).then((user) => {
+      if (user) {
+        concObj['userid'] = user.id;
+        return concObj;
+      } else {
+        res.status(405).send('cant find user');
+      }
+    });
   } else {
     res.status(405).send('cant find user');
   }
@@ -55,7 +61,6 @@ const getTriggerId = (concObj, username, res) => {
       }
     });
   } else {
-    console.log('getting trigger id')
     return concObj;
   }
 }
