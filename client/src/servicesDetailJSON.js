@@ -1,6 +1,6 @@
-exports.servicesDetailJSON = {
+module.exports = {
   slack: {
-    name: 'slack',
+    name: 'Slack',
     icon: 'https://www.slack.com/favicon.ico',
     trigger: {
       options: [
@@ -30,7 +30,7 @@ exports.servicesDetailJSON = {
     },
   },
   evernote: {
-    name: 'evernote',
+    name: 'Evernote',
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: [
@@ -50,7 +50,7 @@ exports.servicesDetailJSON = {
             },
           ],
         },
-        { description: 'When a note in a any Notebook is created',
+        { description: 'When a note in any Notebook is created',
           alias: 'none',
           parameters: [
           ],
@@ -70,13 +70,103 @@ exports.servicesDetailJSON = {
       ],
     },
   },
-  fitbit: {},
-  strava: {},
-  twitch: {},
-  facebook: {},
-  twitter: {},
-  github: {},
-  instagram: {},
-  googleCalendar: {},
-  SMS: {},
+  SMS: {
+    name: 'SMS',
+    icon: '',
+    trigger: {
+      options: ['none'],
+    },
+    action: {
+      options: [
+        { description: 'Send a Text Message',
+          alias: 'send_sms',
+          parameters: [
+            { description: 'Phone Number: ',
+              alias: 'phoneNumber',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  fitbit: {
+    name: 'Fitbit',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  strava: {
+    name: 'Strava',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  twitch: {
+    name: 'Twitch',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  facebook: {
+    name: 'Facebook',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  twitter: {
+    name: 'Twitter',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  github: {
+    name: 'Github',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  instagram: {
+    name: 'Instagram',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
+  googleCalendar: {
+    name: 'Google Calendar',
+    icon: '',
+    trigger: {
+      options: [],
+    },
+    action: {
+      options: [],
+    },
+  },
 };

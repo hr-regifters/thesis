@@ -1,3 +1,4 @@
+"use strict"
 import React from 'react';
 import Navigator from './Navigator.jsx';
 import servicesDetail from '../servicesDetailJSON.js';
@@ -20,11 +21,13 @@ export default class App extends React.Component {
       modifyActionParams: this.modifyActionParams.bind(this),
       modifyActionReveal: this.modifyActionReveal.bind(this),
       addNewAction: this.addNewAction.bind(this),
+      logout: this.logout.bind(this)
     }
 
     this.state = {
       user: '',
       view: 'verify',  // home, addConcoction, verify
+      previousView: 'verify',
       spotlightConcoctionId: 1,
       concoctions: [],
       connectedServices: {},
@@ -44,18 +47,23 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem("appState") === undefined) {
-      sessionStorage.setItem("appState", JSON.stringify(this.state));
+    this.getConcoctions();
+    if (sessionStorage.getItem('appState') === undefined) {
+      sessionStorage.setItem('appState', JSON.stringify(this.state));
     } else {
-      this.setState( JSON.parse(sessionStorage.getItem("appState")) );
+      this.setState(JSON.parse(sessionStorage.getItem('appState')));
     }
   }
 
   componentDidUpdate() {
-    sessionStorage.setItem("appState", JSON.stringify(this.state));
+    if (this.state.previousView !== this.state.view && this.state.view !== 'verify') {
+      this.getConcoctions();
+    }
+    sessionStorage.setItem('appState', JSON.stringify(this.state));
   }
 
   changeViewTo(view) {
+    this.changeState('previousView', this.state.view);
     this.setState({
       view: view,  // home, concoctionEdit, addConcoction
       trigger: '',
@@ -74,34 +82,78 @@ export default class App extends React.Component {
   }
 
   changeState(state, val) {
-    var temp = this.state;
+    let temp = this.state;
     temp[state] = val;
     this.setState(temp);
   }
 
   saveConcoction(desc) {
     let context = this;
-    let trigger = servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias;
-    let actionFunction = servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
+    let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
     let actionApi = this.state.actions[0].action;
-    console.log(this.state.trigger)
-    fetch(`${currUrl}/api/constructor/${this.state.trigger}/add`, {
+    let actionEvent = servicesDetail[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
+    fetch(`${currUrl}/api/constructor/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        trigger: trigger,
+        triggerApi: context.state.trigger,
+        triggerEvent: triggerEvent,
+        triggerParams: {},
         username: context.state.user,
         actionApi: actionApi,
-        actionFunction: actionFunction,
-        actionParams: context.state.actions[0].actionParams, // parent notebook, evernote token,
-        description: `If a ${trigger.slice(0, trigger.indexOf('_'))} is ${trigger.slice(trigger.indexOf('_') + 1)} in ${context.state.trigger}, ${actionFunction} to ${actionApi}`,
+        actionEvent: actionEvent,
+        actionParams: context.state.actions[0].actionParams,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${servicesDetail[actionApi].name}`,
       }),
     })
-    .then(function(res) {
+    .then((res) => {
       if (res.status === 201) {
         context.changeViewTo('home');
+      } else {
+        console.log('Concoction unabled to be saved')
       }
     });
+  }
+
+  getConcoctions() {
+    let context = this;
+    fetch(`${currUrl}/api/user/concoctions?username=${this.state.user}`, {
+      method: 'GET',
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error('Cannot retrieve concoctions');
+      }
+    })
+    .then((concObj) => {
+      context.changeState('concoctions', concObj.concoctions);
+      concObj['oauths'].forEach((api) => 
+        context.state.connectedServices[api] = true
+      );
+      context.changeState('connectedServices', context.state.connectedServices);
+      context.changeState('previousView', context.state.view);
+    })
+    .catch((err) => { console.log(err) });
+  }
+
+  logout() {
+    let context = this;
+    fetch(`${currUrl}/api/user/logout`, {
+      method: 'GET',
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log('Successful logout');
+        localStorage.removeItem('regiftUsername');
+        context.changeViewTo('verify');
+        sessionStorage.setItem('appState', '{}');
+      } else {
+        throw new Error('Cannot log out');
+      }
+    })
+    .catch((err) => { console.log(err) });
   }
 
   modifyTrigger(trig) {
@@ -127,7 +179,7 @@ export default class App extends React.Component {
   }
 
   modifyTriggerReveal() {
-    var status;
+    let status;
     if (this.state.triggerServicesReveal === 'show') {
       status = 'hide';
     } else {
@@ -139,7 +191,7 @@ export default class App extends React.Component {
   }
 
   modifyAction(action, index) {
-    var temp = this.state.actions;
+    let temp = this.state.actions;
     temp[index].action = action;
     this.setState({
       actions: temp,
@@ -147,7 +199,7 @@ export default class App extends React.Component {
   }
 
   modifyActionOption(opt, index) {
-    var temp = this.state.actions;
+    let temp = this.state.actions;
     temp[index].actionOption = opt;
     this.setState({
       actions: temp,
@@ -155,7 +207,7 @@ export default class App extends React.Component {
   }
 
   modifyActionParams(param, alias, index) {
-    var temp = this.state.actions;
+    let temp = this.state.actions;
     temp[index].actionParams = {};
     temp[index].actionParams[alias] = param;
     this.setState({
@@ -165,13 +217,13 @@ export default class App extends React.Component {
   }
 
   modifyActionReveal(index) {
-    var status;
+    let status;
     if (this.state.actions[index].actionServicesReveal === 'show') {
       status = 'hide';
     } else {
       status = 'show';
     }
-    var temp = this.state.actions;
+    let temp = this.state.actions;
     temp[index].actionServicesReveal = status;
     this.setState({
       actions: temp,
@@ -179,7 +231,7 @@ export default class App extends React.Component {
   }
   
   addNewAction() {
-    var temp = this.state.actions;
+    let temp = this.state.actions;
     temp.push({
       action: '',
       actionOption: '',
@@ -190,7 +242,6 @@ export default class App extends React.Component {
       actions: temp,
     });
   }
-
 
   render() {
     return (

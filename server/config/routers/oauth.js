@@ -9,7 +9,7 @@ router.get('/slack', checkLogin, passport.authenticate('slack'));
 
 router.get('/slack/callback',
   passport.authorize('slack', { failureRedirect: '/' }),
-  function(slackData, res) {
+  (slackData, res) => {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -28,7 +28,7 @@ router.get('/evernote', checkLogin, passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
   passport.authenticate('evernote', { failureRedirect: '/' }),
-  function(evernoteData, res) {
+  (evernoteData, res) => {
     const allSessions = evernoteData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -47,7 +47,7 @@ router.get('/github', checkLogin, passport.authenticate('github'));
 
 router.get('/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
-  function(githubData, res) {
+  (githubData, res) => {
     const allSessions = githubData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -61,11 +61,44 @@ router.get('/github/callback',
   }
 );
 
-router.get('/fitbit', checkLogin,
-  passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }
-));
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }));
 
+router.get('/fitbit/callback', 
+  passport.authenticate('fitbit', { failureRedirect: '/'}),
+  (fitbitData, res) => {
+    const allSessions = fitbitData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    // utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
+    res.redirect('/');
+  }
+);
 
-router.get( '/fitbit/callback', passport.authenticate( 'fitbit', { failureRedirect: '/'}));
+router.get('/google', checkLogin, passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/drive',
+          'https://www.googleapis.com/auth/plus.login']
+}));
+
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (googleData, res) => {
+    const allSessions = googleData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    console.log(googleData.user);
+    // utility.addTokenAndId(username, 'githubToken', googleData.user);
+    res.redirect('/');
+  }
+);
 
 module.exports = router;
