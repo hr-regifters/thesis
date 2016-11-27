@@ -2,6 +2,7 @@
 import React from 'react';
 import Navigator from './Navigator.jsx';
 import servicesDetail from '../servicesDetailJSON.js';
+import instructions from '../instructions.js';
 import currUrl from './../../../currUrl';
 
 export default class App extends React.Component {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
     this.funcs = {
       changeState: this.changeState.bind(this),
       changeViewTo: this.changeViewTo.bind(this),
+      modifyInstructions: this.modifyInstructions.bind(this),
       saveConcoction: this.saveConcoction.bind(this),
       modifyTrigger: this.modifyTrigger.bind(this),
       modifyTriggerOption: this.modifyTriggerOption.bind(this),
@@ -21,7 +23,7 @@ export default class App extends React.Component {
       modifyActionParams: this.modifyActionParams.bind(this),
       modifyActionReveal: this.modifyActionReveal.bind(this),
       addNewAction: this.addNewAction.bind(this),
-    }
+    };
 
     this.state = {
       user: '',
@@ -42,6 +44,7 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
+      instructions: 'Hey from App.',
     };
   }
 
@@ -109,6 +112,12 @@ export default class App extends React.Component {
       if (res.status === 201) {
         context.changeViewTo('home');
       }
+    });
+  }
+
+  modifyInstructions(index) {
+    this.setState({
+      instructions: instructions.instructions[4],
     });
   }
 

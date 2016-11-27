@@ -348,6 +348,17 @@ input {
   margin: 0px;
   padding: 10px;
 }
+.instructions {
+  text-align: left;
+  font-size: 150%;
+  height: 60px;
+  padding: 20px;
+  color: white;
+  background-color: gray;
+  width: 63%;
+  margin-left: 17.2%;
+  /*margin-right: auto;*/
+}
 
 
 

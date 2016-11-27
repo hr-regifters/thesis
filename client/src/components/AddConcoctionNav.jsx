@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Col, Row, Grid, Table, Navigation, Nav, NavItem } from 'react-bootstrap';
+import Instructions from './Instructions.jsx';
 import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
 import SaveNewConcoction from './SaveNewConcoction.jsx';
@@ -9,6 +10,7 @@ import CancelNewConcoction from './CancelNewConcoction.jsx';
 const AddConcoctionNav = (props) => {
 
   const triggerFuncs = {
+    modifyInstructions: props.funcs.modifyInstructions,
     modifyTrigger: props.funcs.modifyTrigger,
     modifyTriggerOption: props.funcs.modifyTriggerOption,
     modifyTriggerParams: props.funcs.modifyTriggerParams,
@@ -16,6 +18,7 @@ const AddConcoctionNav = (props) => {
   };
 
   const actionFuncs = {
+    modifyInstructions: props.funcs.modifyInstructions,
     modifyAction: props.funcs.modifyAction,
     modifyActionOption: props.funcs.modifyActionOption,
     modifyActionParams: props.funcs.modifyActionParams,
@@ -33,7 +36,10 @@ const AddConcoctionNav = (props) => {
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
-          <Row className = 'full'>
+          <Row>
+            <Instructions text={props.appState.instructions} />
+          </Row>
+          <Row className='full'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
@@ -62,6 +68,9 @@ const AddConcoctionNav = (props) => {
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
+          <Row>
+            <Instructions text={props.appState.instructions} />
+          </Row>
           <Row className = 'full'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
@@ -94,6 +103,9 @@ const AddConcoctionNav = (props) => {
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
+          <Row>
+            <Instructions text={props.appState.instructions} />
+          </Row>
           <Row className = 'full'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
