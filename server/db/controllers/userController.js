@@ -58,6 +58,15 @@ exports.Signup = new LocalStrategy({
   }
 );
 
+exports.queryUsers = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM users;'
+  }, (err, rows) => {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
+}
+
 exports.addTokenAndId = (username, apiToken, token, slackId) => {
   pool.query({
     text: 'UPDATE users \
