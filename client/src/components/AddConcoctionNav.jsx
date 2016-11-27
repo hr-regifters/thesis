@@ -112,7 +112,7 @@ const AddConcoctionNav = (props) => {
                             funcs={actionFuncs} />
                   );
                 })}
-                <div onClick={ () => {props.addNewAction()}}>
+                <div onClick={ () => {props.funcs.addNewAction()}}>
                   <h2>Add New Action</h2>
                 </div>
                 <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />

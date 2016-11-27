@@ -81,9 +81,12 @@ module.exports = {
         { description: 'Send a Text Message',
           alias: 'send_sms',
           parameters: [
-            { description: 'Phone Number: ',
+            { description: 'Phone Number',
               alias: 'phoneNumber',
             },
+            { description: 'Message',
+              alias: 'message',
+            }
           ],
         },
       ],

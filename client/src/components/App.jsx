@@ -87,7 +87,7 @@ export default class App extends React.Component {
     this.setState(temp);
   }
 
-  saveConcoction(desc) {
+  saveConcoction() {
     let context = this;
     let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
     let actionApi = this.state.actions[0].action;
@@ -206,10 +206,19 @@ export default class App extends React.Component {
     });
   }
 
-  modifyActionParams(param, alias, index) {
+  modifyActionParams(param, index) {
+    let actionApi = this.state.actions[index];
+    let actionOptionParams = servicesDetail[actionApi.action].action.options[actionApi.actionOption].parameters;
+    let updatedParams = {};
+    for (let i = 0; i < param.length; i++) {
+      for (let j = 0; j < actionOptionParams.length; j++) {
+        if (actionOptionParams[j].alias === param[i].id) {
+          updatedParams[param[i].id] = param[i].value;
+        }
+      }
+    };
     let temp = this.state.actions;
-    temp[index].actionParams = {};
-    temp[index].actionParams[alias] = param;
+    temp[index].actionParams = updatedParams;
     this.setState({
       actions: temp,
     });

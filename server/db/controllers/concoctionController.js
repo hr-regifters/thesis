@@ -36,6 +36,9 @@ const getActionIdandToken = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
+  } else if (concObj['actionapi'] === 'SMS') {
+    console.log('get action id and token')
+    return concObj;
   } else {
     res.status(405).send('cant find user');
   }
@@ -52,7 +55,8 @@ const getTriggerId = (concObj, username, res) => {
       }
     });
   } else {
-    res.status(405).send('cant find user');
+    console.log('getting trigger id')
+    return concObj;
   }
 }
 
