@@ -17,7 +17,6 @@ module.exports = {
         body: paramObj.message,
       };
       //paramObj.mediaUrl !== undefined ? smsObj.mediaUrl = paramObj.mediaUrl : null; // enable if media should be supported
-      console.log(smsObj, 'inside twilio')
       twilio.messages.create(smsObj)
       .then((message) => { console.log(`SMS successfully sent to ${paramObj.phoneNumber}`, message); })
       .catch((error) => { console.log(`error occurred while sending a SMS via Twilio: ${JSON.stringify(error)}`); });
