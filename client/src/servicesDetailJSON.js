@@ -82,10 +82,10 @@ module.exports = {
           alias: 'send_sms',
           parameters: [
             { description: 'Phone Number',
-              alias: 'phoneNumber',
+              alias: 'recipient',
             },
             { description: 'Message',
-              alias: 'message',
+              alias: 'text',
             }
           ],
         },

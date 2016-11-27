@@ -12,15 +12,14 @@ module.exports = {
   actions: {
     send_sms: (paramObj) => {
       let smsObj = {
-        to: paramObj.phoneNumber,
+        to: paramObj.recipient,
         from: sendingNumber,
-        body: paramObj.message,
+        body: paramObj.text,
       };
       //paramObj.mediaUrl !== undefined ? smsObj.mediaUrl = paramObj.mediaUrl : null; // enable if media should be supported
-      console.log(smsObj)
-      twilio.messages.create(smsObj);
-      // .then((message) => { console.log(`SMS successfully sent to ${paramObj.recipient}`, message); })
-      // .catch((error) => { console.log(`error occurred while sending a SMS via Twilio: ${JSON.stringify(error)}`); });
+      twilio.messages.create(smsObj)
+      .then((message) => { console.log(`SMS successfully sent to ${paramObj.recipient}`, message); })
+      .catch((error) => { console.log(`error occurred while sending a SMS via Twilio: ${JSON.stringify(error)}`); });
     },
   },
 };
