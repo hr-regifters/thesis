@@ -1,5 +1,5 @@
+"use strict"
 import React from 'react';
-
 import { Col, Row, Grid, Table, Navigation, Nav, NavItem } from 'react-bootstrap';
 import Instructions from './Instructions.jsx';
 import Trigger from './Trigger.jsx';
@@ -8,7 +8,6 @@ import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 const AddConcoctionNav = (props) => {
-
   const triggerFuncs = {
     modifyInstructions: props.funcs.modifyInstructions,
     modifyTrigger: props.funcs.modifyTrigger,
@@ -30,8 +29,10 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Apps </h3>
-            <h3 className="pull-right"> Profile </h3>
+            <h3 className="pull-right"> My Concoctions </h3>
+            <div onClick={() => { props.funcs.logout() }}>
+              <h3 className="pull-right"> Logout </h3>
+            </div>
             <h1 className ="navbar-left"> Regift3d</h1>
           </div>
         </nav>
@@ -51,8 +52,8 @@ const AddConcoctionNav = (props) => {
         </Grid>
       </div>
     )
-  } else if (!props.appState.actions.reduce(function(prev, curr) {
-      var complete = true;
+  } else if (!props.appState.actions.reduce((prev, curr) => {
+      let complete = true;
       if (curr.action === '' || curr.actionOption === '' || curr.actionParams === '') {
         complete = false;
       };
@@ -62,8 +63,10 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Apps </h3>
-            <h3 className="pull-right"> Profile </h3>
+            <h3 className="pull-right"> My Concoctions </h3>
+            <div onClick={() => { this.props.funcs.logout() }}>
+              <h3 className="pull-right"> Logout </h3>
+            </div>
             <h1 className ="navbar-left"> Regift3d</h1>
           </div>
         </nav>
@@ -75,7 +78,7 @@ const AddConcoctionNav = (props) => {
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
-                {props.appState.actions.map(function(action, index) {
+                {props.appState.actions.map((action, index) => {
                   return(
                     <Action key={index} 
                             actionsIndex={index}
@@ -97,8 +100,10 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Apps </h3>
-            <h3 className="pull-right"> Profile </h3>
+            <h3 className="pull-right"> My Concoctions </h3>
+            <div onClick={() => { this.props.funcs.logout() }}>
+              <h3 className="pull-right"> Logout </h3>
+            </div>
             <h1 className ="navbar-left"> Regift3d</h1>
           </div>
         </nav>
@@ -110,7 +115,7 @@ const AddConcoctionNav = (props) => {
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
-                {props.appState.actions.map(function(action, index) {
+                {props.appState.actions.map((action, index) => {
                   return(
                     <Action key={index} 
                             actionsIndex={index}

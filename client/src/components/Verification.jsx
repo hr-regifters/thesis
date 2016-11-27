@@ -3,10 +3,6 @@ import React from 'react';
 import { Col, Row, Grid, Table, Navigation, Nav } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import currUrl from './../../../currUrl';
-import Trigger from './Trigger.jsx';
-import Action from './Action.jsx';
-import SaveNewConcoction from './SaveNewConcoction.jsx';
-import CancelNewConcoction from './CancelNewConcoction.jsx';
 
 export default class Verification extends React.Component {
   componentDidMount() {

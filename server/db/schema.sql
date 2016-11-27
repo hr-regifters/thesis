@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS concoctions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id            BIGSERIAL   PRIMARY KEY,
@@ -17,6 +18,7 @@ CREATE TABLE concoctions (
   triggerApi    VARCHAR(20),
   triggerEvent  VARCHAR(32),
   triggerParams VARCHAR(128),
+  triggerUserId VARCHAR(20),
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),
