@@ -1,4 +1,4 @@
-exports.servicesDetailJSON = {
+module.exports = {
   slack: {
     name: 'Slack',
     icon: 'https://www.slack.com/favicon.ico',
@@ -50,7 +50,7 @@ exports.servicesDetailJSON = {
             },
           ],
         },
-        { description: 'When a note in a any Notebook is created',
+        { description: 'When a note in any Notebook is created',
           alias: 'none',
           parameters: [
           ],
@@ -160,7 +160,7 @@ exports.servicesDetailJSON = {
     },
   },
   googleCalendar: {
-    name: 'Google Calenders',
+    name: 'Google Calendar',
     icon: '',
     trigger: {
       options: [],

@@ -21,6 +21,7 @@ export default class App extends React.Component {
       modifyActionParams: this.modifyActionParams.bind(this),
       modifyActionReveal: this.modifyActionReveal.bind(this),
       addNewAction: this.addNewAction.bind(this),
+      logout: this.logout.bind(this)
     }
 
     this.state = {
@@ -50,7 +51,7 @@ export default class App extends React.Component {
     if (sessionStorage.getItem('appState') === undefined) {
       sessionStorage.setItem('appState', JSON.stringify(this.state));
     } else {
-      this.setState( JSON.parse(sessionStorage.getItem("appState")) );
+      this.setState(JSON.parse(sessionStorage.getItem('appState')));
     }
   }
 
@@ -88,9 +89,9 @@ export default class App extends React.Component {
 
   saveConcoction(desc) {
     let context = this;
-    let triggerEvent = servicesDetail.servicesDetailJSON[context.state.trigger].trigger.options[context.state.triggerOption].alias;
+    let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
     let actionApi = this.state.actions[0].action;
-    let actionEvent = servicesDetail.servicesDetailJSON[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
+    let actionEvent = servicesDetail[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
     fetch(`${currUrl}/api/constructor/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -102,12 +103,14 @@ export default class App extends React.Component {
         actionApi: actionApi,
         actionEvent: actionEvent,
         actionParams: context.state.actions[0].actionParams,
-        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${context.state.trigger}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${actionApi}`,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${servicesDetail[actionApi].name}`,
       }),
     })
-    .then(function(res) {
+    .then((res) => {
       if (res.status === 201) {
         context.changeViewTo('home');
+      } else {
+        console.log('Concoction unabled to be saved')
       }
     });
   }
@@ -131,6 +134,24 @@ export default class App extends React.Component {
       );
       context.changeState('connectedServices', context.state.connectedServices);
       context.changeState('previousView', context.state.view);
+    })
+    .catch((err) => { console.log(err) });
+  }
+
+  logout() {
+    let context = this;
+    fetch(`${currUrl}/api/user/logout`, {
+      method: 'GET',
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        console.log('Successful logout');
+        localStorage.removeItem('regiftUsername');
+        context.changeViewTo('verify');
+        sessionStorage.setItem('appState', '{}');
+      } else {
+        throw new Error('Cannot log out');
+      }
     })
     .catch((err) => { console.log(err) });
   }
