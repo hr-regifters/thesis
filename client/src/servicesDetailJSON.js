@@ -37,27 +37,27 @@ module.exports = {
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When a Note with a specific Tag is created',
-          alias: 'none',
-          parameters: [
-            { description: 'Tag Name',
-              alias: 'tagName',
-            },
-          ],
-        },
-        { description: 'When a Note in a Specific Notebook is created',
-          alias: 'none',
-          parameters: [
-            { description: 'Notebook Name',
-              alias: 'parentNotebook',
-            },
-          ],
-        },
-        { description: 'When a note in any Notebook is created',
-          alias: 'none',
-          parameters: [
-          ],
-        },
+        // { description: 'When a Note with a specific Tag is created',
+        //   alias: 'none',
+        //   parameters: [
+        //     { description: 'Tag Name',
+        //       alias: 'tagName',
+        //     },
+        //   ],
+        // },
+        // { description: 'When a Note in a Specific Notebook is created',
+        //   alias: 'none',
+        //   parameters: [
+        //     { description: 'Notebook Name',
+        //       alias: 'parentNotebook',
+        //     },
+        //   ],
+        // },
+        // { description: 'When a note in any Notebook is created',
+        //   alias: 'none',
+        //   parameters: [
+        //   ],
+        // },
       ],
     },
     action: {
