@@ -21,9 +21,9 @@ module.exports = {
     let query = req.query.verify;
     console.log(query, 'query');
     if(query == verificationCode) {
-      res.status(204).end();
+      res.status(204).send();
     } else {
-      rest.status(404).end();
+      res.status(404).send();
     }
   }
 }
