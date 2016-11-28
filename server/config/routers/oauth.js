@@ -67,6 +67,7 @@ router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['act
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
   (fitbitData, res) => {
+    console.log(fitbitData);
     const allSessions = fitbitData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
