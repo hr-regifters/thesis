@@ -15,7 +15,7 @@ const Action = (props) => {
               return (
                 <h3 className='serviceBttn' key={service}>
                   {
-                    props.connectedServices[service] ?
+                    props.connectedServices[service] || service === 'twilio' ?
                     <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{servicesDetail[service].name}</a>
                     :
                     <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail[service].name}</a>
@@ -73,12 +73,12 @@ const Action = (props) => {
           {servicesDetail[props.state.action].action.options[props.state.actionOption].parameters.map((param) => {
             return (
               <div key={param.alias}>
-                <h2>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
+                <h2>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
               </div>
             )
           })}
           <div>
-            <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementById('param').value, document.getElementById('param').className, props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+            <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementsByClassName('param'), props.actionsIndex)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>
