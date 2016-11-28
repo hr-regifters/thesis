@@ -21,9 +21,11 @@ module.exports = {
     let query = req.query.verify;
     console.log(query, 'query');
     if(query == verificationCode) {
-      res.status(204).send();
+      console.log('fuuuuck ==')
+      res.status(204).send('fuckyou');
     } else {
-      res.status(404).send();
+      console.log('!fuuuck');
+      res.status(404).send('fuck you too');
     }
   }
 }
