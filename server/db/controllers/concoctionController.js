@@ -36,6 +36,15 @@ const getActionIdandToken = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
+  } else if (concObj['actionapi'] === 'twilio') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user) {
+        concObj['userid'] = user.id;
+        return concObj;
+      } else {
+        res.status(405).send('cant find user');
+      }
+    });
   } else {
     res.status(405).send('cant find user');
   }
@@ -52,7 +61,7 @@ const getTriggerId = (concObj, username, res) => {
       }
     });
   } else {
-    res.status(405).send('cant find user');
+    return concObj;
   }
 }
 

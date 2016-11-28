@@ -56,7 +56,8 @@ router.get('/github/callback',
         username = session['user'];
       }
     }
-    // utility.addTokenAndId(username, 'githubToken', githubData.session.passport.user);
+    console.log(githubData)
+    utility.addTokenAndId(username, 'githubToken', githubData.user);
     res.redirect('/');
   }
 );
@@ -74,7 +75,7 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
-    // utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
+    utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
     res.redirect('/');
   }
 );
@@ -95,8 +96,7 @@ router.get('/google/callback',
         username = session['user'];
       }
     }
-    console.log(googleData.user);
-    // utility.addTokenAndId(username, 'githubToken', googleData.user);
+    utility.addTokenAndId(username, 'googleToken', googleData.user);
     res.redirect('/');
   }
 );

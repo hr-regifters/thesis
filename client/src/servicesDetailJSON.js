@@ -19,11 +19,14 @@ module.exports = {
     action: {
       options: [
         { description: 'Post to a Slack Channel',
-          alias: 'none',
+          alias: 'post_message',
           parameters: [
             { description: 'Channel Name',
               alias: 'channelName',
             },
+            { description: 'Message',
+              alias: 'text',
+            }
           ],
         },
       ],
@@ -34,27 +37,27 @@ module.exports = {
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When a Note with a specific Tag is created',
-          alias: 'none',
-          parameters: [
-            { description: 'Tag Name',
-              alias: 'tagName',
-            },
-          ],
-        },
-        { description: 'When a Note in a Specific Notebook is created',
-          alias: 'none',
-          parameters: [
-            { description: 'Notebook Name',
-              alias: 'parentNotebook',
-            },
-          ],
-        },
-        { description: 'When a note in any Notebook is created',
-          alias: 'none',
-          parameters: [
-          ],
-        },
+        // { description: 'When a Note with a specific Tag is created',
+        //   alias: 'none',
+        //   parameters: [
+        //     { description: 'Tag Name',
+        //       alias: 'tagName',
+        //     },
+        //   ],
+        // },
+        // { description: 'When a Note in a Specific Notebook is created',
+        //   alias: 'none',
+        //   parameters: [
+        //     { description: 'Notebook Name',
+        //       alias: 'parentNotebook',
+        //     },
+        //   ],
+        // },
+        // { description: 'When a note in any Notebook is created',
+        //   alias: 'none',
+        //   parameters: [
+        //   ],
+        // },
       ],
     },
     action: {
@@ -70,7 +73,7 @@ module.exports = {
       ],
     },
   },
-  SMS: {
+  twilio: {
     name: 'SMS',
     icon: '',
     trigger: {
@@ -79,11 +82,14 @@ module.exports = {
     action: {
       options: [
         { description: 'Send a Text Message',
-          alias: 'send_sms',
+          alias: 'send_text',
           parameters: [
-            { description: 'Phone Number: ',
+            { description: 'Phone Number',
               alias: 'phoneNumber',
             },
+            { description: 'Message',
+              alias: 'message',
+            }
           ],
         },
       ],
