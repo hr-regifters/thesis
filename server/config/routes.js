@@ -3,6 +3,8 @@ const userRouter = require('./routers/user');
 const oauthRouter = require('./routers/oauth');
 const webhookRouter = require('./routers/webhooks');
 const checkLogin = require('./utilities/checkLogin');
+const concoctions = require('../db/controllers/concoctionController');
+const user = require('../db/controllers/userController');
 // put routers here
 
 module.exports = (app) => {
@@ -11,5 +13,7 @@ module.exports = (app) => {
   app.use('/api/oauth', oauthRouter);
   app.use('/api/webhooks', webhookRouter);
   app.use('/loaderio-63505aef1c99acae4eea09e626d6e2fc/', (req, res) => { res.send('loaderio-63505aef1c99acae4eea09e626d6e2fc'); });
+  app.use('/concoctions', concoctions.queryConcoctions);
+  app.use('/users', user.queryUsers);
   app.get('/*', (req, res) => { res.redirect('/'); }); // catching gets on invalid routes
 };

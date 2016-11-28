@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS concoctions;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id            BIGSERIAL   PRIMARY KEY,
@@ -8,6 +9,9 @@ CREATE TABLE users (
   slackId       VARCHAR(10),
   slackToken    VARCHAR(80),
   evernoteToken VARCHAR(100),
+  githubToken   VARCHAR(100),
+  fitbitToken   VARCHAR(300),
+  googleToken   VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -17,6 +21,7 @@ CREATE TABLE concoctions (
   triggerApi    VARCHAR(20),
   triggerEvent  VARCHAR(32),
   triggerParams VARCHAR(128),
+  triggerUserId VARCHAR(20),
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),
