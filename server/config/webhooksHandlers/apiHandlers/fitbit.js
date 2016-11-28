@@ -10,8 +10,16 @@ const listenTo = {
   pin_added: true,
 };
 
+request.post({url:'https://api.fitbit.com/1/user/-/apiSubscriptions/1.json'}, function(err, Response,body) {
+  console.log(err, 'err');
+  console.log(Response, 'Response');
+  console.log(body, 'body');
+})
+
 module.exports = {
   trigger: (req, res) => {
+    console.log(req);
+    res.status(204).send();
     const webhooksHandler = require('./../main');
     const currentTime = Number(new Date());
   },
@@ -21,11 +29,9 @@ module.exports = {
     let query = req.query.verify;
     console.log(query, 'query');
     if(query == verificationCode) {
-      console.log('fuuuuck ==')
-      res.status(204).send('fuckyou');
+      res.status(204).send('works');
     } else {
-      console.log('!fuuuck');
-      res.status(404).send('fuck you too');
+      res.status(404).send('does not work');
     }
   }
 }
