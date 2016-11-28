@@ -87,7 +87,7 @@ export default class App extends React.Component {
     this.setState(temp);
   }
 
-  saveConcoction(desc) {
+  saveConcoction() {
     let context = this;
     let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
     let actionApi = this.state.actions[0].action;
@@ -103,7 +103,7 @@ export default class App extends React.Component {
         actionApi: actionApi,
         actionEvent: actionEvent,
         actionParams: context.state.actions[0].actionParams,
-        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} to ${servicesDetail[actionApi].name}`,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} through ${servicesDetail[actionApi].name}`,
       }),
     })
     .then((res) => {
@@ -206,10 +206,19 @@ export default class App extends React.Component {
     });
   }
 
-  modifyActionParams(param, alias, index) {
+  modifyActionParams(param, index) {
+    let actionApi = this.state.actions[index];
+    let actionOptionParams = servicesDetail[actionApi.action].action.options[actionApi.actionOption].parameters;
+    let updatedParams = {};
+    for (let i = 0; i < param.length; i++) {
+      for (let j = 0; j < actionOptionParams.length; j++) {
+        if (actionOptionParams[j].alias === param[i].id) {
+          updatedParams[param[i].id] = param[i].value;
+        }
+      }
+    };
     let temp = this.state.actions;
-    temp[index].actionParams = {};
-    temp[index].actionParams[alias] = param;
+    temp[index].actionParams = updatedParams;
     this.setState({
       actions: temp,
     });

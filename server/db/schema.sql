@@ -9,7 +9,9 @@ CREATE TABLE users (
   slackId       VARCHAR(10),
   slackToken    VARCHAR(80),
   evernoteToken VARCHAR(100),
-  fitbitToken   VARCHAR(100),
+  githubToken   VARCHAR(100),
+  fitbitToken   VARCHAR(300),
+  googleToken   VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

@@ -2,6 +2,7 @@ const slackHandler = require('./apiHandlers/slack');
 const evernoteHandler = require('./apiHandlers/evernote');
 const githubHandler = require('./apiHandlers/github');
 const twilioHandler = require('./apiHandlers/twilio');
+const fitbitHandler = require('./apiHandlers/fitbit');
 // import handler for each api here
 
 module.exports = {
@@ -12,4 +13,7 @@ module.exports = {
   githubTrigger: githubHandler.trigger,
   githubAction: githubHandler.actions,
   twilioAction: twilioHandler.actions,
+  fitbitVerify: fitbitHandler.verify,
+  fitbitTrigger: fitbitHandler.trigger
+
 };
