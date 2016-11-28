@@ -18,8 +18,9 @@ module.exports = {
   verify: (req, res) => {
     console.log(req.params, 'req.params');
     console.log(req.query, 'req.query');
-    console.log(req.query.verify, 'req.query.verify');
-    if(req.query[verify] == verificationCode) {
+    let query = req.query;
+    console.log(query.verify, 'req.query.verify');
+    if(query[verify] == verificationCode) {
       res.status(204).end();
     } else {
       rest.status(404).end();
