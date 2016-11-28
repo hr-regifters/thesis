@@ -16,7 +16,9 @@ module.exports = {
     const currentTime = Number(new Date());
   },
   verify: (req, res) => {
+    console.log(req.params, 'req.params');
     console.log(req.query, 'req.query');
+    console.log(req, 'req');
     if(req.query.verify == verificationCode) {
       res.status(204).end();
     } else {
