@@ -1,5 +1,4 @@
 "use strict"
-const gmailKey = process.env.GMAIL_API_KEY || require('./../../../../env').GMAIL_API_KEY;
 const request = require('request');
 
 module.exports = {
@@ -31,7 +30,6 @@ module.exports = {
           'raw': base64Email
         }
       }
-      console.log(options)
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);
