@@ -12,9 +12,9 @@ module.exports = {
   actions: {
     send_text: (paramObj) => {
       let smsObj = {
-        to: paramObj.phoneNumber,
+        to: paramObj.actionParams.phoneNumber,
         from: sendingNumber,
-        body: paramObj.message,
+        body: paramObj.actionParams.twilio_text,
       };
       //paramObj.mediaUrl !== undefined ? smsObj.mediaUrl = paramObj.mediaUrl : null; // enable if media should be supported
       twilio.messages.create(smsObj)

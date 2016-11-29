@@ -20,15 +20,8 @@ module.exports = {
       && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       let slackReqObj = {
-        slackUserId: '',
-        title: '',
-        body: '',
-        links: [],
-        images: [],
-        tagNames: [],
         actionParams: '',
         actionToken: '',
-        to: '',
       };
 
         // fetch db data for users to get actions
@@ -94,7 +87,12 @@ module.exports = {
                   callback();
                 }).catch((error) => { console.log('error Slack action post_message', error); });
               } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
-                slackReqObj = JSON.parse(obj.actionparams);
+                slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                callback();
+              } else if (obj.actionapi === 'googleMail' && obj.actionevent === 'send_email') {
+                slackReqObj.actionToken = obj.actiontoken;
+                slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
               }
@@ -115,7 +113,7 @@ module.exports = {
     post_message: (paramObj) => {
       const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
       let channel = encodeURIComponent(paramObj.actionParams.channelName);
-      let message = encodeURIComponent(paramObj.actionParams.text);
+      let message = encodeURIComponent(paramObj.actionParams.slack_text);
       request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
       console.log('slack message posted to channel: ' + paramObj.actionParams.channelName + ' from user: ' + paramObj.username);// + user.username);
     },
