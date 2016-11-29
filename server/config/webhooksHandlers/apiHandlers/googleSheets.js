@@ -19,7 +19,7 @@ module.exports = {
                     "stringValue": 'string value',
                   },
                 }
-              ],  
+              ],
             }
           ],
         },
@@ -34,7 +34,7 @@ module.exports = {
                     "numberValue": 123,
                   },
                 }
-              ],  
+              ],
             }
           ],
         }
