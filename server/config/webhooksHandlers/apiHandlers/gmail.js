@@ -10,7 +10,7 @@ module.exports = {
     send_email: (paramObj) => {
       console.log('sending email')
       let email = 'kbchun5712@gmail.com';
-      let token = 'ya29.Ci-lA-bg7LH0sQChOGngRdzxWndXtDY_mDaXvJ1E82TgU2PtUxPHsJ2OlUySbeoV3A';
+      let token = 'ya29.CjulA_vHFud6Axyi6X1TCYYklrxNsUaNsDnzfv37ohrJig-vcwBk0zPEza5KIVURMt9U-O3VpX_aVqySfQ';
       let options = {
         uri: `https://www.googleapis.com/gmail/v1/users/${email}/messages/send`,
         method: 'POST',
