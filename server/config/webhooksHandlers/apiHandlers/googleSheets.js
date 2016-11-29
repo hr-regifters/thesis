@@ -41,7 +41,7 @@ module.exports = {
       ];
       let spreadsheet = {
         "properties": {
-          "title": paramObj.actionParams.title,
+          "title": paramObj.actionParams.sheet_title,
         },
         "sheets": [
           {
