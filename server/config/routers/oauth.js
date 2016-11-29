@@ -56,7 +56,6 @@ router.get('/github/callback',
         username = session['user'];
       }
     }
-    console.log(githubData)
     utility.addTokenAndId(username, 'githubToken', githubData.user);
     res.redirect('/');
   }
@@ -101,6 +100,24 @@ router.get('/google/callback',
       }
     }
     utility.addTokenAndId(username, 'googleToken', googleData.user);
+    res.redirect('/');
+  }
+);
+
+router.get('/instagram', checkLogin, passport.authenticate('instagram'));
+
+router.get('/instagram/callback',
+  passport.authenticate('instagram', { failureRedirect: '/' }),
+  (instagramData, res) => {
+    const allSessions = instagramData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    utility.addTokenAndId(username, 'instagramToken', instagramData.user);
     res.redirect('/');
   }
 );

@@ -8,6 +8,7 @@ const Evernote = require('./evernoteController');
 const Github = require('./githubController');
 const Fitbit = require('./fitbitController');
 const Google = require('./googleController');
+const Instagram = require('./instagramController');
 
 module.exports = (app) => {
 
@@ -36,6 +37,7 @@ module.exports = (app) => {
   passport.use(Github.Strategy);
   passport.use(Fitbit.Strategy);
   passport.use(Google.Strategy);
+  passport.use(Instagram.Strategy);
 
   return passport;
 };

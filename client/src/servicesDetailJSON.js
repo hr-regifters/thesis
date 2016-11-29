@@ -192,6 +192,9 @@ module.exports = {
             { description: "Recipient's email",
               alias: 'recipient',
             },
+            { description: 'Subject',
+              alias: 'subject',
+            },
             { description: 'Message',
               alias: 'gmail_text',
             }

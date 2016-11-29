@@ -20,15 +20,8 @@ module.exports = {
       && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       let slackReqObj = {
-        slackUserId: '',
-        title: '',
-        body: '',
-        links: [],
-        images: [],
-        tagNames: [],
         actionParams: '',
         actionToken: '',
-        to: '',
       };
 
         // fetch db data for users to get actions

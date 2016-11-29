@@ -8,24 +8,31 @@ module.exports = {
   },
   actions: {
     send_email: (paramObj) => {
-      console.log('sending email')
-      let email = 'kbchun5712@gmail.com';
-      let token = 'ya29.CjulA_vHFud6Axyi6X1TCYYklrxNsUaNsDnzfv37ohrJig-vcwBk0zPEza5KIVURMt9U-O3VpX_aVqySfQ';
+      let userEmail = 'From: ' + paramObj.actionParams.email;
+      let recipient = 'To: ' + paramObj.actionParams.recipient;
+      let subject = 'Subject: ' + paramObj.actionParams.subject;
+      let message = paramObj.actionParams.gmail_text;
+      let body = `${recipient}/r/n${userEmail}/r/n${subject}/r/n${message}`
+      let base64Email = new Buffer(body).toString('base64');
+      base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
+      let token = paramObj.actionToken;
       let options = {
-        uri: `https://www.googleapis.com/gmail/v1/users/${email}/messages/send`,
+        uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
         json: {
-          'raw': 'VG86IGtiY2h1bjU3MTJAZ21haWwuY29tDQpGcm9tOiBrYmNodW41NzEyQGdtYWlsLmNvbQ0KSGVsbG8='
+          'raw': base64Email
         }
       }
       request(options, (err, res, body) => {
-        console.log('error', err);
-        console.log('res', res);
-        console.log('body', body);
+        if (err) {
+          console.log('error', err);
+        } else {
+          console.log('Successfully sent email');
+        }
       });
     },
   },
