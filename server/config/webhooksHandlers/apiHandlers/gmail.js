@@ -12,12 +12,13 @@ module.exports = {
       let email = 'kbchun5712@gmail.com';
       let token = 'ya29.CjukA9v_WzCks8A4OjwKdNODgwH56io7CKnYu16-kxD4g4KQrK92vy2fcv0wZufJhwFY_cYvzmX_bFG2NQ';
       let options = {
-        method: 'POST',
         uri: `https://www.googleapis.com/gmail/v1/users/${email}/messages/send`,
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: {
+        json: {
           'raw': 'VG86IGtiY2h1bjU3MTJAZ21haWwuY29tDQpGcm9tOiBrYmNodW41NzEyQGdtYWlsLmNvbQ0KSGVsbG8='
         }
       }
