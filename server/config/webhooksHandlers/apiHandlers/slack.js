@@ -3,6 +3,8 @@ const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
+const slackAppId = process.env.slackAppId || require('./../../../../env').slackAppId;
+const slackAppToken = process.env.slackAppToken || require('./../../../../env').slackAppToken;
 const request = require('request');
 const listenTo = {
   file_created: true,
@@ -16,8 +18,8 @@ module.exports = {
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type] && req.body.event['event_ts'] * 1000 > currentTime - 10800000
-      && req.body.event.event_ts * 1000 < currentTime && req.body.token === 'a1w5cdEEWMlk4t8TZ60TOX43'
-      && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
+      && req.body.event.event_ts * 1000 < currentTime && req.body.token === slackAppToken
+      && req.body.api_app_id === slackAppId) { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       let slackReqObj = {
         slackUserId: '',

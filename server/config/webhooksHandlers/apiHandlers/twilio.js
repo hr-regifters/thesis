@@ -1,9 +1,7 @@
 "use strict"
-const env = require('./../../../../env');
-
-const accountSid = process.env.TWILIO_ACCOUNT_SID || env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN || env.TWILIO_AUTH_TOKEN;
-const sendingNumber = process.env.TWILIO_NUMBER || env.TWILIO_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID || require('./../../../../env').TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN || require('./../../../../env').TWILIO_AUTH_TOKEN;
+const sendingNumber = process.env.TWILIO_NUMBER || require('./../../../../env').TWILIO_NUMBER;
 const twilio = require('twilio')(accountSid, authToken);
 
 module.exports = {

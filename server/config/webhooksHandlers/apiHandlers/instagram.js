@@ -1,9 +1,7 @@
 "use strict"
-const env = require('./../../../../env');
-
-const clientId = process.env.INSTA_ID || env.INSTA_ID;
-const secret = process.env.INSTA_SECRET || env.INSTA_SECRET;
-const verifyToken = process.env.verifyToken || env.INSTA_VERIFYTOKEN;
+const clientId = process.env.INSTA_ID || require('./../../../../env').INSTA_ID;
+const secret = process.env.INSTA_SECRET || require('./../../../../env').INSTA_SECRET;
+const verifyToken = process.env.verifyToken || require('./../../../../env').INSTA_VERIFYTOKEN;
 
 module.exports = {
   validate: (req, res) => {
