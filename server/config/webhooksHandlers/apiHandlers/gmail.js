@@ -14,7 +14,7 @@ module.exports = {
       let message = paramObj.actionParams.gmail_text;
       let body = `${recipient}/r/n${userEmail}/r/n${subject}/r/n${message}`
       let base64Email = new Buffer(body).toString('base64');
-      base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
+      // base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
       let options = {
         uri: `https://www.googleapis.com/gmail/v1/users/${paramObj.actionParams.email}/messages/send`,
@@ -30,7 +30,7 @@ module.exports = {
       console.log(options)
       request(options, (err, res, body) => {
         if (body.error) {
-          console.log('error', body.err);
+          console.log('error', body);
         } else {
           console.log(body);
           console.log('Successfully sent email');
