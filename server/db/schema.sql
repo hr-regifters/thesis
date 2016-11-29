@@ -12,6 +12,7 @@ CREATE TABLE users (
   githubToken   VARCHAR(100),
   fitbitToken   VARCHAR(300),
   googleToken   VARCHAR(100),
+  instagramToken VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
