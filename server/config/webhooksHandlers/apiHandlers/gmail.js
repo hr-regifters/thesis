@@ -9,12 +9,12 @@ module.exports = {
   actions: {
     send_email: (paramObj) => {
       let userEmail = paramObj.actionParams.email;
-      let from = 'From: ' + userEmail;
+      let sender = 'From: ' + userEmail;
       let replyTo = 'Reply-To: ' + userEmail;
       let recipient = 'To: ' + paramObj.actionParams.recipient;
       let subject = 'Subject: ' + paramObj.actionParams.subject;
       let message = paramObj.actionParams.gmail_text;
-      let body = `${recipient}\r\n${userEmail}\r\n${subject}\r\n${message}`
+      let body = `${recipient}\r\n${sender}\r\n${subject}\r\n${message}`
       let base64Email = new Buffer(body).toString('base64');
       base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
