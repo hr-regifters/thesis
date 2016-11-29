@@ -50,7 +50,7 @@ const getActionIdandToken = (concObj, username, res) => {
   }
 }
 
-const getTriggerId = (concObj, username, res) => {
+const getTriggerIdandToken = (concObj, username, res) => {
   if (concObj['triggerapi'] === 'slack') {
     return userController.getUserData('username', username).then((user) => {
       if (user.slackid) {
@@ -60,17 +60,26 @@ const getTriggerId = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
-  } else {
+  } else if (concObj['triggerapi'] === 'fitbit') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.fitbitid) {
+        concObj['triggeruserid'] = user.fitbitid;
+        concObj['triggertoken'] = user.fitbittoken;
+        return concObj;
+      }
+    });
+  } 
+  else {
     return concObj;
   }
 }
 
 const writeConcoction = (concObj, res) => {
   pool.query({
-    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, actionapi, actionevent,\
+    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'],
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
     concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
     concObj['actionparams'],concObj['enable'], concObj['description']]
   }, (err, rows) => {
@@ -87,6 +96,7 @@ exports.createConcoction = (req, res) => {
     triggerevent: req.body.triggerEvent,
     triggerparams: req.body.triggerParams || {},
     triggeruserid: '',
+    triggertoken: '',
     actionapi: req.body.actionApi,
     actionevent: req.body.actionEvent,
     actionuserid: '',
@@ -97,7 +107,7 @@ exports.createConcoction = (req, res) => {
   };
 //get action id, token, and userId
   getActionIdandToken(concObj, username, res)
-  .then((concObj) => getTriggerId(concObj, username, res))
+  .then((concObj) => getTriggerIdandToken(concObj, username, res))
   .then((concObj) => {
     writeConcoction(concObj, res);
   }).catch((error) => {
