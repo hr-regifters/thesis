@@ -97,7 +97,7 @@ module.exports = {
                 slackReqObj = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
-              } else if (obj.actionapi === 'gmail' && obj.actionevent === 'send_email') {
+              } else if (obj.actionapi === 'googleMail' && obj.actionevent === 'send_email') {
                 slackReqObj = JSON.parse(obj.actionparams); // To, From, Message
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();

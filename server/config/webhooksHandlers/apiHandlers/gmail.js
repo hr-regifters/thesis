@@ -8,6 +8,7 @@ module.exports = {
   },
   actions: {
     send_email: (paramObj) => {
+      console.log('sending email')
       let email = 'kbchun5712@gmail.com';
       let token = 'ya29.Ci-kA__Y0FbMVLkP5enAd9EEVvGvKEN1OPN3cVeT5BRPROAHVDmN-hoEH05UUUOlcQ';
       request.post(`https://www.googleapis.com/gmail/v1/users/${email}/messages/send?key=${gmailKey}&access_token${token}`, {
