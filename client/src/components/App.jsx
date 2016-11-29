@@ -2,6 +2,7 @@
 import React from 'react';
 import Navigator from './Navigator.jsx';
 import servicesDetail from '../servicesDetailJSON.js';
+import instructions from '../instructionDetail.js';
 import currUrl from './../../../currUrl';
 
 export default class App extends React.Component {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
     this.funcs = {
       changeState: this.changeState.bind(this),
       changeViewTo: this.changeViewTo.bind(this),
+      modifyInstructions: this.modifyInstructions.bind(this),
       saveConcoction: this.saveConcoction.bind(this),
       modifyTrigger: this.modifyTrigger.bind(this),
       modifyTriggerOption: this.modifyTriggerOption.bind(this),
@@ -21,11 +23,12 @@ export default class App extends React.Component {
       modifyActionParams: this.modifyActionParams.bind(this),
       modifyActionReveal: this.modifyActionReveal.bind(this),
       addNewAction: this.addNewAction.bind(this),
-      logout: this.logout.bind(this)
-    }
+      logout: this.logout.bind(this),
+    };
 
     this.state = {
       user: '',
+      message: [1],
       view: 'verify',  // home, addConcoction, verify
       previousView: 'verify',
       spotlightConcoctionId: 1,
@@ -43,6 +46,7 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
+      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
     };
   }
 
@@ -78,6 +82,8 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
+      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
+
     });
   }
 
@@ -112,6 +118,12 @@ export default class App extends React.Component {
       } else {
         console.log('Concoction unabled to be saved')
       }
+    });
+  }
+
+  modifyInstructions(index) {
+    this.setState({
+      instructions: instructions.instructions[index],
     });
   }
 

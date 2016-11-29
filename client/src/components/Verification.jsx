@@ -73,7 +73,7 @@ export default class Verification extends React.Component {
                 <input placeholder="username" id="newUsername" />
                 <input placeholder="password" id="newPassword" />
                 <input placeholder="email" id="newEmail" />
-                <button className="signupButton" onClick={this.signUp.bind(this)} type="button">Register</button>
+                <button className="saveBttn" onClick={this.signUp.bind(this)} type="button">Register</button>
               </form>
             </div>
             <div id="login" className="col-sm-5 animated fadeIn box">
@@ -82,7 +82,7 @@ export default class Verification extends React.Component {
                 <input placeholder="username" id="username" />
                 <input placeholder="password" id="password" />
                 <input placeholder="email" id="invisiblefillera" />
-                <button className="loginButton" onClick={this.logIn.bind(this)} type="button">Login</button>
+                <button className="saveBttn" onClick={this.logIn.bind(this)} type="button">Login</button>
               </form>
             </div>
           </row>
