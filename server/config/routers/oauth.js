@@ -63,7 +63,7 @@ router.get('/github/callback',
   }
 );
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }));
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location','profile'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
