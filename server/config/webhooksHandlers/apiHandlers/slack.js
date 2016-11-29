@@ -3,9 +3,10 @@ const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
-const slackAppId = process.env.slackAppId || require('./../../../../env').slackAppId;
-const slackAppToken = process.env.slackAppToken || require('./../../../../env').slackAppToken;
+const slackWebhookId = process.env.slackWebhookId || require('./../../../../env').slackWebhookId;
+const slackWebhookToken = process.env.slackWebhookToken || require('./../../../../env').slackWebhookToken;
 const request = require('request');
+
 const listenTo = {
   file_created: true,
   pin_added: true,
@@ -18,8 +19,8 @@ module.exports = {
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type] && req.body.event['event_ts'] * 1000 > currentTime - 10800000
-      && req.body.event.event_ts * 1000 < currentTime && req.body.token === slackAppToken
-      && req.body.api_app_id === slackAppId) { // check gating credentials (timestamp max age 3hrs)
+      && req.body.event.event_ts * 1000 < currentTime && req.body.token === slackWebhookToken
+      && req.body.api_app_id === slackWebhookId) { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       let slackReqObj = {
         slackUserId: '',
@@ -33,8 +34,8 @@ module.exports = {
         to: '',
       };
 
-        // fetch db data for users to get actions
-        //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
+      // fetch db data for users to get actions
+      //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
       concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
