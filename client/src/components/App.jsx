@@ -180,10 +180,22 @@ export default class App extends React.Component {
     });
   }
 
-  modifyTriggerParams(param, alias) {
+  modifyTriggerParams(param) {
+    let triggerOptionParams = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption].parameters;
+    let updatedParams = {};
+    let alias;
+    for (let i = 0; i < param.length; i++) {
+      for (let j = 0; j < triggerOptionParams.length; j++) {
+        if (triggerOptionParams[j].alias === param[i].id) {
+          alias = triggerOptionParams[j].alias;
+          updatedParams[param[i].id] = param[i].value;
+        }
+      }
+    };
+    console.log(updatedParams);
     this.setState({
       triggerParams: {
-        param: param,
+        param: updatedParams,
         alias: alias,
       },
     });
