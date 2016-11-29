@@ -76,10 +76,17 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
+    console.log(fitbitData.user, 'fitbitData.user')
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
-    request.post({url: 'https://api.fitbit.com/1/user/' + fitbitData.user[1] + '/apiSubscriptions/1.json'}, function(err, response, body) {
-      console.log(body, 'body');
-      console.log(err, 'err');
+    let options = {
+        uri: 'https://api.fitbit.com/1/user/-/apiSubscriptions/1.json',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${fitbitData.user[0]}`
+        },
+      }
+    request.post(options, function(err, response, body) {
       console.log(response, 'response');
     })
     res.redirect('/');
