@@ -7,6 +7,7 @@ CREATE TABLE users (
   email         VARCHAR(64) NOT NULL,
   password      VARCHAR(64) NOT NULL,
   slackId       VARCHAR(10),
+  fitbitId      VARCHAR(10),
   slackToken    VARCHAR(80),
   evernoteToken VARCHAR(100),
   githubToken   VARCHAR(100),

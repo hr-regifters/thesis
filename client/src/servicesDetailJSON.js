@@ -115,58 +115,8 @@ module.exports = {
       options: [],
     },
   },
-  twitch: {
-    name: 'Twitch',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  facebook: {
-    name: 'Facebook',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  twitter: {
-    name: 'Twitter',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  github: {
-    name: 'Github',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
   instagram: {
     name: 'Instagram',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  googleCalendar: {
-    name: 'Google Calendar',
     icon: '',
     trigger: {
       options: [],
@@ -198,6 +148,25 @@ module.exports = {
             { description: 'Message',
               alias: 'gmail_text',
             }
+          ]
+        }
+      ]
+    },
+  },
+  googleSheets: {
+    name: 'Google Sheets',
+    icon: '',
+    trigger: {
+      options: []
+    },
+    action: {
+      options: [
+        { description: 'Create a Spreadsheet',
+          alias: 'create_sheet',
+          parameters: [
+            { description: 'Title',
+              alias: 'sheet_title',
+            },
           ]
         }
       ]
