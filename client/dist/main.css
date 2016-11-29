@@ -24,6 +24,15 @@ h3 {
   font-size: 2em;
   margin-top: 50px
 }
+h4 {
+  font-family: "Muli", sans-serif;
+  text-align: center;
+  color: #11aaad;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 2em;
+  margin-top: 50px
+}
 
 h3:hover {
   color: #fff;
@@ -260,6 +269,7 @@ input:focus {
   margin-top: 40px;
   width: 45%;
   text-align: center !important;
+  box-shadow: 0px 3px 15px #000;
 }
 .newConcoctionTxt {
   text-align: center;
@@ -318,6 +328,7 @@ input:focus {
   background-color: #11aaad;
   padding-bottom: 20px;
   width: 100%;
+  box-shadow: 0px 3px 15px #000;
 }
 
 input {
@@ -359,9 +370,11 @@ input {
 }
 .instructions {
   text-align: left;
-  font-size: 150%;
-  height: 60px;
+  font-size: 170%;
+  color: #aebec1;
   padding: 20px;
+  padding-right: 400px;
+  padding-left: 120px;
   color: white;
   background-color: #333;
   width: 86%;
@@ -369,6 +382,8 @@ input {
   top: 0px;
   position: fixed;
   z-index: 100;
+  font-family: "Muli", sans-serif;
+  line-height: 160%;
 }
 .round {
   background-color: #3C3C3C;
@@ -381,8 +396,27 @@ input {
 .paramTxt {
   color: #aebec1;
 }
-
-
+.head {
+  background-color: rgba(0,0,0,0.9);
+  padding: 20px;
+  margin: 0px;
+}
+.bod{
+ margin: 20px;
+ color: #aebec1;
+ text-align: left;
+ margin-left: 30px;
+}
+.message {
+  color: white !important;
+  padding: 0px;
+  padding-bottom: 10px;
+  background-color: rgba(100,100,100,0.2);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 3px 15px #666;
+}
 
 
 
