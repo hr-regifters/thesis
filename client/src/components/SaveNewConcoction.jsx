@@ -14,8 +14,8 @@ const SaveNewConcoction = (props) => {
     );
   } else {
     return (
-      <div className='saveEnabled' onClick={ () => {props.saveConcoction()}}>
-        <h2 className='saveBttn'>Save New Concoction</h2>
+      <div className='saveEnabled inline' onClick={ () => {props.saveConcoction()}}>
+        <h2 className='saveBttn'>Launch</h2>
       </div>
     );
   }
