@@ -16,7 +16,9 @@ module.exports = {
         "resource": {
           "raw": "VG86IGtiY2h1bjU3MTJAZ21haWwuY29tDQpGcm9tOiBrYmNodW41NzEyQGdtYWlsLmNvbQ0KSGVsbG8="
         }
-      });
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
     },
   },
 };
