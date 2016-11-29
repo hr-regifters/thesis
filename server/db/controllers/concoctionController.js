@@ -105,13 +105,22 @@ exports.createConcoction = (req, res) => {
   });
 }
 
-exports.getConcoctions = (api, event) => {
+exports.getConcoctions = (api, event, triggeruserid) => {
+  if (triggeruserid) {
+    return pool.query({
+      text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND \
+      triggerevent= \'' + event + '\' AND triggeruserid= \'' + triggeruserid + '\';'
+    }, (err,rows) => {
+      return err ? err : rows.rows; 
+    });
+  }
   return pool.query({
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
   }, (err,rows) => {
     return err ? err : rows.rows; 
   });
 }
+
 
 // exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
 //   pool.query ({

@@ -24,6 +24,7 @@ CREATE TABLE concoctions (
   triggerEvent  VARCHAR(32),
   triggerParams VARCHAR(128),
   triggerUserId VARCHAR(20),
+  triggerToken  VARCHAR(300),
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),
