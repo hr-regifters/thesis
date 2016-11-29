@@ -10,8 +10,8 @@ module.exports = {
     send_email: (paramObj) => {
       console.log('sending email')
       let email = 'kbchun5712@gmail.com';
-      let token = 'ya29.Ci-kA__Y0FbMVLkP5enAd9EEVvGvKEN1OPN3cVeT5BRPROAHVDmN-hoEH05UUUOlcQ';
-      request.post(`https://www.googleapis.com/gmail/v1/users/${email}/messages/send?key=${gmailKey}&access_token${token}`, {
+      let token = 'ya29.CjukA9v_WzCks8A4OjwKdNODgwH56io7CKnYu16-kxD4g4KQrK92vy2fcv0wZufJhwFY_cYvzmX_bFG2NQ';
+      request.post(`https://www.googleapis.com/gmail/v1/users/${email}/messages/send?access_token${token}`, {
         "userId": "me",
         "resource": {
           "raw": "VG86IGtiY2h1bjU3MTJAZ21haWwuY29tDQpGcm9tOiBrYmNodW41NzEyQGdtYWlsLmNvbQ0KSGVsbG8="
