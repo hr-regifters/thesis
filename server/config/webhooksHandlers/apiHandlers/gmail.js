@@ -15,7 +15,9 @@ module.exports = {
       let body = `${recipient}/r/n${userEmail}/r/n${subject}/r/n${message}`
       // let base64Email = new Buffer(body).toString('base64');
       // base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
+      body = window.btoa(body);
       let token = paramObj.actionToken;
+      console.log(token)
       let options = {
         uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
         method: 'POST',
@@ -24,7 +26,7 @@ module.exports = {
           Authorization: `Bearer ${token}`
         },
         json: {
-          'raw': window.btoa(body)
+          'raw': body
         }
       }
       request(options, (err, res, body) => {
