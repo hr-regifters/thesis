@@ -114,7 +114,7 @@ exports.getConcoctions = (api, event) => {
 }
 
 exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
-  return pool.query ({
+  pool.query ({
   text: 'UPDATE concoctions \ 
   SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
   }, (err, rows) => {
