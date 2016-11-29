@@ -24,7 +24,7 @@ module.exports = {
           Authorization: `Bearer ${token}`
         },
         json: {
-          'raw': window.btoa(body);
+          'raw': window.btoa(body)
         }
       }
       request(options, (err, res, body) => {
