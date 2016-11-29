@@ -5,7 +5,7 @@ const verifyToken = process.env.INSTA_VERIFYTOKEN || require('./../../../../env'
 
 module.exports = {
   validate: (req, res) => {
-    res.status(200).send(req.query.hub.challenge);
+    res.status(200).send(req.query['hub.challenge']);
     console.log('insta validate called');
     console.log(req);
   },
