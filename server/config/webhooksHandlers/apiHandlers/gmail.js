@@ -18,7 +18,7 @@ module.exports = {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: {
+        json: {
           'raw': 'VG86IGtiY2h1bjU3MTJAZ21haWwuY29tDQpGcm9tOiBrYmNodW41NzEyQGdtYWlsLmNvbQ0KSGVsbG8='
         }
       }
