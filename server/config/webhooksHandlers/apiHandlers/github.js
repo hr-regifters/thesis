@@ -10,8 +10,6 @@ const listenTo = {
   pin_added: true,
 };
 
-<<<<<<< HEAD
-
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
