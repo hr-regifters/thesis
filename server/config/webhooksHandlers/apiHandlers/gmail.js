@@ -16,7 +16,6 @@ module.exports = {
       let base64Email = new Buffer(body).toString('base64');
       base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
-      console.log('token', token);
       let options = {
         uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
         method: 'POST',
@@ -32,6 +31,7 @@ module.exports = {
         if (err) {
           console.log('error', err);
         } else {
+          console.log(body);
           console.log('Successfully sent email');
         }
       });
