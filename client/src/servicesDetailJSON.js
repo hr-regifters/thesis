@@ -25,7 +25,7 @@ module.exports = {
               alias: 'channelName',
             },
             { description: 'Message',
-              alias: 'text',
+              alias: 'slack_text',
             }
           ],
         },
@@ -36,29 +36,7 @@ module.exports = {
     name: 'Evernote',
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
-      options: [
-        // { description: 'When a Note with a specific Tag is created',
-        //   alias: 'none',
-        //   parameters: [
-        //     { description: 'Tag Name',
-        //       alias: 'tagName',
-        //     },
-        //   ],
-        // },
-        // { description: 'When a Note in a Specific Notebook is created',
-        //   alias: 'none',
-        //   parameters: [
-        //     { description: 'Notebook Name',
-        //       alias: 'parentNotebook',
-        //     },
-        //   ],
-        // },
-        // { description: 'When a note in any Notebook is created',
-        //   alias: 'none',
-        //   parameters: [
-        //   ],
-        // },
-      ],
+      options: ['none'],
     },
     action: {
       options: [
@@ -88,7 +66,7 @@ module.exports = {
               alias: 'phoneNumber',
             },
             { description: 'Message',
-              alias: 'message',
+              alias: 'twilio_text',
             }
           ],
         },
@@ -115,46 +93,6 @@ module.exports = {
       options: [],
     },
   },
-  twitch: {
-    name: 'Twitch',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  facebook: {
-    name: 'Facebook',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  twitter: {
-    name: 'Twitter',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  github: {
-    name: 'Github',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
   instagram: {
     name: 'Instagram',
     icon: '',
@@ -165,14 +103,51 @@ module.exports = {
       options: [],
     },
   },
-  googleCalendar: {
-    name: 'Google Calendar',
+  googleMail: {
+    name: 'Gmail',
     icon: '',
     trigger: {
-      options: [],
+      options: ['none']
     },
     action: {
-      options: [],
+      options: [
+        { description: 'Send an Email',
+          alias: 'send_email',
+          parameters: [
+            { description: 'Your gmail',
+              alias: 'email',
+            },
+            { description: "Recipient's email",
+              alias: 'recipient',
+            },
+            { description: 'Subject',
+              alias: 'subject',
+            },
+            { description: 'Message',
+              alias: 'gmail_text',
+            }
+          ]
+        }
+      ]
+    },
+  },
+  googleSheets: {
+    name: 'Google Sheets',
+    icon: '',
+    trigger: {
+      options: ['none']
+    },
+    action: {
+      options: [
+        { description: 'Create a Spreadsheet',
+          alias: 'create_sheet',
+          parameters: [
+            { description: 'Title',
+              alias: 'sheet_title',
+            },
+          ]
+        }
+      ]
     },
   },
 };

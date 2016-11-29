@@ -49,9 +49,11 @@ export default class Concoction extends React.Component {
     return (
       <div className="concoction animated fadeIn">
         <div className="mainBox">
-          <img className='icon' src={`https://www.${this.props.concoctionInfo.triggerapi}.com/favicon.ico`}></img>
-          <i className="fa fa-arrow-right fa-1x"></i>
-          <img className='icon' src={`https://www.${this.props.concoctionInfo.actionapi}.com/favicon.ico`}></img>
+
+          <img className='icon round' src={`https://www.${this.props.concoctionInfo.triggerapi}.com/favicon.ico`}></img>
+          
+          <img className='icon round' src={`https://www.${this.props.concoctionInfo.actionapi}.com/favicon.ico`}></img>
+        
           <p>{this.props.concoctionInfo.description}</p>
         </div>
         <div className="bottomBox">

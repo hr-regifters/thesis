@@ -108,6 +108,8 @@ exports.getUserConcoctions = (req, res) => {
       let tokenArray = [];
       rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
       rows.rows[0].evernotetoken ? tokenArray.push('evernote') : tokenArray;
+      rows.rows[0].fitbittoken ? tokenArray.push('fitbit') : tokenArray;
+      rows.rows[0].googletoken ? tokenArray.push('google') : tokenArray;
       pool.query({
         text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams, triggeruserid FROM concoctions WHERE userId = \'' + userId + '\';'
       }, (err, rows) => {

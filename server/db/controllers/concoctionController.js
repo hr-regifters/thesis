@@ -45,6 +45,26 @@ const getActionIdandToken = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
+  } else if (concObj['actionapi'] === 'googleMail') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user) {
+        concObj['userid'] = user.id;
+        concObj['actiontoken'] = user.googletoken;
+        return concObj;
+      } else {
+        res.status(405).send('cant find user');
+      }
+    });
+  } else if (concObj['actionapi'] === 'googleSheets') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user) {
+        concObj['userid'] = user.id;
+        concObj['actiontoken'] = user.googletoken;
+        return concObj;
+      } else {
+        res.status(405).send('cant find user');
+      }
+    });
   } else {
     res.status(405).send('cant find user');
   }

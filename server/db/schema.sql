@@ -7,13 +7,14 @@ CREATE TABLE users (
   email         VARCHAR(64) NOT NULL,
   password      VARCHAR(64) NOT NULL,
   slackId       VARCHAR(10),
+  fitbitId      VARCHAR(10),
+  instagramId   VARCHAR(15),
   slackToken    VARCHAR(80),
   evernoteToken VARCHAR(100),
   githubToken   VARCHAR(100),
-  fitbitId      VARCHAR(10),
   fitbitToken   VARCHAR(300),
   googleToken   VARCHAR(100),
-  instagramId   VARCHAR(15),
+  instagramToken VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
