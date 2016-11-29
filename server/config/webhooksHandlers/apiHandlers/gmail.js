@@ -12,12 +12,12 @@ module.exports = {
       let recipient = 'To: ' + paramObj.actionParams.recipient;
       let subject = 'Subject: ' + paramObj.actionParams.subject;
       let message = paramObj.actionParams.gmail_text;
-      let body = `${recipient}/r/n${paramObj.actionParams.email}/r/n${subject}/r/n${message}`
+      let body = `${recipient}/r/n${userEmail}/r/n${subject}/r/n${message}`
       let base64Email = new Buffer(body).toString('base64');
       base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
       let options = {
-        uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
+        uri: `https://www.googleapis.com/gmail/v1/users/${paramObj.actionParams.email}/messages/send`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
