@@ -36,29 +36,7 @@ module.exports = {
     name: 'Evernote',
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
-      options: [
-        // { description: 'When a Note with a specific Tag is created',
-        //   alias: 'none',
-        //   parameters: [
-        //     { description: 'Tag Name',
-        //       alias: 'tagName',
-        //     },
-        //   ],
-        // },
-        // { description: 'When a Note in a Specific Notebook is created',
-        //   alias: 'none',
-        //   parameters: [
-        //     { description: 'Notebook Name',
-        //       alias: 'parentNotebook',
-        //     },
-        //   ],
-        // },
-        // { description: 'When a note in any Notebook is created',
-        //   alias: 'none',
-        //   parameters: [
-        //   ],
-        // },
-      ],
+      options: ['none'],
     },
     action: {
       options: [
@@ -115,58 +93,8 @@ module.exports = {
       options: [],
     },
   },
-  twitch: {
-    name: 'Twitch',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  facebook: {
-    name: 'Facebook',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  twitter: {
-    name: 'Twitter',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  github: {
-    name: 'Github',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
   instagram: {
     name: 'Instagram',
-    icon: '',
-    trigger: {
-      options: [],
-    },
-    action: {
-      options: [],
-    },
-  },
-  googleCalendar: {
-    name: 'Google Calendar',
     icon: '',
     trigger: {
       options: [],
@@ -179,7 +107,7 @@ module.exports = {
     name: 'Gmail',
     icon: '',
     trigger: {
-      options: []
+      options: ['none']
     },
     action: {
       options: [
@@ -198,6 +126,25 @@ module.exports = {
             { description: 'Message',
               alias: 'gmail_text',
             }
+          ]
+        }
+      ]
+    },
+  },
+  googleSheets: {
+    name: 'Google Sheets',
+    icon: '',
+    trigger: {
+      options: ['none']
+    },
+    action: {
+      options: [
+        { description: 'Create a Spreadsheet',
+          alias: 'create_sheet',
+          parameters: [
+            { description: 'Title',
+              alias: 'sheet_title',
+            },
           ]
         }
       ]
