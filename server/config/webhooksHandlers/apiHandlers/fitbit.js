@@ -10,11 +10,6 @@ const listenTo = {
   pin_added: true,
 };
 
-request.post({url:'https://api.fitbit.com/1/user/-/apiSubscriptions/1.json'}, function(err, Response,body) {
-  console.log(err, 'err');
-  console.log(Response, 'Response');
-  console.log(body, 'body');
-})
 
 module.exports = {
   trigger: (req, res) => {
