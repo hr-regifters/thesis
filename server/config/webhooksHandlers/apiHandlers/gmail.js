@@ -13,9 +13,8 @@ module.exports = {
       let subject = 'Subject: ' + paramObj.actionParams.subject;
       let message = paramObj.actionParams.gmail_text;
       let body = `${recipient}/r/n${userEmail}/r/n${subject}/r/n${message}`
-      // let base64Email = new Buffer(body).toString('base64');
-      // base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
-      body = window.btoa(body);
+      let base64Email = new Buffer(body).toString('base64');
+      base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
       let options = {
         uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
@@ -25,10 +24,10 @@ module.exports = {
           Authorization: `Bearer ${token}`
         },
         json: {
-          'raw': body
+          'raw': base64Email
         }
       }
-      console.log(options);
+      console.log(options)
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body.err);
