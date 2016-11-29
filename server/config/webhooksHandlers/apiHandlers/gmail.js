@@ -8,7 +8,9 @@ module.exports = {
   },
   actions: {
     send_email: (paramObj) => {
-      let userEmail = 'From: ' + paramObj.actionParams.email;
+      let userEmail = paramObj.actionParams.email;
+      let from = 'From: ' + userEmail;
+      let replyTo = 'Reply-To: ' + userEmail;
       let recipient = 'To: ' + paramObj.actionParams.recipient;
       let subject = 'Subject: ' + paramObj.actionParams.subject;
       let message = paramObj.actionParams.gmail_text;
@@ -17,7 +19,7 @@ module.exports = {
       base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
       let options = {
-        uri: `https://www.googleapis.com/gmail/v1/users/${paramObj.actionParams.email}/messages/send`,
+        uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
