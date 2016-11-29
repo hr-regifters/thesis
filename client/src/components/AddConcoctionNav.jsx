@@ -29,18 +29,17 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Concoctions </h3>
-            <div onClick={() => { props.funcs.logout() }}>
-              <h3 className="pull-right"> Logout </h3>
-            </div>
-            <h1 className ="navbar-left"> Regift3d</h1>
+            <h3>Regift3d</h3>
+            <h3>-</h3>
+            <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions</h3>
+            <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
           <Row>
             <Instructions text={props.appState.instructions} />
           </Row>
-          <Row className='full'>
+          <Row id='center'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
@@ -63,18 +62,17 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Concoctions </h3>
-            <div onClick={() => { this.props.funcs.logout() }}>
-              <h3 className="pull-right"> Logout </h3>
-            </div>
-            <h1 className ="navbar-left"> Regift3d</h1>
+            <h3>Regift3d</h3>
+            <h3>-</h3>
+            <h3 onClick={() => { this.props.changeViewTo('home') }}>Concoctions </h3>
+            <h3 onClick={() => { this.props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
           <Row>
             <Instructions text={props.appState.instructions} />
           </Row>
-          <Row className = 'full'>
+          <Row id='center'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
@@ -100,18 +98,17 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3 className="pull-right"> My Concoctions </h3>
-            <div onClick={() => { this.props.funcs.logout() }}>
-              <h3 className="pull-right"> Logout </h3>
-            </div>
-            <h1 className ="navbar-left"> Regift3d</h1>
+            <h3>Regift3d</h3>
+            <h3>-</h3>
+            <h3 onClick={() => { this.props.changeViewTo('home') }}>Concoctions </h3>
+            <h3 onClick={() => { this.props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
           <Row>
             <Instructions text={props.appState.instructions} />
           </Row>
-          <Row className = 'full'>
+          <Row  id='center'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
@@ -125,7 +122,7 @@ const AddConcoctionNav = (props) => {
                   );
                 })}
                 <div onClick={ () => {props.funcs.addNewAction()}}>
-                  <h2>Add New Action</h2>
+                  <h1>Add New Action</h1>
                 </div>
                 <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
                 <SaveNewConcoction state={props.appState} saveConcoction={props.funcs.saveConcoction} />

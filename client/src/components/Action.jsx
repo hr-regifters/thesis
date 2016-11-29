@@ -73,7 +73,7 @@ const Action = (props) => {
           {servicesDetail[props.state.action].action.options[props.state.actionOption].parameters.map((param) => {
             return (
               <div key={param.alias}>
-                <h2>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
+                <h2 className='paramTxt'>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
               </div>
             )
           })}

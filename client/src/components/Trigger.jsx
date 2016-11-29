@@ -80,7 +80,7 @@ const Trigger = (props) => {
             {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map((param) => {
               return (
                 <div key={param.alias}>
-                  <h2>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
+                  <h2 className='paramTxt'>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
                 </div>
               )
             })}
