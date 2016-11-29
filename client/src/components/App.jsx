@@ -2,7 +2,7 @@
 import React from 'react';
 import Navigator from './Navigator.jsx';
 import servicesDetail from '../servicesDetailJSON.js';
-import instructions from '../instructions.js';
+import instructions from '../instructionDetail.js';
 import currUrl from './../../../currUrl';
 
 export default class App extends React.Component {
