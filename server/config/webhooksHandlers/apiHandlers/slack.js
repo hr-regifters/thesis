@@ -87,11 +87,12 @@ module.exports = {
                   callback();
                 }).catch((error) => { console.log('error Slack action post_message', error); });
               } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
-                slackReqObj = JSON.parse(obj.actionparams);
+                slackReqObj.actionParams = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
               } else if (obj.actionapi === 'googleMail' && obj.actionevent === 'send_email') {
-                slackReqObj = JSON.parse(obj.actionparams); // To, From, Message
+                slackReqObj.actionToken = obj.actiontoken;
+                slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
               }
