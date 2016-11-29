@@ -19,7 +19,7 @@ module.exports = {
       base64Email = base64Email.replace(/\+/g, '-').replace(/\//g, '_');
       let token = paramObj.actionToken;
       let options = {
-        uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send?key=${GMAIL_API_KEY}`,
+        uri: `https://www.googleapis.com/gmail/v1/users/${userEmail}/messages/send`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
