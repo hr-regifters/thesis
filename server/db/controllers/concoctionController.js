@@ -113,18 +113,18 @@ exports.getConcoctions = (api, event) => {
   });
 }
 
-exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
-  pool.query ({
-  text: 'UPDATE concoctions \ 
-  SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
-  }, (err, rows) => {
-    if (err) {
-      return err;
-    } else {
-      return rows;
-    }
-  })
-}
+// exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
+//   pool.query ({
+//   text: 'UPDATE concoctions \ 
+//   SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
+//   }, (err, rows) => {
+//     if (err) {
+//       return err;
+//     } else {
+//       return rows;
+//     }
+//   })
+// }
 exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({
