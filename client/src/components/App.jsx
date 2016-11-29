@@ -28,6 +28,7 @@ export default class App extends React.Component {
 
     this.state = {
       user: '',
+      message: [1],
       view: 'verify',  // home, addConcoction, verify
       previousView: 'verify',
       spotlightConcoctionId: 1,
@@ -45,7 +46,7 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
-      instructions: 'Hey from App.',
+      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
     };
   }
 
@@ -81,6 +82,8 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
+      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
+
     });
   }
 
@@ -120,7 +123,7 @@ export default class App extends React.Component {
 
   modifyInstructions(index) {
     this.setState({
-      instructions: instructions.instructions[4],
+      instructions: instructions.instructions[index],
     });
   }
 
