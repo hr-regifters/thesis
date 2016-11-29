@@ -13,5 +13,5 @@ module.exports = {
   githubTrigger: githubHandler.trigger,
   githubAction: githubHandler.actions,
   twilioAction: twilioHandler.actions,
-  gmailAction: gmailHandler.actions,
+  googleMailAction: gmailHandler.actions,
 };
