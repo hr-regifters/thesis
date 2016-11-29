@@ -82,7 +82,11 @@ router.get('/fitbit/callback',
 
 router.get('/google', checkLogin, passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/drive',
-          'https://www.googleapis.com/auth/plus.login']
+          'https://www.googleapis.com/auth/plus.login',
+          'https://mail.google.com',
+          'https://www.googleapis.com/auth/gmail.compose',
+          'https://www.googleapis.com/auth/gmail.modify',
+          'https://www.googleapis.com/auth/gmail.send']
 }));
 
 router.get('/google/callback',

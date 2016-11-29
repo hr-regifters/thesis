@@ -25,7 +25,7 @@ module.exports = {
               alias: 'channelName',
             },
             { description: 'Message',
-              alias: 'text',
+              alias: 'slack_text',
             }
           ],
         },
@@ -88,7 +88,7 @@ module.exports = {
               alias: 'phoneNumber',
             },
             { description: 'Message',
-              alias: 'message',
+              alias: 'twilio_text',
             }
           ],
         },
@@ -173,6 +173,31 @@ module.exports = {
     },
     action: {
       options: [],
+    },
+  },
+  googleMail: {
+    name: 'Gmail',
+    icon: '',
+    trigger: {
+      options: []
+    },
+    action: {
+      options: [
+        { description: 'Send an Email',
+          alias: 'send_email',
+          parameters: [
+            { description: 'Your gmail',
+              alias: 'email',
+            },
+            { description: "Recipient's email",
+              alias: 'recipient',
+            },
+            { description: 'Message',
+              alias: 'gmail_text',
+            }
+          ]
+        }
+      ]
     },
   },
 };

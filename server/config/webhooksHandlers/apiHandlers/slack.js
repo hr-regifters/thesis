@@ -97,6 +97,10 @@ module.exports = {
                 slackReqObj = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
+              } else if (obj.actionapi === 'gmail' && obj.actionevent === 'send_email') {
+                slackReqObj = JSON.parse(obj.actionparams); // To, From, Message
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                callback();
               }
             }
           } else {
@@ -115,7 +119,7 @@ module.exports = {
     post_message: (paramObj) => {
       const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
       let channel = encodeURIComponent(paramObj.actionParams.channelName);
-      let message = encodeURIComponent(paramObj.actionParams.text);
+      let message = encodeURIComponent(paramObj.actionParams.slack_text);
       request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
       console.log('slack message posted to channel: ' + paramObj.actionParams.channelName + ' from user: ' + paramObj.username);// + user.username);
     },
