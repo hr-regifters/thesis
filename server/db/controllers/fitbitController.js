@@ -11,7 +11,8 @@ module.exports.Strategy = new FitbitStrategy({
   callbackURL: `${currUrl}/api/oauth/fitbit/callback`
 }, (accessToken, refreshToken, profile, done) => {
   console.log(accessToken, 'accessToken', refreshToken, 'refreshToken', profile, 'profile')
+  const fitbitData = [accessToken, profile.id]
   process.nextTick(() => {
-    return done(null, accessToken);
+    return done(null, fitbitData);
   });
 });

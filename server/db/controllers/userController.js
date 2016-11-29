@@ -67,7 +67,7 @@ exports.queryUsers = (req, res) => {
   }); 
 }
 
-exports.addTokenAndId = (username, apiToken, token, slackId) => {
+exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
   pool.query({
     text: 'UPDATE users \
     SET ' + apiToken + ' = \'' + token + '\' WHERE username = \'' + username + '\';'
@@ -77,9 +77,9 @@ exports.addTokenAndId = (username, apiToken, token, slackId) => {
       console.log(rows);
     }
   });
-  if (slackId) {
+  if (apiId) {
     pool.query({
-      text: 'UPDATE users SET slackId = \'' + slackId + '\'  WHERE username = \'' + username + '\';'
+      text: 'UPDATE users SET ' + api + 'Id = \'' + apiId + '\'  WHERE username = \'' + username + '\';'
     }, 
     (err,rows) => {
       if (err) { return err; } else {
