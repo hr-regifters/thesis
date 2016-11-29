@@ -28,6 +28,7 @@ module.exports = {
           'raw': body
         }
       }
+      console.log(options);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body.err);
