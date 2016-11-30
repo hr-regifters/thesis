@@ -22,17 +22,17 @@ module.exports = {
          subscription_id: 0,
          data: { media_id: '1394570434339769908_4210173738' } } ]
     */
-    console.log('time:', req.body[0].time)
-      userCtrl.getUserData('instagramid', req.body[0]['object_id'])
-      .then((userObj) => {
-        console.log(userObj);
-        return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
-      })
-      .then((fileObj) => {
-        console.log('File result: ', fileObj);
-      })
-      .catch( error => console.log('error in fetching insta media: ', error));
-    if (req.body[0].time <= currentTime && req.body[0].time >= currentTime - 10800000) {
+    // console.log('time:', req.body[0].time)
+    //   userCtrl.getUserData('instagramid', req.body[0]['object_id'])
+    //   .then((userObj) => {
+    //     console.log(userObj);
+    //     return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
+    //   })
+    //   .then((fileObj) => {
+    //     console.log('File result: ', fileObj);
+    //   })
+    //   .catch( error => console.log('error in fetching insta media: ', error));
+    if (req.body[0].time * 1000 <= currentTime && req.body[0].time * 1000 >= currentTime - 10800000) {
       console.log('AFTER TIMESTAMP');
       res.status(200).send('registered instagram event');
       let instaReqObj = {
