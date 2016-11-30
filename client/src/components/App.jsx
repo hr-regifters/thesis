@@ -70,7 +70,7 @@ export default class App extends React.Component {
       this.getConcoctions();
     }
     sessionStorage.setItem('appState', JSON.stringify(this.state));
-    const currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
+    let currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
     if (this.state.view === 'addConcoction' && this.logHistory === true) {
       currentHistory.push(this.state);
       sessionStorage.setItem('stateHistory', JSON.stringify(currentHistory));
@@ -135,7 +135,7 @@ export default class App extends React.Component {
 
   undoLast() {
     //get the state history
-    const history = sessionStorage.getItem('stateHistory');
+    let history = sessionStorage.getItem('stateHistory');
     //parse the state history
     history = JSON.parse(history);
     //slice the last one off
