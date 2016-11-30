@@ -69,7 +69,7 @@ module.exports = {
                   let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
                   console.log('fitbit obj', fitbitReqObj);
-                  webhooksHandler[`${obj.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
                   callback();
