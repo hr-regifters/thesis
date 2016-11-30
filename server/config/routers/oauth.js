@@ -117,7 +117,7 @@ router.get('/instagram/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'instagramToken', instagramData.user);
+    utility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
     res.redirect('/');
   }
 );

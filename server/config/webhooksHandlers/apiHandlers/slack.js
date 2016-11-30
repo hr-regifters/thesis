@@ -109,12 +109,12 @@ module.exports = {
         console.log(error);
       });
     } else {
-      res.status(200).send('A problem occurred while processing event');
+      res.status(200).send('A problem occurred while processing slack event');
     }
   },
   actions: {
     post_message: (paramObj) => {
-      const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
+      const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace process.env.slackAppToken by user.slackToken
       let channel = encodeURIComponent(paramObj.actionParams.channelName);
       let message = encodeURIComponent(paramObj.actionParams.slack_text);
       request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
