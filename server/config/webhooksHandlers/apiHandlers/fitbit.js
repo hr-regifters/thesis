@@ -26,6 +26,9 @@ module.exports = {
     async.each(req.body, (obj, callback) => {
       //get all concoctions where user id and event
       concCtrl.getConcoctions('fitbit', obj.collectionType, obj['ownerId']).then((concoction) => {
+        console.log('concoction', concoction);
+        console.log('concoction enable', concoction.enable);
+        console.log('concoction rows', concoction.rows);
         if (concoction.enable && concoction.rows.length) {
           //query endpoint for update information
           let options = {
