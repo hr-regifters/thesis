@@ -77,10 +77,19 @@ module.exports = {
     name: 'Fitbit',
     icon: '',
     trigger: {
-      options: [],
+      options: [
+        { description: 'When you complete a Fitbit activity ',
+          alias: 'activities',
+          parameters: [
+            { description: 'Activity',
+              alias: 'activity',
+            },
+          ],
+        },
+      ],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   strava: {
@@ -90,7 +99,7 @@ module.exports = {
       options: [],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   instagram: {
