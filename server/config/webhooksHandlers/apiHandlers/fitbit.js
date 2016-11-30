@@ -47,9 +47,8 @@ module.exports = {
             if (data.hasOwnProperty('activities') && obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
-              let sheetData = data.filter((activity) => {
-                // return activity === fitbitReqObj.actionParams.param.activity
-              });
+              let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
+              fitbitReqObj.data = sheetData;
               webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
               callback();
             }
