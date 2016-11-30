@@ -62,9 +62,11 @@ module.exports = {
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
                 console.log('filtered activity data', activityData);
 
+                // keep track of activity id? since we get all activity events everytime
+
                 // check which action apis we're dealing with and what corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
-                  let sheetData = activityData.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param['activity'].toLowerCase());
+                  let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
                   console.log('fitbit obj', fitbitReqObj);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
