@@ -28,6 +28,18 @@ module.exports = {
         actionParams: '',
         actionToken: '',
       };
+
+      //fetching the file;
+      userCtrl.getUserData('instagramid', req.body[0]['object_id'])
+      .then((userObj) => {
+        console.log(userObj);
+        return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
+      })
+      .then((fileObj) => {
+        console.log('File result: ', fileObj);
+      })
+      .catch( error => console.log('error in fetching insta media: ', error));
+
       concCtrl.getConcoctions('instagram', req.body[0]['changed_aspect']).then((arr) => {
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body[0]['object_id'] === obj.triggeruserid) {
@@ -83,16 +95,6 @@ module.exports = {
           }
         }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Instagram Event:', req.body[0]['changed_aspect']); });
       });
-      //fetching the file;
-      userCtrl.getUserData('instagramid', req.body[0]['object_id'])
-      .then((userObj) => {
-        console.log(userObj);
-        return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
-      })
-      .then((fileObj) => {
-        console.log('File result: ', fileObj);
-      })
-      .catch( error => console.log('error in fetching insta media: ', error));
     } else {
       res.status(200).send('A problem occurred while processing instagram event');
     }
