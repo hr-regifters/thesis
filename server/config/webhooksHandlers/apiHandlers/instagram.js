@@ -33,13 +33,13 @@ module.exports = {
     //   })
     //   .catch( error => console.log('error in fetching insta media: ', error));
     if (req.body[0].time * 1000 <= currentTime && req.body[0].time * 1000 >= currentTime - 10800000) {
-      console.log('AFTER TIMESTAMP');
       res.status(200).send('registered instagram event');
       let instaReqObj = {
         actionParams: '',
         actionToken: '',
       };
       concCtrl.getConcoctions('instagram', req.body[0]['changed_aspect']).then((arr) => {
+        console.log(arr);
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body[0]['object_id'] === obj.triggeruserid) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
