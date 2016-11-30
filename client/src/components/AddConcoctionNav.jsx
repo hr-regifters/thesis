@@ -47,7 +47,6 @@ const AddConcoctionNav = (props) => {
                 <Back undo={props.funcs.undoLast} />
                 <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
                 <SaveNewConcoction state={props.appState} saveConcoction={props.funcs.saveConcoction} />
-
               </div>
             </Col>
           </Row>
