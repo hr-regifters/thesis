@@ -63,7 +63,7 @@ module.exports = {
                 console.log('filtered activity data', activityData);
 
                 // check which action apis we're dealing with and what corresponding action
-                if (obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
+                if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
                   fitbitReqObj.data = sheetData;
                   console.log('fitbit obj', fitbitReqObj);
@@ -76,7 +76,10 @@ module.exports = {
             });
           }
         });
+      }).catch((error) => {
+        res.status(500).send('Server Error in Slack trigger');
+        console.log(error);
       });
-    }); //closing async
+    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Slack Event:', req.body.event.type); }); //closing async
   },
 }
