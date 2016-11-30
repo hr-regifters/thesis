@@ -8,5 +8,7 @@ router.post('/evernote', webhookHandler.evernoteTrigger);
 router.post('/github', webhookHandler.githubTrigger);
 router.post('/fitbit', webhookHandler.fitbitTrigger);
 router.get('/fitbit', webhookHandler.fitbitVerify);
+router.get('/strava', webhookHandler.stravaVerify);
+
 
 module.exports = router;

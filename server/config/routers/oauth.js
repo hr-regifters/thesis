@@ -5,6 +5,7 @@ const utility = require('../../db/controllers/userController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
+const env = require('../../../env.js')
 
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
@@ -62,7 +63,6 @@ router.get('/github/callback',
     res.redirect('/');
   }
 );
-passport.authenticate('strava')
 router.get('/strava', checkLogin, passport.authenticate('strava'));
 
 router.get('/strava/callback', 
@@ -77,25 +77,17 @@ router.get('/strava/callback',
       }
     }
     console.log(stravaData.user, 'stravaData.user')
-    utility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    // let options = {
-    //     uri: 'https://api.strava.com/api/v3/push_subscriptions',
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded',
-    //     },
-    //     body: {
-    //       client_id: env.STRAVA_ID,
-    //       client_secret: env.STRAVA_SECRET,
-    //       object_type: 'activity',
-    //       aspect_type: 'create',
-
-    //     }
-    //   }
-    // request.post(options, function(err, response, body) {
-    //   console.log(response, 'response');
-    // })
-    // res.redirect('/');
+    utility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
+    let options = {
+        uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${env.STRAVA_ID}&client_secret=${env.STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=http://127.0.0.1:1337/api/webhooks/strava&verify=${stravaData.user[0]}`,
+        method: 'POST',
+      }
+    request.post(options, function(err, response, body) {
+      console.log(err, 'err');
+      console.log(response, 'response');
+      console.log(body, 'body');
+    })
+    res.redirect('/');
   });
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location','profile'] }));
