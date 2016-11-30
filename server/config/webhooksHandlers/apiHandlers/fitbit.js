@@ -15,10 +15,13 @@ module.exports = {
   trigger: (req, res) => {
     res.status(204).send();
     const body = req.body
-    console.log(req.body);
+    console.log(req.body, typeof req.body);
+    console.log(req.body[0]);
     async.each(body, (obj, callback) => {
       //get all concoctions where user id and event
-      concCtrl.getConcoctions('fitbit', obj['collectionType'], obj['ownerId']).then((rows) => {
+      console.log('inside async');
+      concCtrl.getConcoctions('fitbit', 'activity_logged' , obj['ownerId']).then((rows) => {
+        console.log(rows, 'outside of rows.length');
         if(rows.length) {
           console.log(rows);
       //query endpoint for update information
@@ -40,6 +43,8 @@ module.exports = {
       //iterate over concoctions to see if conditions are met
 
       
+      }).catch(function(err) {
+        console.log(err, 'err');
       })
     })
     //iterate over each object in the array
