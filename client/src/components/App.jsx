@@ -135,7 +135,7 @@ export default class App extends React.Component {
 
   undoLast() {
     //get the state history
-    let history = sessionStorage.getItem('stateHistory');
+    var history = sessionStorage.getItem('stateHistory'); 
     //parse the state history
     history = JSON.parse(history);
     //slice the last one off

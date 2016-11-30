@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row, Grid, Table, Navigation, Nav, Button } from 'react-bootstrap';
+import servicesDetail from '../servicesDetailJSON.js';
 import currUrl from './../../../currUrl';
 
 export default class Concoction extends React.Component {
@@ -50,9 +51,9 @@ export default class Concoction extends React.Component {
       <div className="concoction animated fadeIn">
         <div className="mainBox">
 
-          <img className='icon round' src={`https://www.${this.props.concoctionInfo.triggerapi}.com/favicon.ico`}></img>
+          <img className='icon round' src={servicesDetail[this.props.concoctionInfo.triggerapi].icon}></img>
           
-          <img className='icon round' src={`https://www.${this.props.concoctionInfo.actionapi}.com/favicon.ico`}></img>
+          <img className='icon round' src={servicesDetail[this.props.concoctionInfo.actionapi].icon}></img>
         
           <p>{this.props.concoctionInfo.description}</p>
         </div>

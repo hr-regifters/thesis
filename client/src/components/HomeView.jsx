@@ -41,8 +41,6 @@ export default class HomeView extends React.Component {
                   </div>
                   );
                 })
-                  
-                
               }
             </Row>
             <Row>

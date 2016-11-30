@@ -221,7 +221,7 @@ input:focus {
   display: block;
   margin: 0 auto;
   margin-top: 20px;
-  padding-top: 15px;
+  padding-top: 0px;
   padding-bottom: 0px;
   animation-duration: 1s;
   box-shadow: 0px 3px 15px #666;
@@ -299,6 +299,8 @@ input:focus {
 
 .icon {
   padding: 10px;
+  height: 70px;
+  width: 70px;
 }
 .col-xs-4 {
   padding-left: 7px;

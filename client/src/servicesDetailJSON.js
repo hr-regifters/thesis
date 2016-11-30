@@ -15,6 +15,7 @@ module.exports = {
           ],
         },
       ],
+      supportedActions: [],
     },
     action: {
       options: [
@@ -26,7 +27,7 @@ module.exports = {
             },
             { description: 'Message',
               alias: 'slack_text',
-            }
+            },
           ],
         },
       ],
@@ -37,6 +38,7 @@ module.exports = {
     icon: 'https://www.evernote.com/favicon.ico',
     trigger: {
       options: ['none'],
+      supportedActions: [],
     },
     action: {
       options: [
@@ -53,9 +55,10 @@ module.exports = {
   },
   twilio: {
     name: 'SMS',
-    icon: '',
+    icon: 'http://www.freeiconspng.com/uploads/sms-alert-icon-15.png',
     trigger: {
       options: ['none'],
+      supportedActions: [],
     },
     action: {
       options: [
@@ -67,7 +70,7 @@ module.exports = {
             },
             { description: 'Message',
               alias: 'twilio_text',
-            }
+            },
           ],
         },
       ],
@@ -75,7 +78,7 @@ module.exports = {
   },
   fitbit: {
     name: 'Fitbit',
-    icon: '',
+    icon: 'https://www.fitbit.com/favicon.ico',
     trigger: {
       options: [
         { description: 'When you complete a Fitbit activity ',
@@ -87,6 +90,7 @@ module.exports = {
           ],
         },
       ],
+      supportedActions: [],
     },
     action: {
       options: ['none'],
@@ -94,9 +98,10 @@ module.exports = {
   },
   strava: {
     name: 'Strava',
-    icon: '',
+    icon: 'https://www.strava.com/favicon.ico',
     trigger: {
       options: [],
+      supportedActions: [],
     },
     action: {
       options: ['none'],
@@ -104,9 +109,10 @@ module.exports = {
   },
   instagram: {
     name: 'Instagram',
-    icon: '',
+    icon: 'https://5a5a57ff32a328601212-ee0df397c56b146e91fe14be42fa361d.ssl.cf1.rackcdn.com/icon/instagram_logos_app_icon/YyepHGHDvkl1wFkUHw8Y/Instagram-v051916_200.png',
     trigger: {
       options: [],
+      supportedActions: [],
     },
     action: {
       options: [],
@@ -114,19 +120,20 @@ module.exports = {
   },
   googleMail: {
     name: 'Gmail',
-    icon: '',
+    icon: 'http://christiantraders.com/Christian%20Traders_files/favicon.ico',
     trigger: {
-      options: ['none']
+      options: ['none'],
+      supportedActions: [],
     },
     action: {
       options: [
         { description: 'Send an Email',
           alias: 'send_email',
           parameters: [
-            { description: 'Your gmail',
+            { description: 'Your Gmail',
               alias: 'email',
             },
-            { description: "Recipient's email",
+            { description: "Recipient's Email",
               alias: 'recipient',
             },
             { description: 'Subject',
@@ -134,17 +141,18 @@ module.exports = {
             },
             { description: 'Message',
               alias: 'gmail_text',
-            }
-          ]
-        }
-      ]
+            },
+          ],
+        },
+      ],
     },
   },
   googleSheets: {
     name: 'Google Sheets',
-    icon: '',
+    icon: 'http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Sheets-icon.png',
     trigger: {
-      options: ['none']
+      options: ['none'],
+      supportedActions: [],
     },
     action: {
       options: [
@@ -154,9 +162,9 @@ module.exports = {
             { description: 'Title',
               alias: 'sheet_title',
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
   },
 };
