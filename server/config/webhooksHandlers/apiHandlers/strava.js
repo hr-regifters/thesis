@@ -41,8 +41,8 @@ module.exports = {
     res.status(200).send();
 
     // query endpoint for update information
-    request.get(options, (err, res, body) => {
-  }
+  //   request.get(options, (err, res, body) => {
+  // })
 
   
 }
