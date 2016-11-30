@@ -6,14 +6,15 @@ CREATE TABLE users (
   username      VARCHAR(20) NOT NULL UNIQUE,
   email         VARCHAR(64) NOT NULL,
   password      VARCHAR(64) NOT NULL,
-  slackId       VARCHAR(10),
+  instagramId   VARCHAR(15),
   fitbitId      VARCHAR(10),
-  slackToken    VARCHAR(80),
+  slackId       VARCHAR(10),
   evernoteToken VARCHAR(100),
-  githubToken   VARCHAR(100),
   fitbitToken   VARCHAR(300),
+  githubToken   VARCHAR(100),
   googleToken   VARCHAR(100),
   instagramToken VARCHAR(100),
+  slackToken    VARCHAR(80),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -24,6 +25,7 @@ CREATE TABLE concoctions (
   triggerEvent  VARCHAR(32),
   triggerParams VARCHAR(128),
   triggerUserId VARCHAR(20),
+  triggerToken  VARCHAR(300),
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),

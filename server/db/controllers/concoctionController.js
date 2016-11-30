@@ -70,7 +70,7 @@ const getActionIdandToken = (concObj, username, res) => {
   }
 }
 
-const getTriggerId = (concObj, username, res) => {
+const getTriggerIdandToken = (concObj, username, res) => {
   if (concObj['triggerapi'] === 'slack') {
     return userController.getUserData('username', username).then((user) => {
       if (user.slackid) {
@@ -80,17 +80,26 @@ const getTriggerId = (concObj, username, res) => {
         res.status(405).send('cant find user');
       }
     });
-  } else {
+  } else if (concObj['triggerapi'] === 'fitbit') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.fitbitid) {
+        concObj['triggeruserid'] = user.fitbitid;
+        concObj['triggertoken'] = user.fitbittoken;
+        return concObj;
+      }
+    });
+  } 
+  else {
     return concObj;
   }
 }
 
 const writeConcoction = (concObj, res) => {
   pool.query({
-    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, actionapi, actionevent,\
+    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'],
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
     concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
     concObj['actionparams'],concObj['enable'], concObj['description']]
   }, (err, rows) => {
@@ -107,6 +116,7 @@ exports.createConcoction = (req, res) => {
     triggerevent: req.body.triggerEvent,
     triggerparams: req.body.triggerParams || {},
     triggeruserid: '',
+    triggertoken: '',
     actionapi: req.body.actionApi,
     actionevent: req.body.actionEvent,
     actionuserid: '',
@@ -117,7 +127,7 @@ exports.createConcoction = (req, res) => {
   };
 //get action id, token, and userId
   getActionIdandToken(concObj, username, res)
-  .then((concObj) => getTriggerId(concObj, username, res))
+  .then((concObj) => getTriggerIdandToken(concObj, username, res))
   .then((concObj) => {
     writeConcoction(concObj, res);
   }).catch((error) => {
@@ -125,7 +135,15 @@ exports.createConcoction = (req, res) => {
   });
 }
 
-exports.getConcoctions = (api, event) => {
+exports.getConcoctions = (api, event, triggeruserid) => {
+  if (triggeruserid) {
+    return pool.query({
+      text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND \
+      triggerevent= \'' + event + '\' AND triggeruserid= \'' + triggeruserid + '\';'
+    }, (err,rows) => {
+      return err ? err : rows.rows; 
+    });
+  }
   return pool.query({
     text: 'SELECT * FROM concoctions WHERE triggerapi= \'' + api + '\' AND triggerevent= \'' + event + '\' ;'
   }, (err,rows) => {
@@ -133,6 +151,19 @@ exports.getConcoctions = (api, event) => {
   });
 }
 
+
+// exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
+//   pool.query ({
+//   text: 'UPDATE concoctions \ 
+//   SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
+//   }, (err, rows) => {
+//     if (err) {
+//       return err;
+//     } else {
+//       return rows;
+//     }
+//   })
+// }
 exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({

@@ -4,6 +4,7 @@ const passport = require('passport');
 const utility = require('../../db/controllers/userController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
+const request = require('request');
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -18,7 +19,7 @@ router.get('/slack/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'slackToken', slackData.account[0], slackData.account[1]);
+    utility.addTokenAndId(username, 'slackToken', slackData.account[0], 'slack', slackData.account[1]);
 
     res.redirect('/');
   }
@@ -61,7 +62,7 @@ router.get('/github/callback',
   }
 );
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }));
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location','profile'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
@@ -74,7 +75,19 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
+    console.log(fitbitData.user, 'fitbitData.user')
+    utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
+    let options = {
+        uri: 'https://api.fitbit.com/1/user/-/apiSubscriptions/1.json',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${fitbitData.user[0]}`
+        },
+      }
+    request.post(options, function(err, response, body) {
+      console.log(response, 'response');
+    })
     res.redirect('/');
   }
 );
