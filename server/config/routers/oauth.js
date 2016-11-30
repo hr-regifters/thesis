@@ -113,7 +113,6 @@ router.get('/fitbit/callback',
     }
     console.log(fitbitData.user, 'fitbitData.user')
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
-    res.redirect('/');
   }
 );
 
