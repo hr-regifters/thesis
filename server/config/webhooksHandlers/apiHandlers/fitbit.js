@@ -25,7 +25,7 @@ module.exports = {
     };
     async.each(req.body, (obj, callback) => {
       //get all concoctions where user id and event
-      concCtrl.getConcoctions('fitbit', req.body.collectionType, obj['ownerId']).then((concoction) => {
+      concCtrl.getConcoctions('fitbit', obj.collectionType, obj['ownerId']).then((concoction) => {
         if (concoction.enable && concoction.rows.length) {
           //query endpoint for update information
           let options = {
@@ -49,6 +49,7 @@ module.exports = {
               fitbitReqObj.actionToken = concoction.actiontoken;
               let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
               fitbitReqObj.data = sheetData;
+              console.log('fitbit obj', fitbitReqObj);
               webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
               callback();
             }
