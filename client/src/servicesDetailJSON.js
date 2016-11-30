@@ -89,7 +89,7 @@ module.exports = {
       ],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   strava: {
@@ -99,7 +99,7 @@ module.exports = {
       options: [],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   instagram: {

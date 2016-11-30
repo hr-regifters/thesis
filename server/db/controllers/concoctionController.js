@@ -116,13 +116,18 @@ const writeConcoction = (concObj, res) => {
     text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
       VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
-    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
-    concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
-    concObj['actionparams'],concObj['enable'], concObj['description']]
+    values: [
+      concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
+      concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
+      concObj['actionparams'],concObj['enable'], concObj['description']
+    ]
   }, (err, rows) => {
-    console.log(err);
-    subscribeUser(concObj);
-    res.status(201).send(rows);
+    if (err) {
+      console.log(err);
+    } else {
+      subscribeUser(concObj);
+      res.status(201).send(rows);
+    }
   });
 }
 

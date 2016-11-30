@@ -4,7 +4,7 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
-const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../env.js').FITBIT_VERIFICATION;
+const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../../env.js').FITBIT_VERIFICATION;
 
 module.exports = {
   verify: (req, res) => {
@@ -17,31 +17,47 @@ module.exports = {
   },
   trigger: (req, res) => {
     res.status(204).send();
-    const body = req.body
     console.log(req.body, typeof req.body);
     console.log(req.body[0]);
-    async.each(body, (obj, callback) => {
+    let fitbitReqObj = {
+      actionParams: '',
+      actionToken: ''
+    };
+    async.each(req.body, (obj, callback) => {
       //get all concoctions where user id and event
-      console.log('inside async');
-      concCtrl.getConcoctions('fitbit', 'activity_logged' , obj['ownerId']).then((concoction) => {
+      concCtrl.getConcoctions('fitbit', req.body.collectionType, obj['ownerId']).then((concoction) => {
         if (concoction.enable && concoction.rows.length) {
-          console.log(concoction.rows);
           //query endpoint for update information
           let options = {
-            uri: 'https://api.fitbit.com/1/user/' + obj['ownerId'] + '/' + obj['collectionType'] + '/date/' + obj['date'] + '.json',
+            uri: `https://api.fitbit.com/1/user/${obj['ownerId']}/${obj['collectionType']}/date/${obj['date']}.json`,
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${concoction.rows[0].triggertoken}`
             }
-          }
-          request.get(options, function(err, body, response) {
-            console.log(err, 'err')
-            console.log(response, 'response');
-            console.log(body, 'body');
-          });
+          };
+          request.get(options, (err, res, body) => {
+            if (err) {
+              console.log('err', err);
+            } else {
+              return JSON.parse(res.body);
+            }
+          })
+          .then((data) => {
+            if (data.hasOwnProperty('activities') && obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
+              fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
+              fitbitReqObj.actionToken = concoction.actiontoken;
+              let sheetData = data.filter((activity) => {
+                // return activity === fitbitReqObj.actionParams.param.activity
+              });
+              webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
+              callback();
+            }
+          }).catch((err) => { console.log('err', err); });
+        } else {
+          callback();
         }
-      }).catch((err) => { console.log(err, 'err'); });
+      }).catch((err) => { console.log('err', err); });
     });
   },
 }
