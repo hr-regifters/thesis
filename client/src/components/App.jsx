@@ -70,7 +70,7 @@ export default class App extends React.Component {
       this.getConcoctions();
     }
     sessionStorage.setItem('appState', JSON.stringify(this.state));
-    var currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
+    const currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
     if (this.state.view === 'addConcoction' && this.logHistory === true) {
       currentHistory.push(this.state);
       sessionStorage.setItem('stateHistory', JSON.stringify(currentHistory));
