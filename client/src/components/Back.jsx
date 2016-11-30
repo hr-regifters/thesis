@@ -1,5 +1,4 @@
 import React from 'react';
-import { Col, Row, Grid, Table, Navigation, Nav, NavItem } from 'react-bootstrap';
 
 const Back = (props) => {
   return (
