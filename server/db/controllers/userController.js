@@ -77,7 +77,7 @@ exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
     pool.query({
       text: 'UPDATE users SET ' + api + 'id = \'' + apiId + '\'  WHERE username = \'' + username + '\';'
     }, 
-    (err,rows) => {
+    (err, rows) => {
       if (err) { return err; } else {
         console.log(rows);
       }

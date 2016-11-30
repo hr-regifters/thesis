@@ -79,11 +79,12 @@ router.get('/strava/callback',
     res.redirect('/');
   });
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity'] }));
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
   (fitbitData, res) => {
+    console.log(fitbitData);
     const allSessions = fitbitData.sessionStore.sessions;
     let username = '';
     for (let session in allSessions) {
@@ -92,6 +93,7 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
+    console.log(username);
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
     res.redirect('/');
   }
