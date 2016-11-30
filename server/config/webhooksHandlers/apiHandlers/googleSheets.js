@@ -7,7 +7,6 @@ module.exports = {
   },
   actions: {
     create_sheet: (paramObj) => {
-      console.log(paramObj)
       let data = [
         {
           "startRow": 0,
@@ -63,7 +62,7 @@ module.exports = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ya29.Cj6mAxvOdkaYT1W3QMzijf5C97TKvFkLQXSwpolKJDDg0mTaF87etrEvTWMdlC3aNDEuNqluotGoEmGULz9WlA`
+          Authorization: `Bearer ${token}`
         },
         json: spreadsheet
       }
