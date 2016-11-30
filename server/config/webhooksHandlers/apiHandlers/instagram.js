@@ -44,19 +44,14 @@ module.exports = {
                 .then((file) => {
                   console.log('File result: ', file);
                   if (file.type === 'image') {
-                    // instaReqObj.title = file.title;
-                    // if (file.mimetype.slice(0, 5) === 'image') {
-                    //   instaReqObj.images = [file.url_private];
-                    // }
-                    // instaReqObj.links = [file.url_private];
-                    // instaReqObj.body = new Date(file.timestamp * 1000).toString();
-                    // instaReqObj.tagNames = ['Slack', 'Upload'];
-                    // instaReqObj.slackUserId = obj.triggeruserid;
-                    // instaReqObj.actionParams = JSON.parse(obj.actionparams);
-                    // instaReqObj.actionToken = obj.actiontoken;
-
-                    // DO THIS!
-
+                    console.log('insta picture posted to evernote');
+                    instaReqObj.title = file.title;
+                    instaReqObj.images = [file.images['standard_resolution'].url];
+                    instaReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;
+                    instaReqObj.tagNames = ['Instagram', 'Image', 'Upload', 'Picture'];
+                    instaReqObj.slackUserId = obj.triggeruserid;
+                    instaReqObj.actionParams = JSON.parse(obj.actionparams);
+                    instaReqObj.actionToken = obj.actiontoken;
                     webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
                     callback();
                   } else {
