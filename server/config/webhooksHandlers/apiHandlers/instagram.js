@@ -9,7 +9,7 @@ module.exports = {
   },
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    console.log(req);
+    console.log(req.body);
     console.log('called an insta trigger');
   },
   actions: {
