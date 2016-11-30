@@ -67,6 +67,7 @@ html {
   margin-top: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
+  background-color: #121212;
 }
 body {
   height: 100%;
@@ -362,6 +363,9 @@ input {
   background-color: #3C3C3C;
   margin: 0px;
   padding: 10px;
+  border-bottom: solid;
+  border-bottom-color: #11aaad;
+  border-bottom-width: 1px;
 }
 .workWindow1 {
   background-color: #333;
@@ -373,8 +377,8 @@ input {
   font-size: 170%;
   color: #aebec1;
   padding: 20px;
-  padding-right: 400px;
-  padding-left: 120px;
+  padding-right: 100px;
+  padding-left: 60px;
   color: white;
   background-color: #333;
   width: 86%;
@@ -384,6 +388,7 @@ input {
   z-index: 100;
   font-family: "Muli", sans-serif;
   line-height: 160%;
+  box-shadow: 0px 3px 15px #000;
 }
 .round {
   background-color: #3C3C3C;
@@ -417,20 +422,6 @@ input {
   margin-right: auto;
   box-shadow: 0px 3px 15px #666;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
