@@ -4,6 +4,7 @@ const githubHandler = require('./apiHandlers/github');
 const twilioHandler = require('./apiHandlers/twilio');
 const gmailHandler = require('./apiHandlers/gmail');
 const googleSheetsHandler = require('./apiHandlers/googleSheets');
+const fitbitHandler = require('./apiHandlers/fitbit');
 // import handler for each api here
 
 module.exports = {
@@ -16,4 +17,6 @@ module.exports = {
   twilioAction: twilioHandler.actions,
   googleMailAction: gmailHandler.actions,
   googleSheetsAction: googleSheetsHandler.actions,
+  fitbitVerify: fitbitHandler.verify,
+  fitbitTrigger: fitbitHandler.trigger
 };

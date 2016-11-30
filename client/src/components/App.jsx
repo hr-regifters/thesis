@@ -38,7 +38,7 @@ export default class App extends React.Component {
       connectedServices: {},
       trigger: '',
       triggerOption: '',
-      triggerParams: '',
+      triggerParams: {},
       triggerServicesReveal: 'hide',
 
       actions: [
@@ -70,7 +70,7 @@ export default class App extends React.Component {
       this.getConcoctions();
     }
     sessionStorage.setItem('appState', JSON.stringify(this.state));
-    const currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
+    let currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
     if (this.state.view === 'addConcoction' && this.logHistory === true) {
       currentHistory.push(this.state);
       sessionStorage.setItem('stateHistory', JSON.stringify(currentHistory));
@@ -116,7 +116,7 @@ export default class App extends React.Component {
       body: JSON.stringify({
         triggerApi: context.state.trigger,
         triggerEvent: triggerEvent,
-        triggerParams: {},
+        triggerParams: context.state.triggerParams,
         username: context.state.user,
         actionApi: actionApi,
         actionEvent: actionEvent,
@@ -206,12 +206,24 @@ export default class App extends React.Component {
     });
   }
 
-  modifyTriggerParams(param, alias) {
+  modifyTriggerParams(param) {
+    let triggerOptions = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption];
+    let triggerOptionParams = triggerOptions.parameters;
+    let triggerObj = {};
+    let updatedParams = {};
+    let alias;
+    for (let i = 0; i < param.length; i++) {
+      for (let j = 0; j < triggerOptionParams.length; j++) {
+        if (triggerOptionParams[j].alias === param[i].id) {
+          updatedParams[param[i].id] = param[i].value;
+          triggerObj.param = updatedParams;
+        }
+      }
+    };
+    triggerObj.alias = triggerOptions.alias;
+    console.log(triggerObj)
     this.setState({
-      triggerParams: {
-        param: param,
-        alias: alias,
-      },
+      triggerParams: triggerObj
     });
     this.modifyTriggerReveal();
   }
