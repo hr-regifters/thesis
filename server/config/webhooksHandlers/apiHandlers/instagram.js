@@ -11,6 +11,7 @@ module.exports = {
     const webhooksHandler = require('./../main');
     console.log(req.body);
     console.log('called an insta trigger');
+    res.status(200).send('received');
   },
   actions: {
     send_text: (paramObj) => {
