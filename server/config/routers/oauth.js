@@ -77,17 +77,17 @@ router.get('/strava/callback',
     }
     console.log(stravaData.user, 'stravaData.user')
     utility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    // let options = {
-    //     uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       Authorization: `Bearer ${fitbitData.user[0]}`
-    //     },
-    //   }
-    // request.post(options, function(err, response, body) {
-    //   console.log(response, 'response');
-    // })
+    let options = {
+        uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${fitbitData.user[0]}`
+        },
+      }
+    request.post(options, function(err, response, body) {
+      console.log(response, 'response');
+    })
     res.redirect('/');
   });
 
@@ -106,18 +106,6 @@ router.get('/fitbit/callback',
     }
     console.log(fitbitData.user, 'fitbitData.user')
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
-    let options = {
-        uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${fitbitData.user[0]}`
-        },
-      }
-    request.post(options, function(err, response, body) {
-      console.log(response, 'response');
-    })
-    res.redirect('/');
   }
 );
 

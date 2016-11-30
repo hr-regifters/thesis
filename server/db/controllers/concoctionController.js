@@ -93,6 +93,23 @@ const getTriggerIdandToken = (concObj, username, res) => {
     return concObj;
   }
 }
+const subscribeUser = (concObj) => {
+  if (concObj['triggerapi'] === 'fitbit') {
+    let options = {
+          uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${concObj['triggertoken']}`
+          },
+        }
+    request.post(options, function(err, response, body) {
+      console.log(response, 'response');
+    })
+  } else {
+    return;
+  }
+}
 
 const writeConcoction = (concObj, res) => {
   pool.query({
@@ -104,6 +121,7 @@ const writeConcoction = (concObj, res) => {
     concObj['actionparams'],concObj['enable'], concObj['description']]
   }, (err, rows) => {
     console.log(err);
+    subscribeUser(concObj);
     res.status(201).send(rows);
   });
 }
