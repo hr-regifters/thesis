@@ -89,6 +89,14 @@ const getTriggerIdandToken = (concObj, username, res) => {
         return concObj;
       }
     });
+  } else if (concObj['triggerapi'] === 'instagram') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.instagramid) {
+        concObj['triggeruserid'] = user.instagramid;
+        concObj['triggertoken'] = user.instagramtoken;
+        return concObj;
+      }
+    });
   } 
   else {
     return concObj;
@@ -98,13 +106,13 @@ const getTriggerIdandToken = (concObj, username, res) => {
 const subscribeUser = (concObj) => {
   if (concObj['triggerapi'] === 'fitbit') {
     let options = {
-          uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${concObj['triggertoken']}`
-          },
-        }
+      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${concObj['triggertoken']}`
+      },
+    }
     request.post(options, function(err, response, body) {
       console.log(response, 'response');
     })
