@@ -38,31 +38,29 @@ module.exports = {
           if (err) {
             console.log('err', err);
           } else {
-            return JSON.parse(res.body).activities;
+            let activitiesData = JSON.parse(res.body).activities;
+            concoctions = concoctions.filter((concoction) => concoction.enable === true);
+            console.log('filtered concoctions', concoctions);
+            console.log(activitiesData);
+            concoctions.forEach((concoction) => {
+              let activity = concoction.triggerparams.param.activity.toLowerCase();
+              let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
+              console.log('filtered activity data', activityData);
+              fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
+              fitbitReqObj.actionToken = concoction.actiontoken;
+              if (data.hasOwnProperty('activities') && obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
+                let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
+                fitbitReqObj.data = sheetData;
+                console.log('fitbit obj', fitbitReqObj);
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
+                callback();
+              } else {
+                callback();
+              }
+            });
           }
-        })
-        .then((activitiesData) => {
-          concoctions = concoctions.filter((concoction) => concoction.enable === true);
-          console.log('filtered concoctions', concoctions);
-          console.log(activitiesData);
-          concoctions.forEach((concoction) => {
-            let activity = concoction.triggerparams.param.activity.toLowerCase();
-            let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-            console.log('filtered activity data', activityData);
-            fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
-            fitbitReqObj.actionToken = concoction.actiontoken;
-            if (data.hasOwnProperty('activities') && obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
-              let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
-              fitbitReqObj.data = sheetData;
-              console.log('fitbit obj', fitbitReqObj);
-              webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
-              callback();
-            } else {
-              callback();
-            }
-          });
-        }).catch((err) => { console.log('err', err); });
-      }).catch((err) => { console.log('err', err); });
-    });
+        });
+      });
+    }); //closing async
   },
 }
