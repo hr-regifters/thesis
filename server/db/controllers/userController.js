@@ -64,6 +64,7 @@ exports.queryUsers = (req, res) => {
 }
 
 exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
+  console.log(arguments);
   pool.query({
     text: 'UPDATE users \
     SET ' + apiToken + ' = \'' + token + '\' WHERE username = \'' + username + '\';'
