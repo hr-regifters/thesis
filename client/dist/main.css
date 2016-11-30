@@ -363,6 +363,9 @@ input {
   background-color: #3C3C3C;
   margin: 0px;
   padding: 10px;
+  border-bottom: solid;
+  border-bottom-color: #11aaad;
+  border-bottom-width: 1px;
 }
 .workWindow1 {
   background-color: #333;

@@ -6,6 +6,7 @@ import Trigger from './Trigger.jsx';
 import Action from './Action.jsx';
 import SaveNewConcoction from './SaveNewConcoction.jsx';
 import CancelNewConcoction from './CancelNewConcoction.jsx';
+import Back from './Back.jsx';
 
 const AddConcoctionNav = (props) => {
   const triggerFuncs = {
@@ -43,8 +44,10 @@ const AddConcoctionNav = (props) => {
             <Col xs={8} xsOffset={2} id="concoctionMakerCol"  >
               <div id="addConcBox">
                 <Trigger state={props.appState} funcs={triggerFuncs} />
+                <Back undo={props.funcs.undoLast} />
                 <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
                 <SaveNewConcoction state={props.appState} saveConcoction={props.funcs.saveConcoction} />
+
               </div>
             </Col>
           </Row>
@@ -85,8 +88,10 @@ const AddConcoctionNav = (props) => {
                             funcs={actionFuncs} />
                   );
                 })}
+                <Back undo={props.funcs.undoLast} />
                 <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
                 <SaveNewConcoction state={props.appState} saveConcoction={props.funcs.saveConcoction} />
+                
               </div>
             </Col>
           </Row>
@@ -124,8 +129,9 @@ const AddConcoctionNav = (props) => {
                 <div onClick={ () => {props.funcs.addNewAction()}}>
                   <h1>Add New Action</h1>
                 </div>
-                <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
+                <Back undo={props.funcs.undoLast} />
                 <SaveNewConcoction state={props.appState} saveConcoction={props.funcs.saveConcoction} />
+                <CancelNewConcoction changeViewTo={props.funcs.changeViewTo} />
               </div>
             </Col>
           </Row>
