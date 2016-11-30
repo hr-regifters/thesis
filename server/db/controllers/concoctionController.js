@@ -4,6 +4,8 @@ const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
+STRAVA_ID = process.env.STRAVA_ID;
+STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 exports.queryConcoctions = (req, res) => {
   pool.query({
@@ -106,6 +108,19 @@ const subscribeUser = (concObj) => {
     request.post(options, function(err, response, body) {
       console.log(response, 'response');
     })
+
+
+  } else if (concObj['triggerapi'] === 'strava') {
+    let options = {
+      uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${STRAVA_ID}&client_secret=${STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`,
+    }
+
+    request.post(options, function(err, response, body) {
+      console.log(err, 'err');
+      console.log(response, 'response');
+      console.log(body, 'body');
+    })
+
   } else {
     return;
   }

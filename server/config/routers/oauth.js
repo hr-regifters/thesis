@@ -82,9 +82,9 @@ router.get('/strava/callback',
     console.log(stravaData.user, 'stravaData.user')
     utility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
     let options = {
-        uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${env.STRAVA_ID}&client_secret=${env.STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=http://127.0.0.1:1337/api/webhooks/strava&verify=${stravaData.user[0]}`,
-        method: 'POST',
+        uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${env.STRAVA_ID}&client_secret=${env.STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`,
       }
+
     request.post(options, function(err, response, body) {
       console.log(err, 'err');
       console.log(response, 'response');
