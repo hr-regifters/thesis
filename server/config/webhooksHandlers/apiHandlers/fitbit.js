@@ -52,7 +52,7 @@ module.exports = {
               fitbitReqObj.actionToken = concoction.actiontoken;
 
               // check if we're dealing with activities
-              if (data.hasOwnProperty('activities')) {
+              if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
                 console.log('activites data', activitiesData);
                 let activity = concoction.triggerparams.param['activity'].toLowerCase();
