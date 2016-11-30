@@ -17,8 +17,6 @@ module.exports = {
   githubTrigger: githubHandler.trigger,
   githubAction: githubHandler.actions,
   twilioAction: twilioHandler.actions,
-  fitbitVerify: fitbitHandler.verify,
-  fitbitTrigger: fitbitHandler.trigger,
   googleMailAction: gmailHandler.actions,
   googleSheetsAction: googleSheetsHandler.actions,
   fitbitVerify: fitbitHandler.verify,
