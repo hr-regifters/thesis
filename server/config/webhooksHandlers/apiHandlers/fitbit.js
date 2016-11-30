@@ -17,49 +17,51 @@ module.exports = {
   },
   trigger: (req, res) => {
     res.status(204).send();
-    console.log(req.body, typeof req.body);
-    console.log(req.body[0]);
     let fitbitReqObj = {
       actionParams: '',
       actionToken: ''
     };
     async.each(req.body, (obj, callback) => {
       //get all concoctions where user id and event
-      concCtrl.getConcoctions('fitbit', obj.collectionType, obj['ownerId']).then((concoction) => {
-        console.log('concoction', concoction);
-        console.log('concoction enable', concoction.enable);
-        console.log('concoction rows', concoction.rows);
-        if (concoction.enable && concoction.rows.length) {
-          //query endpoint for update information
-          let options = {
-            uri: `https://api.fitbit.com/1/user/${obj['ownerId']}/${obj['collectionType']}/date/${obj['date']}.json`,
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${concoction.rows[0].triggertoken}`
-            }
-          };
-          request.get(options, (err, res, body) => {
-            if (err) {
-              console.log('err', err);
-            } else {
-              return JSON.parse(res.body);
-            }
-          })
-          .then((data) => {
+      concCtrl.getConcoctions('fitbit', obj.collectionType, obj['ownerId']).then((concoctionList) => {
+        let concoctions = concoctionList.rows;
+        //query endpoint for update information
+        let options = {
+          uri: `https://api.fitbit.com/1/user/${obj['ownerId']}/${obj['collectionType']}/date/${obj['date']}.json`,
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${concoctions[0].triggertoken}`
+          }
+        };
+        request.get(options, (err, res, body) => {
+          if (err) {
+            console.log('err', err);
+          } else {
+            return JSON.parse(res.body).activities;
+          }
+        })
+        .then((activitiesData) => {
+          concoctions = concoctions.filter((concoction) => concoction.enable === true);
+          console.log('filtered concoctions', concoctions);
+          console.log(activitiesData);
+          concoctions.forEach((concoction) => {
+            let activity = concoction.triggerparams.param.activity.toLowerCase();
+            let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
+            console.log('filtered activity data', activityData);
+            fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
+            fitbitReqObj.actionToken = concoction.actiontoken;
             if (data.hasOwnProperty('activities') && obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
-              fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
-              fitbitReqObj.actionToken = concoction.actiontoken;
               let sheetData = data.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
               fitbitReqObj.data = sheetData;
               console.log('fitbit obj', fitbitReqObj);
               webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
               callback();
+            } else {
+              callback();
             }
-          }).catch((err) => { console.log('err', err); });
-        } else {
-          callback();
-        }
+          });
+        }).catch((err) => { console.log('err', err); });
       }).catch((err) => { console.log('err', err); });
     });
   },
