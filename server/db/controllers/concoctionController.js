@@ -125,7 +125,7 @@ exports.createConcoction = (req, res) => {
     enable: req.body.enable || true, //this is a boolean 
     description: req.body.description 
   };
-//get action id, token, and userId
+  //get action id, token, and userId
   getActionIdandToken(concObj, username, res)
   .then((concObj) => getTriggerIdandToken(concObj, username, res))
   .then((concObj) => {
@@ -151,19 +151,6 @@ exports.getConcoctions = (api, event, triggeruserid) => {
   });
 }
 
-
-// exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
-//   pool.query ({
-//   text: 'UPDATE concoctions \ 
-//   SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
-//   }, (err, rows) => {
-//     if (err) {
-//       return err;
-//     } else {
-//       return rows;
-//     }
-//   })
-// }
 exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({
@@ -182,4 +169,3 @@ exports.toggleConcoction = (req, res) => {
     }
   });
 }
-

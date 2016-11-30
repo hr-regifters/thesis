@@ -9,12 +9,14 @@ CREATE TABLE users (
   instagramId   VARCHAR(15),
   fitbitId      VARCHAR(10),
   slackId       VARCHAR(10),
+  stravaId      VARCHAR(10),
   evernoteToken VARCHAR(100),
   fitbitToken   VARCHAR(300),
   githubToken   VARCHAR(100),
   googleToken   VARCHAR(100),
   instagramToken VARCHAR(100),
   slackToken    VARCHAR(80),
+  stravaToken   VARCHAR(80),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

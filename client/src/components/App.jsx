@@ -36,7 +36,7 @@ export default class App extends React.Component {
       connectedServices: {},
       trigger: '',
       triggerOption: '',
-      triggerParams: '',
+      triggerParams: {},
       triggerServicesReveal: 'hide',
 
       actions: [
@@ -104,7 +104,7 @@ export default class App extends React.Component {
       body: JSON.stringify({
         triggerApi: context.state.trigger,
         triggerEvent: triggerEvent,
-        triggerParams: {},
+        triggerParams: context.state.triggerParams,
         username: context.state.user,
         actionApi: actionApi,
         actionEvent: actionEvent,
@@ -181,23 +181,23 @@ export default class App extends React.Component {
   }
 
   modifyTriggerParams(param) {
-    let triggerOptionParams = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption].parameters;
+    let triggerOptions = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption];
+    let triggerOptionParams = triggerOptions.parameters;
+    let triggerObj = {};
     let updatedParams = {};
     let alias;
     for (let i = 0; i < param.length; i++) {
       for (let j = 0; j < triggerOptionParams.length; j++) {
         if (triggerOptionParams[j].alias === param[i].id) {
-          alias = triggerOptionParams[j].alias;
           updatedParams[param[i].id] = param[i].value;
+          triggerObj.param = updatedParams;
         }
       }
     };
-    console.log(updatedParams);
+    triggerObj.alias = triggerOptions.alias;
+    console.log(triggerObj)
     this.setState({
-      triggerParams: {
-        param: updatedParams,
-        alias: alias,
-      },
+      triggerParams: triggerObj
     });
     this.modifyTriggerReveal();
   }
