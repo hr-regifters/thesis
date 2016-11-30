@@ -5,6 +5,7 @@ const twilioHandler = require('./apiHandlers/twilio');
 const fitbitHandler = require('./apiHandlers/fitbit');
 const gmailHandler = require('./apiHandlers/gmail');
 const googleSheetsHandler = require('./apiHandlers/googleSheets');
+const fitbitHandler = require('./apiHandlers/fitbit');
 const stravaHandler = require('./apiHandlers/strava');
 // import handler for each api here
 
@@ -20,5 +21,7 @@ module.exports = {
   fitbitTrigger: fitbitHandler.trigger,
   googleMailAction: gmailHandler.actions,
   googleSheetsAction: googleSheetsHandler.actions,
+  fitbitVerify: fitbitHandler.verify,
+  fitbitTrigger: fitbitHandler.trigger
   stravaVerify: stravaHandler.verify
 };

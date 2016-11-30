@@ -10,9 +10,8 @@ module.exports.Strategy = new FitbitStrategy({
   clientSecret: FITBIT_SECRET,
   callbackURL: `${currUrl}/api/oauth/fitbit/callback`
 }, (accessToken, refreshToken, profile, done) => {
-  console.log(accessToken, 'accessToken', refreshToken, 'refreshToken', profile, 'profile')
-  const fitbitData = [accessToken, profile.id]
   process.nextTick(() => {
+    const fitbitData = [accessToken, profile.id];
     return done(null, fitbitData);
   });
 });

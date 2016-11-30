@@ -4,8 +4,9 @@ const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
-STRAVA_ID = process.env.STRAVA_ID;
-STRAVA_SECRET = process.env.STRAVA_SECRET;
+const request = require('request');
+const STRAVA_ID = process.env.STRAVA_ID;
+const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 exports.queryConcoctions = (req, res) => {
   pool.query({
@@ -90,6 +91,14 @@ const getTriggerIdandToken = (concObj, username, res) => {
         return concObj;
       }
     });
+  } else if (concObj['triggerapi'] === 'instagram') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.instagramid) {
+        concObj['triggeruserid'] = user.instagramid;
+        concObj['triggertoken'] = user.instagramtoken;
+        return concObj;
+      }
+    });
   } 
   else {
     return concObj;
@@ -126,18 +135,41 @@ const subscribeUser = (concObj) => {
   }
 }
 
+const subscribeUser = (concObj) => {
+  if (concObj['triggerapi'] === 'fitbit') {
+    let options = {
+      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${concObj['triggertoken']}`
+      },
+    }
+    request(options, function(err, response, body) {
+      console.log(response, 'response');
+    });
+  } else {
+    return;
+  }
+}
+
 const writeConcoction = (concObj, res) => {
   pool.query({
     text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
     actionuserid, actiontoken, actionparams, enable, description) \
       VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
-    values: [concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
-    concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
-    concObj['actionparams'],concObj['enable'], concObj['description']]
+    values: [
+      concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
+      concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
+      concObj['actionparams'],concObj['enable'], concObj['description']
+    ]
   }, (err, rows) => {
-    console.log(err);
-    subscribeUser(concObj);
-    res.status(201).send(rows);
+    if (err) {
+      console.log(err);
+    } else {
+      subscribeUser(concObj);
+      res.status(201).send(rows);
+    }
   });
 }
 
@@ -158,7 +190,7 @@ exports.createConcoction = (req, res) => {
     enable: req.body.enable || true, //this is a boolean 
     description: req.body.description 
   };
-//get action id, token, and userId
+  //get action id, token, and userId
   getActionIdandToken(concObj, username, res)
   .then((concObj) => getTriggerIdandToken(concObj, username, res))
   .then((concObj) => {
@@ -184,19 +216,6 @@ exports.getConcoctions = (api, event, triggeruserid) => {
   });
 }
 
-
-// exports.updateConcoctionsTokens = (userid, actionApi, newToken) => {
-//   pool.query ({
-//   text: 'UPDATE concoctions \ 
-//   SET actionToken = ' + newToken + ' WHERE userid = \'' + userid +'\' AND actionapi = \'' + actionApi + '\';' 
-//   }, (err, rows) => {
-//     if (err) {
-//       return err;
-//     } else {
-//       return rows;
-//     }
-//   })
-// }
 exports.toggleConcoction = (req, res) => {
   const concId = req.body.concId;
   return pool.query({
@@ -216,3 +235,27 @@ exports.toggleConcoction = (req, res) => {
   });
 }
 
+exports.updateConcoctionsToken = (username, api, newToken) => {
+  userController.getUserData('username', username).then((user) => {
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET actiontoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND actionapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('action token updated', rows);
+      }
+    });
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET triggertoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND triggerapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('trigger token updated', rows);
+      }
+    });
+  }).catch((err) => { console.log(err); });
+}

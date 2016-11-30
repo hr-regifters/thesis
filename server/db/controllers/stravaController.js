@@ -11,8 +11,6 @@ module.exports.Strategy = new StravaStrategy({
   callbackURL: `${currUrl}/api/oauth/strava/callback`
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    // console.log(accessToken, 'line 14')
-    // console.log(profile, 'line 15')
     const dataPass = [accessToken, profile.id];
     return done(null, dataPass);
   });

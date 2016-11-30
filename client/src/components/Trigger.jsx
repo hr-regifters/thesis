@@ -4,6 +4,7 @@ import servicesDetail from '../servicesDetailJSON.js';
 
 const Trigger = (props) => {
   if (props.state.trigger === '') {
+    sessionStorage.setItem('stateHistory', '[]');
     return (
       <div className='workWindow1'>
         <div onClick={ () => {props.funcs.modifyTriggerReveal();
@@ -84,12 +85,12 @@ const Trigger = (props) => {
             {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map((param) => {
               return (
                 <div key={param.alias}>
-                  <h2 className='paramTxt'>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
+                  <h2 className='paramTxt'>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
                 </div>
               )
             })}
           <div>
-            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementById('param').value, document.getElementById('param').className);
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementsByClassName('param'));
                                  props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
           </div>
         </div>

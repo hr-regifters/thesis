@@ -9,6 +9,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.logHistory = true;
+
     this.funcs = {
       changeState: this.changeState.bind(this),
       changeViewTo: this.changeViewTo.bind(this),
@@ -24,6 +26,7 @@ export default class App extends React.Component {
       modifyActionReveal: this.modifyActionReveal.bind(this),
       addNewAction: this.addNewAction.bind(this),
       logout: this.logout.bind(this),
+      undoLast: this.undoLast.bind(this),
     };
 
     this.state = {
@@ -31,12 +34,11 @@ export default class App extends React.Component {
       message: [1],
       view: 'verify',  // home, addConcoction, verify
       previousView: 'verify',
-      spotlightConcoctionId: 1,
       concoctions: [],
       connectedServices: {},
       trigger: '',
       triggerOption: '',
-      triggerParams: '',
+      triggerParams: {},
       triggerServicesReveal: 'hide',
 
       actions: [
@@ -57,6 +59,10 @@ export default class App extends React.Component {
     } else {
       this.setState(JSON.parse(sessionStorage.getItem('appState')));
     }
+
+    if (sessionStorage.getItem('stateHistory') === null) {
+      sessionStorage.setItem('stateHistory', JSON.stringify([this.state]));
+    }
   }
 
   componentDidUpdate() {
@@ -64,6 +70,12 @@ export default class App extends React.Component {
       this.getConcoctions();
     }
     sessionStorage.setItem('appState', JSON.stringify(this.state));
+    let currentHistory = JSON.parse(sessionStorage.getItem('stateHistory'));
+    if (this.state.view === 'addConcoction' && this.logHistory === true) {
+      currentHistory.push(this.state);
+      sessionStorage.setItem('stateHistory', JSON.stringify(currentHistory));
+    }
+    this.logHistory = true;
   }
 
   changeViewTo(view) {
@@ -82,9 +94,9 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
-      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
-
+      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.',
     });
+    sessionStorage.setItem('stateHistory', '[]');
   }
 
   changeState(state, val) {
@@ -104,7 +116,7 @@ export default class App extends React.Component {
       body: JSON.stringify({
         triggerApi: context.state.trigger,
         triggerEvent: triggerEvent,
-        triggerParams: {},
+        triggerParams: context.state.triggerParams,
         username: context.state.user,
         actionApi: actionApi,
         actionEvent: actionEvent,
@@ -119,6 +131,19 @@ export default class App extends React.Component {
         console.log('Concoction unabled to be saved')
       }
     });
+  }
+
+  undoLast() {
+    //get the state history
+    let history = sessionStorage.getItem('stateHistory');
+    //parse the state history
+    history = JSON.parse(history);
+    //slice the last one off
+    history = history.slice(0, -1);
+    //set the state to the last one in the array
+    sessionStorage.setItem('stateHistory', JSON.stringify(history));
+    this.logHistory = false;
+    this.setState(history[history.length - 1]);
   }
 
   modifyInstructions(index) {
@@ -161,6 +186,7 @@ export default class App extends React.Component {
         localStorage.removeItem('regiftUsername');
         context.changeViewTo('verify');
         sessionStorage.setItem('appState', '{}');
+        sessionStorage.setItem('stateHistory', '[]');
       } else {
         throw new Error('Cannot log out');
       }
@@ -180,12 +206,24 @@ export default class App extends React.Component {
     });
   }
 
-  modifyTriggerParams(param, alias) {
+  modifyTriggerParams(param) {
+    let triggerOptions = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption];
+    let triggerOptionParams = triggerOptions.parameters;
+    let triggerObj = {};
+    let updatedParams = {};
+    let alias;
+    for (let i = 0; i < param.length; i++) {
+      for (let j = 0; j < triggerOptionParams.length; j++) {
+        if (triggerOptionParams[j].alias === param[i].id) {
+          updatedParams[param[i].id] = param[i].value;
+          triggerObj.param = updatedParams;
+        }
+      }
+    };
+    triggerObj.alias = triggerOptions.alias;
+    console.log(triggerObj)
     this.setState({
-      triggerParams: {
-        param: param,
-        alias: alias,
-      },
+      triggerParams: triggerObj
     });
     this.modifyTriggerReveal();
   }

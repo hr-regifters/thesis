@@ -12,7 +12,7 @@ const listenTo = {
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    console.log(req.body, req.headers)
+    // console.log(req.body, req.headers)
     // var requestObj = {
     //   uri: `https://api.github.com/repos/hr-regifters/thesis/hooks`,
     //   method: 'POST',

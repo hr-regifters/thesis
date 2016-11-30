@@ -8,10 +8,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pool = Promise.promisifyAll(require('../config.js').pool);
 
-// Error messages to log and return as responses
-const incorrectPasswordErr = 'Incorrect password entered';
-const usernameErr = 'Username in use';
-
 exports.Login = new LocalStrategy(
   (username, password, done) => {
     pool.query({
@@ -79,9 +75,9 @@ exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
   });
   if (apiId) {
     pool.query({
-      text: 'UPDATE users SET ' + api + 'Id = \'' + apiId + '\'  WHERE username = \'' + username + '\';'
+      text: 'UPDATE users SET ' + api + 'id = \'' + apiId + '\'  WHERE username = \'' + username + '\';'
     }, 
-    (err,rows) => {
+    (err, rows) => {
       if (err) { return err; } else {
         console.log(rows);
       }
