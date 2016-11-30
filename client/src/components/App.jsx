@@ -133,7 +133,6 @@ export default class App extends React.Component {
     });
   }
 
-
   undoLast() {
     //get the state history
     const history = sessionStorage.getItem('stateHistory');
