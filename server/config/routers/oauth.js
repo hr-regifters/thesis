@@ -5,6 +5,7 @@ const utility = require('../../db/controllers/userController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
+const env = require('../../../env.js');
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -78,17 +79,23 @@ router.get('/strava/callback',
     console.log(stravaData.user, 'stravaData.user')
     utility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
     let options = {
-        uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+        uri: 'https://api.strava.com/api/v3/push_subscriptions',
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${fitbitData.user[0]}`
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
+        body: {
+          client_id: env.STRAVA_ID,
+          client_secret: env.STRAVA_SECRET,
+          object_type: 'activity',
+          aspect_type: 'create',
+
+        }
       }
-    request.post(options, function(err, response, body) {
-      console.log(response, 'response');
-    })
-    res.redirect('/');
+    // request.post(options, function(err, response, body) {
+    //   console.log(response, 'response');
+    // })
+    // res.redirect('/');
   });
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity'] }));
@@ -106,6 +113,7 @@ router.get('/fitbit/callback',
     }
     console.log(fitbitData.user, 'fitbitData.user')
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
+    res.redirect('/');
   }
 );
 
