@@ -16,7 +16,6 @@ router.post('/signup', passport.authenticate('local-signup', { failureRedirect: 
 router.post('/login', passport.authenticate('local-login', { failureRedirect: '/' }),
   (req, res) => {
     req.session.user = req.body.username;
-    console.log('logging in', req)
     res.status(201).send('success');
   }
 );

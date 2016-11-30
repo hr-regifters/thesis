@@ -61,7 +61,7 @@ router.get('/github/callback',
     res.redirect('/');
   }
 );
-passport.authenticate('strava')
+
 router.get('/strava', checkLogin, passport.authenticate('strava'));
 
 router.get('/strava/callback', 

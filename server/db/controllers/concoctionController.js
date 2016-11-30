@@ -3,7 +3,8 @@ const express = require('express');
 const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
-const pool = (require('../config.js').pool);
+const pool = require('../config.js').pool;
+const request = require('request');
 
 exports.queryConcoctions = (req, res) => {
   pool.query({
@@ -93,6 +94,7 @@ const getTriggerIdandToken = (concObj, username, res) => {
     return concObj;
   }
 }
+
 const subscribeUser = (concObj) => {
   if (concObj['triggerapi'] === 'fitbit') {
     let options = {
