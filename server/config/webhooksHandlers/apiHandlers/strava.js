@@ -16,7 +16,7 @@ module.exports = {
     console.log(req.params, 'req.params');
     console.log(req.query, 'req.query');
     console.log(req.body, 'req.body');
-    let query = req.query['hub.challenge'];
+    let query = {'hub.challenge' : req.query['hub.challenge']};
     console.log(query, 'query');
       res.status(200).send(query);
   }
