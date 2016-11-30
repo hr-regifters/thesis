@@ -5,7 +5,10 @@ const utility = require('../../db/controllers/userController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
-const env = require('../../../env.js')
+const env = {
+              STRAVA_ID : '14913',
+              STRAVA_SECRET : '47c056eab28aa434a6cef487c57600d2780587c0'
+            };
 
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
