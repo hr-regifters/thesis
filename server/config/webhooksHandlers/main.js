@@ -3,6 +3,7 @@ const evernoteHandler = require('./apiHandlers/evernote');
 const githubHandler = require('./apiHandlers/github');
 const twilioHandler = require('./apiHandlers/twilio');
 const gmailHandler = require('./apiHandlers/gmail');
+const googleSheetsHandler = require('./apiHandlers/googleSheets');
 // import handler for each api here
 
 module.exports = {
@@ -14,4 +15,5 @@ module.exports = {
   githubAction: githubHandler.actions,
   twilioAction: twilioHandler.actions,
   googleMailAction: gmailHandler.actions,
+  googleSheetsAction: googleSheetsHandler.actions,
 };
