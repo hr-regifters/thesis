@@ -6,10 +6,8 @@ const concoctionUtility = require('../../db/controllers/concoctionController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
-const env = {
-              STRAVA_ID : '14913',
-              STRAVA_SECRET : '47c056eab28aa434a6cef487c57600d2780587c0'
-            };
+const STRAVA_ID = process.env.STRAVA_ID;
+const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
