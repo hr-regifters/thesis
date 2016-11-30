@@ -82,6 +82,6 @@ module.exports = {
         res.status(500).send('Server Error in Slack trigger');
         console.log(error);
       });
-    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Slack Event:', req.body.event.type); }); //closing async
+    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Slack Event:', obj.collectionType); }); //closing async
   },
 }
