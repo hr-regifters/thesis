@@ -202,3 +202,26 @@ exports.toggleConcoction = (req, res) => {
     }
   });
 }
+
+exports.updateConcoctionsToken = (username, api, newToken) => {
+  pool.query({
+    text: 'UPDATE concoctions \
+    SET actiontoken = ' + newToken + ' WHERE username = \'' + username +'\' AND actionapi = \'' + api + '\';' 
+  }, (err, rows) => {
+    if (err) {
+      return err;
+    } else {
+      return rows;
+    }
+  });
+  pool.query({
+    text: 'UPDATE concoctions \
+    SET triggertoken = ' + newToken + ' WHERE username = \'' + username +'\' AND triggerapi = \'' + api + '\';' 
+  }, (err, rows) => {
+    if (err) {
+      return err;
+    } else {
+      return rows;
+    }
+  });
+}
