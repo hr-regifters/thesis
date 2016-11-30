@@ -64,8 +64,8 @@ const AddConcoctionNav = (props) => {
           <div className="container-fluid Mod">
             <h3>Regift3d</h3>
             <h3>-</h3>
-            <h3 onClick={() => { this.props.changeViewTo('home') }}>Concoctions </h3>
-            <h3 onClick={() => { this.props.funcs.logout() }}>Logout</h3>
+            <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions </h3>
+            <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
@@ -100,8 +100,8 @@ const AddConcoctionNav = (props) => {
           <div className="container-fluid Mod">
             <h3>Regift3d</h3>
             <h3>-</h3>
-            <h3 onClick={() => { this.props.changeViewTo('home') }}>Concoctions </h3>
-            <h3 onClick={() => { this.props.funcs.logout() }}>Logout</h3>
+            <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions </h3>
+            <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
         <Grid id="concViewGrid" className='full'>
