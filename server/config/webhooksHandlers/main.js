@@ -2,7 +2,6 @@ const slackHandler = require('./apiHandlers/slack');
 const evernoteHandler = require('./apiHandlers/evernote');
 const githubHandler = require('./apiHandlers/github');
 const twilioHandler = require('./apiHandlers/twilio');
-const fitbitHandler = require('./apiHandlers/fitbit');
 const gmailHandler = require('./apiHandlers/gmail');
 const googleSheetsHandler = require('./apiHandlers/googleSheets');
 const fitbitHandler = require('./apiHandlers/fitbit');
