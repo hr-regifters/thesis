@@ -23,11 +23,11 @@ module.exports = {
           console.log(rows);
       //query endpoint for update information
           let options = {
-            uri: 'https://api.fitbit.com/1/user/' + obj['owerId'] + '/' + obj['collectionType'] + '/date/' + obj['date'] + '.json',
+            uri: 'https://api.fitbit.com/1/user/' + obj['ownerId'] + '/' + obj['collectionType'] + '/date/' + obj['date'] + '.json',
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${rows[0].triggerToken}`
+              Authorization: `Bearer ${rows[0].triggertoken}`
             }
         }
         request.get(options, function(err, body, response) {
