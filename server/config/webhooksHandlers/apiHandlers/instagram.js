@@ -7,6 +7,10 @@ const clientId = process.env.INSTA_ID || require('./../../../../env').INSTA_ID;
 const secret = process.env.INSTA_SECRET || require('./../../../../env').INSTA_SECRET;
 const verifyToken = process.env.INSTA_VERIFYTOKEN || require('./../../../../env').INSTA_VERIFYTOKEN;
 
+const aliases = {
+  media: 'picture_uploaded',
+};
+
 module.exports = {
   validate: (req, res) => {
     req.query['hub.verify_token'] === verifyToken && req.query['hub.mode'] === 'subscribe' ? res.status(200).send(req.query['hub.challenge']) : res.status(404).send('wrong verification credentials');
@@ -38,7 +42,8 @@ module.exports = {
         actionParams: '',
         actionToken: '',
       };
-      concCtrl.getConcoctions('instagram', req.body[0]['changed_aspect']).then((arr) => {
+      const alias = aliases[req.body[0]['changed_aspect']];
+      concCtrl.getConcoctions('instagram', alias).then((arr) => {
         console.log(arr);
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body[0]['object_id'] === obj.triggeruserid) {
@@ -46,7 +51,7 @@ module.exports = {
               console.log(`PLEASE FIX! actiionapi or actionevent undefined for InstagramId: ${obj.triggeruserid}`);
               callback();
             } else {
-              if (req.body[0]['changed_aspect'] === 'media' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
+              if (alias === 'picture_uploaded' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 userCtrl.getUserData('instagramid', req.body[0]['object_id'])
                 .then((userObj) => {
                   console.log(userObj);
@@ -55,7 +60,7 @@ module.exports = {
                 .then((file) => {
                   console.log('File result: ', file);
                   if (file.type === 'image') {
-                    console.log('insta picture posted to evernote');
+                    console.log('posting insta picture to evernote');
                     instaReqObj.title = file.caption.text.split(' ').slice(0,2).join(' ');
                     instaReqObj.images = [file.images['standard_resolution'].url];
                     instaReqObj.body = new Date(req.body[0].time * 1000).toString() + '<br/>' + '<br/>' + file.caption.text;
@@ -92,7 +97,7 @@ module.exports = {
           } else {
             callback();
           }
-        }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Instagram Event:', req.body[0]['changed_aspect']); });
+        }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Instagram Event:', alias); });
       });
     } else {
       res.status(200).send('A problem occurred while processing instagram event');
