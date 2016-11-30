@@ -20,6 +20,7 @@ module.exports = {
       //get all concoctions where user id and event
       concCtrl.getConcoctions('fitbit', obj['collectionType'], obj['ownerId']).then((rows) => {
         if(rows.length) {
+          console.log(rows);
       //query endpoint for update information
           let options = {
             uri: 'https://api.fitbit.com/1/user/' + obj['owerId'] + '/' + obj['collectionType'] + '/date/' + obj['date'] + '.json',
@@ -30,7 +31,9 @@ module.exports = {
             }
         }
         request.get(options, function(err, body, response) {
-            console.log(response);
+            console.log(err, 'err')
+            console.log(response, 'response');
+            console.log(body, 'body');
         })
 
       }

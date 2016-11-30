@@ -61,8 +61,37 @@ router.get('/github/callback',
     res.redirect('/');
   }
 );
+passport.authenticate('strava')
+router.get('/strava', checkLogin, passport.authenticate('strava'));
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location','profile'] }));
+router.get('/strava/callback', 
+  passport.authenticate('strava', { failureRedirect: '/'}),
+  (stravaData, res) => {
+    const allSessions = stravaData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    console.log(stravaData.user, 'stravaData.user')
+    utility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
+    // let options = {
+    //     uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       Authorization: `Bearer ${fitbitData.user[0]}`
+    //     },
+    //   }
+    // request.post(options, function(err, response, body) {
+    //   console.log(response, 'response');
+    // })
+    res.redirect('/');
+  });
+
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
@@ -78,7 +107,7 @@ router.get('/fitbit/callback',
     console.log(fitbitData.user, 'fitbitData.user')
     utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
     let options = {
-        uri: 'https://api.fitbit.com/1/user/-/apiSubscriptions/1.json',
+        uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

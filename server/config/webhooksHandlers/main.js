@@ -16,7 +16,7 @@ module.exports = {
   githubAction: githubHandler.actions,
   twilioAction: twilioHandler.actions,
   fitbitVerify: fitbitHandler.verify,
-  fitbitTrigger: fitbitHandler.trigger
+  fitbitTrigger: fitbitHandler.trigger,
   googleMailAction: gmailHandler.actions,
-  googleSheetsAction: googleSheetsHandler.actions,
+  googleSheetsAction: googleSheetsHandler.actions
 };
