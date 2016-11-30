@@ -111,8 +111,10 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
+    console.log(username, 'username')
     console.log(fitbitData.user, 'fitbitData.user')
-    utility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
+    utility.addTokenAndId(username, 'fitbittoken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
+    res.redirect('/');
   }
 );
 
