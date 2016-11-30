@@ -24,8 +24,14 @@ module.exports = {
     // look at each webhook from fitbit
     async.each(req.body, (obj, callback) => {
 
+      // check obj.collectionType and connect it with the corresponding triggerevent
+      let alias;
+      if (obj.collectionType === 'activities') {
+        alias = 'activity_logged';
+      }
+
       // get all concoctions that match fitbit id and webhook event
-      concCtrl.getConcoctions('fitbit', obj.collectionType, obj['ownerId']).then((concoctionList) => {
+      concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {
         let concoctions = concoctionList.rows;
 
         // filter concoctions based on whether they are enabled or not

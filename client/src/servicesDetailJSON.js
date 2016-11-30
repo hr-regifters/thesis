@@ -79,7 +79,7 @@ module.exports = {
     trigger: {
       options: [
         { description: 'When you complete a Fitbit activity ',
-          alias: 'activities',
+          alias: 'activity_logged',
           parameters: [
             { description: 'Activity',
               alias: 'activity',

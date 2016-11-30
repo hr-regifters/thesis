@@ -89,6 +89,14 @@ const getTriggerIdandToken = (concObj, username, res) => {
         return concObj;
       }
     });
+  } else if (concObj['triggerapi'] === 'instagram') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.instagramid) {
+        concObj['triggeruserid'] = user.instagramid;
+        concObj['triggertoken'] = user.instagramtoken;
+        return concObj;
+      }
+    });
   } 
   else {
     return concObj;
@@ -98,16 +106,16 @@ const getTriggerIdandToken = (concObj, username, res) => {
 const subscribeUser = (concObj) => {
   if (concObj['triggerapi'] === 'fitbit') {
     let options = {
-          uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${concObj['triggertoken']}`
-          },
-        }
-    request.post(options, function(err, response, body) {
+      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${concObj['triggertoken']}`
+      },
+    }
+    request(options, function(err, response, body) {
       console.log(response, 'response');
-    })
+    });
   } else {
     return;
   }
@@ -193,4 +201,29 @@ exports.toggleConcoction = (req, res) => {
       });
     }
   });
+}
+
+exports.updateConcoctionsToken = (username, api, newToken) => {
+  userController.getUserData('username', username).then((user) => {
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET actiontoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND actionapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('action token updated', rows);
+      }
+    });
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET triggertoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND triggerapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('trigger token updated', rows);
+      }
+    });
+  }).catch((err) => { console.log(err); });
 }
