@@ -22,15 +22,15 @@ module.exports = {
       console.log('inside async');
       concCtrl.getConcoctions('fitbit', 'activity_logged' , obj['ownerId']).then((rows) => {
         console.log(rows, 'outside of rows.length');
-        if(rows.length) {
-          console.log(rows);
+        if(rows.rows.length) {
+          console.log(rows.rows);
       //query endpoint for update information
           let options = {
             uri: 'https://api.fitbit.com/1/user/' + obj['ownerId'] + '/' + obj['collectionType'] + '/date/' + obj['date'] + '.json',
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${rows[0].triggertoken}`
+              Authorization: `Bearer ${rows.rows[0].triggertoken}`
             }
         }
         request.get(options, function(err, body, response) {
