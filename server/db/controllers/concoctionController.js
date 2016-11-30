@@ -135,23 +135,6 @@ const subscribeUser = (concObj) => {
   }
 }
 
-const subscribeUser = (concObj) => {
-  if (concObj['triggerapi'] === 'fitbit') {
-    let options = {
-      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${concObj['triggertoken']}`
-      },
-    }
-    request(options, function(err, response, body) {
-      console.log(response, 'response');
-    });
-  } else {
-    return;
-  }
-}
 
 const writeConcoction = (concObj, res) => {
   pool.query({
