@@ -16,7 +16,7 @@ module.exports = {
     }
   },
   trigger: (req, res) => {
-    res.status(204).send();
+    const webhooksHandler = require('./../main');
     let fitbitReqObj = {
       actionParams: '',
       actionToken: ''
@@ -59,12 +59,12 @@ module.exports = {
                 let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
 
                 // filter activites data based on activity user has specified
-                let activityData = activitiesData.filter((activity) => activity.name.toLowerCase() === activity);
+                let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
                 console.log('filtered activity data', activityData);
 
                 // check which action apis we're dealing with and what corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
-                  let sheetData = activityData.filter((event) => event.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
+                  let sheetData = activityData.filter((activity) => activity.name.toLowerCase() === fitbitReqObj.actionParams.param.activity.toLowerCase());
                   fitbitReqObj.data = sheetData;
                   console.log('fitbit obj', fitbitReqObj);
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](fitbitReqObj);
