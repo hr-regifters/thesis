@@ -22,7 +22,7 @@ module.exports = {
          subscription_id: 0,
          data: { media_id: '1394570434339769908_4210173738' } } ]
     */
-    // console.log('time:', req.body[0].time)
+    // //fetch picture
     //   userCtrl.getUserData('instagramid', req.body[0]['object_id'])
     //   .then((userObj) => {
     //     console.log(userObj);
@@ -46,7 +46,7 @@ module.exports = {
               console.log(`PLEASE FIX! actiionapi or actionevent undefined for InstagramId: ${obj.triggeruserid}`);
               callback();
             } else {
-              if (req.body[0]['changed_aspect'] === 'media' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
+              if (req.body[0]['changed_aspect'] === 'media' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 userCtrl.getUserData('instagramid', req.body[0]['object_id'])
                 .then((userObj) => {
                   console.log(userObj);
@@ -56,10 +56,10 @@ module.exports = {
                   console.log('File result: ', file);
                   if (file.type === 'image') {
                     console.log('insta picture posted to evernote');
-                    instaReqObj.title = file.title;
+                    instaReqObj.title = file.caption.text.split(' ').slice(0,2).join(' ');
                     instaReqObj.images = [file.images['standard_resolution'].url];
-                    instaReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;
-                    instaReqObj.tagNames = ['Instagram', 'Image', 'Upload', 'Picture'];
+                    instaReqObj.body = new Date(req.body[0].time * 1000).toString() + '<br/>' + '<br/>' + file.caption.text;
+                    instaReqObj.tagNames = file.tags;
                     instaReqObj.slackUserId = obj.triggeruserid;
                     instaReqObj.actionParams = JSON.parse(obj.actionparams);
                     instaReqObj.actionToken = obj.actiontoken;
