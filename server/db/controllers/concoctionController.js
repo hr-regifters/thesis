@@ -113,7 +113,7 @@ const subscribeUser = (concObj) => {
         Authorization: `Bearer ${concObj['triggertoken']}`
       },
     }
-    request.post(options, function(err, response, body) {
+    request(options, function(err, response, body) {
       console.log(response, 'response');
     });
   } else {
