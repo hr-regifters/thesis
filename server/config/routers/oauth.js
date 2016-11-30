@@ -98,7 +98,7 @@ router.get('/strava/callback',
     // res.redirect('/');
   });
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity'] }));
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location','profile'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
