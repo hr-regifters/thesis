@@ -68,24 +68,24 @@ router.get('/github/callback',
   }
 );
 
-router.get('/strava', checkLogin, passport.authenticate('strava'));
+// router.get('/strava', checkLogin, passport.authenticate('strava'));
 
-router.get('/strava/callback', 
-  passport.authenticate('strava', { failureRedirect: '/'}),
-  (stravaData, res) => {
-    const allSessions = stravaData.sessionStore.sessions;
-    let username = '';
-    for (let session in allSessions) {
-      session = JSON.parse(allSessions[session]);
-      if (session.hasOwnProperty('user')) {
-        username = session['user'];
-      }
-    }
-    userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
-    res.redirect('/');
-  }
-);
+// router.get('/strava/callback', 
+//   passport.authenticate('strava', { failureRedirect: '/'}),
+//   (stravaData, res) => {
+//     const allSessions = stravaData.sessionStore.sessions;
+//     let username = '';
+//     for (let session in allSessions) {
+//       session = JSON.parse(allSessions[session]);
+//       if (session.hasOwnProperty('user')) {
+//         username = session['user'];
+//       }
+//     }
+//     userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
+//     concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
+//     res.redirect('/');
+//   }
+// );
 router.get('/strava', checkLogin, passport.authenticate('strava'));
 
 router.get('/strava/callback', 
@@ -102,7 +102,7 @@ router.get('/strava/callback',
     console.log(stravaData.user, 'stravaData.user')
     utility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
     let options = {
-        uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${env.STRAVA_ID}&client_secret=${env.STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`,
+        uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${STRAVA_ID}&client_secret=${STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`
       }
 
     request.post(options, function(err, response, body) {

@@ -22,6 +22,7 @@ module.exports = {
   googleMailAction: gmailHandler.actions,
   googleSheetsAction: googleSheetsHandler.actions,
   fitbitVerify: fitbitHandler.verify,
-  fitbitTrigger: fitbitHandler.trigger
-  stravaVerify: stravaHandler.verify
+  fitbitTrigger: fitbitHandler.trigger,
+  stravaVerify: stravaHandler.verify,
+  stravaTrigger: stravaHandler.trigger
 };
