@@ -55,7 +55,8 @@ module.exports = {
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
                 console.log('activites data', activitiesData);
-                let activity = concoction.triggerparams.param['activity'].toLowerCase();
+                console.log(concoction.triggerparams.param, typeof concoction.triggerparams.param);
+                let activity = JSON.parse(concoction.triggerparams.param).activity.toLowerCase();
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
