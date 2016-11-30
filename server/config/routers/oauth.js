@@ -5,7 +5,7 @@ const utility = require('../../db/controllers/userController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
-const env = require('../../../env.js');
+
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -78,20 +78,20 @@ router.get('/strava/callback',
     }
     console.log(stravaData.user, 'stravaData.user')
     utility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    let options = {
-        uri: 'https://api.strava.com/api/v3/push_subscriptions',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: {
-          client_id: env.STRAVA_ID,
-          client_secret: env.STRAVA_SECRET,
-          object_type: 'activity',
-          aspect_type: 'create',
+    // let options = {
+    //     uri: 'https://api.strava.com/api/v3/push_subscriptions',
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/x-www-form-urlencoded',
+    //     },
+    //     body: {
+    //       client_id: env.STRAVA_ID,
+    //       client_secret: env.STRAVA_SECRET,
+    //       object_type: 'activity',
+    //       aspect_type: 'create',
 
-        }
-      }
+    //     }
+    //   }
     // request.post(options, function(err, response, body) {
     //   console.log(response, 'response');
     // })
