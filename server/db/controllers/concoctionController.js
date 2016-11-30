@@ -115,7 +115,7 @@ const subscribeUser = (concObj) => {
     }
     request.post(options, function(err, response, body) {
       console.log(response, 'response');
-    })
+    });
   } else {
     return;
   }
