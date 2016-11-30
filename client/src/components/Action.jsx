@@ -6,7 +6,8 @@ const Action = (props) => {
   if (props.state.action === '') {
     return (
       <div className='workWindow2'>
-        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
+        <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex);
+                              props.funcs.modifyInstructions(4)}}>
           <h1>Action   <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
@@ -16,7 +17,8 @@ const Action = (props) => {
                 <h3 className='serviceBttn' key={service}>
                   {
                     props.connectedServices[service] || service === 'twilio' || (service.slice(0, 6) === 'google' && props.connectedServices.hasOwnProperty('google')) ?
-                    <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex)}}>{servicesDetail[service].name}</a>
+                    <a onClick={ () => {props.funcs.modifyAction(service, props.actionsIndex);
+                                         props.funcs.modifyInstructions(5)}}>{servicesDetail[service].name}</a>
                     :
                     service.slice(0, 6) === 'google' ?
                       <a href={`${currUrl}/api/oauth/google`}>{servicesDetail[service].name}</a>
@@ -39,7 +41,8 @@ const Action = (props) => {
         <div className={props.state.actionServicesReveal}>
           {servicesDetail[props.state.action].action.options.map((option, index) => {
             return (
-              <div key={index} onClick={ () => {props.funcs.modifyActionOption(index, props.actionsIndex)}}>
+              <div key={index} onClick={ () => {props.funcs.modifyActionOption(index, props.actionsIndex);
+                                                props.funcs.modifyInstructions(6)}}>
                 <h2><i className="fa fa-square-o"></i> {option.description}</h2>
               </div>
             );
@@ -58,7 +61,8 @@ const Action = (props) => {
             <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           <div>
-            <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+            <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex);
+                                 props.funcs.modifyInstructions(7)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>
@@ -81,7 +85,8 @@ const Action = (props) => {
             )
           })}
           <div>
-            <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementsByClassName('param'), props.actionsIndex)}} className='saveBttn'>Save Action</h2>
+            <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementsByClassName('param'), props.actionsIndex);
+                                 props.funcs.modifyInstructions(7)}} className='saveBttn'>Save Action</h2>
           </div>
         </div>
       </div>

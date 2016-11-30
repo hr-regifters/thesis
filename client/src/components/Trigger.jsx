@@ -4,6 +4,7 @@ import servicesDetail from '../servicesDetailJSON.js';
 
 const Trigger = (props) => {
   if (props.state.trigger === '') {
+    sessionStorage.setItem('stateHistory', '[]');
     return (
       <div className='workWindow1'>
         <div onClick={ () => {props.funcs.modifyTriggerReveal();
