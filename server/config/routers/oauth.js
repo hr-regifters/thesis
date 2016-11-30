@@ -124,7 +124,8 @@ router.get('/google/callback',
       }
     }
     userUtility.addTokenAndId(username, 'googleToken', googleData.user);
-    concoctionUtility.updateConcoctionsToken(username, 'google', googleData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'googleSheets', googleData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'googleMail', googleData.user);
     res.redirect('/');
   }
 );

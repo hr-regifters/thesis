@@ -204,24 +204,26 @@ exports.toggleConcoction = (req, res) => {
 }
 
 exports.updateConcoctionsToken = (username, api, newToken) => {
-  pool.query({
-    text: 'UPDATE concoctions \
-    SET actiontoken = ' + newToken + ' WHERE username = \'' + username +'\' AND actionapi = \'' + api + '\';' 
-  }, (err, rows) => {
-    if (err) {
-      return err;
-    } else {
-      return rows;
-    }
-  });
-  pool.query({
-    text: 'UPDATE concoctions \
-    SET triggertoken = ' + newToken + ' WHERE username = \'' + username +'\' AND triggerapi = \'' + api + '\';' 
-  }, (err, rows) => {
-    if (err) {
-      return err;
-    } else {
-      return rows;
-    }
-  });
+  userController.getUserData('username', username).then((user) => {
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET actiontoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND actionapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('action token updated', rows);
+      }
+    });
+    pool.query({
+      text: 'UPDATE concoctions \
+      SET triggertoken = \'' + newToken + '\' WHERE userid = \'' + user.id +'\' AND triggerapi = \'' + api + '\';' 
+    }, (err, rows) => {
+      if (err) {
+        return err;
+      } else {
+        console.log('trigger token updated', rows);
+      }
+    });
+  }).catch((err) => { console.log(err); });
 }
