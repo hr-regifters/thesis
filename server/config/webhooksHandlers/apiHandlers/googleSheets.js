@@ -7,6 +7,7 @@ module.exports = {
   },
   actions: {
     create_sheet: (paramObj) => {
+      console.log(paramObj)
       let data = [
         {
           "startRow": 0,

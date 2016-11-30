@@ -30,7 +30,6 @@ module.exports = {
 
         // filter concoctions based on whether they are enabled or not
         concoctions = concoctions.filter((concoction) => concoction.enable === true);
-        console.log('filtered concoctions', concoctions);
         let options = {
           uri: `https://api.fitbit.com/1/user/${obj['ownerId']}/${obj['collectionType']}/date/${obj['date']}.json`,
           method: 'GET',
@@ -54,13 +53,11 @@ module.exports = {
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
-                console.log('activites data', activitiesData);
-                console.log(concoction.triggerparams, typeof concoction.triggerparams);
                 let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-                console.log('filtered activity data', activityData);
+                // console.log('filtered activity data', activityData);
 
                 // keep track of activity id? since we get all activity events everytime
 
@@ -68,7 +65,7 @@ module.exports = {
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
-                  console.log('fitbit obj', fitbitReqObj);
+                  // console.log('fitbit obj', fitbitReqObj);
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
@@ -79,7 +76,7 @@ module.exports = {
           }
         });
       }).catch((error) => {
-        res.status(500).send('Server Error in Slack trigger');
+        res.status(500).send('Server Error in Fitbit trigger');
         console.log(error);
       });
     }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event:', req.body[0].collectionType); }); //closing async
