@@ -44,5 +44,5 @@ module.exports = {
   //   request.get(options, (err, res, body) => {
   // })
 
-  
+  }
 }
