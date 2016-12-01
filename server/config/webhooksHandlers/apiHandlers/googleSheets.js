@@ -13,30 +13,22 @@ module.exports = {
       for (let i = 0; i < paramObj.data.length; i++) {
         for (let prop in paramObj.data[i]) {
           let category = {
-            'values': [
-              {
-                'userEnteredValue': {},
-              }
-            ]
+            'userEnteredValue': {}
           };
 
           let statistic = {
-            'values': [
-              {
-                'userEnteredValue': {},
-              }
-            ]
+            'userEnteredValue': {}
           };
 
           let categoryValObj = {};
           categoryValObj['stringValue'] = prop;
-          category.values[0].userEnteredValue = categoryValObj;
+          category.userEnteredValue = categoryValObj;
           categories.push(category);
 
           let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
-          statistic.values[0].userEnteredValue = statValObj;
+          statistic.userEnteredValue = statValObj;
           statistics.push(statistic);
         };
       }
@@ -57,12 +49,16 @@ module.exports = {
               {
                 'startRow': 0,
                 'startColumn': 0,
-                'rowData': categories,
+                'rowData': {
+                  "values": categories
+                }
               },
               {
                 'startRow': 1,
                 'startColumn': 0,
-                'rowData': statistics,
+                'rowData': {
+                  "values": statistics
+                }
               }
             ]
           }
