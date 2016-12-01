@@ -18,10 +18,16 @@ module.exports = {
             }
           ]
         };
-        categories.values.userEnteredValue['stringValue'] = prop;
+        
+        let categoryValObj = {};
+        categoryValObj['stringValue'] = prop;
+        categories.values.userEnteredValue = categoryValObj;
         categories.push(category);
-        let statValue = typeof paramObj.data[prop] === 'number' ? 'numberValue' : 'stringValue';
-        statistic.values.userEnteredValue.statValue = paramObj.data[prop];
+
+        let statType = typeof paramObj.data[prop] === 'number' ? 'numberValue' : 'stringValue';
+        let statValObj = {};
+        statValObj[statType] = paramObj.data[prop];
+        statistic.values.userEnteredValue = statValObj;
         statistics.push(statistic);
       };
       let spreadsheet = {
