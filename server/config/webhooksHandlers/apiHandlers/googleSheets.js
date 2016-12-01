@@ -23,14 +23,17 @@ module.exports = {
           let categoryValObj = {};
           categoryValObj['stringValue'] = prop;
           category.userEnteredValue = categoryValObj;
-          categories.push(category);
 
           let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
           statistic.userEnteredValue = statValObj;
           console.log(category, statistic);
-          statistics.push(statistic);
+
+          if (typeof paramObj.data[i][prop] !== 'boolean') {
+            categories.push(category);
+            statistics.push(statistic);
+          }
         };
       }
 
