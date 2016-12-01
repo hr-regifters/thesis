@@ -153,6 +153,7 @@ module.exports = {
           ],
         },
       ],
+      supportedActions: [],
     },
     action: {
       options: ['none'],
