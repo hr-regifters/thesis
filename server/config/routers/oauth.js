@@ -6,6 +6,8 @@ const concoctionUtility = require('../../db/controllers/concoctionController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
 const request = require('request');
+const STRAVA_ID = process.env.STRAVA_ID;
+const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -64,6 +66,24 @@ router.get('/github/callback',
   }
 );
 
+// router.get('/strava', checkLogin, passport.authenticate('strava'));
+
+// router.get('/strava/callback', 
+//   passport.authenticate('strava', { failureRedirect: '/'}),
+//   (stravaData, res) => {
+//     const allSessions = stravaData.sessionStore.sessions;
+//     let username = '';
+//     for (let session in allSessions) {
+//       session = JSON.parse(allSessions[session]);
+//       if (session.hasOwnProperty('user')) {
+//         username = session['user'];
+//       }
+//     }
+//     userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
+//     concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
+//     res.redirect('/');
+//   }
+// );
 router.get('/strava', checkLogin, passport.authenticate('strava'));
 
 router.get('/strava/callback', 
@@ -77,11 +97,18 @@ router.get('/strava/callback',
         username = session['user'];
       }
     }
+<<<<<<< HEAD
     userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
     concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
     res.redirect('/');
   }
 );
+=======
+    console.log(stravaData.user, 'stravaData.user')
+    userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
+    res.redirect('/');
+  });
+>>>>>>> ba775ca02efc949412009a92318395c2697c7308
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 

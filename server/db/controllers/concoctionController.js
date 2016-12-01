@@ -3,9 +3,13 @@ const express = require('express');
 const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
-const pool = require('../config.js').pool;
+const pool = (require('../config.js').pool);
 const request = require('request');
 const async = require('async');
+=======
+const STRAVA_ID = process.env.STRAVA_ID;
+const STRAVA_SECRET = process.env.STRAVA_SECRET;
+>>>>>>> ba775ca02efc949412009a92318395c2697c7308
 
 exports.queryConcoctions = (req, res) => {
   pool.query({
@@ -120,11 +124,26 @@ const subscribeUser = (concObj) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${concObj['triggertoken']}`
-      },
+      }
     }
-    request(options, function(err, response, body) {
+    request.post(options, function(err, response, body) {
       console.log(response, 'response');
     });
+  } else if (concObj['triggerapi'] === 'strava') {
+    let options = {
+      client_id: STRAVA_ID,
+      client_secret: STRAVA_SECRET,
+      object_type: 'activity',
+      aspect_type: 'create',
+      callback_url: 'https://regifters48.herokuapp.com/api/webhooks/strava',
+      verify_token: concObj['triggertoken'],
+    }
+    request.post({url:'https://api.strava.com/api/v3/push_subscriptions', form: options}, 
+      (err, response, body) => {
+        console.log(err, 'err');
+        console.log(response, 'response');
+      }
+    );
   } else {
     return;
   }
