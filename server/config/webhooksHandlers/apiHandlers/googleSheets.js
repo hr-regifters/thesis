@@ -11,7 +11,7 @@ module.exports = {
       let numProperties = paramObj.data[numActivities - 1];
       let categories = [];
       let statistics = [];
-      let i = numProperties;
+      let i = numActivities - 1;
       // for (let i = 0; i < paramObj.data.length; i++) {
         for (let prop in paramObj.data[i]) {
           let category = {
