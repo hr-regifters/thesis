@@ -3,7 +3,10 @@ const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
+const slackWebhookId = process.env.slackWebhookId || require('./../../../../env').slackWebhookId;
+const slackWebhookToken = process.env.slackWebhookToken || require('./../../../../env').slackWebhookToken;
 const request = require('request');
+
 const listenTo = {
   file_created: true,
   pin_added: true,
@@ -16,21 +19,21 @@ module.exports = {
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
     } else if (listenTo[req.body.event.type] && req.body.event['event_ts'] * 1000 > currentTime - 10800000
-      && req.body.event.event_ts * 1000 < currentTime && req.body.token === 'a1w5cdEEWMlk4t8TZ60TOX43'
-      && req.body.api_app_id === 'A31R4FZ6H') { // check gating credentials (timestamp max age 3hrs)
+      && req.body.event.event_ts * 1000 < currentTime && req.body.token === slackWebhookToken
+      && req.body.api_app_id === slackWebhookId) { // check gating credentials (timestamp max age 3hrs)
       res.status(200).send('registered slack event');
       let slackReqObj = {
         actionParams: '',
         actionToken: '',
       };
 
-        // fetch db data for users to get actions
-        //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
+      // fetch db data for users to get actions
+      //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
       concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
-              console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
+              console.log(`PLEASE FIX! actiionapi or actionevent undefined for slackUserId: ${obj.triggeruserid}`);
               callback();
             } else {
               if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
@@ -111,12 +114,12 @@ module.exports = {
         console.log(error);
       });
     } else {
-      res.status(200).send('A problem occurred while processing event');
+      res.status(200).send('A problem occurred while processing slack event');
     }
   },
   actions: {
     post_message: (paramObj) => {
-      const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace undefined by user.slackToken
+      const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace process.env.slackAppToken by user.slackToken
       let channel = encodeURIComponent(paramObj.actionParams.channelName);
       let message = encodeURIComponent(paramObj.actionParams.slack_text);
       request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`,

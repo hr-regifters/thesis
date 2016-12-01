@@ -113,7 +113,6 @@ const getTriggerIdandToken = (concObj, username, res) => {
     return concObj;
   }
 }
-
 const subscribeUser = (concObj) => {
   if (concObj['triggerapi'] === 'fitbit') {
     let options = {
@@ -124,7 +123,7 @@ const subscribeUser = (concObj) => {
         Authorization: `Bearer ${concObj['triggertoken']}`
       }
     }
-    request.post(options, function(err, response, body) {
+    request(options, function(err, response, body) {
       console.log(response, 'response');
     });
   } else if (concObj['triggerapi'] === 'strava') {
@@ -146,6 +145,7 @@ const subscribeUser = (concObj) => {
     return;
   }
 }
+
 
 const writeConcoction = (concObj, res) => {
   pool.query({

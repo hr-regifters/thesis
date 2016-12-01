@@ -76,11 +76,10 @@ router.get('/strava/callback',
         username = session['user'];
       }
     }
-    userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
+    console.log(stravaData.user, 'stravaData.user')
+    userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
     res.redirect('/');
-  }
-);
+  });
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 
