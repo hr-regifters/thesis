@@ -39,6 +39,8 @@ module.exports = {
               console.log(`PLEASE FIX! actiionapi or actionevent undefined for InstagramId: ${obj.triggeruserid}`);
               callback();
             } else {
+              instaReqObj.actionParams = JSON.parse(obj.actionparams);
+              instaReqObj.actionToken = obj.actiontoken;
               if (alias === 'picture_uploaded' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 instaCtrl.getFile(req.body[0].data['media_id'], obj.triggertoken)
                 .then((file) => {
@@ -49,8 +51,6 @@ module.exports = {
                     instaReqObj.body = new Date(req.body[0].time * 1000).toString() + '<br/>' + '<br/>' + file.caption.text;
                     instaReqObj.tagNames = file.tags;
                     instaReqObj.slackUserId = obj.triggeruserid;
-                    instaReqObj.actionParams = JSON.parse(obj.actionparams);
-                    instaReqObj.actionToken = obj.actiontoken;
                     webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
                     callback();
                   } else {
@@ -59,17 +59,12 @@ module.exports = {
                 })
                 .catch((error) => { console.log('Error in picture_uploaded and evernote create_note action: ', error); });
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                instaReqObj.actionParams = JSON.parse(obj.actionparams);
-                instaReqObj.actionToken = obj.actiontoken;
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
                 callback();
               } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
-                instaReqObj.actionParams = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
                 callback();
               } else if (obj.actionapi === 'googleMail' && obj.actionevent === 'send_email') {
-                instaReqObj.actionToken = obj.actiontoken;
-                instaReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
                 callback();
               }
