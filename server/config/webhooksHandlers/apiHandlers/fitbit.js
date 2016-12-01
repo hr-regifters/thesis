@@ -30,11 +30,11 @@ module.exports = {
       if (obj.collectionType === 'activities') {
         alias = 'activity_logged';
       }
-      console.log('inside async', alias)
+
       // get all concoctions that match fitbit id and webhook event
       concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {
         let concoctions = concoctionList.rows;
-        console.log('inside db query', concoctions)
+
         // filter concoctions based on whether they are enabled or not
         concoctions = concoctions.filter((concoction) => concoction.enable === true);
         let options = {
@@ -45,7 +45,7 @@ module.exports = {
             Authorization: `Bearer ${concoctions[0].triggertoken}`
           }
         };
-        console.log('about to query Fibit', options);
+
         // query endpoint for update information
         request.get(options, (err, res, body) => {
           if (err) {
@@ -53,10 +53,9 @@ module.exports = {
           } else {
             // look at each individual concoction
             concoctions.forEach((concoction) => {
-              let fitbitData = body;
+              let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
-              console.log('received fitbit data', body, typeof body)
 
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
