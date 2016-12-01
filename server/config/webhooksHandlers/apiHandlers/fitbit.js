@@ -46,7 +46,7 @@ module.exports = {
         };
 
         // query endpoint for update information
-        request(options, (err, res, body) => {
+        request.get(options, (err, res, body) => {
           if (err) {
             console.log('err', err);
           } else {
