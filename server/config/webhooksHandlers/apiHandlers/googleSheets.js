@@ -15,7 +15,7 @@ module.exports = {
           let category = {
             'values': [
               {
-                'userEnteredValue': {},
+                // 'userEnteredValue': {},
               }
             ]
           };
@@ -23,7 +23,7 @@ module.exports = {
           let statistic = {
             'values': [
               {
-                'userEnteredValue': {},
+                // 'userEnteredValue': {},
               }
             ]
           };
