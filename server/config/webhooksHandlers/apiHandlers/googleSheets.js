@@ -7,12 +7,10 @@ module.exports = {
   },
   actions: {
     create_sheet: (paramObj) => {
-      let numActivities = Object.keys(paramObj.data).length;
-      let numProperties = paramObj.data[numActivities - 1].length;
+      let numProperties = paramObj.data[0].length;
       let categories = [];
       let statistics = [];
-      let i = numActivities - 1;
-      // for (let i = 0; i < paramObj.data.length; i++) {
+      for (let i = 0; i < paramObj.data.length; i++) {
         for (let prop in paramObj.data[i]) {
           let category = {
             'userEnteredValue': {}
@@ -41,7 +39,7 @@ module.exports = {
             statistics.push(statistic);
           }
         }
-      // }
+      }
 
       let spreadsheet = {
         'properties': {
@@ -84,8 +82,6 @@ module.exports = {
         },
         json: spreadsheet
       }
-      console.log('categories', categories);
-      console.log('statistics', statistics);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);

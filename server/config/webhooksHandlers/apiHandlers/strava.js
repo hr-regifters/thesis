@@ -59,7 +59,7 @@ module.exports = {
                 calories: stravaData.calories
               };
               console.log('sheet data', sheetData);
-              stravaReqObj.data = sheetData;
+              stravaReqObj.data = [sheetData];
               webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
               callback();
             } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {

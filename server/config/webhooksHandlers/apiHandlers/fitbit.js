@@ -69,7 +69,7 @@ module.exports = {
 
                 // check which action apis we're dealing with and what corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
-                  let sheetData = activityData;
+                  let sheetData = activityData.slice(-1); // change this to the activities we haven't recorded yet
                   fitbitReqObj.data = sheetData;
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
