@@ -4,7 +4,7 @@ import servicesDetail from '../servicesDetailJSON.js';
 
 const Trigger = (props) => {
   if (props.state.trigger === '') {
-    sessionStorage.setItem('stateHistory', '[]');
+    // sessionStorage.setItem('stateHistory', '[]');
     return (
       <div className='workWindow1'>
         <div onClick={ () => {props.funcs.modifyTriggerReveal();
@@ -40,7 +40,7 @@ const Trigger = (props) => {
       <div className='workWindow1'>
         <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
           <div className="inline">
-            <h1><i className="fa fa-reply" onClick={ () => {props.funcs.modifyTrigger('')}}></i>  <img className='icon' src={servicesDetail[props.state.trigger].icon}></img> Trigger <i className="fa fa-caret-down"></i></h1>   
+            <h1> <img className='icon' src={servicesDetail[props.state.trigger].icon}></img> Trigger <i className="fa fa-caret-down"></i></h1>   
           </div>
         </div>
         <div className={props.state.triggerServicesReveal}>
@@ -63,7 +63,7 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyTriggerOption('')}} className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
           </div>
           <div>
             <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none');
@@ -80,7 +80,7 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyTriggerOption('')}} className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
           </div>
             {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map((param) => {
               return (
