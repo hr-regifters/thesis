@@ -25,10 +25,10 @@ module.exports = {
     async.each(req.body, (obj, callback) => {
 
       // check obj.collectionType and connect it with the corresponding triggerevent
-      let alias;
-      if (obj.collectionType === 'activities') {
-        alias = 'activity_logged';
-      }
+      let webhooks = {
+        'activities': 'activity_logged'
+      };
+      let alias = webhooks[obj.collectionType];
 
       // get all concoctions that match fitbit id and webhook event
       concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {

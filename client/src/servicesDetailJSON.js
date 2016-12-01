@@ -33,7 +33,7 @@ module.exports = {
           ],
         },
       ],
-      supportedActions: ['googleSheets', 'slack', 'twilio', 'evernote', 'gmail'],
+      supportedActions: ['googleSheets', 'slack', 'twilio', 'evernote', 'googleMail'],
     },
     action: {
       options: ['none'],
@@ -99,7 +99,7 @@ module.exports = {
           ],
         },
       ],
-      supportedActions: ['twilio', 'slack', 'evernote', 'gmail'],
+      supportedActions: ['twilio', 'slack', 'evernote', 'googleMail'],
     },
     action: {
       options: ['none'],
@@ -121,7 +121,7 @@ module.exports = {
           ],
         },
       ],
-      supportedActions: ['slack', 'evernote', 'twilio', 'gmail'],
+      supportedActions: ['slack', 'evernote', 'twilio', 'googleMail'],
     },
     action: {
       options: [
@@ -153,7 +153,7 @@ module.exports = {
           ],
         },
       ],
-      supportedActions: [],
+      supportedActions: ['googleSheets', 'twilio', 'slack', 'googleMail'],
     },
     action: {
       options: ['none'],
