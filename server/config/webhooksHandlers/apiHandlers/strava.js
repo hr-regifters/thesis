@@ -33,39 +33,33 @@ module.exports = {
         if (err) {
           console.log('err', err);
         } else {
-          console.log(body, 'body');
-          let data = JSON.parse(body);
-          let trimData = {
-            name: data.name,
-            type: data.type,
-            distance: data.distance,
-            moving_time: data.moving_time,
-            elapsed_time: data.elapsed_time,
-            start_date_local: data.start_date_local,
-            total_elevation_gain: data.total_elevation_gain,
-            achievement_count: data.achievement_count,
-            average_speed: data.average_speed,
-            max_speed: data.max_speed,
-            calories: data.calories
-          };
-
-          //things to remove if you do it this way.
-          // [id, resource_state, external_id, upload_id, athlete, embed_token]
-
-          //complete action
+          concoctions = concoctions.filter((concoction) => {
+            let activity = JSON.parse(concoction.triggerparams).param['strava_activity'].toLowerCase();
+            return body.type === activity;
+          });
+          // look at each individual concoction
           concoctions.forEach((concoction) => {
-            let stravaData = JSON.parse(res.body);
+            let stravaData = JSON.parse(body);
             stravaReqObj.actionParams = JSON.parse(concoction.actionparams);
             stravaReqObj.actionToken = concoction.actiontoken;
 
-            // check if we're dealing with activities
-            if (stravaData.hasOwnProperty('activities')) {
-              let activitiesData = stravaData.activities;
-              let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
-
-              // filter activites data based on activity user has specified
-              let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-              // console.log('filtered activity data', activityData);
+            // check which action apis we're dealing with and what corresponding action
+            if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
+              let sheetData = {
+                name: data.name,
+                type: data.type,
+                distance: data.distance,
+                moving_time: data.moving_time,
+                elapsed_time: data.elapsed_time,
+                start_date_local: data.start_date_local,
+                total_elevation_gain: data.total_elevation_gain,
+                achievement_count: data.achievement_count,
+                average_speed: data.average_speed,
+                max_speed: data.max_speed,
+                calories: data.calories
+              };
+              stravaReqObj.data = sheetData;
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
             }
           });
         }
