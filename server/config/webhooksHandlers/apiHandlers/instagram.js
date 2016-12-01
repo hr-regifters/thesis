@@ -51,10 +51,7 @@ module.exports = {
               callback();
             } else {
               if (alias === 'picture_uploaded' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
-                userCtrl.getUserData('instagramid', req.body[0]['object_id'])
-                .then((userObj) => {
-                  return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
-                })
+                instaCtrl.getFile(req.body[0].data['media_id'], obj.triggertoken)
                 .then((file) => {
                   if (file.type === 'image') {
                     instaReqObj.title = file.caption.text.split(' ').slice(0,2).join(' ');
