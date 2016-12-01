@@ -30,13 +30,13 @@ module.exports = {
 
           let categoryValObj = {};
           categoryValObj['stringValue'] = prop;
-          category.values.userEnteredValue = categoryValObj;
+          category.values['userEnteredValue'] = categoryValObj;
           categories.push(category);
 
           let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
-          statistic.values.userEnteredValue = statValObj;
+          statistic.values['userEnteredValue'] = statValObj;
           console.log(statistic, statistic.values.userEnteredValue)
           statistics.push(statistic);
         };
