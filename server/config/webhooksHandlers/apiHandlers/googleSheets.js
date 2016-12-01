@@ -7,11 +7,12 @@ module.exports = {
   },
   actions: {
     create_sheet: (paramObj) => {
-      let numProperties = Object.keys(paramObj.data).length;
+      let numProperties = Object.keys(paramObj.data).length + 1;
       let categories = [];
       let statistics = [];
-      for (let i = 0; i < paramObj.data.length; i++) {
-        for (let prop in paramObj.data[i]) {
+      let i = 0;
+      // for (let i = 0; i < paramObj.data.length; i++) {
+        // for (let prop in paramObj.data[i]) {
           let category = {
             'userEnteredValue': {}
           };
@@ -34,8 +35,8 @@ module.exports = {
             categories.push(category);
             statistics.push(statistic);
           }
-        };
-      }
+        // }
+      // }
 
       let spreadsheet = {
         'properties': {
@@ -45,7 +46,7 @@ module.exports = {
           {
             'properties': {
               'gridProperties': {
-                'rowCount': numProperties,
+                'rowCount': 2,
                 'columnCount': numProperties,
               },
             },
