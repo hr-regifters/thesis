@@ -75,9 +75,9 @@ module.exports = {
         },
         json: spreadsheet
       }
-      console.log(categories, 'categories');
-      console.log(statistics, 'statistics');
-      console.log(spreadsheet.sheets.data, typeof paramObj.data);
+      console.log(categories[0].values[0].userEnteredValue, 'categories');
+      console.log(statistics[0].values[0].userEnteredValue, 'statistics');
+      console.log(spreadsheet.sheets[0].data, typeof paramObj.data);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);
