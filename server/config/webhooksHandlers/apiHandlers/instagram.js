@@ -63,6 +63,7 @@ module.exports = {
                     console.log('posting insta picture to evernote');
                     instaReqObj.title = file.caption.text.split(' ').slice(0,2).join(' ');
                     instaReqObj.images = [file.images['standard_resolution'].url];
+                    instaReqObj.links = [];
                     instaReqObj.body = new Date(req.body[0].time * 1000).toString() + '<br/>' + '<br/>' + file.caption.text;
                     instaReqObj.tagNames = file.tags;
                     instaReqObj.slackUserId = obj.triggeruserid;
