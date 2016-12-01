@@ -15,7 +15,7 @@ module.exports = {
           let category = {
             'values': [
               {
-                // 'userEnteredValue': {},
+                'userEnteredValue': {},
               }
             ]
           };
@@ -23,20 +23,20 @@ module.exports = {
           let statistic = {
             'values': [
               {
-                // 'userEnteredValue': {},
+                'userEnteredValue': {},
               }
             ]
           };
 
           let categoryValObj = {};
           categoryValObj['stringValue'] = prop;
-          category.values['userEnteredValue'] = categoryValObj;
+          category.values[0].userEnteredValue = categoryValObj;
           categories.push(category);
 
           let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
-          statistic.values['userEnteredValue'] = statValObj;
+          statistic.values[0].userEnteredValue = statValObj;
           console.log(statistic, statistic.values.userEnteredValue)
           statistics.push(statistic);
         };
