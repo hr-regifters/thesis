@@ -8,8 +8,8 @@ module.exports = {
     },
     action: {
       options: [
-        { description: 'Create a new Note in a specific Notebook',
-          alias: 'post_note',
+        { description: 'Add a note to one of your notebooks',
+          alias: 'create_note',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
