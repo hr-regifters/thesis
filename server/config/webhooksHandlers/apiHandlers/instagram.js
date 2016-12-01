@@ -77,7 +77,7 @@ module.exports = {
                 })
                 .catch((error) => { console.log('Error in picture_uploaded and evernote create_note action: ', error); });
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                userCtrl.getUserData('slackId', obj.triggeruserid).then((user) => {
+                userCtrl.getUserData('instagramid', obj.triggeruserid).then((user) => {
                   instaReqObj.username = user.username;
                   instaReqObj.actionParams = JSON.parse(obj.actionparams);
                   instaReqObj.actionToken = obj.actiontoken;
@@ -105,8 +105,6 @@ module.exports = {
     }
   },
   actions: {
-    send_text: (paramObj) => {
-      console.log('cool instagram action shot');
-    },
+
   },
 };
