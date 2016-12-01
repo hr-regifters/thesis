@@ -10,34 +10,37 @@ module.exports = {
       let numProperties = Object.keys(paramObj.data).length;
       let categories = [];
       let statistics = [];
-      for (const prop in paramObj.data) {
-        let category = {
-          'values': [
-            {
-              'userEnteredValue': {},
-            }
-          ]
+      for (let i = 0; i < paramObj.data.length; i++) {
+        for (const prop in paramObj.data[i]) {
+          let category = {
+            'values': [
+              {
+                'userEnteredValue': {},
+              }
+            ]
+          };
+
+          let statistic = {
+            'values': [
+              {
+                'userEnteredValue': {},
+              }
+            ]
+          };
+
+          let categoryValObj = {};
+          categoryValObj['stringValue'] = prop;
+          category.values.userEnteredValue = categoryValObj;
+          categories.push(category);
+
+          let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
+          let statValObj = {};
+          statValObj[statType] = paramObj.data[i][prop];
+          statistic.values.userEnteredValue = statValObj;
+          statistics.push(statistic);
         };
-
-        let statistic = {
-          'values': [
-            {
-              'userEnteredValue': {},
-            }
-          ]
-        };
-
-        let categoryValObj = {};
-        categoryValObj['stringValue'] = prop;
-        category.values.userEnteredValue = categoryValObj;
-        categories.push(category);
-
-        let statType = typeof paramObj.data[prop] === 'number' ? 'numberValue' : 'stringValue';
-        let statValObj = {};
-        statValObj[statType] = paramObj.data[prop];
-        statistic.values.userEnteredValue = statValObj;
-        statistics.push(statistic);
-      };
+      }
+      
       let spreadsheet = {
         'properties': {
           'title': paramObj.actionParams.sheet_title,
