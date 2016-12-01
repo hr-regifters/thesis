@@ -1,8 +1,6 @@
 "use strict"
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
-const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
 const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../../env.js').FITBIT_VERIFICATION;
 
@@ -16,11 +14,13 @@ module.exports = {
     }
   },
   trigger: (req, res) => {
+    res.status(204).send();
     const webhooksHandler = require('./../main');
     let fitbitReqObj = {
       actionParams: '',
       actionToken: ''
     };
+    
     // look at each webhook from fitbit
     async.each(req.body, (obj, callback) => {
 
@@ -46,24 +46,23 @@ module.exports = {
         };
 
         // query endpoint for update information
-        request.get(options, (err, res, body) => {
+        request(options, (err, res, body) => {
           if (err) {
             console.log('err', err);
           } else {
             // look at each individual concoction
             concoctions.forEach((concoction) => {
-              let fitbitData = JSON.parse(res.body);
+              let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
 
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
-                let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
+                let activity = JSON.parse(concoction.triggerparams).param['fitbit_activity'].toLowerCase();
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-                // console.log('filtered activity data', activityData);
 
                 // keep track of activity id? since we get all activity events everytime
 
@@ -71,7 +70,6 @@ module.exports = {
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
-                  // console.log('fitbit obj', fitbitReqObj);
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {

@@ -4,22 +4,18 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
 const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
-const listenTo = {
-  file_created: true,
-  pin_added: true,
-};
 
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    // console.log(req.body, req.headers)
+    console.log('GITHUB TRIGGER SHOT');
     // var requestObj = {
     //   uri: `https://api.github.com/repos/hr-regifters/thesis/hooks`,
     //   method: 'POST',
     //   headers: {
-    //     // Authorization: 'Basic Qkhlc3NlbGRpZWNrOmJhc2hlbjEzMzc=',
-    //     Authorization: 'token XXXXXXXX',
-    //     'User-Agent': env.GITHUB_ID,
+    //     // Authorization: 'Basic XXXHASHXXX',
+    //     Authorization: `token XXXXXX`,
+    //     'User-Agent': process.env.GITHUB_ID || require('./../../../../env').GITHUB_ID,
     //     'Content-Type': 'application/json',
     //   },
     //   json: {

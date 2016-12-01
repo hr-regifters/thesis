@@ -5,7 +5,6 @@ const userUtility = require('../../db/controllers/userController');
 const concoctionUtility = require('../../db/controllers/concoctionController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
-const request = require('request');
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -77,11 +76,10 @@ router.get('/strava/callback',
         username = session['user'];
       }
     }
-    userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
-    concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
+    console.log(stravaData.user, 'stravaData.user')
+    userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
     res.redirect('/');
-  }
-);
+  });
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 
@@ -143,8 +141,8 @@ router.get('/instagram/callback',
         username = session['user'];
       }
     }
-    userUtility.addTokenAndId(username, 'instagramToken', instagramData.user);
-    concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user);
+    userUtility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user[0]);
     res.redirect('/');
   }
 );
