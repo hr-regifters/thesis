@@ -27,22 +27,23 @@ module.exports = {
       actionParams: '',
       actionToken: ''
     };
-    let notification = req.body;
-    console.log(notification);
-    // concCtrl.getConcoctions('strava', alias, obj['ownerId']).then((concoctionList) => {
-    // let options = {
-    //   uri: `https://www.strava.com/api/v3/activities/${concoctions[0].triggertoken}`,
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${concoctions[0].triggertoken}`
-    //   }
-    // };
+    let obj = req.body;
     res.status(200).send();
-
+    concCtrl.getConcoctions('strava', 'activity', obj['ownerId']).then((concoctionlist) => {
+    let concoctions = concoctionlist.rows;
+    let options = {
+      url: `https://www.strava.com/api/v3/activities/${obj['object_id']}`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${concoctions[0].triggertoken}`
+      }
+    };
     // query endpoint for update information
-  //   request.get(options, (err, res, body) => {
-  // })
+    request(options, (err, res, body) => {
+      console.log(body, 'body');
+      console.log(err, 'err');
+    })
 
   }
 }

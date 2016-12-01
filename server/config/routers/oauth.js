@@ -99,21 +99,6 @@ router.get('/strava/callback',
     }
     console.log(stravaData.user, 'stravaData.user')
     userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
-    let options = {
-        client_id: STRAVA_ID,
-        client_secret: STRAVA_SECRET,
-        object_type: 'activity',
-        aspect_type: 'create',
-        callback_url: 'https://regifters48.herokuapp.com/api/webhooks/strava',
-        verify_token: '613a8c84b8b09b8c3c40dad260fc9332dc6da23e',
-        // url: "https://api.strava.com/api/v3/push_subscriptions?client_id=14913&client_secret=47c056eab28aa434a6cef487c57600d2780587c0&'object_type=activity'&'aspect_type=create'&'callback_url=https://regifters48.herokuapp.com/api/webhooks/strava'&'verify_token=613a8c84b8b09b8c3c40dad260fc9332dc6da23e'"
-        // // url: `https://api.strava.com/api/v3/push_subscriptions?client_id=${STRAVA_ID}&client_secret=${STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`
-      }
-    request.post({url:'https://api.strava.com/api/v3/push_subscriptions', form: options}, function(err, response, body) {
-      console.log(err, 'err');
-      console.log(response, 'response');
-      console.log(body, 'body');
-    })
     res.redirect('/');
   });
 

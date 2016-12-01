@@ -121,15 +121,17 @@ const subscribeUser = (concObj) => {
 
   } else if (concObj['triggerapi'] === 'strava') {
     let options = {
-      uri: `https://api.strava.com/api/v3/push_subscriptions?client_id=${STRAVA_ID}&client_secret=${STRAVA_SECRET}&object_type=activity&aspect_type=create&callback_url=https://regifters48.herokuapp.com/api/webhooks/strava&verify=${stravaData.user[0]}`,
-    }
-
-    request.post(options, function(err, response, body) {
+        client_id: STRAVA_ID,
+        client_secret: STRAVA_SECRET,
+        object_type: 'activity',
+        aspect_type: 'create',
+        callback_url: 'https://regifters48.herokuapp.com/api/webhooks/strava',
+        verify_token: concObj['triggertoken'],
+      }
+    request.post({url:'https://api.strava.com/api/v3/push_subscriptions', form: options}, function(err, response, body) {
       console.log(err, 'err');
       console.log(response, 'response');
-      console.log(body, 'body');
     })
-
   } else {
     return;
   }
