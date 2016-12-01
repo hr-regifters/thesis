@@ -44,7 +44,6 @@ module.exports = {
       };
       const alias = aliases[req.body[0]['changed_aspect']];
       concCtrl.getConcoctions('instagram', alias).then((arr) => {
-        console.log(arr);
         async.each(arr.rows, (obj, callback) => {
           if (obj.enable && req.body[0]['object_id'] === obj.triggeruserid) {
             if (obj.actionapi === undefined || obj.actionevent === undefined) {
@@ -54,13 +53,10 @@ module.exports = {
               if (alias === 'picture_uploaded' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 userCtrl.getUserData('instagramid', req.body[0]['object_id'])
                 .then((userObj) => {
-                  console.log(userObj);
                   return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
                 })
                 .then((file) => {
-                  console.log('File result: ', file);
                   if (file.type === 'image') {
-                    console.log('posting insta picture to evernote');
                     instaReqObj.title = file.caption.text.split(' ').slice(0,2).join(' ');
                     instaReqObj.images = [file.images['standard_resolution'].url];
                     instaReqObj.links = [];
