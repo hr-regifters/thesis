@@ -29,7 +29,8 @@ module.exports = {
     };
     let obj = req.body;
     res.status(200).send();
-    concCtrl.getConcoctions('strava', 'activity', obj['ownerId']).then((concoctionlist) => {
+    concCtrl.getConcoctions('strava', 'activity_logged', obj['ownerId']).then((concoctionlist) => {
+    console.log(concoctionlist.rows, 'concoctionlist.rows');
     let concoctions = concoctionlist.rows;
     let options = {
       url: `https://www.strava.com/api/v3/activities/${obj['object_id']}`,
