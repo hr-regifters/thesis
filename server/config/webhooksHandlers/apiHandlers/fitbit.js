@@ -51,7 +51,7 @@ module.exports = {
             console.log('err', err);
           } else {
             // look at each individual concoction
-            async.each((concoctions), (concoction, callback) => {
+            concoctions.forEach((concoction) => {
               let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
@@ -72,21 +72,11 @@ module.exports = {
                   fitbitReqObj.data = sheetData;
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
-                } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
-                  webhooksHandler[`${obj.actionapi}Action`][concoction.actionevent](stravaReqObj);
-                  callback();
-                } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
-                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
-                  callback();
-                } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
-                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
-                  callback();
                 } else {
-                  console.log('Following Concoction not fired: ', concoction.description);
                   callback();
                 }
               }
-            }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event:'); });
+            });
           }
         });
       }).catch((error) => {
