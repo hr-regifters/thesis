@@ -18,7 +18,6 @@ module.exports = {
     };
     concCtrl.getConcoctions('strava', 'activity_logged', req.body['ownerId']).then((concoctionList) => {
       let concoctions = concoctionList.rows.filter((concoction) => concoction.enable === true);
-      console.log('ENABLED CONCS', concoctions);
       let options = {
         url: `https://www.strava.com/api/v3/activities/${req.body['object_id']}`,
         method: 'GET',
@@ -33,33 +32,31 @@ module.exports = {
         if (err) {
           console.log('err', err);
         } else {
-          console.log('DATA FROM STRAVA', body, typeof body)
           concoctions = concoctions.filter((concoction) => {
             let activity = JSON.parse(concoction.triggerparams).param['strava_activity'].toLowerCase();
             return JSON.parse(body).type.toLowerCase() === activity;
           });
-          console.log('concoctions', concoctions);
+
           // look at each individual concoction
           async.each((concoctions), (concoction, callback) => {
             let stravaData = JSON.parse(body);
             stravaReqObj.actionParams = JSON.parse(concoction.actionparams);
             stravaReqObj.actionToken = concoction.actiontoken;
-            console.log('concoction', concoction);
-            console.log('strava data', stravaData);
+
             // check which action apis we're dealing with and what corresponding action
             if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
               let sheetData = {
-                name: data.name,
-                type: data.type,
-                distance: data.distance,
-                moving_time: data.moving_time,
-                elapsed_time: data.elapsed_time,
-                start_date_local: data.start_date_local,
-                total_elevation_gain: data.total_elevation_gain,
-                achievement_count: data.achievement_count,
-                average_speed: data.average_speed,
-                max_speed: data.max_speed,
-                calories: data.calories
+                name: stravaData.name,
+                type: stravaData.type,
+                distance: stravaData.distance,
+                moving_time: stravaData.moving_time,
+                elapsed_time: stravaData.elapsed_time,
+                start_date_local: stravaData.start_date_local,
+                total_elevation_gain: stravaData.total_elevation_gain,
+                achievement_count: stravaData.achievement_count,
+                average_speed: stravaData.average_speed,
+                max_speed: stravaData.max_speed,
+                calories: stravaData.calories
               };
               console.log('sheet data', sheetData);
               stravaReqObj.data = sheetData;
