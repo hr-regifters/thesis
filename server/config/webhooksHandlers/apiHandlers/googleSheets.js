@@ -49,7 +49,6 @@ module.exports = {
                 'rowCount': numProperties,
                 'columnCount': numProperties,
               },
-
             },
             'data': [
               {
@@ -76,7 +75,9 @@ module.exports = {
         },
         json: spreadsheet
       }
-      console.log(spreadsheet, typeof paramObj.data);
+      console.log(categories, 'categories');
+      console.log(statistics, 'statistics');
+      console.log(spreadsheet.sheets.data, typeof paramObj.data);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);
