@@ -23,6 +23,7 @@ module.exports = {
 
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
+    console.log('webhook received!');
     let fitbitReqObj = {
       actionParams: '',
       actionToken: ''
