@@ -23,7 +23,7 @@ module.exports = {
     
     // look at each webhook from fitbit
     async.each(req.body, (obj, callback) => {
-
+      console.log('inside aync', req.body);
       // check obj.collectionType and connect it with the corresponding triggerevent
       let alias;
       if (obj.collectionType === 'activities') {
@@ -44,7 +44,7 @@ module.exports = {
             Authorization: `Bearer ${concoctions[0].triggertoken}`
           }
         };
-
+        console.log('inside concoctions', concoctions);
         // query endpoint for update information
         request.get(options, (err, res, body) => {
           if (err) {
@@ -55,7 +55,7 @@ module.exports = {
               let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
-
+              console.log('looking at concoction', fitbitData);
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
@@ -70,6 +70,7 @@ module.exports = {
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
+                  console.log('inside googleSheets', sheetData);
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
