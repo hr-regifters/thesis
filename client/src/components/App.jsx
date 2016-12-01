@@ -106,23 +106,27 @@ export default class App extends React.Component {
   }
 
   saveConcoction() {
+    let concoctionList = this.state.actions.map((api) => {
+      let triggerEvent = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption].alias;
+      let actionEvent = servicesDetail[api.action].action.options[api.actionOption].alias;
+      let concoction = {
+        username: this.state.user,
+        triggerApi: this.state.trigger,
+        triggerEvent: triggerEvent,
+        triggerParams: this.state.triggerParams,
+        actionApi: api.action,
+        actionEvent: actionEvent,
+        actionParams: api.actionParams,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[this.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} through ${servicesDetail[api.action].name}`,
+      };
+      return concoction;
+    });
+    console.log(concoctionList);
     let context = this;
-    let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
-    let actionApi = this.state.actions[0].action;
-    let actionEvent = servicesDetail[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
     fetch(`${currUrl}/api/constructor/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        triggerApi: context.state.trigger,
-        triggerEvent: triggerEvent,
-        triggerParams: context.state.triggerParams,
-        username: context.state.user,
-        actionApi: actionApi,
-        actionEvent: actionEvent,
-        actionParams: context.state.actions[0].actionParams,
-        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} through ${servicesDetail[actionApi].name}`,
-      }),
+      body: JSON.stringify(concoctionList),
     })
     .then((res) => {
       if (res.status === 201) {
@@ -221,7 +225,6 @@ export default class App extends React.Component {
       }
     };
     triggerObj.alias = triggerOptions.alias;
-    console.log(triggerObj)
     this.setState({
       triggerParams: triggerObj
     });
