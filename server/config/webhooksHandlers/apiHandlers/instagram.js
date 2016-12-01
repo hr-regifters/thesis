@@ -74,7 +74,7 @@ module.exports = {
                     callback();
                   }
                 })
-                .catch((error) => { console.log('Error in file_created and evernote post_note action: ', error); });
+                .catch((error) => { console.log('Error in picture_uploaded and evernote create_note action: ', error); });
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
                 userCtrl.getUserData('slackId', obj.triggeruserid).then((user) => {
                   instaReqObj.username = user.username;
