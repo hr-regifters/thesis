@@ -12,7 +12,7 @@ module.exports = {
       let statistics = [];
       let i = 0;
       // for (let i = 0; i < paramObj.data.length; i++) {
-        // for (let prop in paramObj.data[i]) {
+        for (let prop in paramObj.data[i]) {
           let category = {
             'userEnteredValue': {}
           };
@@ -35,7 +35,7 @@ module.exports = {
             categories.push(category);
             statistics.push(statistic);
           }
-        // }
+        }
       // }
 
       let spreadsheet = {
