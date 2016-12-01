@@ -29,6 +29,7 @@ module.exports = {
       actionToken: ''
     };
     let obj = req.body;
+    console.log(obj, 'req.body')
     res.status(200).send();
     concCtrl.getConcoctions('strava', 'activity_logged', obj['ownerId']).then((concoctionlist) => {
       console.log(concoctionlist.rows, 'concoctionlist.rows');
@@ -38,7 +39,7 @@ module.exports = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${concoctions[0].triggertoken}`
+          Authorization: `Bearer ${'613a8c84b8b09b8c3c40dad260fc9332dc6da23e'}`
         }
       };
       // query endpoint for update information
