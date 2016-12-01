@@ -20,7 +20,7 @@ module.exports = {
       console.log(concoctionList.rows, 'concoctionList.rows');
       let concoctions = concoctionList.rows.filter((concoction) => concoction.enable === true);
       let options = {
-        url: `https://www.strava.com/api/v3/activities/${obj['object_id']}`,
+        url: `https://www.strava.com/api/v3/activities/${req.body['object_id']}`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
