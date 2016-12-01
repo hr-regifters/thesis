@@ -93,11 +93,11 @@ module.exports = {
     icon: 'https://5a5a57ff32a328601212-ee0df397c56b146e91fe14be42fa361d.ssl.cf1.rackcdn.com/icon/instagram_logos_app_icon/YyepHGHDvkl1wFkUHw8Y/Instagram-v051916_200.png',
     trigger: {
       options: [
-        { description: 'When you upload a picture ',
-          alias: 'picture_uploaded',
-          parameters: [
-          ],
-        },
+        { description: 'When you upload a picture ',		
+          alias: 'picture_uploaded',		
+          parameters: [		
+          ],		
+        },		
       ],
       supportedActions: ['twilio', 'slack', 'evernote', 'gmail'],
     },
@@ -144,14 +144,14 @@ module.exports = {
     icon: 'https://www.strava.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When you complete an activity ',
-          alias: 'activity_logged',
-          parameters: [
-            { description: 'Activity',
-              alias: 'strava_activity',
-            },
-          ],
-        },
+        { description: 'When you complete an activity ',		
+          alias: 'activity_logged',		
+          parameters: [		
+            { description: 'Activity',		
+              alias: 'strava_activity',		
+            },		
+          ],		
+        },		
       ],
       supportedActions: [],
     },
