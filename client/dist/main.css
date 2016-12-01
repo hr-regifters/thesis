@@ -1,33 +1,67 @@
+
 * {
-/*  padding: 0;
-  margin: 0;
-  margin-top: 20px;
-  margin-bottom: 50px;*/
   text-align: center;
 }
-h1, h3, h2, i {
+h1, h2{
   color: #fff;
-  font-family: 'Rubik', sans-serif;
-
+  font-family: "Muli", sans-serif;
 }
-h2, h3, p {
-  font-family: 'Rubik', sans-serif;
+i {
+  color: #11aaad;
+}
+h2 {
+  font-family: "Muli", sans-serif;
+  text-align: left;
+  margin-left: 22%;
+  color: #11aaad;
+}
+h2:hover {
+  color: #bbb;
+}
+h3 {
+  font-family: "Muli", sans-serif;
+  text-align: center;
+  color: #11aaad;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 2em;
+  margin-top: 50px
+}
+h4 {
+  font-family: "Muli", sans-serif;
+  text-align: center;
+  color: #11aaad;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 2em;
+  margin-top: 50px
+}
 
+h3:hover {
+  color: #fff;
+}
+
+p {
+  font-family: "Muli", sans-serif;
+  text-align: left;
+  margin-left: 10%;
+  margin-top: 10px;
+  color: #aebec1;
+  font-size: 85%;
+  line-height: 135%;
 }
 
 a {
-  color: #fff;
-  padding: 10px;
-  font-family: 'Rubik', sans-serif;
+  padding: 7px;
+  font-family: "Muli", sans-serif;
+  color: #11aaad;
+  font-size: 80%;
+  text-align: right;
 }
 a:hover {
   color: #fff;
   text-decoration: none;
   background-color: #294853;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 html {
   height: 100%;
@@ -36,19 +70,25 @@ html {
   margin-top: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
+  background-color: #121212;
 }
 body {
   height: 100%;
   width: 100%;
   line-height: 1;
+  background-color: #121212;
 }
 hr {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 nav {
-  background-color: #0E6BA8 !important;
-  height: 8% !important;
+  background-color: rgba(0,0,0,0.5) !important;
+  height: 100%;
+  width: 20%;
+  top: 0px;
+  left: 0px;
+  text-align: left
 }
 #app {
   height: 100%;
@@ -57,16 +97,15 @@ nav {
  #Verification{
   height: 100%;
   width: 100%;
-  /*background: linear-gradient(90deg, #0fb8ad, #1fc8db, #2cb5e8);*/
-  background-image: url('background3.jpg');
+  background-image: url('ripples.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-
 }
 #HomeView {
   height: 100%;
   width: 100%;
   padding-top: 50px;
+  background-color: #1f1f1f;
 }
 
 /* LOGIN, */
@@ -80,10 +119,6 @@ nav {
   display: inline-block;
   animation-duration: 1.5s;
   animation-delay: .4s;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
 #login form {
@@ -93,19 +128,15 @@ nav {
 }
 
 #login h2 {
- /* background: linear-gradient(90deg, #39BBC0,  #C04F47);*/
-  background-color: rgba(57,187,192,0.7);
-  padding: 3%;
+  background-color: #3C3C3C;
+  padding: 5%;
   margin-top: 0;
-  color: #fff;
+  color: #11aaad;
   margin-bottom: 40px;
   margin-right: 0px;
   margin-left: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-
+  padding-left: 10%;
+  /*padding-right: 0px;*/
 }
 
 #login input {
@@ -118,19 +149,11 @@ nav {
 }
 
 #login button {
-  background-color: #6a6aad;
-  color: white;
-  border: none;
-  width: 21%;
   text-transform: uppercase;
   text-align: center;
   margin-top: 20px;
   font-size: 1.2em;
   padding: 10px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
 /* REGISTER */
@@ -144,10 +167,6 @@ nav {
   animation-duration: 1.5s;
   animation-delay: .4s;
   box-shadow: 0px 3px 15px #999;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
 #register form {
@@ -156,14 +175,13 @@ nav {
 }
 
 #register h2 {
-  background-color: rgba(192,79,71,0.7);
-  padding: 3%;
-  margin-top: 0;
-  color: #fff;
+  background-color: #11aaad;
+  padding: 5%;
+  margin: 0px;
+  color: #3C3C3C;
   margin-bottom: 40px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-
+  width: 100%;
+  padding-left: 10%;
 }
 
 #register input {
@@ -177,22 +195,12 @@ nav {
 
 }
 input:focus {
-    outline:none;
 }
 #register button {
-  background-color: #6a6aad;
-  color: white;
-  border: none;
-  width: 21%;
   text-transform: uppercase;
-  text-align: center;
   margin-top: 20px;
   font-size: 1.2em;
   padding: 10px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 #buttonGroup {
   margin-bottom: 10px;
@@ -201,14 +209,17 @@ input:focus {
   padding: 3%;
   padding-top: 8%;
   margin-top: 0px;
-  color: #fff;
+  color: #ccc;
   margin-bottom: 40px;
   margin-right: 0px;
   margin-left: 0px;
   padding-left: 0px;
   padding-right: 0px;
   font-size: 70px;
-  font-family: 'Marck Script', cursive;
+  font-weight: 900;
+  background-color: rgba(50, 50, 50, 0.35);
+  box-shadow: 0px 3px 15px #666;
+
 }
 .concoction {
   z-index: 100;
@@ -216,22 +227,22 @@ input:focus {
   height: 100%;
   display: block;
   margin: 0 auto;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  margin-top: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   animation-duration: 1s;
+  box-shadow: 0px 3px 15px #666;
 }
 #concoctions {
-  padding-top: 50px;
-  width: 70%;
-  margin: 0 auto;
+  padding-top: 20px;
+  width: 80%;
+  margin-left: 20%;
 
 }
 .bottomBox {
   margin: 0 auto;
   padding: 10px;
-  background-color: #143642;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  background-color: #171717;
   display: block;
   height: 80%;
   width: 100%;
@@ -241,12 +252,10 @@ input:focus {
 .mainBox {
   margin: 0 auto;
   padding: 10px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
   display: block;
   height: 80%;
   width: 100%;
-  background-color: #0F8B8D;
+  background-color: #111;
   color: #fff;
   font-size: 30px;
 
@@ -260,20 +269,21 @@ input:focus {
   display: none;
 }
 #newConcoctionButton {
-  font-size: 35px;
+  font-size: 1em;
   color: #fff;
-  background-color: #FF6978;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  background-color: #3C3C3C;
   padding-bottom: 10px;
   padding-top: 3px;
   margin: 0 auto;
+  margin-top: 40px;
   width: 45%;
+  text-align: center !important;
+  box-shadow: 0px 3px 15px #000;
 }
-#newConcoctionButton:hover {
-  background-color: #A3434D;
+.newConcoctionTxt {
+  text-align: center;
+  margin-top: 17px;
+  margin-bottom: 17;
 }
 .pull-right {
   margin-right: 0 !important;
@@ -296,8 +306,13 @@ input:focus {
 
 .icon {
   padding: 10px;
+  height: 70px;
+  width: 70px;
 }
-
+.col-xs-4 {
+  padding-left: 7px;
+  padding-right: 7px;
+}
 /*================================================== Styling for AddConcoction Nav =============================================*/
 .inline {
   display: inline-block;
@@ -308,7 +323,12 @@ input:focus {
 }
 #concoctionMakerCol {
   height: 90%;
+  width: 80%;
   padding-top: 3%;
+  margin-left: 10%;
+}
+#center {
+  margin-left: 20%;
 }
 #concoctionMakerBox {
   background-color: #0F8B8D;
@@ -318,52 +338,104 @@ input:focus {
 #addConcBox {
   background-color: #11aaad;
   padding-bottom: 20px;
+  width: 100%;
+  box-shadow: 0px 3px 15px #000;
 }
 
 input {
-  border-radius: 20px;
-  color: black;
+  color: none;
+  background-color: #3C3C3C;
+  border: none;
+  border-bottom: solid;
+  border-color: #555;
 }
 .saveBttn {
   border-style: solid;
-  border-color: #fff;
-  border-radius: 20px;
+  border-color: #11aaad;
+  color: #11aaad;
   border-width: 4px;
   width: 200px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto; 
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px; 
+  background-color: #333;
+  text-align: center;
+}
+.saveBttn:hover {
+  border-color: #bbb;
+  color: #bbb;
+}
+.inline {
+  margin-left: 0px;
+  margin-right: 0px; 
 }
 .serviceBttn {
   width: 27%;
   display: inline-block;
 }
 .workWindow2 {
-  background-color: #0d7f81;
+  background-color: #3C3C3C;
   margin: 0px;
   padding: 10px;
+  border-bottom: solid;
+  border-bottom-color: #11aaad;
+  border-bottom-width: 1px;
 }
 .workWindow1 {
-  background-color: #0c7476;
+  background-color: #333;
   margin: 0px;
   padding: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.instructions {
+  text-align: left;
+  font-size: 170%;
+  color: #aebec1;
+  padding: 20px;
+  padding-right: 100px;
+  padding-left: 60px;
+  color: white;
+  background-color: #333;
+  width: 86%;
+  left: 20%;
+  top: 0px;
+  position: fixed;
+  z-index: 100;
+  font-family: "Muli", sans-serif;
+  line-height: 160%;
+  box-shadow: 0px 3px 15px #000;
+}
+.round {
+  background-color: #3C3C3C;
+  border-radius: 40px;
+  margin-left: -13px;
+  border-width: 1px;
+  border-color: #333;
+  border-style: solid;
+}
+.paramTxt {
+  color: #aebec1;
+}
+.head {
+  background-color: rgba(0,0,0,0.9);
+  padding: 20px;
+  margin: 0px;
+}
+.bod{
+ margin: 20px;
+ color: #aebec1;
+ text-align: left;
+ margin-left: 30px;
+}
+.message {
+  color: white !important;
+  padding: 0px;
+  padding-bottom: 10px;
+  background-color: rgba(100,100,100,0.2);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 3px 15px #666;
+}
 
 
 

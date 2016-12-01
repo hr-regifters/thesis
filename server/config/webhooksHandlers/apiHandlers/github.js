@@ -8,7 +8,7 @@ const request = require('request');
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    console.log('GITHUB TRIGGER SHOT')
+    console.log('GITHUB TRIGGER SHOT');
     // var requestObj = {
     //   uri: `https://api.github.com/repos/hr-regifters/thesis/hooks`,
     //   method: 'POST',

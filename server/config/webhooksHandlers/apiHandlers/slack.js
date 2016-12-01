@@ -98,6 +98,11 @@ module.exports = {
                 slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                 callback();
+              } else if (obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
+                slackReqObj.actionToken = obj.actiontoken;
+                slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                callback();
               }
             }
           } else {
@@ -117,8 +122,15 @@ module.exports = {
       const token = process.env.slackAppToken || require('./../../../../env.js').slackAppToken; // replace process.env.slackAppToken by user.slackToken
       let channel = encodeURIComponent(paramObj.actionParams.channelName);
       let message = encodeURIComponent(paramObj.actionParams.slack_text);
-      request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`);
-      console.log('slack message posted to channel: ' + paramObj.actionParams.channelName + ' from user: ' + paramObj.username);// + user.username);
+      request(`https://slack.com/api/chat.postMessage?token=${token}&channel=${channel}&text=${message}&as_user=true`,
+        (err, res, body) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('slack message posted to channel: ' + paramObj.actionParams.channelName + ' from user: ' + paramObj.username);
+          }
+        }
+      );
     },
   },
 };

@@ -1,9 +1,13 @@
 "use strict"
 const express = require('express');
 const passport = require('passport');
-const utility = require('../../db/controllers/userController');
+const userUtility = require('../../db/controllers/userController');
+const concoctionUtility = require('../../db/controllers/concoctionController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
+const request = require('request');
+const STRAVA_ID = process.env.STRAVA_ID;
+const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -18,8 +22,8 @@ router.get('/slack/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'slackToken', slackData.account[0], slackData.account[1]);
-
+    userUtility.addTokenAndId(username, 'slackToken', slackData.account[0], 'slack', slackData.account[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'slack', slackData.account[0]);
     res.redirect('/');
   }
 );
@@ -37,8 +41,8 @@ router.get('/evernote/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
-
+    userUtility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'evernote', evernoteData.user);
     res.redirect('/');
   }
 );
@@ -56,12 +60,49 @@ router.get('/github/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'githubToken', githubData.user);
+    userUtility.addTokenAndId(username, 'githubToken', githubData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'github', githubData.user);
     res.redirect('/');
   }
 );
 
-router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','heartrate','location','profile'] }));
+// router.get('/strava', checkLogin, passport.authenticate('strava'));
+
+// router.get('/strava/callback', 
+//   passport.authenticate('strava', { failureRedirect: '/'}),
+//   (stravaData, res) => {
+//     const allSessions = stravaData.sessionStore.sessions;
+//     let username = '';
+//     for (let session in allSessions) {
+//       session = JSON.parse(allSessions[session]);
+//       if (session.hasOwnProperty('user')) {
+//         username = session['user'];
+//       }
+//     }
+//     userUtility.addTokenAndId(username, 'stravaToken', stravaData.user[0], 'strava', stravaData.user[1]);
+//     concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
+//     res.redirect('/');
+//   }
+// );
+router.get('/strava', checkLogin, passport.authenticate('strava'));
+
+router.get('/strava/callback', 
+  passport.authenticate('strava', { failureRedirect: '/'}),
+  (stravaData, res) => {
+    const allSessions = stravaData.sessionStore.sessions;
+    let username = '';
+    for (let session in allSessions) {
+      session = JSON.parse(allSessions[session]);
+      if (session.hasOwnProperty('user')) {
+        username = session['user'];
+      }
+    }
+    console.log(stravaData.user, 'stravaData.user')
+    userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
+    res.redirect('/');
+  });
+
+router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 
 router.get('/fitbit/callback', 
   passport.authenticate('fitbit', { failureRedirect: '/'}),
@@ -74,7 +115,8 @@ router.get('/fitbit/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'fitbitToken', fitbitData.user);
+    userUtility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'fitbit', fitbitData.user[0]);
     res.redirect('/');
   }
 );
@@ -85,7 +127,8 @@ router.get('/google', checkLogin, passport.authenticate('google', {
           'https://mail.google.com',
           'https://www.googleapis.com/auth/gmail.compose',
           'https://www.googleapis.com/auth/gmail.modify',
-          'https://www.googleapis.com/auth/gmail.send']
+          'https://www.googleapis.com/auth/gmail.send',
+          'https://www.googleapis.com/auth/spreadsheets']
 }));
 
 router.get('/google/callback',
@@ -99,7 +142,9 @@ router.get('/google/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'googleToken', googleData.user);
+    userUtility.addTokenAndId(username, 'googleToken', googleData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'googleSheets', googleData.user);
+    concoctionUtility.updateConcoctionsToken(username, 'googleMail', googleData.user);
     res.redirect('/');
   }
 );
@@ -117,7 +162,8 @@ router.get('/instagram/callback',
         username = session['user'];
       }
     }
-    utility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
+    userUtility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user[0]);
     res.redirect('/');
   }
 );

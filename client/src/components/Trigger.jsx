@@ -4,9 +4,11 @@ import servicesDetail from '../servicesDetailJSON.js';
 
 const Trigger = (props) => {
   if (props.state.trigger === '') {
+    // sessionStorage.setItem('stateHistory', '[]');
     return (
       <div className='workWindow1'>
-        <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
+        <div onClick={ () => {props.funcs.modifyTriggerReveal();
+                              props.funcs.modifyInstructions(0)}}>
         <div className="inline">
         <h1>Trigger   <i className="fa fa-caret-down"></i></h1>
         </div>
@@ -18,7 +20,8 @@ const Trigger = (props) => {
                 <h3 key={service} className='serviceBttn' >
                   {
                     props.state.connectedServices[service] ?
-                      <a onClick={ () => {props.funcs.modifyTrigger(service)}}>{servicesDetail[service].name}</a>
+                      <a onClick={ () => {props.funcs.modifyTrigger(service);
+                      props.funcs.modifyInstructions(1)}}>{servicesDetail[service].name}</a>
                     :
                     service.slice(0, 6) === 'google' ?
                       <a href={`${currUrl}/api/oauth/google`}>{servicesDetail[service].name}</a>
@@ -37,13 +40,14 @@ const Trigger = (props) => {
       <div className='workWindow1'>
         <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
           <div className="inline">
-            <h1><i className="fa fa-reply" onClick={ () => {props.funcs.modifyTrigger('')}}></i>  <img className='icon' src={servicesDetail[props.state.trigger].icon}></img> Trigger <i className="fa fa-caret-down"></i></h1>   
+            <h1> <img className='icon' src={servicesDetail[props.state.trigger].icon}></img> Trigger <i className="fa fa-caret-down"></i></h1>   
           </div>
         </div>
         <div className={props.state.triggerServicesReveal}>
           {servicesDetail[props.state.trigger].trigger.options.map((option, index) => {
             return (
-              <div key={index} onClick={ () => {props.funcs.modifyTriggerOption(index)}}>
+              <div key={index} onClick={ () => {props.funcs.modifyTriggerOption(index);
+                props.funcs.modifyInstructions(2)}}>
                 <h2><i className="fa fa-square-o"></i> {option.description}</h2>
               </div>
             );
@@ -59,10 +63,11 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyTriggerOption('')}} className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
           </div>
           <div>
-            <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none')}} className='saveBttn'>Save Trigger</h2>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none');
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
           </div>
         </div>
       </div>
@@ -75,17 +80,18 @@ const Trigger = (props) => {
         </div>
         <div className={props.state.triggerServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyTriggerOption('')}} className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
           </div>
             {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map((param) => {
               return (
                 <div key={param.alias}>
-                  <h2>{param.description}: <input id='param' type='text' className={param.alias}></input></h2>
+                  <h2 className='paramTxt'>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
                 </div>
               )
             })}
           <div>
-            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementById('param').value, document.getElementById('param').className)}} className='saveBttn'>Save Trigger</h2>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementsByClassName('param'));
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
           </div>
         </div>
       </div>
