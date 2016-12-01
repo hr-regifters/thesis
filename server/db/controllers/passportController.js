@@ -36,7 +36,7 @@ module.exports = (app) => {
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
   passport.use(Github.Strategy);
-  passport.use(Fitbit.Strategy);
+  // passport.use(Fitbit.Strategy);
   passport.use(Google.Strategy);
   passport.use(Instagram.Strategy);
   passport.use(Strava.Strategy);
