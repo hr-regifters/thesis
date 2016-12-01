@@ -58,7 +58,6 @@ module.exports = {
                 max_speed: stravaData.max_speed,
                 calories: stravaData.calories
               };
-              console.log('sheet data', sheetData);
               stravaReqObj.data = [sheetData];
               webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
               callback();

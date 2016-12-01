@@ -12,7 +12,7 @@ const Action = (props) => {
         </div>
         <div className={props.state.actionServicesReveal}>
           {Object.keys(servicesDetail).map((service) => {
-            if (servicesDetail[service].action.options[0] !== 'none') {
+            if (servicesDetail[service].action.options[0] !== 'none' && servicesDetail[props.trigger].trigger.supportedActions.includes(service)) {
               return (
                 <h3 className='serviceBttn' key={service}>
                   {

@@ -82,6 +82,8 @@ module.exports = {
         },
         json: spreadsheet
       }
+      console.log('categories', categories);
+      console.log('statistics', statistics);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);

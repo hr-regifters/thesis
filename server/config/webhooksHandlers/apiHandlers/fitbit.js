@@ -46,13 +46,12 @@ module.exports = {
         };
 
         // query endpoint for update information
-        request.get(options, (err, res, body) => {
+        request(options, (err, res, body) => {
           if (err) {
             console.log('err', err);
           } else {
             // look at each individual concoction
             async.each((concoctions), (concoction, callback) => {
-            // concoctions.forEach((concoction) => {
               let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;

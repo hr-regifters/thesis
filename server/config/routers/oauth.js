@@ -9,7 +9,7 @@ const router = new express.Router();
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
 router.get('/slack/callback',
-  passport.authorize('slack', { failureRedirect: '/' }),
+  passport.authorize('slack', { failureRedirect: '/app' }),
   (slackData, res) => {
     const allSessions = slackData.sessionStore.sessions;
     let username = '';
@@ -21,14 +21,14 @@ router.get('/slack/callback',
     }
     userUtility.addTokenAndId(username, 'slackToken', slackData.account[0], 'slack', slackData.account[1]);
     concoctionUtility.updateConcoctionsToken(username, 'slack', slackData.account[0]);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
 router.get('/evernote', checkLogin, passport.authenticate('evernote'));
 
 router.get('/evernote/callback',
-  passport.authenticate('evernote', { failureRedirect: '/' }),
+  passport.authenticate('evernote', { failureRedirect: '/app' }),
   (evernoteData, res) => {
     const allSessions = evernoteData.sessionStore.sessions;
     let username = '';
@@ -40,14 +40,14 @@ router.get('/evernote/callback',
     }
     userUtility.addTokenAndId(username, 'evernoteToken', evernoteData.user);
     concoctionUtility.updateConcoctionsToken(username, 'evernote', evernoteData.user);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
 router.get('/github', checkLogin, passport.authenticate('github'));
 
 router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
+  passport.authenticate('github', { failureRedirect: '/app' }),
   (githubData, res) => {
     const allSessions = githubData.sessionStore.sessions;
     let username = '';
@@ -59,14 +59,14 @@ router.get('/github/callback',
     }
     userUtility.addTokenAndId(username, 'githubToken', githubData.user);
     concoctionUtility.updateConcoctionsToken(username, 'github', githubData.user);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
 router.get('/strava', checkLogin, passport.authenticate('strava'));
 
 router.get('/strava/callback', 
-  passport.authenticate('strava', { failureRedirect: '/'}),
+  passport.authenticate('strava', { failureRedirect: '/app'}),
   (stravaData, res) => {
     const allSessions = stravaData.sessionStore.sessions;
     let username = '';
@@ -78,13 +78,13 @@ router.get('/strava/callback',
     }
     console.log(stravaData.user, 'stravaData.user')
     userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
-    res.redirect('/');
+    res.redirect('/app');
   });
 
 router.get('/fitbit', checkLogin, passport.authenticate('fitbit', { scope: ['activity','nutrition', 'profile', 'settings', 'sleep', 'weight', 'heartrate','location'] }));
 
 router.get('/fitbit/callback', 
-  passport.authenticate('fitbit', { failureRedirect: '/'}),
+  passport.authenticate('fitbit', { failureRedirect: '/app'}),
   (fitbitData, res) => {
     const allSessions = fitbitData.sessionStore.sessions;
     let username = '';
@@ -96,7 +96,7 @@ router.get('/fitbit/callback',
     }
     userUtility.addTokenAndId(username, 'fitbitToken', fitbitData.user[0], 'fitbit', fitbitData.user[1]);
     concoctionUtility.updateConcoctionsToken(username, 'fitbit', fitbitData.user[0]);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
@@ -111,7 +111,7 @@ router.get('/google', checkLogin, passport.authenticate('google', {
 }));
 
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/app' }),
   (googleData, res) => {
     const allSessions = googleData.sessionStore.sessions;
     let username = '';
@@ -124,14 +124,14 @@ router.get('/google/callback',
     userUtility.addTokenAndId(username, 'googleToken', googleData.user);
     concoctionUtility.updateConcoctionsToken(username, 'googleSheets', googleData.user);
     concoctionUtility.updateConcoctionsToken(username, 'googleMail', googleData.user);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
 router.get('/instagram', checkLogin, passport.authenticate('instagram'));
 
 router.get('/instagram/callback',
-  passport.authenticate('instagram', { failureRedirect: '/' }),
+  passport.authenticate('instagram', { failureRedirect: '/app' }),
   (instagramData, res) => {
     const allSessions = instagramData.sessionStore.sessions;
     let username = '';
@@ -143,7 +143,7 @@ router.get('/instagram/callback',
     }
     userUtility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
     concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user[0]);
-    res.redirect('/');
+    res.redirect('/app');
   }
 );
 
