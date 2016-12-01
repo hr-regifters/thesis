@@ -21,6 +21,7 @@ module.exports = {
       actionParams: '',
       actionToken: ''
     };
+    console.log('inside trigger')
     // look at each webhook from fitbit
     async.each(req.body, (obj, callback) => {
 
@@ -29,11 +30,11 @@ module.exports = {
       if (obj.collectionType === 'activities') {
         alias = 'activity_logged';
       }
-
+      console.log('inside async', alias)
       // get all concoctions that match fitbit id and webhook event
       concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {
         let concoctions = concoctionList.rows;
-
+        console.log('inside db query', concoctions)
         // filter concoctions based on whether they are enabled or not
         concoctions = concoctions.filter((concoction) => concoction.enable === true);
         let options = {
@@ -44,7 +45,7 @@ module.exports = {
             Authorization: `Bearer ${concoctions[0].triggertoken}`
           }
         };
-
+        console.log('about to query Fibit', options);
         // query endpoint for update information
         request.get(options, (err, res, body) => {
           if (err) {
@@ -55,6 +56,7 @@ module.exports = {
               let fitbitData = body;
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
+              console.log('received fitbit data', body, typeof body)
 
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
@@ -63,7 +65,7 @@ module.exports = {
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-                // console.log('filtered activity data', activityData);
+                console.log('filtered activity data', activity);
 
                 // keep track of activity id? since we get all activity events everytime
 
@@ -71,7 +73,7 @@ module.exports = {
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = activityData;
                   fitbitReqObj.data = sheetData;
-                  // console.log('fitbit obj', fitbitReqObj);
+                  console.log('fitbit obj', fitbitReqObj);
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
