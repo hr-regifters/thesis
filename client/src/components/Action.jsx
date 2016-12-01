@@ -36,7 +36,7 @@ const Action = (props) => {
     return (
       <div className='workWindow2'>
         <div onClick={ () => {props.funcs.modifyActionReveal(props.actionsIndex)}}>
-          <h1><i className="fa fa-reply" onClick={ () => {props.funcs.modifyAction('', props.actionsIndex)}}></i>  <img className='icon' src={servicesDetail[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
+          <h1><img className='icon' src={servicesDetail[props.state.action].icon}></img> Action <i className="fa fa-caret-down"></i></h1>
         </div>
         <div className={props.state.actionServicesReveal}>
           {servicesDetail[props.state.action].action.options.map((option, index) => {
@@ -58,7 +58,7 @@ const Action = (props) => {
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail[props.state.action].action.options[props.state.actionOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           <div>
             <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex);
@@ -75,7 +75,7 @@ const Action = (props) => {
         </div>
         <div className={props.state.actionServicesReveal}>
           <div>
-            <h2><i onClick={ () => {props.funcs.modifyActionOption('', props.actionsIndex)}} className="fa fa-window-close"></i> {servicesDetail[props.state.action].action.options[props.state.actionOption].description}</h2>
+            <h2><i className="fa fa-window-close"></i> {servicesDetail[props.state.action].action.options[props.state.actionOption].description}</h2>
           </div>
           {servicesDetail[props.state.action].action.options[props.state.actionOption].parameters.map((param) => {
             return (
