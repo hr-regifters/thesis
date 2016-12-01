@@ -143,8 +143,8 @@ router.get('/instagram/callback',
         username = session['user'];
       }
     }
-    userUtility.addTokenAndId(username, 'instagramToken', instagramData.user);
-    concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user);
+    userUtility.addTokenAndId(username, 'instagramToken', instagramData.user[0], 'instagram', instagramData.user[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'instagram', instagramData.user[0]);
     res.redirect('/');
   }
 );

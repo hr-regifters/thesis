@@ -5,6 +5,7 @@ const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = require('../config.js').pool;
 const request = require('request');
+const async = require('async');
 
 exports.queryConcoctions = (req, res) => {
   pool.query({
@@ -97,6 +98,14 @@ const getTriggerIdandToken = (concObj, username, res) => {
         return concObj;
       }
     });
+  } else if (concObj['triggerapi'] === 'strava') {
+    return userController.getUserData('username', username).then((user) => {
+      if (user.stravaid) {
+        concObj['triggeruserid'] = user.stravaid;
+        concObj['triggertoken'] = user.stravatoken;
+        return concObj;
+      }
+    });
   } 
   else {
     return concObj;
@@ -142,30 +151,32 @@ const writeConcoction = (concObj, res) => {
 }
 
 exports.createConcoction = (req, res) => {
-  const username = req.body.username;
-  let concObj = {
-    userid: '',
-    triggerapi: req.body.triggerApi,
-    triggerevent: req.body.triggerEvent,
-    triggerparams: req.body.triggerParams || {},
-    triggeruserid: '',
-    triggertoken: '',
-    actionapi: req.body.actionApi,
-    actionevent: req.body.actionEvent,
-    actionuserid: '',
-    actiontoken: '',
-    actionparams: req.body.actionParams || {},
-    enable: req.body.enable || true, //this is a boolean 
-    description: req.body.description 
-  };
-  //get action id, token, and userId
-  getActionIdandToken(concObj, username, res)
-  .then((concObj) => getTriggerIdandToken(concObj, username, res))
-  .then((concObj) => {
-    writeConcoction(concObj, res);
-  }).catch((error) => {
-    res.status(405).send(error);
-  });
+  async.each(req.body, (concoction, callback) => {
+    const username = concoction.username;
+    let concObj = {
+      userid: '',
+      triggerapi: concoction.triggerApi,
+      triggerevent: concoction.triggerEvent,
+      triggerparams: concoction.triggerParams || {},
+      triggeruserid: '',
+      triggertoken: '',
+      actionapi: concoction.actionApi,
+      actionevent: concoction.actionEvent,
+      actionuserid: '',
+      actiontoken: '',
+      actionparams: concoction.actionParams || {},
+      enable: concoction.enable || true,
+      description: concoction.description
+    };
+    // get action id, token, and userId
+    getActionIdandToken(concObj, username, res)
+    .then((concObj) => getTriggerIdandToken(concObj, username, res))
+    .then((concObj) => {
+      writeConcoction(concObj, res);
+    }).catch((error) => {
+      res.status(405).send(error);
+    });
+  }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
 exports.getConcoctions = (api, event, triggeruserid) => {

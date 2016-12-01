@@ -17,7 +17,7 @@ module.exports = {
     // use async.parallel webhooksHandler[api + Action][action](parameters) to shoot the actions
   },
   actions: {
-    post_note: (paramObj) => {
+    create_note: (paramObj) => {
       const saveNote = (note, noteStore) => {
         noteStore.createNote(note, (err, note) => {
           if (err) {

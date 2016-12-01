@@ -52,14 +52,14 @@ module.exports = {
           } else {
             // look at each individual concoction
             concoctions.forEach((concoction) => {
-              let fitbitData = JSON.parse(res.body);
+              let fitbitData = body;
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
 
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
-                let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
+                let activity = JSON.parse(concoction.triggerparams).param['fitbit_activity'].toLowerCase();
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);

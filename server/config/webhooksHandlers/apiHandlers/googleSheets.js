@@ -7,52 +7,48 @@ module.exports = {
   },
   actions: {
     create_sheet: (paramObj) => {
-      let data = [
-        {
-          "startRow": 0,
-          "startColumn": 0,
-          "rowData": [
+      let numProperties = Object.keys(paramObj.data).length;
+      let categories = [];
+      let statistics = [];
+      for (const prop in paramObj.data) {
+        let category, statistic = {
+          'values': [
             {
-              "values": [
-                {
-                  "userEnteredValue": {
-                    "stringValue": 'string value',
-                  },
-                }
-              ],
+              'userEnteredValue': {},
             }
-          ],
-        },
-        {
-          "startRow": 1,
-          "startColumn": 0,
-          "rowData": [
-            {
-              "values": [
-                {
-                  "userEnteredValue": {
-                    "numberValue": 123,
-                  },
-                }
-              ],
-            }
-          ],
-        }
-      ];
+          ]
+        };
+        categories.values.userEnteredValue['stringValue'] = prop;
+        categories.push(category);
+        let statValue = typeof paramObj.data[prop] === 'number' ? 'numberValue' : 'stringValue';
+        statistic.values.userEnteredValue.statValue = paramObj.data[prop];
+        statistics.push(statistic);
+      };
       let spreadsheet = {
-        "properties": {
-          "title": paramObj.actionParams.sheet_title,
+        'properties': {
+          'title': paramObj.actionParams.sheet_title,
         },
-        "sheets": [
+        'sheets': [
           {
-            "properties": {
-              "gridProperties": {
-                "rowCount": 2,
-                "columnCount": 2,
+            'properties': {
+              'gridProperties': {
+                'rowCount': numProperties,
+                'columnCount': numProperties,
               },
 
             },
-            "data": data
+            'data': [
+              {
+                'startRow': 0,
+                'startColumn': 0,
+                'rowData': categories,
+              },
+              {
+                'startRow': 0,
+                'startColumn': 1,
+                'rowData': statistics,
+              }
+            ]
           }
         ],
       }

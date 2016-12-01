@@ -11,6 +11,7 @@ module.exports.Strategy = new InstagramStrategy({
   callbackURL: `${currUrl}/api/oauth/instagram/callback`
 }, (accessToken, refreshToken, profile, done) => {
   process.nextTick(() => {
-    return done(null, accessToken);
+    const instaData = [accessToken, profile.id];
+    return done(null, instaData);
   });
 });

@@ -4,12 +4,12 @@ module.exports = {
     icon: 'https://www.slack.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When a file is uploaded in Slack ',
+        { description: 'When a file is uploaded ',
           alias: 'file_created',
           parameters: [
           ],
         },
-        { description: 'When a message is pinned in Slack ',
+        { description: 'When a message is pinned ',
           alias: 'pin_added',
           parameters: [
           ],
@@ -40,8 +40,8 @@ module.exports = {
     },
     action: {
       options: [
-        { description: 'Create a new Note in a specific Notebook',
-          alias: 'post_note',
+        { description: 'Add a note to one of your notebooks',
+          alias: 'create_note',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
@@ -78,11 +78,11 @@ module.exports = {
     icon: '',
     trigger: {
       options: [
-        { description: 'When you complete a Fitbit activity ',
+        { description: 'When you complete an activity ',
           alias: 'activity_logged',
           parameters: [
             { description: 'Activity',
-              alias: 'activity',
+              alias: 'fitbit_activity',
             },
           ],
         },
@@ -96,7 +96,16 @@ module.exports = {
     name: 'Strava',
     icon: '',
     trigger: {
-      options: [],
+      options: [
+        { description: 'When you complete an activity ',
+          alias: 'activity_logged',
+          parameters: [
+            { description: 'Activity',
+              alias: 'strava_activity',
+            },
+          ],
+        },
+      ],
     },
     action: {
       options: ['none'],
@@ -106,10 +115,16 @@ module.exports = {
     name: 'Instagram',
     icon: '',
     trigger: {
-      options: [],
+      options: [
+        { description: 'When you upload a picture ',
+          alias: 'picture_uploaded',
+          parameters: [
+          ],
+        },
+      ],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   googleMail: {

@@ -33,7 +33,7 @@ module.exports = {
               console.log(`PLEASE FIX! actiionApi or actionFunction undefined for slackUserId: ${obj.triggeruserid}`);
               callback();
             } else {
-              if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
+              if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
                   slackReqObj.title = file.title;
@@ -48,8 +48,8 @@ module.exports = {
                   slackReqObj.actionToken = obj.actiontoken;
                   webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                   callback();
-                }).catch((error) => { console.log('Error in file_created and evernote post_note action: ', error); });
-              } else if (req.body.event.type === 'pin_added' && obj.actionapi === 'evernote' && obj.actionevent === 'post_note') {
+                }).catch((error) => { console.log('Error in file_created and evernote create_note action: ', error); });
+              } else if (req.body.event.type === 'pin_added' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
                 if (req.body.event.item.type === 'file') {
                   slackCtrl.getFile(req.body.event.item.file_id)
                   .then((file) => {
@@ -65,7 +65,7 @@ module.exports = {
                     slackReqObj.actionToken = obj.actiontoken;
                     webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
                     callback();
-                  }).catch((error) => { console.log('Error in pin_added file and evernote post_note action: ', error); });
+                  }).catch((error) => { console.log('Error in pin_added file and evernote create_note action: ', error); });
                 } else if (req.body.event.item.type === 'message') {
                   const msg = req.body.event.item.message;
                   slackReqObj.title = msg.text.split(' ').slice(0,3).join(' ') + '...';
