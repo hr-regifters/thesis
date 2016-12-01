@@ -6,10 +6,8 @@ const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
 const request = require('request');
 const async = require('async');
-=======
 const STRAVA_ID = process.env.STRAVA_ID;
 const STRAVA_SECRET = process.env.STRAVA_SECRET;
->>>>>>> ba775ca02efc949412009a92318395c2697c7308
 
 exports.queryConcoctions = (req, res) => {
   pool.query({

@@ -1,8 +1,6 @@
 "use strict"
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
-const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
 const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../../env.js').FITBIT_VERIFICATION;
 
