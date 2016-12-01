@@ -11,17 +11,25 @@ module.exports = {
       let categories = [];
       let statistics = [];
       for (const prop in paramObj.data) {
-        let category, statistic = {
+        let category = {
           'values': [
             {
               'userEnteredValue': {},
             }
           ]
         };
-        
+
+        let statistic = {
+          'values': [
+            {
+              'userEnteredValue': {},
+            }
+          ]
+        };
+
         let categoryValObj = {};
         categoryValObj['stringValue'] = prop;
-        categories.values.userEnteredValue = categoryValObj;
+        category.values.userEnteredValue = categoryValObj;
         categories.push(category);
 
         let statType = typeof paramObj.data[prop] === 'number' ? 'numberValue' : 'stringValue';
