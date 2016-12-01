@@ -38,7 +38,7 @@ module.exports = {
             return body.type === activity;
           });
           // look at each individual concoction
-          concoctions.forEach((concoction) => {
+          async.each((concoctions), (concoction, callback) => {
             let stravaData = JSON.parse(body);
             stravaReqObj.actionParams = JSON.parse(concoction.actionparams);
             stravaReqObj.actionToken = concoction.actiontoken;
@@ -60,8 +60,21 @@ module.exports = {
               };
               stravaReqObj.data = sheetData;
               webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
+              webhooksHandler[`${obj.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else {
+              console.log('Following Concoction not fired: ', concoction.description);
+              callback();
             }
-          });
+          }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Strava Event:'); });
         }
       });
     });
