@@ -36,7 +36,7 @@ module.exports = {
           console.log('DATA FROM STRAVA', body, typeof body)
           concoctions = concoctions.filter((concoction) => {
             let activity = JSON.parse(concoction.triggerparams).param['strava_activity'].toLowerCase();
-            return JSON.parse(body).type === activity;
+            return JSON.parse(body).type.toLowerCase() === activity;
           });
           console.log('concoctions', concoctions);
           // look at each individual concoction
