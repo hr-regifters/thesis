@@ -1,7 +1,6 @@
 "use strict"
 const async = require('async');
 const instaCtrl = require('../../../db/controllers/instagramController');
-const userCtrl = require('../../../db/controllers/userController');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const clientId = process.env.INSTA_ID || require('./../../../../env').INSTA_ID;
 const secret = process.env.INSTA_SECRET || require('./../../../../env').INSTA_SECRET;
