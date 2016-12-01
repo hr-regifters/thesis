@@ -26,16 +26,6 @@ module.exports = {
          subscription_id: 0,
          data: { media_id: '1394570434339769908_4210173738' } } ]
     */
-    // //fetch picture
-    //   userCtrl.getUserData('instagramid', req.body[0]['object_id'])
-    //   .then((userObj) => {
-    //     console.log(userObj);
-    //     return instaCtrl.getFile(req.body[0].data['media_id'], userObj.instagramtoken);
-    //   })
-    //   .then((fileObj) => {
-    //     console.log('File result: ', fileObj);
-    //   })
-    //   .catch( error => console.log('error in fetching insta media: ', error));
     if (req.body[0].time * 1000 <= currentTime && req.body[0].time * 1000 >= currentTime - 10800000) {
       res.status(200).send('registered instagram event');
       let instaReqObj = {
@@ -70,13 +60,10 @@ module.exports = {
                 })
                 .catch((error) => { console.log('Error in picture_uploaded and evernote create_note action: ', error); });
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                userCtrl.getUserData('instagramid', obj.triggeruserid).then((user) => {
-                  instaReqObj.username = user.username;
-                  instaReqObj.actionParams = JSON.parse(obj.actionparams);
-                  instaReqObj.actionToken = obj.actiontoken;
-                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
-                  callback();
-                }).catch((error) => { console.log('error Slack action post_message', error); });
+                instaReqObj.actionParams = JSON.parse(obj.actionparams);
+                instaReqObj.actionToken = obj.actiontoken;
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
+                callback();
               } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
                 instaReqObj.actionParams = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](instaReqObj);
