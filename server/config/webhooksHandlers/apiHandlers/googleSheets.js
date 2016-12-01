@@ -8,7 +8,7 @@ module.exports = {
   actions: {
     create_sheet: (paramObj) => {
       let numActivities = Object.keys(paramObj.data).length;
-      let numProperties = paramObj.data[numActivities - 1];
+      let numProperties = paramObj.data[numActivities - 1].length;
       let categories = [];
       let statistics = [];
       let i = numActivities - 1;
