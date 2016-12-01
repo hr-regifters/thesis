@@ -18,6 +18,7 @@ module.exports = {
     };
     concCtrl.getConcoctions('strava', 'activity_logged', req.body['ownerId']).then((concoctionList) => {
       let concoctions = concoctionList.rows.filter((concoction) => concoction.enable === true);
+      console.log('ENABLED CONCS', concoctions);
       let options = {
         url: `https://www.strava.com/api/v3/activities/${req.body['object_id']}`,
         method: 'GET',
@@ -32,6 +33,7 @@ module.exports = {
         if (err) {
           console.log('err', err);
         } else {
+          console.log('DATA FROM STRAVA', body, typeof body)
           concoctions = concoctions.filter((concoction) => {
             let activity = JSON.parse(concoction.triggerparams).param['strava_activity'].toLowerCase();
             return JSON.parse(body).type === activity;
