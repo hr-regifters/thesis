@@ -17,10 +17,9 @@ module.exports = {
       actionToken: ''
     };
     concCtrl.getConcoctions('strava', 'activity_logged', req.body['ownerId']).then((concoctionList) => {
-      console.log(concoctionList.rows, 'concoctionList.rows');
       let concoctions = concoctionList.rows.filter((concoction) => concoction.enable === true);
       let options = {
-        url: `https://www.strava.com/api/v3/activities/${obj['object_id']}`,
+        url: `https://www.strava.com/api/v3/activities/${req.body['object_id']}`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -33,41 +32,49 @@ module.exports = {
         if (err) {
           console.log('err', err);
         } else {
-          console.log(body, 'body');
-          let data = JSON.parse(body);
-          let trimData = {
-            name: data.name,
-            type: data.type,
-            distance: data.distance,
-            moving_time: data.moving_time,
-            elapsed_time: data.elapsed_time,
-            start_date_local: data.start_date_local,
-            total_elevation_gain: data.total_elevation_gain,
-            achievement_count: data.achievement_count,
-            average_speed: data.average_speed,
-            max_speed: data.max_speed,
-            calories: data.calories
-          };
+          concoctions = concoctions.filter((concoction) => {
+            let activity = JSON.parse(concoction.triggerparams).param['strava_activity'].toLowerCase();
+            return JSON.parse(body).type.toLowerCase() === activity;
+          });
 
-          //things to remove if you do it this way.
-          // [id, resource_state, external_id, upload_id, athlete, embed_token]
-
-          //complete action
-          concoctions.forEach((concoction) => {
-            let stravaData = JSON.parse(res.body);
+          // look at each individual concoction
+          async.each((concoctions), (concoction, callback) => {
+            let stravaData = JSON.parse(body);
             stravaReqObj.actionParams = JSON.parse(concoction.actionparams);
             stravaReqObj.actionToken = concoction.actiontoken;
 
-            // check if we're dealing with activities
-            if (stravaData.hasOwnProperty('activities')) {
-              let activitiesData = stravaData.activities;
-              let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
-
-              // filter activites data based on activity user has specified
-              let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-              // console.log('filtered activity data', activityData);
+            // check which action apis we're dealing with and what corresponding action
+            if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
+              let sheetData = {
+                name: stravaData.name,
+                type: stravaData.type,
+                distance: stravaData.distance,
+                moving_time: stravaData.moving_time,
+                elapsed_time: stravaData.elapsed_time,
+                start_date_local: stravaData.start_date_local,
+                total_elevation_gain: stravaData.total_elevation_gain,
+                achievement_count: stravaData.achievement_count,
+                average_speed: stravaData.average_speed,
+                max_speed: stravaData.max_speed,
+                calories: stravaData.calories
+              };
+              stravaReqObj.data = [sheetData];
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              callback();
+            } else {
+              console.log('Following Concoction not fired: ', concoction.description);
+              callback();
             }
-          });
+          }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Strava Event:'); });
         }
       });
     });

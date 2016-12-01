@@ -2,7 +2,6 @@
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
 const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const slackWebhookId = process.env.slackWebhookId || require('./../../../../env').slackWebhookId;
 const slackWebhookToken = process.env.slackWebhookToken || require('./../../../../env').slackWebhookToken;
 const request = require('request');
@@ -82,13 +81,10 @@ module.exports = {
                   callback();
                 }
               } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                userCtrl.getUserData('slackId', obj.triggeruserid).then((user) => {
-                  slackReqObj.username = user.username;
-                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                  slackReqObj.actionToken = obj.actiontoken;
-                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
-                  callback();
-                }).catch((error) => { console.log('error Slack action post_message', error); });
+                slackReqObj.actionParams = JSON.parse(obj.actionparams);
+                slackReqObj.actionToken = obj.actiontoken;
+                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                callback();
               } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
                 slackReqObj.actionParams = JSON.parse(obj.actionparams);
                 webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
