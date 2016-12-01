@@ -11,7 +11,7 @@ export default class HomeView extends React.Component {
       <div id="HomeView">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3>Regift3d</h3>
+            <h3>Ripple</h3>
             <h3>-</h3>
             <h3 onClick={() => { this.props.changeViewTo('home') }}>Concoctions </h3>
             <h3 onClick={() => { this.props.funcs.logout() }}>Logout</h3>
@@ -34,7 +34,7 @@ export default class HomeView extends React.Component {
                   return (
                   <div className='message'>
                   
-                  <h4 className='head'>Welcome to Regift3d!</h4>
+                  <h4 className='head'>Welcome to Ripple!</h4>
                 
                   <h4 className='bod'>This is a place you can automate all your favorite web services so they work smarter together</h4>
                   <h4 className='bod'>To get started, hit the 'Add Concoction' button to begin brewing</h4>

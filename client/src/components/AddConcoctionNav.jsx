@@ -30,7 +30,7 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3>Regift3d</h3>
+            <h3>Ripple</h3>
             <h3>-</h3>
             <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions</h3>
             <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
@@ -64,7 +64,7 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3>Regift3d</h3>
+            <h3>Ripple</h3>
             <h3>-</h3>
             <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions </h3>
             <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
@@ -84,6 +84,7 @@ const AddConcoctionNav = (props) => {
                             actionsIndex={index}
                             connectedServices={props.appState.connectedServices}
                             state={props.appState.actions[index]}
+                            trigger={props.appState.trigger}
                             funcs={actionFuncs} />
                   );
                 })}
@@ -102,7 +103,7 @@ const AddConcoctionNav = (props) => {
       <div className="full">
         <nav className="navbar navbar-default navbar-fixed-top"> 
           <div className="container-fluid Mod">
-            <h3>Regift3d</h3>
+            <h3>Ripple</h3>
             <h3>-</h3>
             <h3 onClick={() => { props.changeViewTo('home') }}>Concoctions </h3>
             <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
@@ -121,6 +122,7 @@ const AddConcoctionNav = (props) => {
                     <Action key={index} 
                             actionsIndex={index}
                             state={props.appState.actions[index]}
+                            trigger={props.appState.trigger}
                             connectedServices={props.appState.connectedServices}
                             funcs={actionFuncs} />
                   );
