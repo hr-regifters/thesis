@@ -15,6 +15,9 @@ h2 {
   margin-left: 22%;
   color: #11aaad;
 }
+h2:hover {
+  color: #bbb;
+}
 h3 {
   font-family: "Muli", sans-serif;
   text-align: center;
@@ -94,7 +97,7 @@ nav {
  #Verification{
   height: 100%;
   width: 100%;
-  background-image: url('bg-dark1.png');
+  background-image: url('ripples.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -206,13 +209,17 @@ input:focus {
   padding: 3%;
   padding-top: 8%;
   margin-top: 0px;
-  color: #fff;
+  color: #ccc;
   margin-bottom: 40px;
   margin-right: 0px;
   margin-left: 0px;
   padding-left: 0px;
   padding-right: 0px;
   font-size: 70px;
+  font-weight: 900;
+  background-color: rgba(50, 50, 50, 0.35);
+  box-shadow: 0px 3px 15px #666;
+
 }
 .concoction {
   z-index: 100;
@@ -353,6 +360,10 @@ input {
   margin-right: 10px; 
   background-color: #333;
   text-align: center;
+}
+.saveBttn:hover {
+  border-color: #bbb;
+  color: #bbb;
 }
 .inline {
   margin-left: 0px;

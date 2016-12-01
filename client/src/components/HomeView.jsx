@@ -37,7 +37,7 @@ export default class HomeView extends React.Component {
                   <h4 className='head'>Welcome to Regift3d!</h4>
                 
                   <h4 className='bod'>This is a place you can automate all your favorite web services so they work smarter together</h4>
-                  <h4 className='bod'>To get started, hit the 'Add Concoction' button to start brewing</h4>
+                  <h4 className='bod'>To get started, hit the 'Add Concoction' button to begin brewing</h4>
                   </div>
                   );
                 })
