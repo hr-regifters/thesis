@@ -30,19 +30,18 @@ module.exports = {
 
           let categoryValObj = {};
           categoryValObj['stringValue'] = prop;
-          console.log(prop, categoryValObj);
           category.values.userEnteredValue = categoryValObj;
           categories.push(category);
 
           let statType = typeof paramObj.data[i][prop] === 'number' ? 'numberValue' : 'stringValue';
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
-          console.log(paramObj.data[i][prop], statValObj);
           statistic.values.userEnteredValue = statValObj;
+          console.log(statistic, statistic.values.userEnteredValue)
           statistics.push(statistic);
         };
       }
-      console.log(typeof paramObj.data[0][duration] === 'number' ? 'numberValue' : 'stringValue')
+
       let spreadsheet = {
         'properties': {
           'title': paramObj.actionParams.sheet_title,
