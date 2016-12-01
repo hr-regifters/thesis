@@ -29,6 +29,7 @@ module.exports = {
           let statValObj = {};
           statValObj[statType] = paramObj.data[i][prop];
           statistic.userEnteredValue = statValObj;
+          console.log(category, statistic);
           statistics.push(statistic);
         };
       }
@@ -50,14 +51,14 @@ module.exports = {
                 'startRow': 0,
                 'startColumn': 0,
                 'rowData': {
-                  "values": categories
+                  'values': categories
                 }
               },
               {
                 'startRow': 1,
                 'startColumn': 0,
                 'rowData': {
-                  "values": statistics
+                  'values': statistics
                 }
               }
             ]
@@ -74,6 +75,8 @@ module.exports = {
         },
         json: spreadsheet
       }
+      console.log('categories', categories);
+      console.log('statistics', statistics);
       request(options, (err, res, body) => {
         if (body.error) {
           console.log('error', body);
