@@ -64,7 +64,7 @@ module.exports = {
               webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
               callback();
             } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
-              webhooksHandler[`${obj.actionapi}Action`][concoction.actionevent](stravaReqObj);
+              webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
               callback();
             } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
               webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](stravaReqObj);
