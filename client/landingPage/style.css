@@ -119,7 +119,7 @@ img{
 	display: inline;
 	width: 100%;
 	height: 100%;
-	background-image: url('./assets/images/darkpattern1.jpg');
+	background-image: url('./assets/images/darkpattern1.1.jpg');
 	background-attachment: fixed !important;
 	background-repeat: repeat;  
 	background-size: cover;  
@@ -767,7 +767,7 @@ img{
 	float: left;
 	padding: 70px 0;
 	width: 100%;
-	height: 100%;
+	background-size: cover;
 }
 
 .tummyTuck {
