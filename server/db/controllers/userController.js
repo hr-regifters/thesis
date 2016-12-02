@@ -38,9 +38,9 @@ exports.Signup = new LocalStrategy({
         bcrypt.hash(password, saltRounds, (error, hash) => {
           password = hash;
           pool.query({
-            text: 'INSERT INTO users(username, email, password) \
+            text: 'INSERT INTO users(username, password) \
               VALUES($1, $2, $3)',
-            values: [username, req.body.email, password]
+            values: [username, password]
           },
           (err, rows) => {
             if (!err) {
