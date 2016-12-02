@@ -74,7 +74,6 @@ module.exports = {
               } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
                 webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](instaReqObj);
                 callback();
-
               }
             }
           } else {
