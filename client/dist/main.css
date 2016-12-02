@@ -11,10 +11,9 @@ i {
 }
 h2 {
   font-family: "Muli", sans-serif;
-  text-align: left;
-  margin-left: 22%;
   color: #11aaad;
 }
+h2.
 h2:hover {
   color: #bbb;
 }
@@ -44,8 +43,8 @@ h3:hover {
 p {
   font-family: "Muli", sans-serif;
   text-align: left;
-  margin-left: 10%;
-  margin-top: 10px;
+  
+  margin: 10px;
   color: #aebec1;
   font-size: 85%;
   line-height: 135%;
@@ -104,7 +103,6 @@ nav {
 #HomeView {
   height: 100%;
   width: 100%;
-  padding-top: 50px;
   background-color: #1f1f1f;
 }
 
@@ -140,12 +138,14 @@ nav {
 }
 
 #login input {
-  width: 80%;
+  width: 51%;
   margin: 5px 0;
-  padding: 5px;
   border: none;
   font-size: 20px;
   background-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
+  padding: 5px;
 }
 
 #login button {
@@ -185,14 +185,18 @@ nav {
 }
 
 #register input {
-  width: 80%;
+  width: 51%;
   margin: 5px 0;
   padding: 5px;
   border: none;
   font-size: 20px;
   background-color: transparent;
-
-
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
+}
+#registerText {
+  text-align: left;
+  margin-left: 22%;
 }
 input:focus {
 }
@@ -255,9 +259,10 @@ input:focus {
   display: block;
   height: 80%;
   width: 100%;
+  min-height: 225px;
   background-color: #111;
   color: #fff;
-  font-size: 30px;
+  font-size: 22px;
 
 }
 .full {
@@ -274,8 +279,7 @@ input:focus {
   background-color: #3C3C3C;
   padding-bottom: 10px;
   padding-top: 3px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto;
   width: 45%;
   text-align: center !important;
   box-shadow: 0px 3px 15px #000;
@@ -284,6 +288,7 @@ input:focus {
   text-align: center;
   margin-top: 17px;
   margin-bottom: 17;
+  font-size: 1.5em;
 }
 .pull-right {
   margin-right: 0 !important;
@@ -314,7 +319,6 @@ input:focus {
   display: inline-block;
 }
 #concViewGrid {
-  padding-top: 8%;
   width: 100%;
 }
 #concoctionMakerCol {
@@ -351,15 +355,19 @@ input {
   color: #11aaad;
   border-width: 4px;
   width: 200px;
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px; 
+  display: block;
   background-color: #333;
   text-align: center;
 }
 .saveBttn:hover {
   border-color: #bbb;
   color: #bbb;
+}
+.saveBttn.verification {
+  margin: 0 auto;
+}
+.saveBttn.createConc {
+  margin: 20px auto;
 }
 .inline {
   margin-left: 0px;
@@ -394,7 +402,7 @@ input {
   width: 86%;
   left: 20%;
   top: 0px;
-  position: fixed;
+  position: relative;
   z-index: 100;
   font-family: "Muli", sans-serif;
   line-height: 160%;
@@ -403,7 +411,8 @@ input {
 .round {
   background-color: #3C3C3C;
   border-radius: 40px;
-  margin-left: -13px;
+  margin-left: -3px;
+  margin-right: -3px;
   border-width: 1px;
   border-color: #333;
   border-style: solid;
@@ -433,15 +442,11 @@ input {
   box-shadow: 0px 3px 15px #666;
 }
 
-
 .switch input {display:none;}
 
 .slider {
   position: relative;
   cursor: pointer;
-  margin-left: 100px;
-  top: 50%;
-  left: -33%;
   /*right: 0;
   bottom: 0;*/
   width: 62px;
@@ -491,22 +496,3 @@ input:checked + .slider:before {
   transition: .7s;
   background-color: rgba(200, 200, 200, 0.75);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

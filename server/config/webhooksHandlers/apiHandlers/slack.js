@@ -14,6 +14,8 @@ const listenTo = {
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
+
+    // make sure we don't get events older than 3 hrs (including fake events)
     const currentTime = Number(new Date());
     if (req.body.type === 'url_verification') {
       res.json({ challenge: req.body.challenge });
@@ -26,18 +28,27 @@ module.exports = {
         actionToken: '',
       };
 
-      // fetch db data for users to get actions
-      //this now needs to be concCtrl.getConcoctions(triggerapi, event) This returns an array of objects
-      concCtrl.getConcoctions('slack', req.body.event.type).then((arr) => {
-        async.each(arr.rows, (obj, callback) => {
-          if (obj.enable && req.body['authed_users'].indexOf(obj.triggeruserid) !== -1) {
-            if (obj.actionapi === undefined || obj.actionevent === undefined) {
-              console.log(`PLEASE FIX! actiionapi or actionevent undefined for slackUserId: ${obj.triggeruserid}`);
+      // get all concoctions that match webhook event
+      concCtrl.getConcoctions('slack', req.body.event.type).then((concoctionList) => {
+
+        // look at each individual concoction and fire action
+        async.each(concoctionList.rows, (concoction, callback) => {
+
+          // check is concoction is enabled
+          if (concoction.enable && req.body['authed_users'].indexOf(concoction.triggeruserid) !== -1) {
+            if (concoction.actionapi === undefined || concoction.actionevent === undefined) {
+              console.log(`PLEASE FIX! actiionapi or actionevent undefined for slackUserId: ${concoction.triggeruserid}`);
               callback();
             } else {
-              if (req.body.event.type === 'file_created' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
+              slackReqObj.actionParams = JSON.parse(concoction.actionparams);
+              slackReqObj.actionToken = concoction.actiontoken;
+
+              // check which action apis we're dealing with and the corresponding action
+              if (req.body.event.type === 'file_created' && concoction.actionapi === 'evernote' && concoction.actionevent === 'create_note') {
+                // query slack endpoint for update information
                 slackCtrl.getFile(req.body.event.file_id)
                 .then((file) => {
+                  // save image to evernote
                   slackReqObj.title = file.title;
                   if (file.mimetype.slice(0, 5) === 'image') {
                     slackReqObj.images = [file.url_private];
@@ -45,13 +56,13 @@ module.exports = {
                   slackReqObj.links = [file.url_private];
                   slackReqObj.body = new Date(file.timestamp * 1000).toString();
                   slackReqObj.tagNames = ['Slack', 'Upload'];
-                  slackReqObj.slackUserId = obj.triggeruserid;
-                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                  slackReqObj.actionToken = obj.actiontoken;
-                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                  slackReqObj.slackUserId = concoction.triggeruserid;
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                   callback();
                 }).catch((error) => { console.log('Error in file_created and evernote create_note action: ', error); });
-              } else if (req.body.event.type === 'pin_added' && obj.actionapi === 'evernote' && obj.actionevent === 'create_note') {
+
+              } else if (req.body.event.type === 'pin_added' && concoction.actionapi === 'evernote' && concoction.actionevent === 'create_note') {
+                // handles FILES that are pinned
                 if (req.body.event.item.type === 'file') {
                   slackCtrl.getFile(req.body.event.item.file_id)
                   .then((file) => {
@@ -62,42 +73,37 @@ module.exports = {
                     slackReqObj.links = [file.url_private];
                     slackReqObj.body = new Date(file.timestamp * 1000).toString();
                     slackReqObj.tagNames = ['Slack', 'Pin'];
-                    slackReqObj.slackUserId = obj.triggeruserid;
-                    slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                    slackReqObj.actionToken = obj.actiontoken;
-                    webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                    slackReqObj.slackUserId = concoction.triggeruserid;
+                    webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                     callback();
                   }).catch((error) => { console.log('Error in pin_added file and evernote create_note action: ', error); });
+
+                // handles TEXT that are pinned
                 } else if (req.body.event.item.type === 'message') {
                   const msg = req.body.event.item.message;
                   slackReqObj.title = msg.text.split(' ').slice(0,3).join(' ') + '...';
                   slackReqObj.links = [msg.permalink];
                   slackReqObj.body = new Date(req.body.event.item.created * 1000).toString() + '<br/>' + '<br/>' + msg.text;
                   slackReqObj.tagNames = ['Slack', 'Pin'];
-                  slackReqObj.slackUserId = obj.triggeruserid;
-                  slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                  slackReqObj.actionToken = obj.actiontoken;
-                  webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                  slackReqObj.slackUserId = concoction.triggeruserid;
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                   callback();
                 }
-              } else if (obj.actionapi === 'slack' && obj.actionevent === 'post_message') {
-                slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                slackReqObj.actionToken = obj.actiontoken;
-                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+
+              } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
+                webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                 callback();
-              } else if (obj.actionapi === 'twilio' && obj.actionevent === 'send_text') {
-                slackReqObj.actionParams = JSON.parse(obj.actionparams);
-                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+
+              } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
+                webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                 callback();
-              } else if (obj.actionapi === 'googleMail' && obj.actionevent === 'send_email') {
-                slackReqObj.actionToken = obj.actiontoken;
-                slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
-                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+
+              } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
+                webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                 callback();
-              } else if (obj.actionapi === 'googleSheets' && obj.actionevent === 'create_sheet') {
-                slackReqObj.actionToken = obj.actiontoken;
-                slackReqObj.actionParams = JSON.parse(obj.actionparams); // To, From, Message
-                webhooksHandler[`${obj.actionapi}Action`][obj.actionevent](slackReqObj);
+                
+              } else if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
+                webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](slackReqObj);
                 callback();
               }
             }

@@ -1,6 +1,5 @@
 "use strict"
 const express = require('express');
-const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
@@ -9,13 +8,29 @@ const async = require('async');
 const STRAVA_ID = process.env.STRAVA_ID;
 const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
-exports.queryConcoctions = (req, res) => {
-  pool.query({
-    text: 'SELECT * FROM concoctions;'
-  }, (err, rows) => {
-    console.log(err, rows.rows)
-    res.status(201).send(rows.rows);
-  }); 
+exports.createConcoction = (req, res) => {
+  async.each(req.body, (concoction, callback) => {
+    const username = concoction.username;
+    let concObj = {
+      userid: '',
+      triggerapi: concoction.triggerApi,
+      triggerevent: concoction.triggerEvent,
+      triggerparams: concoction.triggerParams || {},
+      triggeruserid: '',
+      triggertoken: '',
+      actionapi: concoction.actionApi,
+      actionevent: concoction.actionEvent,
+      actionuserid: '',
+      actiontoken: '',
+      actionparams: concoction.actionParams || {},
+      enable: concoction.enable || true,
+      description: concoction.description
+    };
+    getActionIdandToken(concObj, username, res)
+    .then((concObj) => getTriggerIdandToken(concObj, username, res))
+    .then((concObj) => { writeConcoction(concObj, res); })
+    .catch((error) => { res.status(405).send(error); });
+  }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
 const getActionIdandToken = (concObj, username, res) => {
@@ -113,39 +128,6 @@ const getTriggerIdandToken = (concObj, username, res) => {
     return concObj;
   }
 }
-const subscribeUser = (concObj) => {
-  if (concObj['triggerapi'] === 'fitbit') {
-    let options = {
-      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${concObj['triggertoken']}`
-      }
-    }
-    request(options, function(err, response, body) {
-      console.log(response, 'response');
-    });
-  } else if (concObj['triggerapi'] === 'strava') {
-    let options = {
-      client_id: STRAVA_ID,
-      client_secret: STRAVA_SECRET,
-      object_type: 'activity',
-      aspect_type: 'create',
-      callback_url: 'https://regifters48.herokuapp.com/api/webhooks/strava',
-      verify_token: concObj['triggertoken'],
-    }
-    request.post({url:'https://api.strava.com/api/v3/push_subscriptions', form: options}, 
-      (err, response, body) => {
-        console.log(err, 'err');
-        console.log(response, 'response');
-      }
-    );
-  } else {
-    return;
-  }
-}
-
 
 const writeConcoction = (concObj, res) => {
   pool.query({
@@ -167,33 +149,37 @@ const writeConcoction = (concObj, res) => {
   });
 }
 
-exports.createConcoction = (req, res) => {
-  async.each(req.body, (concoction, callback) => {
-    const username = concoction.username;
-    let concObj = {
-      userid: '',
-      triggerapi: concoction.triggerApi,
-      triggerevent: concoction.triggerEvent,
-      triggerparams: concoction.triggerParams || {},
-      triggeruserid: '',
-      triggertoken: '',
-      actionapi: concoction.actionApi,
-      actionevent: concoction.actionEvent,
-      actionuserid: '',
-      actiontoken: '',
-      actionparams: concoction.actionParams || {},
-      enable: concoction.enable || true,
-      description: concoction.description
-    };
-    // get action id, token, and userId
-    getActionIdandToken(concObj, username, res)
-    .then((concObj) => getTriggerIdandToken(concObj, username, res))
-    .then((concObj) => {
-      writeConcoction(concObj, res);
-    }).catch((error) => {
-      res.status(405).send(error);
+const subscribeUser = (concObj) => {
+  if (concObj['triggerapi'] === 'fitbit') {
+    let options = {
+      uri: 'https://api.fitbit.com/1/user/-/activities/apiSubscriptions/1.json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${concObj['triggertoken']}`
+      }
+    }
+    request(options, (err, response, body) => {
+      console.log(response, 'response');
     });
-  }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
+  } else if (concObj['triggerapi'] === 'strava') {
+    let options = {
+      client_id: STRAVA_ID,
+      client_secret: STRAVA_SECRET,
+      object_type: 'activity',
+      aspect_type: 'create',
+      callback_url: 'https://regifters48.herokuapp.com/api/webhooks/strava',
+      verify_token: concObj['triggertoken'],
+    }
+    request.post({url:'https://api.strava.com/api/v3/push_subscriptions', form: options}, 
+      (err, response, body) => {
+        console.log(err, 'err');
+        console.log(response, 'response');
+      }
+    );
+  } else {
+    return;
+  }
 }
 
 exports.getConcoctions = (api, event, triggeruserid) => {
@@ -254,4 +240,14 @@ exports.updateConcoctionsToken = (username, api, newToken) => {
       }
     });
   }).catch((err) => { console.log(err); });
+}
+
+// for testing purposes
+exports.queryConcoctions = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM concoctions;'
+  }, (err, rows) => {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
 }

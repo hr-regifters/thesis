@@ -4,8 +4,12 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 const request = require('request');
 const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../../env.js').FITBIT_VERIFICATION;
 
+const webhooks = {
+  'activities': 'activity_logged'
+};
+
 module.exports = {
-  verify: (req, res) => {
+  validate: (req, res) => {
     let query = req.query.verify;
     if (query === verificationCode) {
       res.status(204).send('app verified by fitbit');
@@ -25,9 +29,6 @@ module.exports = {
     async.each(req.body, (obj, callback) => {
 
       // check obj.collectionType and connect it with the corresponding triggerevent
-      let webhooks = {
-        'activities': 'activity_logged'
-      };
       let alias = webhooks[obj.collectionType];
 
       // get all concoctions that match fitbit id and webhook event
@@ -36,6 +37,7 @@ module.exports = {
 
         // filter concoctions based on whether they are enabled or not
         concoctions = concoctions.filter((concoction) => concoction.enable === true);
+
         let options = {
           uri: `https://api.fitbit.com/1/user/${obj['ownerId']}/${obj['collectionType']}/date/${obj['date']}.json`,
           method: 'GET',
@@ -45,12 +47,12 @@ module.exports = {
           }
         };
 
-        // query endpoint for update information
+        // query fitbit endpoint for update information
         request(options, (err, res, body) => {
           if (err) {
             console.log('err', err);
           } else {
-            // look at each individual concoction
+            // look at each individual concoction and fire action
             async.each((concoctions), (concoction, callback) => {
               let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
@@ -66,21 +68,25 @@ module.exports = {
 
                 // keep track of activity id? since we get all activity events everytime
 
-                // check which action apis we're dealing with and what corresponding action
+                // check which action apis we're dealing with and the corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
                   let sheetData = activityData.slice(-1); // change this to the activities we haven't recorded yet
                   fitbitReqObj.data = sheetData;
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
+
                 } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
+
                 } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
+
                 } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
+
                 } else {
                   callback();
                 }

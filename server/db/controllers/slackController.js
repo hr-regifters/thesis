@@ -1,5 +1,4 @@
 const passport = require('passport');
-const User = require('../models/userModel');
 const currUrl = require('./../../../currUrl');
 const request = require('request-promise');
 
