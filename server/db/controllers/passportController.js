@@ -5,6 +5,11 @@ const session = require('express-session');
 const Local = require('./userController');
 const Slack = require('./slackController');
 const Evernote = require('./evernoteController');
+const Github = require('./githubController');
+const Fitbit = require('./fitbitController');
+const Google = require('./googleController');
+const Instagram = require('./instagramController');
+const Strava = require('./stravaController');
 
 module.exports = (app) => {
 
@@ -12,8 +17,11 @@ module.exports = (app) => {
   app.use(session({
     secret: 'cookie_secret',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
   }));
+
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -23,12 +31,15 @@ module.exports = (app) => {
     done(null, obj);
   });
 
-  passport.use(Local.Strategy);
+  passport.use('local-login', Local.Login);
+  passport.use('local-signup', Local.Signup);
   passport.use(Slack.Strategy);
   passport.use(Evernote.Strategy);
-
-  app.use(passport.initialize());
-  app.use(passport.session());
+  passport.use(Github.Strategy);
+  passport.use(Fitbit.Strategy);
+  passport.use(Google.Strategy);
+  passport.use(Instagram.Strategy);
+  passport.use(Strava.Strategy);
 
   return passport;
 };

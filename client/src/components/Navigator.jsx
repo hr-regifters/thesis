@@ -1,36 +1,26 @@
 import React from 'react';
-
 import HomeView from './HomeView.jsx';
-import ConcoctionView from './ConcoctionView.jsx';
-import AddConcoctionView from './AddConcoctionView.jsx';
+import AddConcoctionNav from './AddConcoctionNav.jsx';
 import Verification from './Verification.jsx';
 
-
 const Navigator = (props) => {
+  // navigator renders different components based on the view in the app state
   if (props.appState.view === 'verify') {
     return (
-      <div>
-        <Verification appState={props.appState} changeViewTo={props.changeViewTo}/>
-      </div>
-    )
-  } else if (props.appState.view === 'home') {
-    return (
-      <div>
-        <HomeView appState={props.appState} changeViewTo={props.changeViewTo} />
+      <div className="full">
+        <Verification appState={props.appState} changeState={props.functions.changeState} changeViewTo={props.functions.changeViewTo} />
       </div>
     );
-  } else if (props.appState.view === 'concoctionEdit') {
-    // use the spotlightConcoctionId to find the correct concoction in the concoctions array
-    // build the concoction view out of the info stored in the object
+  } else if (props.appState.view === 'home') {
     return (
-      <div>
-        <ConcoctionView appState={props.appState} />
+      <div className="full">
+        <HomeView appState={props.appState} funcs={props.functions} changeState={props.functions.changeState} changeViewTo={props.functions.changeViewTo} />
       </div>
     );
   } else if (props.appState.view === 'addConcoction') {
     return (
-      <div>
-        <AddConcoctionView appState={props.appState} changeViewTo={props.changeViewTo} />
+      <div className="full">
+        <AddConcoctionNav appState={props.appState} funcs={props.functions} changeState={props.functions.changeState} changeViewTo={props.functions.changeViewTo} />
       </div>
     );
   }

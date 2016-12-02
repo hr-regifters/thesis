@@ -1,58 +1,105 @@
-// import React from 'react';
+import React from 'react';
+import currUrl from './../../../currUrl';
+import servicesDetail from '../servicesDetailJSON.js';
 
-// const Trigger = (props) => {
-  
-//   if (props.state.trigger === '') {
-//     //display slack and evernote triggers
-//     return(
-//       <div onClick={ () => {props.modifyTrigger('slack')}}>
-//       slack
-//       </div>
-//       <div onClick={ () => {props.modifyTrigger('evernote')}}>
-//       evernote
-//       </div>
-//     );
-//   } else if (props.state.triggerOptions === '') {
-//     //display trigger in state and show options for trigger in state
-//     return(
-//       <div>
-//       {{props.state.trigger}}
-//       </div>
-//       <div>
-//       {{props.servicesDetail[props.state.trigger].options[0]}}
-//       </div>
-//     );
-//   } else if (props.state.triggerParams === '') {
-//     //display trigger and option in state 
-//     return(
-//       <div>
-//       {{props.state.trigger}}
-//       </div>
-//       <div>
-//       {{props.servicesDetail[props.state.trigger].options[0]}}
-//       </div>
-//       <div>
-//       no parameters
-//       </div>
-//     );
-//   }
+const Trigger = (props) => {
+  // if the trigger property has not been selected, render the services to select
+  if (props.state.trigger === '') {
+    return (
+      <div className='workWindow1'>
+        <div onClick={ () => {props.funcs.modifyTriggerReveal();
+                              props.funcs.modifyInstructions(0)}}>
+        <div className='inline'>
+        <h1>Trigger   <i className='fa fa-caret-down'></i></h1>
+        </div>
+        </div>
+        <div className={props.state.triggerServicesReveal}>
+          {Object.keys(servicesDetail).map((service) => {
+            if (servicesDetail[service].trigger.options[0] !== 'none') {
+              return (
+                <h3 key={service} className='serviceBttn' >
+                  {
+                    props.state.connectedServices[service] ?
+                      <a onClick={ () => {props.funcs.modifyTrigger(service);
+                      props.funcs.modifyInstructions(1)}}>{servicesDetail[service].name}</a>
+                    :
+                    service.slice(0, 6) === 'google' ?
+                      <a href={`${currUrl}/api/oauth/google`}>{servicesDetail[service].name}</a>
+                      :
+                      <a href={`${currUrl}/api/oauth/${service}`}>{servicesDetail[service].name}</a>
+                  }
+                </h3>
+              );
+            }
+          })}
+        </div>
+      </div>
+    );
+  // if the triggers's option has not been selected, render the trigger options
+  } else if (props.state.trigger !== '' && props.state.triggerOption === '') {
+    return (
+      <div className='workWindow1'>
+        <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
+          <div className='inline'>
+            <h1> <img className='icon' src={servicesDetail[props.state.trigger].icon}></img> Trigger <i className='fa fa-caret-down'></i></h1>   
+          </div>
+        </div>
+        <div className={props.state.triggerServicesReveal}>
+          {servicesDetail[props.state.trigger].trigger.options.map((option, index) => {
+            return (
+              <div key={index} onClick={ () => {props.funcs.modifyTriggerOption(index);
+                props.funcs.modifyInstructions(2)}}>
+                <h2><i className='fa fa-square-o'></i> {option.description}</h2>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+    // if the there are no parameters to select, render the save button
+  } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length === 0) {
+    return (
+      <div className='workWindow1'>
+        <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
+          <h1><img className='icon' src={servicesDetail[props.state.trigger].icon}></img>  Trigger   <i className='fa fa-caret-down'></i></h1> 
+        </div>
+        <div className={props.state.triggerServicesReveal}>
+          <div>
+            <h2><i className='fa fa-window-close'></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+          </div>
+          <div>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none');
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
+          </div>
+        </div>
+      </div>
+    );
+  // if the there are parameters to select, render the parameters along with the save button
+  } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length > 0) {
+    return (
+     <div className='workWindow1'>
+        <div onClick={ () => {props.funcs.modifyTriggerReveal()}}>
+          <h1><img className='icon' src={servicesDetail[props.state.trigger].icon}></img>   Trigger   <i className='fa fa-caret-down'></i></h1> 
+        </div>
+        <div className={props.state.triggerServicesReveal}>
+          <div>
+            <h2><i className='fa fa-window-close'></i> {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].description}</h2>
+          </div>
+            {servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.map((param) => {
+              return (
+                <div key={param.alias}>
+                  <h2 className='paramTxt'>{param.description}: <input id={param.alias} type='text' className='param'></input></h2>
+                </div>
+              );
+            })}
+          <div>
+            <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementsByClassName('param'));
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
 
-//   // render() {
-//   //   return (
-//   //     <div>
-//   //       <div>
-//   //       Trigger:
-//   //       </div>
-//   //       if trigger is ''
-//   //       display slack and evernote triggers
-//   //       if triggerOption is ''
-//   //       display options for trigger in state
-//   //       if triggerParams  is ''
-//   //       display params 
-
-//   //     </div>
-//   //   );
-//   // }
-// }
-
-// export default Trigger;
+export default Trigger;
