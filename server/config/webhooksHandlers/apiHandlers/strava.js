@@ -1,14 +1,7 @@
 "use strict"
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
-const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
-const verificationCode = '6b6461bd16389838c770bc3ec1701c4d6ee8ec2b26fc2839e0599cd0221419d7';
-const listenTo = {
-  file_created: true,
-  pin_added: true,
-};
 
 module.exports = {
   verify: (req, res) => {

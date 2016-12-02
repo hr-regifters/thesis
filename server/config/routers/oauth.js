@@ -5,9 +5,6 @@ const userUtility = require('../../db/controllers/userController');
 const concoctionUtility = require('../../db/controllers/concoctionController');
 const checkLogin = require('../utilities/checkLogin');
 const router = new express.Router();
-const request = require('request');
-const STRAVA_ID = process.env.STRAVA_ID;
-const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
 router.get('/slack', checkLogin, passport.authenticate('slack'));
 
@@ -79,9 +76,7 @@ router.get('/strava/callback',
         username = session['user'];
       }
     }
-    console.log(stravaData.user, 'stravaData.user')
     userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
-
     res.redirect('/app');
   });
 
