@@ -24,15 +24,15 @@ CREATE TABLE concoctions (
   userId        BIGSERIAL   references users(id),
   triggerApi    VARCHAR(20),
   triggerEvent  VARCHAR(32),
-  triggerParams VARCHAR(128),
+  triggerParams VARCHAR(300),
   triggerUserId VARCHAR(20),
   triggerToken  VARCHAR(300),
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),
   actionToken   VARCHAR(128),
-  actionParams  VARCHAR(128),
+  actionParams  VARCHAR(300),
   enable        BOOLEAN,
-  description   VARCHAR(128),
+  description   VARCHAR(300),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );

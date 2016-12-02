@@ -145,6 +145,7 @@ const writeConcoction = (concObj, res) => {
       console.log('error when writing concoction', err);
     } else {
       subscribeUser(concObj);
+      res.status(201).send();
     }
   });
 }
