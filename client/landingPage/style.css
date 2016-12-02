@@ -65,7 +65,10 @@ a:focus{
 
 h1,h2,h3,h4,h5,h6{
 	font-family: 'Cabin', sans-serif;
+<<<<<<< HEAD
 	color: #fff;
+=======
+>>>>>>> 7608f0d81103c198d8d64cda160c8f907ab96fe0
 }
 
 h2 {
@@ -146,6 +149,7 @@ img{
 	-moz-transform: rotate(60deg);
 	transform: rotate(60deg);
 }
+
 .header-inner{	
 	display: inline;
 	position: relative;

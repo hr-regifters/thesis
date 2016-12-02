@@ -8,8 +8,8 @@ module.exports = {
     },
     action: {
       options: [
-        { description: 'Create a new Note in a specific Notebook',
-          alias: 'post_note',
+        { description: 'Add a note to one of your notebooks',
+          alias: 'create_note',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
@@ -24,16 +24,16 @@ module.exports = {
     icon: 'https://www.fitbit.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When you complete a Fitbit activity ',
+        { description: 'When you complete an activity ',
           alias: 'activity_logged',
           parameters: [
             { description: 'Activity',
-              alias: 'activity',
+              alias: 'fitbit_activity',
             },
           ],
         },
       ],
-      supportedActions: ['googleSheets', 'slack', 'twilio', 'evernote', 'gmail'],
+      supportedActions: ['googleSheets', 'slack', 'twilio', 'evernote', 'googleMail'],
     },
     action: {
       options: ['none'],
@@ -92,11 +92,17 @@ module.exports = {
     name: 'Instagram',
     icon: 'https://5a5a57ff32a328601212-ee0df397c56b146e91fe14be42fa361d.ssl.cf1.rackcdn.com/icon/instagram_logos_app_icon/YyepHGHDvkl1wFkUHw8Y/Instagram-v051916_200.png',
     trigger: {
-      options: [],
-      supportedActions: ['twilio', 'slack', 'evernote', 'gmail'],
+      options: [
+        { description: 'When you upload a picture ',
+          alias: 'picture_uploaded',
+          parameters: [
+          ],
+        },
+      ],
+      supportedActions: ['twilio', 'slack', 'evernote', 'googleMail'],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   slack: {
@@ -104,18 +110,18 @@ module.exports = {
     icon: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png',
     trigger: {
       options: [
-        { description: 'When a file is uploaded in Slack ',
+        { description: 'When a file is uploaded ',
           alias: 'file_created',
           parameters: [
           ],
         },
-        { description: 'When a message is pinned in Slack ',
+        { description: 'When a message is pinned ',
           alias: 'pin_added',
           parameters: [
           ],
         },
       ],
-      supportedActions: ['slack', 'evernote', 'twilio', 'gmail'],
+      supportedActions: ['slack', 'evernote', 'twilio', 'googleMail'],
     },
     action: {
       options: [
@@ -137,8 +143,17 @@ module.exports = {
     name: 'Strava',
     icon: 'https://www.strava.com/favicon.ico',
     trigger: {
-      options: [],
-      supportedActions: [],
+      options: [
+        { description: 'When you complete an activity ',
+          alias: 'activity_logged',
+          parameters: [
+            { description: 'Activity',
+              alias: 'strava_activity',
+            },
+          ],
+        },
+      ],
+      supportedActions: ['googleSheets', 'twilio', 'slack', 'googleMail'],
     },
     action: {
       options: ['none'],

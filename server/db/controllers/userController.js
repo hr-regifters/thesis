@@ -102,10 +102,13 @@ exports.getUserConcoctions = (req, res) => {
     if(rows.rowCount > 0) {
       let userId = rows.rows[0].id;
       let tokenArray = [];
-      rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
       rows.rows[0].evernotetoken ? tokenArray.push('evernote') : tokenArray;
       rows.rows[0].fitbittoken ? tokenArray.push('fitbit') : tokenArray;
+      rows.rows[0].githubtoken ? tokenArray.push('github') : tokenArray;
       rows.rows[0].googletoken ? tokenArray.push('google') : tokenArray;
+      rows.rows[0].instagramtoken ? tokenArray.push('instagram') : tokenArray;
+      rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
+      rows.rows[0].stravatoken ? tokenArray.push('strava') : tokenArray;
       pool.query({
         text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams, triggeruserid FROM concoctions WHERE userId = \'' + userId + '\';'
       }, (err, rows) => {

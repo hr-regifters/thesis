@@ -195,12 +195,4 @@ jQuery(function($){
 	
 });
 
-/* ----------------------------------------------------------- */
-	/*  7. Document Ready
-	/* ----------------------------------------------------------- */ 
-	// $( document ).ready(function() {
-	//     console.log( "ready!" );
-	//     $('#title').addClass('animated fadein');
-	// });
-	
 

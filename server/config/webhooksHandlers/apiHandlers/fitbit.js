@@ -1,8 +1,6 @@
 "use strict"
 const async = require('async');
 const concCtrl = require('../../../db/controllers/concoctionController');
-const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
 const verificationCode = process.env.FITBIT_VERIFICATION || require('../../../../env.js').FITBIT_VERIFICATION;
 
@@ -16,19 +14,21 @@ module.exports = {
     }
   },
   trigger: (req, res) => {
+    res.status(204).send();
     const webhooksHandler = require('./../main');
     let fitbitReqObj = {
       actionParams: '',
       actionToken: ''
     };
+    
     // look at each webhook from fitbit
     async.each(req.body, (obj, callback) => {
 
       // check obj.collectionType and connect it with the corresponding triggerevent
-      let alias;
-      if (obj.collectionType === 'activities') {
-        alias = 'activity_logged';
-      }
+      let webhooks = {
+        'activities': 'activity_logged'
+      };
+      let alias = webhooks[obj.collectionType];
 
       // get all concoctions that match fitbit id and webhook event
       concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {
@@ -46,45 +46,52 @@ module.exports = {
         };
 
         // query endpoint for update information
-        request.get(options, (err, res, body) => {
+        request(options, (err, res, body) => {
           if (err) {
             console.log('err', err);
           } else {
             // look at each individual concoction
-            concoctions.forEach((concoction) => {
-              let fitbitData = JSON.parse(res.body);
+            async.each((concoctions), (concoction, callback) => {
+              let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
 
               // check if we're dealing with activities
               if (fitbitData.hasOwnProperty('activities')) {
                 let activitiesData = fitbitData.activities;
-                let activity = JSON.parse(concoction.triggerparams).param['activity'].toLowerCase();
+                let activity = JSON.parse(concoction.triggerparams).param['fitbit_activity'].toLowerCase();
 
                 // filter activites data based on activity user has specified
                 let activityData = activitiesData.filter((event) => event.name.toLowerCase() === activity);
-                // console.log('filtered activity data', activityData);
 
                 // keep track of activity id? since we get all activity events everytime
 
                 // check which action apis we're dealing with and what corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
-                  let sheetData = activityData;
+                  let sheetData = activityData.slice(-1); // change this to the activities we haven't recorded yet
                   fitbitReqObj.data = sheetData;
-                  // console.log('fitbit obj', fitbitReqObj);
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
                   callback();
                 }
               }
-            });
+            }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event'); });
           }
         });
       }).catch((error) => {
         res.status(500).send('Server Error in Fitbit trigger');
         console.log(error);
       });
-    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event:', req.body[0].collectionType); }); //closing async
+    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event', req.body[0].collectionType); }); //closing async
   },
 }

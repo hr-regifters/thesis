@@ -28,7 +28,7 @@ export default class App extends React.Component {
       logout: this.logout.bind(this),
       undoLast: this.undoLast.bind(this),
     };
-
+    // the app component's state is the single source of truth for the entire app
     this.state = {
       user: '',
       message: [1],
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
     };
   }
-
+  // looks into session storage for a previous app state, loads it and renders it if so
   componentDidMount() {
     this.getConcoctions();
     if (sessionStorage.getItem('appState') === undefined) {
@@ -64,7 +64,7 @@ export default class App extends React.Component {
       sessionStorage.setItem('stateHistory', JSON.stringify([this.state]));
     }
   }
-
+  // serializes the current state to be loaded if the user leaves the application and reloads it
   componentDidUpdate() {
     if (this.state.previousView !== this.state.view && this.state.view !== 'verify') {
       this.getConcoctions();
@@ -77,11 +77,11 @@ export default class App extends React.Component {
     }
     this.logHistory = true;
   }
-
+ //
   changeViewTo(view) {
     this.changeState('previousView', this.state.view);
     this.setState({
-      view: view,  // home, concoctionEdit, addConcoction
+      view: view,  // possible views: home, concoctionEdit, addConcoction
       trigger: '',
       triggerOption: '',
       triggerParams: '',
@@ -104,25 +104,31 @@ export default class App extends React.Component {
     temp[state] = val;
     this.setState(temp);
   }
-
+  //triggered when the 'launch' button is clicked
+  //gathers the concoction specifications from the app state
+  //sends to the constructor api to be created on the server side and on the database
   saveConcoction() {
+    let concoctionList = this.state.actions.map((api) => {
+      let triggerEvent = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption].alias;
+      let actionEvent = servicesDetail[api.action].action.options[api.actionOption].alias;
+      let concoction = {
+        username: this.state.user,
+        triggerApi: this.state.trigger,
+        triggerEvent: triggerEvent,
+        triggerParams: this.state.triggerParams,
+        actionApi: api.action,
+        actionEvent: actionEvent,
+        actionParams: api.actionParams,
+        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[this.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} through ${servicesDetail[api.action].name}`,
+      };
+      return concoction;
+    });
+    console.log(concoctionList);
     let context = this;
-    let triggerEvent = servicesDetail[context.state.trigger].trigger.options[context.state.triggerOption].alias;
-    let actionApi = this.state.actions[0].action;
-    let actionEvent = servicesDetail[context.state.actions[0].action].action.options[context.state.actions[0].actionOption].alias;
     fetch(`${currUrl}/api/constructor/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        triggerApi: context.state.trigger,
-        triggerEvent: triggerEvent,
-        triggerParams: context.state.triggerParams,
-        username: context.state.user,
-        actionApi: actionApi,
-        actionEvent: actionEvent,
-        actionParams: context.state.actions[0].actionParams,
-        description: `If a ${triggerEvent.slice(0, triggerEvent.indexOf('_'))} is ${triggerEvent.slice(triggerEvent.indexOf('_') + 1)} in ${servicesDetail[context.state.trigger].name}, ${actionEvent.slice(0, actionEvent.indexOf('_'))} ${actionEvent.slice(actionEvent.indexOf('_') + 1)} through ${servicesDetail[actionApi].name}`,
-      }),
+      body: JSON.stringify(concoctionList),
     })
     .then((res) => {
       if (res.status === 201) {
@@ -132,20 +138,20 @@ export default class App extends React.Component {
       }
     });
   }
-
+  //stores the serialized state of the app in session storage so it can be un-done
   undoLast() {
-    //get the state history
+    // get the state history
     let history = sessionStorage.getItem('stateHistory');
-    //parse the state history
+    // parse the state history
     history = JSON.parse(history);
-    //slice the last one off
+    // slice the last one off
     history = history.slice(0, -1);
-    //set the state to the last one in the array
+    // set the state to the last one in the array
     sessionStorage.setItem('stateHistory', JSON.stringify(history));
     this.logHistory = false;
     this.setState(history[history.length - 1]);
   }
-
+  // renders the appropriate instructions from the instructionsDetial based on signals from the action and trigger  components
   modifyInstructions(index) {
     this.setState({
       instructions: instructions.instructions[index],
@@ -166,7 +172,7 @@ export default class App extends React.Component {
     })
     .then((concObj) => {
       context.changeState('concoctions', concObj.concoctions);
-      concObj['oauths'].forEach((api) => 
+      concObj['oauths'].forEach((api) =>
         context.state.connectedServices[api] = true
       );
       context.changeState('connectedServices', context.state.connectedServices);
@@ -191,9 +197,10 @@ export default class App extends React.Component {
         throw new Error('Cannot log out');
       }
     })
-    .catch((err) => { console.log(err) });
+    .catch((err) => { console.log(err); });
   }
-
+ // these functions are responsible for changing the app's state to both
+ // render and store the users selections as they create a concoction
   modifyTrigger(trig) {
     this.setState({
       trigger: trig,
@@ -219,11 +226,10 @@ export default class App extends React.Component {
           triggerObj.param = updatedParams;
         }
       }
-    };
+    }
     triggerObj.alias = triggerOptions.alias;
-    console.log(triggerObj)
     this.setState({
-      triggerParams: triggerObj
+      triggerParams: triggerObj,
     });
     this.modifyTriggerReveal();
   }
@@ -266,7 +272,7 @@ export default class App extends React.Component {
           updatedParams[param[i].id] = param[i].value;
         }
       }
-    };
+    }
     let temp = this.state.actions;
     temp[index].actionParams = updatedParams;
     this.setState({
@@ -288,7 +294,7 @@ export default class App extends React.Component {
       actions: temp,
     });
   }
-  
+
   addNewAction() {
     let temp = this.state.actions;
     temp.push({
@@ -304,7 +310,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="full">
+      <div className='full'>
         <Navigator appState={this.state} functions={this.funcs} />
       </div>
     );
