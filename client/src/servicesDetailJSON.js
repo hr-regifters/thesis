@@ -21,7 +21,7 @@ module.exports = {
   },
   fitbit: {
     name: 'Fitbit',
-    icon: 'https://www.fitbit.com/favicon.ico',
+    icon: 'https://lh6.ggpht.com/BY3vPU4djGftf15cd-xv68WJrtNmwSvD5wtoVV2ldTmlV94RUWeYNIEzcsvoK54gKw=w300',
     trigger: {
       options: [
         { description: 'When you complete an activity ',
@@ -141,7 +141,7 @@ module.exports = {
   },
   strava: {
     name: 'Strava',
-    icon: 'https://www.strava.com/favicon.ico',
+    icon: 'http://www.thenational.ae/storyimage/AB/20151223/ARTICLE/151229586/AR/0/&NCS_modified=20151223083557&MaxW=640&MaxH=427&AR-151229586.jpg',
     trigger: {
       options: [
         { description: 'When you complete an activity ',
