@@ -1,6 +1,6 @@
 # Ripple
 
-> Pithy project description
+Ripple is a client-facing app geared towards tech-oriented users to help them automate their use of web services.
 
 ## Team
 
@@ -20,14 +20,12 @@
 
 ## Usage
 
-> Some usage instructions
+Simply press [here](https://regifters48.herokuapp.com) to view Ripple's landing page, sign up, and then Ripple will walk you through the rest.
 
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
 - Postgresql 9.1.x
-- etc
 - etc
 
 ## Development
@@ -43,7 +41,7 @@ npm start
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/hr-regifters/thesis/issues)
 
 
 ## Contributing
