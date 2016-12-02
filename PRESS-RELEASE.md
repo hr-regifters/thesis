@@ -1,28 +1,28 @@
 # Ripple #
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  Ripple interconnects all the apps you love.
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Ripple is a client-facing app geared towards tech-oriented users to help them automate their use of web services.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Ripple is all about chain reactions. When you post a photo in Instagram, Ripple will upload it to your Dropbox. When you pin a message in Slack, Ripple will save it to your Evernote. In Ripple, a relationship between multiple apps is called a concoction. A concoction follows basic cause and effect logic. Select a trigger app and event, then choose your action app and event. Ripple will take care of the rest! Once you've made your concoction, Ripple will keep listening in the background. Concoctions last as long as you want them to and when you no longer want to use a concoction, just click the disable toggle!
 
 ## Problem ##
-  > Describe the problem your product solves.
+  Too many web services, not enough time!
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  One simple app that automates the web services you use in no time!
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  "I can't live without Ripple! It reminds me to breathe." -Sir Dylan
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  Simply press [here](https://regifters48.herokuapp.com) to view Ripple's landing page, sign up, and then Ripple will walk you through the rest.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "It makes waves...in my life!" -Bill
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  Check out our [README](README.md) for more information.
