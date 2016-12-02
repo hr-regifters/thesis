@@ -1,6 +1,5 @@
 "use strict"
 const express = require('express');
-const slackConcoction = require('../models/slackTriggerModel');
 const userController = require('./userController');
 const Promise = require('bluebird');
 const pool = (require('../config.js').pool);
@@ -9,13 +8,29 @@ const async = require('async');
 const STRAVA_ID = process.env.STRAVA_ID;
 const STRAVA_SECRET = process.env.STRAVA_SECRET;
 
-exports.queryConcoctions = (req, res) => {
-  pool.query({
-    text: 'SELECT * FROM concoctions;'
-  }, (err, rows) => {
-    console.log(err, rows.rows)
-    res.status(201).send(rows.rows);
-  }); 
+exports.createConcoction = (req, res) => {
+  async.each(req.body, (concoction, callback) => {
+    const username = concoction.username;
+    let concObj = {
+      userid: '',
+      triggerapi: concoction.triggerApi,
+      triggerevent: concoction.triggerEvent,
+      triggerparams: concoction.triggerParams || {},
+      triggeruserid: '',
+      triggertoken: '',
+      actionapi: concoction.actionApi,
+      actionevent: concoction.actionEvent,
+      actionuserid: '',
+      actiontoken: '',
+      actionparams: concoction.actionParams || {},
+      enable: concoction.enable || true,
+      description: concoction.description
+    };
+    getActionIdandToken(concObj, username, res)
+    .then((concObj) => getTriggerIdandToken(concObj, username, res))
+    .then((concObj) => { writeConcoction(concObj, res); })
+    .catch((error) => { res.status(405).send(error); });
+  }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
 const getActionIdandToken = (concObj, username, res) => {
@@ -113,6 +128,27 @@ const getTriggerIdandToken = (concObj, username, res) => {
     return concObj;
   }
 }
+
+const writeConcoction = (concObj, res) => {
+  pool.query({
+    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
+    actionuserid, actiontoken, actionparams, enable, description) \
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
+    values: [
+      concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
+      concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
+      concObj['actionparams'],concObj['enable'], concObj['description']
+    ]
+  }, (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      subscribeUser(concObj);
+      res.status(201).send(rows);
+    }
+  });
+}
+
 const subscribeUser = (concObj) => {
   if (concObj['triggerapi'] === 'fitbit') {
     let options = {
@@ -144,56 +180,6 @@ const subscribeUser = (concObj) => {
   } else {
     return;
   }
-}
-
-
-const writeConcoction = (concObj, res) => {
-  pool.query({
-    text: 'INSERT INTO concoctions(userid, triggerapi, triggerevent, triggerparams, triggeruserid, triggertoken, actionapi, actionevent,\
-    actionuserid, actiontoken, actionparams, enable, description) \
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)',
-    values: [
-      concObj['userid'],concObj['triggerapi'],concObj['triggerevent'],concObj['triggerparams'],concObj['triggeruserid'], concObj['triggertoken'],
-      concObj['actionapi'],concObj['actionevent'],concObj['actionuserid'],concObj['actiontoken'],
-      concObj['actionparams'],concObj['enable'], concObj['description']
-    ]
-  }, (err, rows) => {
-    if (err) {
-      console.log(err);
-    } else {
-      subscribeUser(concObj);
-      res.status(201).send(rows);
-    }
-  });
-}
-
-exports.createConcoction = (req, res) => {
-  async.each(req.body, (concoction, callback) => {
-    const username = concoction.username;
-    let concObj = {
-      userid: '',
-      triggerapi: concoction.triggerApi,
-      triggerevent: concoction.triggerEvent,
-      triggerparams: concoction.triggerParams || {},
-      triggeruserid: '',
-      triggertoken: '',
-      actionapi: concoction.actionApi,
-      actionevent: concoction.actionEvent,
-      actionuserid: '',
-      actiontoken: '',
-      actionparams: concoction.actionParams || {},
-      enable: concoction.enable || true,
-      description: concoction.description
-    };
-    // get action id, token, and userId
-    getActionIdandToken(concObj, username, res)
-    .then((concObj) => getTriggerIdandToken(concObj, username, res))
-    .then((concObj) => {
-      writeConcoction(concObj, res);
-    }).catch((error) => {
-      res.status(405).send(error);
-    });
-  }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
 exports.getConcoctions = (api, event, triggeruserid) => {
@@ -254,4 +240,14 @@ exports.updateConcoctionsToken = (username, api, newToken) => {
       }
     });
   }).catch((err) => { console.log(err); });
+}
+
+// for testing purposes
+exports.queryConcoctions = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM concoctions;'
+  }, (err, rows) => {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
 }
