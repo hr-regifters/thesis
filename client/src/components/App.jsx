@@ -49,7 +49,7 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
-      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
+      instructions: 'First, go ahead and choose a trigger for Ripple to listen to. Click "Trigger" to reveal more.'
     };
   }
 
@@ -97,7 +97,7 @@ export default class App extends React.Component {
           actionServicesReveal: 'hide',
         },
       ],
-      instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.',
+      instructions: 'First, go ahead and choose a trigger for Ripple to listen to. Click "Trigger" to reveal more.',
     });
     sessionStorage.setItem('stateHistory', '[]');
   }
@@ -193,7 +193,7 @@ export default class App extends React.Component {
     .then((res) => {
       if (res.status === 200) {
         console.log('Successful logout');
-        localStorage.removeItem('regiftUsername');
+        localStorage.removeItem('rippleUsername');
         context.changeViewTo('verify');
         sessionStorage.setItem('appState', '{}');
         sessionStorage.setItem('stateHistory', '[]');

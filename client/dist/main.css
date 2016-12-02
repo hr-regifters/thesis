@@ -11,10 +11,9 @@ i {
 }
 h2 {
   font-family: "Muli", sans-serif;
-  text-align: left;
-  margin-left: 22%;
   color: #11aaad;
 }
+h2.
 h2:hover {
   color: #bbb;
 }
@@ -195,8 +194,10 @@ nav {
   background-color: transparent;
   border-bottom-style: solid;
   border-bottom-color: #bbb;
-
-
+}
+#registerText {
+  text-align: left;
+  margin-left: 22%;
 }
 input:focus {
 }
@@ -358,11 +359,13 @@ input {
   display: block;
   background-color: #333;
   text-align: center;
-  margin: 0 auto;
 }
 .saveBttn:hover {
   border-color: #bbb;
   color: #bbb;
+}
+.saveBttn.verification {
+  margin: 0 auto;
 }
 .inline {
   margin-left: 0px;
@@ -436,7 +439,6 @@ input {
   box-shadow: 0px 3px 15px #666;
 }
 
-
 .switch input {display:none;}
 
 .slider {
@@ -494,22 +496,3 @@ input:checked + .slider:before {
   transition: .7s;
   background-color: rgba(200, 200, 200, 0.75);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
