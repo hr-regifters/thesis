@@ -1,0 +1,498 @@
+
+* {
+  text-align: center;
+}
+h1, h2{
+  color: #fff;
+  font-family: "Muli", sans-serif;
+}
+i {
+  color: #11aaad;
+}
+h2 {
+  font-family: "Muli", sans-serif;
+  color: #11aaad;
+}
+h2.
+h2:hover {
+  color: #bbb;
+}
+h3 {
+  font-family: "Muli", sans-serif;
+  text-align: center;
+  color: #11aaad;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 2em;
+  margin-top: 50px
+}
+h4 {
+  font-family: "Muli", sans-serif;
+  text-align: center;
+  color: #11aaad;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 2em;
+  margin-top: 50px
+}
+
+h3:hover {
+  color: #fff;
+}
+
+p {
+  font-family: "Muli", sans-serif;
+  text-align: left;
+  
+  margin: 10px;
+  color: #aebec1;
+  font-size: 85%;
+  line-height: 135%;
+}
+
+a {
+  padding: 7px;
+  font-family: "Muli", sans-serif;
+  color: #11aaad;
+  font-size: 80%;
+  text-align: right;
+}
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #294853;
+}
+html {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #121212;
+}
+body {
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  background-color: #121212;
+}
+hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+nav {
+  background-color: rgba(0,0,0,0.5) !important;
+  height: 100%;
+  width: 20%;
+  top: 0px;
+  left: 0px;
+  text-align: left
+}
+#app {
+  height: 100%;
+  width: 100%;
+}
+ #Verification{
+  height: 100%;
+  width: 100%;
+  background-image: url('ripples.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#HomeView {
+  height: 100%;
+  width: 100%;
+  background-color: #1f1f1f;
+}
+
+/* LOGIN, */
+
+#login {
+  height: 350px;
+  padding: 0px;
+  margin-left: 50px;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0px 3px 15px #999; /* BOX SHADOW HERE DELETE IF YOU DONT LIKE */
+  display: inline-block;
+  animation-duration: 1.5s;
+  animation-delay: .4s;
+}
+
+#login form {
+  text-align: center;
+  margin-top: 0;
+
+}
+
+#login h2 {
+  background-color: #3C3C3C;
+  padding: 5%;
+  margin-top: 0;
+  color: #11aaad;
+  margin-bottom: 40px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-left: 10%;
+  /*padding-right: 0px;*/
+}
+
+#login input {
+  width: 51%;
+  margin: 5px 0;
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
+  padding: 5px;
+}
+
+#login button {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+/* REGISTER */
+
+#register {
+  height: 350px;
+  padding: 0px;
+  margin-left: 50px;
+  background-color: rgba(255,255,255,0.8);
+  display: inline-block;
+  animation-duration: 1.5s;
+  animation-delay: .4s;
+  box-shadow: 0px 3px 15px #999;
+}
+
+#register form {
+  text-align: center;
+  margin-top: 0;
+}
+
+#register h2 {
+  background-color: #11aaad;
+  padding: 5%;
+  margin: 0px;
+  color: #3C3C3C;
+  margin-bottom: 40px;
+  width: 100%;
+  padding-left: 10%;
+}
+
+#register input {
+  width: 51%;
+  margin: 5px 0;
+  padding: 5px;
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
+}
+#registerText {
+  text-align: left;
+  margin-left: 22%;
+}
+input:focus {
+}
+#register button {
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding: 10px;
+}
+#buttonGroup {
+  margin-bottom: 10px;
+}
+#signupTitle {
+  padding: 3%;
+  padding-top: 8%;
+  margin-top: 0px;
+  color: #ccc;
+  margin-bottom: 40px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: 70px;
+  font-weight: 900;
+  background-color: rgba(50, 50, 50, 0.35);
+  box-shadow: 0px 3px 15px #666;
+
+}
+.concoction {
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  animation-duration: 1s;
+  box-shadow: 0px 3px 15px #666;
+}
+#concoctions {
+  padding-top: 20px;
+  width: 80%;
+  margin-left: 20%;
+
+}
+.bottomBox {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #171717;
+  display: block;
+  height: 80%;
+  width: 100%;
+  color: #fff;
+  font-size: 30px;
+}
+.mainBox {
+  margin: 0 auto;
+  padding: 10px;
+  display: block;
+  height: 80%;
+  width: 100%;
+  min-height: 225px;
+  background-color: #111;
+  color: #fff;
+  font-size: 22px;
+
+}
+.full {
+  height: 100%;
+  width: 100%;
+  margin-top: 0px;
+}
+#invisiblefiller {
+  display: none;
+}
+#newConcoctionButton {
+  font-size: 1em;
+  color: #fff;
+  background-color: #3C3C3C;
+  padding-bottom: 10px;
+  padding-top: 3px;
+  margin: 40px auto;
+  width: 45%;
+  text-align: center !important;
+  box-shadow: 0px 3px 15px #000;
+}
+.newConcoctionTxt {
+  text-align: center;
+  margin-top: 17px;
+  margin-bottom: 17;
+  font-size: 1.5em;
+}
+.pull-right {
+  margin-right: 0 !important;
+}
+
+.hide {
+  display: none;
+}
+
+.saveDisabled {
+  text-decoration: line-through;
+}
+.Mod {
+  width: 98%;
+}
+
+.icon {
+  padding: 10px;
+  height: 70px;
+  width: 70px;
+}
+.col-xs-4 {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+/*================================================== Styling for AddConcoction Nav =============================================*/
+.inline {
+  display: inline-block;
+}
+#concViewGrid {
+  width: 100%;
+}
+#concoctionMakerCol {
+  height: 90%;
+  width: 80%;
+  padding-top: 3%;
+  margin-left: 10%;
+}
+#center {
+  margin-left: 20%;
+}
+#concoctionMakerBox {
+  background-color: #0F8B8D;
+  height: 100%;
+}
+
+#addConcBox {
+  background-color: #11aaad;
+  padding-bottom: 20px;
+  width: 100%;
+  box-shadow: 0px 3px 15px #000;
+}
+
+input {
+  color: none;
+  background-color: #3C3C3C;
+  border: none;
+  border-bottom: solid;
+  border-color: #555;
+}
+.saveBttn {
+  border-style: solid;
+  border-color: #11aaad;
+  color: #11aaad;
+  border-width: 4px;
+  width: 200px;
+  display: block;
+  background-color: #333;
+  text-align: center;
+}
+.saveBttn:hover {
+  border-color: #bbb;
+  color: #bbb;
+}
+.saveBttn.verification {
+  margin: 0 auto;
+}
+.saveBttn.createConc {
+  margin: 20px auto;
+}
+.inline {
+  margin-left: 0px;
+  margin-right: 0px; 
+}
+.serviceBttn {
+  width: 27%;
+  display: inline-block;
+}
+.workWindow2 {
+  background-color: #3C3C3C;
+  margin: 0px;
+  padding: 10px;
+  border-bottom: solid;
+  border-bottom-color: #11aaad;
+  border-bottom-width: 1px;
+}
+.workWindow1 {
+  background-color: #333;
+  margin: 0px;
+  padding: 10px;
+}
+.instructions {
+  text-align: left;
+  font-size: 170%;
+  color: #aebec1;
+  padding: 20px;
+  padding-right: 100px;
+  padding-left: 60px;
+  color: white;
+  background-color: #333;
+  width: 86%;
+  left: 20%;
+  top: 0px;
+  position: relative;
+  z-index: 100;
+  font-family: "Muli", sans-serif;
+  line-height: 160%;
+  box-shadow: 0px 3px 15px #000;
+}
+.round {
+  background-color: #3C3C3C;
+  border-radius: 40px;
+  margin-left: -3px;
+  margin-right: -3px;
+  border-width: 1px;
+  border-color: #333;
+  border-style: solid;
+}
+.paramTxt {
+  color: #aebec1;
+}
+.head {
+  background-color: rgba(0,0,0,0.9);
+  padding: 20px;
+  margin: 0px;
+}
+.bod{
+ margin: 20px;
+ color: #aebec1;
+ text-align: left;
+ margin-left: 30px;
+}
+.message {
+  color: white !important;
+  padding: 0px;
+  padding-bottom: 10px;
+  background-color: rgba(100,100,100,0.2);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 3px 15px #666;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: relative;
+  cursor: pointer;
+  /*right: 0;
+  bottom: 0;*/
+  width: 62px;
+  height: 36px;
+  background-color: #333;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.disabledBtn {
+  -webkit-transition: .7s;
+  transition: .7s;
+  background-color: rgba(200, 200, 200, 0.75);
+}

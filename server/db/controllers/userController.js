@@ -1,62 +1,123 @@
 "use strict"
 
-const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const Promise = require('bluebird');
 const saltRounds = 10;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const pool = Promise.promisifyAll(require('../config.js').pool);
 
-// Error messages to log and return as responses
-const noUsernameErr = 'Sorry, username does not exist'; 
-const incorrectPasswordErr = 'Incorrect password entered';
-const usernameErr = 'Username in use';
-
-exports.Strategy = new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      bcrypt.compare(password, user.password, (err, user) => {
-        err ? done(null, false) : done(null, user);
-      });
+exports.Login = new LocalStrategy(
+  (username, password, done) => {
+    pool.query({
+      text: 'SELECT * FROM users \
+        WHERE username = \'' + username + '\';'
+    },
+    (err, rows) => {
+      if (rows.rowCount > 0) {
+        bcrypt.compare(password, rows.rows[0].password, (err, user) => {
+          err ? done(null, false) : done(null, user);
+        });
+      }
     });
   }
 );
 
-exports.signup = (req, res) => { 
-  let username = req.body.username;
-  let password = req.body.password;
-  let email = req.body.email;
-  
-
-  console.log('POST /api/user/signup. username:', username);
-
-  User.findOne({username: username}).then((user) => {
-    user ? res.status(401).send(usernameErr) : bcrypt.hash(password, saltRounds, (error, hash) => {
-      error ? res.send(error) : User.create({username: username, password: hash, email: email})
-      .then((user) => {
-        passport.authenticate('local', { failureRedirect: '/' });
-        console.log(req.session)
-        res.status(201).send('success');
-      })
-      .catch((error)=>{res.status(401).send('user was not created: ' + error)});
+exports.Signup = new LocalStrategy({
+    passReqToCallback: true
+  },
+  (req, username, password, done) => {
+    pool.query({
+      text: 'SELECT * FROM users \
+        WHERE username = \'' + username + '\';'
+    }, 
+    (err, rows) => {
+      if (rows.rowCount > 0) {
+        done(null,false);
+      } else {
+        bcrypt.hash(password, saltRounds, (error, hash) => {
+          password = hash;
+          pool.query({
+            text: 'INSERT INTO users(username, email, password) \
+              VALUES($1, $2, $3)',
+            values: [username, req.body.email, password]
+          },
+          (err, rows) => {
+            if (!err) {
+              done(null,true);
+            }
+          });
+        });
+      }
     });
-  });
-};
+  }
+);
 
-exports.addTokenAndId = (username, apiToken, token, slackId) => {
-  User.findOne({'username': username}).then((user) => {
-    if (apiToken === 'slackToken') {
-      user[apiToken] = token;
-      user['slackId'] = slackId;
-    } else {
-      user[apiToken] = token;
+exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
+  pool.query({
+    text: 'UPDATE users \
+    SET ' + apiToken + ' = \'' + token + '\' WHERE username = \'' + username + '\';'
+  }, 
+  (err, rows) => {
+    if (err) { return err; } else {
+      console.log(rows);
     }
-    user.save((err, updated) => {
-      err ? console.log(err) : console.log(updated);
-    });
   });
-};
-//get slack user id and slack token from the
-exports.getSlackId = username => User.findOne({username: username}).then((user) => user ? user.slackId ? user.slackId : "No slack ID" : "No user");
-exports.getUserData = username => User.findOne({username: username}).then((user) => user ? user : "no user");
+  if (apiId) {
+    pool.query({
+      text: 'UPDATE users SET ' + api + 'id = \'' + apiId + '\'  WHERE username = \'' + username + '\';'
+    }, 
+    (err, rows) => {
+      if (err) { return err; } else {
+        console.log(rows);
+      }
+    });
+  }
+}
+
+exports.getUserData = (userKey, userValue) => {
+  return new Promise ((resolve, reject) => {
+    pool.query({
+      text: 'SELECT * FROM users WHERE ' + userKey + ' = \'' + userValue + '\';'
+    }, (err,rows) => err ? reject(err) : resolve(rows.rows[0]));
+  });
+}
+
+exports.getUserConcoctions = (req, res) => {
+  const username = req.body.username || req.query.username;
+  pool.query({
+    text: 'SELECT * FROM users WHERE username = \'' + username + '\';'
+  }, 
+  (err, rows) => {
+    if(rows.rowCount > 0) {
+      let userId = rows.rows[0].id;
+      let tokenArray = [];
+      rows.rows[0].evernotetoken ? tokenArray.push('evernote') : tokenArray;
+      rows.rows[0].fitbittoken ? tokenArray.push('fitbit') : tokenArray;
+      rows.rows[0].githubtoken ? tokenArray.push('github') : tokenArray;
+      rows.rows[0].googletoken ? tokenArray.push('google') : tokenArray;
+      rows.rows[0].instagramtoken ? tokenArray.push('instagram') : tokenArray;
+      rows.rows[0].slacktoken ? tokenArray.push('slack') : tokenArray;
+      rows.rows[0].stravatoken ? tokenArray.push('strava') : tokenArray;
+      pool.query({
+        text: 'SELECT id, enable, description, actionapi, actionevent, actionparams, triggerevent, triggerapi, triggerparams, triggeruserid FROM concoctions WHERE userId = \'' + userId + '\';'
+      }, (err, rows) => {
+        const obj = {
+          concoctions: rows.rows,
+          oauths: tokenArray
+        }
+        res.status(200).send(obj)
+      });
+    }
+  });
+}
+
+// for testing purposes
+exports.queryUsers = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM users;'
+  }, (err, rows) => {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
+}
