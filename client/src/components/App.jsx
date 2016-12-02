@@ -173,7 +173,7 @@ export default class App extends React.Component {
     .then((concObj) => {
       context.changeState('concoctions', concObj.concoctions);
       concObj['oauths'].forEach((api) =>
-        context.state.connectedServices[api] = true,
+        context.state.connectedServices[api] = true
       );
       context.changeState('connectedServices', context.state.connectedServices);
       context.changeState('previousView', context.state.view);
