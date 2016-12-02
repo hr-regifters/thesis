@@ -33,7 +33,7 @@ const Action = (props) => {
         </div>
       </div>
     );
-    // if the action's option has not been selected, render the action options
+  // if the action's option has not been selected, render the action options
   } else if (props.state.action !== '' && props.state.actionOption === '') {
     return (
       <div className='workWindow2'>
@@ -52,7 +52,7 @@ const Action = (props) => {
         </div>
       </div>
     );
-  // if the there are no paramerters to select, render the save button
+  // if there are no parameters to select, render the save button
   } else if (props.state.action !== '' && props.state.actionOption !== '' && servicesDetail[props.state.action].action.options[props.state.actionOption].parameters.length === 0) {
     return (
       <div className='workWindow2'>
@@ -70,7 +70,7 @@ const Action = (props) => {
         </div>
       </div>
     );
-    // if the there are paramerters to select, render the along with the save button
+  // if there are parameters to select, render the parameters along with the save button
   } else if (props.state.action !== '' && props.state.actionOption !== '' && servicesDetail[props.state.action].action.options[props.state.actionOption].parameters.length > 0) {
     return (
      <div className='workWindow2'>

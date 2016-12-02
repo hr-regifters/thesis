@@ -28,6 +28,7 @@ export default class App extends React.Component {
       logout: this.logout.bind(this),
       undoLast: this.undoLast.bind(this),
     };
+
     // the app component's state is the single source of truth for the entire app
     this.state = {
       user: '',
@@ -51,6 +52,7 @@ export default class App extends React.Component {
       instructions: 'First, go ahead and choose a trigger for Regift3d to listen to. Click "Trigger" to reveal more.'
     };
   }
+
   // looks into session storage for a previous app state, loads it and renders it if so
   componentDidMount() {
     this.getConcoctions();
@@ -64,6 +66,7 @@ export default class App extends React.Component {
       sessionStorage.setItem('stateHistory', JSON.stringify([this.state]));
     }
   }
+
   // serializes the current state to be loaded if the user leaves the application and reloads it
   componentDidUpdate() {
     if (this.state.previousView !== this.state.view && this.state.view !== 'verify') {
@@ -77,7 +80,7 @@ export default class App extends React.Component {
     }
     this.logHistory = true;
   }
- //
+
   changeViewTo(view) {
     this.changeState('previousView', this.state.view);
     this.setState({
@@ -104,9 +107,9 @@ export default class App extends React.Component {
     temp[state] = val;
     this.setState(temp);
   }
-  //triggered when the 'launch' button is clicked
-  //gathers the concoction specifications from the app state
-  //sends to the constructor api to be created on the server side and on the database
+
+  // triggered when the 'launch' button is clicked; gathers the concoction specifications from the app state
+  // sends to the constructor api to be created on the server side and on the database
   saveConcoction() {
     let concoctionList = this.state.actions.map((api) => {
       let triggerEvent = servicesDetail[this.state.trigger].trigger.options[this.state.triggerOption].alias;
@@ -123,7 +126,6 @@ export default class App extends React.Component {
       };
       return concoction;
     });
-    console.log(concoctionList);
     let context = this;
     fetch(`${currUrl}/api/constructor/add`, {
       method: 'POST',
@@ -138,6 +140,7 @@ export default class App extends React.Component {
       }
     });
   }
+
   //stores the serialized state of the app in session storage so it can be un-done
   undoLast() {
     // get the state history
@@ -151,6 +154,7 @@ export default class App extends React.Component {
     this.logHistory = false;
     this.setState(history[history.length - 1]);
   }
+
   // renders the appropriate instructions from the instructionsDetial based on signals from the action and trigger  components
   modifyInstructions(index) {
     this.setState({
@@ -199,8 +203,8 @@ export default class App extends React.Component {
     })
     .catch((err) => { console.log(err); });
   }
- // these functions are responsible for changing the app's state to both
- // render and store the users selections as they create a concoction
+
+ // these functions are responsible for changing the app's state to both render and store the user's selections as they create a concoction
   modifyTrigger(trig) {
     this.setState({
       trigger: trig,
