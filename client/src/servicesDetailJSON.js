@@ -8,8 +8,8 @@ module.exports = {
     },
     action: {
       options: [
-        { description: 'Create a new Note in a specific Notebook',
-          alias: 'post_note',
+        { description: 'Add a note to one of your notebooks',
+          alias: 'create_note',
           parameters: [
             { description: 'Notebook Name',
               alias: 'parentNotebook',
@@ -24,11 +24,11 @@ module.exports = {
     icon: 'https://www.fitbit.com/favicon.ico',
     trigger: {
       options: [
-        { description: 'When you complete a Fitbit activity ',
+        { description: 'When you complete an activity ',
           alias: 'activity_logged',
           parameters: [
             { description: 'Activity',
-              alias: 'activity',
+              alias: 'fitbit_activity',
             },
           ],
         },
@@ -102,7 +102,7 @@ module.exports = {
       supportedActions: ['twilio', 'slack', 'evernote', 'googleMail'],
     },
     action: {
-      options: [],
+      options: ['none'],
     },
   },
   slack: {
@@ -110,12 +110,12 @@ module.exports = {
     icon: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png',
     trigger: {
       options: [
-        { description: 'When a file is uploaded in Slack ',
+        { description: 'When a file is uploaded ',
           alias: 'file_created',
           parameters: [
           ],
         },
-        { description: 'When a message is pinned in Slack ',
+        { description: 'When a message is pinned ',
           alias: 'pin_added',
           parameters: [
           ],
