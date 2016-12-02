@@ -20,7 +20,11 @@
 	11. WOW ANIMATION 	
 	
 **/
-
+var test = function() {
+$('html,body').animate({
+       scrollTop: $('#howit-works').offset().top
+     }, 'slow');
+}
 jQuery(function($){
 
 	/* ----------------------------------------------------------- */
@@ -190,3 +194,13 @@ jQuery(function($){
     wow.init();
 	
 });
+
+/* ----------------------------------------------------------- */
+	/*  7. Document Ready
+	/* ----------------------------------------------------------- */ 
+	// $( document ).ready(function() {
+	//     console.log( "ready!" );
+	//     $('#title').addClass('animated fadein');
+	// });
+	
+
