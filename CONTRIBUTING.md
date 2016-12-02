@@ -167,9 +167,9 @@ no problem getting your changes merged in.
 
 ### Releasing a Version
 
-1.  create a new branch called "Release V X.X.X " (X should be replaced by the version numbering)
+1.  Create a new branch called "Release V X.X.X " (X should be replaced by the version numbering)
 2.  No pulling from development branch anymore, version is frozen!!!
 3.  Do extensive testing of this branch and fix last bugs.
 4.  If all bugs were fixed, then merge into master as "Version X.X.X" and merge back into development
     to keep the bug fixes.
-5.  continue contributing as before
+5.  Continue contributing as before
