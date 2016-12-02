@@ -23,10 +23,12 @@ Author URI : http://www.markups.io/
   color: #11aaad;
 }
 
-.title-area .title span{
+ .title span{
   color: #11aaad;
 }
-
+span{
+  color: #11aaad;
+}
 .title-area .title::before {
   background-color: #11aaad;
 }
