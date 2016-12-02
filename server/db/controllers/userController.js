@@ -39,7 +39,7 @@ exports.Signup = new LocalStrategy({
           password = hash;
           pool.query({
             text: 'INSERT INTO users(username, password) \
-              VALUES($1, $2, $3)',
+              VALUES($1, $2)',
             values: [username, password]
           },
           (err, rows) => {
