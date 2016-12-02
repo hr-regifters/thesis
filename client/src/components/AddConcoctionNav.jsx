@@ -24,8 +24,8 @@ const AddConcoctionNav = (props) => {
     modifyActionParams: props.funcs.modifyActionParams,
     modifyActionReveal: props.funcs.modifyActionReveal,
   };
- // if there are no trigger related options selected, only render 
- // the trigger component for the user to make selections
+
+  // if there are no trigger related options selected, only render the trigger component for the user to make selections
   if (props.appState.trigger === '' || props.appState.triggerOption === '' || props.appState.triggerParams === '') {
     return (
       <div className="full">
@@ -37,10 +37,8 @@ const AddConcoctionNav = (props) => {
             <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
+        <Instructions text={props.appState.instructions} />
         <Grid id="concViewGrid" className='full'>
-          <Row>
-            <Instructions text={props.appState.instructions} />
-          </Row>
           <Row id='center'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol" >
               <div id="addConcBox">
@@ -54,8 +52,7 @@ const AddConcoctionNav = (props) => {
         </Grid>
       </div>
     )
-    // if there are any action specifications incomplete in the state,
-    // render the action component to alloe the user to create an action
+    // if there are any action specifications incomplete in the state, render the action component to allow the user to create an action
   } else if (!props.appState.actions.reduce((prev, curr) => {
     let complete = true;
     if (curr.action === '' || curr.actionOption === '' || curr.actionParams === '') {
@@ -100,8 +97,7 @@ const AddConcoctionNav = (props) => {
         </Grid>
       </div>
     );
-    // if there is nothing incomplete about the concoction in the app's state,
-    // render the options to submit the concoction to the server.
+    // if there is nothing incomplete about the concoction in the app's state, render the options to submit the concoction to the server.
   } else {
     return (
       <div className="full">

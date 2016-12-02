@@ -35,7 +35,7 @@ const Trigger = (props) => {
         </div>
       </div>
     );
-    // if the triggers's option has not been selected, render the trigger options
+  // if the triggers's option has not been selected, render the trigger options
   } else if (props.state.trigger !== '' && props.state.triggerOption === '') {
     return (
       <div className='workWindow1'>
@@ -56,7 +56,7 @@ const Trigger = (props) => {
         </div>
       </div>
     );
-    // if the there are no paramerters to select, render the save button
+    // if the there are no parameters to select, render the save button
   } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length === 0) {
     return (
       <div className='workWindow1'>
@@ -69,12 +69,12 @@ const Trigger = (props) => {
           </div>
           <div>
             <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none');
-                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
           </div>
         </div>
       </div>
     );
-    // if the there are paramerters to select, render the along with the save button
+  // if the there are parameters to select, render the parameters along with the save button
   } else if (props.state.trigger !== '' && props.state.triggerOption !== '' && servicesDetail[props.state.trigger].trigger.options[props.state.triggerOption].parameters.length > 0) {
     return (
      <div className='workWindow1'>
@@ -94,7 +94,7 @@ const Trigger = (props) => {
             })}
           <div>
             <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementsByClassName('param'));
-                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
           </div>
         </div>
       </div>

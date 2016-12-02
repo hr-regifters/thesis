@@ -1,12 +1,13 @@
+"use strict"
 const cluster = require('cluster');
 // heroku will set WEB_CONCURRENCY  = available dyno memory / WEB_MEMORY, can be force set to a certain value in heroku configs
 // see: https://devcenter.heroku.com/articles/node-concurrency
-var cpus = process.env.WEB_CONCURRENCY || 1; //require('os').cpus().length; // activate the require if a worker for each core is desired
+const cpus = process.env.WEB_CONCURRENCY || 1; //require('os').cpus().length; // activate the require if a worker for each core is desired
 
 if (cluster.isMaster && cpus > 1) {
   console.log('Starting Node Cluster');
 
-  for (var i = 0; i < cpus; i++) {
+  for (let i = 0; i < cpus; i++) {
     cluster.fork();
   }
 

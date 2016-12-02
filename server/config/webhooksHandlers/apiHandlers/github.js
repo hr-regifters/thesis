@@ -1,14 +1,10 @@
 "use strict"
 const async = require('async');
-const concCtrl = require('../../../db/controllers/concoctionController');
-const slackCtrl = require('../../../db/controllers/slackController');
-const userCtrl = require('../../../db/controllers/userController');
 const request = require('request');
 
 module.exports = {
   trigger: (req, res) => {
     const webhooksHandler = require('./../main');
-    console.log('GITHUB TRIGGER SHOT');
     // var requestObj = {
     //   uri: `https://api.github.com/repos/hr-regifters/thesis/hooks`,
     //   method: 'POST',
