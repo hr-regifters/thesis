@@ -767,6 +767,9 @@ img{
 .tummyTuck {
 	width: 100%;
 }
+.lightbox-view {
+	width: 90%;
+}
 #screenshot .title,
 #screenshot .title-area p{
 	color: #fff;
