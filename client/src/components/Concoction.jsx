@@ -11,13 +11,13 @@ export default class Concoction extends React.Component {
     };
     this.enable = this.props.concoctionInfo.enable;
     this.count = 2;
-    this.id = (Math.random()*100000).toString();
+    this.id = (Math.random() * 100000).toString();
   }
 
-  transitionToEdit() {
-    // css animations
-    // change view on app state to concoctionEdit
-    // also pass up the id of the concoction to edit
+  componentDidMount() {
+    if (this.enable) {
+      document.getElementById(this.id).checked = true;
+    }
   }
 
   swapStyle() {
@@ -34,10 +34,10 @@ export default class Concoction extends React.Component {
     const context = this;
     fetch(`${currUrl}/api/constructor/toggleEnable`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         concId: context.props.concoctionInfo.id,
-      })
+      }),
     })
     .then((res) => {
       if (res.status === 201) {
@@ -47,33 +47,20 @@ export default class Concoction extends React.Component {
         console.log('unsuccesful toggle');
       }
     });
-    
-  }
-
-  componentDidMount() {
-    if (this.enable) {
-      document.getElementById(this.id).checked = true;
-    }
   }
 
   render() {
     return (
-      <div className="concoction animated fadeIn">
+      <div className='concoction animated fadeIn'>
         <div className={this.state.enableClass + ' mainBox'}>
-         
-          <img className='icon round' src={servicesDetail[this.props.concoctionInfo.triggerapi].icon}></img>
-          
+          <img className='icon round' src={servicesDetail[this.props.concoctionInfo.triggerapi].icon}></img> 
           <img className='icon round' src={servicesDetail[this.props.concoctionInfo.actionapi].icon}></img>
-        
           <p>{this.props.concoctionInfo.description}</p>
         </div>
         <div className={this.state.enableClass + ' bottomBox'}>
-          {
-        // <a className={this.state.enableClass} onClick={this.changeEnable.bind(this)}>Enable</a>
-          }
-          <label onClick={() => this.changeEnable()} className="switch">
-            <input id={this.id} type="checkbox" />
-            <div className="slider round"></div>
+          <label onClick={() => this.changeEnable()} className='switch'>
+            <input id={this.id} type='checkbox' />
+            <div className='slider round'></div>
           </label>
         </div>
       </div>
