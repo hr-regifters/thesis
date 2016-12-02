@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id            BIGSERIAL   PRIMARY KEY,
   username      VARCHAR(20) NOT NULL UNIQUE,
-  email         VARCHAR(64) NOT NULL,
   password      VARCHAR(64) NOT NULL,
   instagramId   VARCHAR(15),
   fitbitId      VARCHAR(10),
