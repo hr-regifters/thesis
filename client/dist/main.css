@@ -259,9 +259,10 @@ input:focus {
   display: block;
   height: 80%;
   width: 100%;
+  min-height: 225px;
   background-color: #111;
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
 
 }
 .full {
@@ -365,6 +366,9 @@ input {
 .saveBttn.verification {
   margin: 0 auto;
 }
+.saveBttn.createConc {
+  margin: 20px auto;
+}
 .inline {
   margin-left: 0px;
   margin-right: 0px; 
@@ -407,8 +411,8 @@ input {
 .round {
   background-color: #3C3C3C;
   border-radius: 40px;
-  margin-left: -5px;
-  margin-right: -5px;
+  margin-left: -3px;
+  margin-right: -3px;
   border-width: 1px;
   border-color: #333;
   border-style: solid;

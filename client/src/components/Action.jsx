@@ -65,7 +65,7 @@ const Action = (props) => {
           </div>
           <div>
             <h2 onClick={ () => {props.funcs.modifyActionParams('none', 'none', props.actionsIndex);
-                                 props.funcs.modifyInstructions(7)}} className='saveBttn'>Save Action</h2>
+                                 props.funcs.modifyInstructions(7)}} className='saveBttn createConc'>Save Action</h2>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ const Action = (props) => {
           })}
           <div>
             <h2 onClick={ () => {props.funcs.modifyActionParams(document.getElementsByClassName('param'), props.actionsIndex);
-                                 props.funcs.modifyInstructions(7)}} className='saveBttn'>Save Action</h2>
+                                 props.funcs.modifyInstructions(7)}} className='saveBttn createConc'>Save Action</h2>
           </div>
         </div>
       </div>

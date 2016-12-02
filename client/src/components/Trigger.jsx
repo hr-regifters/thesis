@@ -69,7 +69,7 @@ const Trigger = (props) => {
           </div>
           <div>
             <h2 onClick={ () => {props.funcs.modifyTriggerParams('none', 'none');
-                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ const Trigger = (props) => {
             })}
           <div>
             <h2 onClick={ () => {props.funcs.modifyTriggerParams(document.getElementsByClassName('param'));
-                                 props.funcs.modifyInstructions(3)}} className='saveBttn'>Next Step</h2>
+                                 props.funcs.modifyInstructions(3)}} className='saveBttn createConc'>Next Step</h2>
           </div>
         </div>
       </div>
