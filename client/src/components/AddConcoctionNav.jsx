@@ -37,10 +37,8 @@ const AddConcoctionNav = (props) => {
             <h3 onClick={() => { props.funcs.logout() }}>Logout</h3>
           </div>
         </nav>
+        <Instructions text={props.appState.instructions} />
         <Grid id="concViewGrid" className='full'>
-          <Row>
-            <Instructions text={props.appState.instructions} />
-          </Row>
           <Row id='center'>
             <Col xs={8} xsOffset={2} id="concoctionMakerCol" >
               <div id="addConcBox">
