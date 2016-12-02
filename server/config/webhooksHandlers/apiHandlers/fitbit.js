@@ -25,10 +25,10 @@ module.exports = {
     async.each(req.body, (obj, callback) => {
 
       // check obj.collectionType and connect it with the corresponding triggerevent
-      let alias;
-      if (obj.collectionType === 'activities') {
-        alias = 'activity_logged';
-      }
+      let webhooks = {
+        'activities': 'activity_logged'
+      };
+      let alias = webhooks[obj.collectionType];
 
       // get all concoctions that match fitbit id and webhook event
       concCtrl.getConcoctions('fitbit', alias, obj['ownerId']).then((concoctionList) => {
@@ -51,7 +51,7 @@ module.exports = {
             console.log('err', err);
           } else {
             // look at each individual concoction
-            concoctions.forEach((concoction) => {
+            async.each((concoctions), (concoction, callback) => {
               let fitbitData = JSON.parse(body);
               fitbitReqObj.actionParams = JSON.parse(concoction.actionparams);
               fitbitReqObj.actionToken = concoction.actiontoken;
@@ -68,21 +68,30 @@ module.exports = {
 
                 // check which action apis we're dealing with and what corresponding action
                 if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
-                  let sheetData = activityData;
+                  let sheetData = activityData.slice(-1); // change this to the activities we haven't recorded yet
                   fitbitReqObj.data = sheetData;
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'slack' && concoction.actionevent === 'post_message') {
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'twilio' && concoction.actionevent === 'send_text') {
+                  webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
+                  callback();
+                } else if (concoction.actionapi === 'googleMail' && concoction.actionevent === 'send_email') {
                   webhooksHandler[`${concoction.actionapi}Action`][concoction.actionevent](fitbitReqObj);
                   callback();
                 } else {
                   callback();
                 }
               }
-            });
+            }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event'); });
           }
         });
       }).catch((error) => {
         res.status(500).send('Server Error in Fitbit trigger');
         console.log(error);
       });
-    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event:', req.body[0].collectionType); }); //closing async
+    }, (error) => { error ? console.log(error) : console.log('All actions shot triggered by Fitbit Event', req.body[0].collectionType); }); //closing async
   },
 }

@@ -72,7 +72,6 @@ export default class Verification extends React.Component {
                 <h2>SIGNUP</h2>
                 <input placeholder="username" id="newUsername" />
                 <input placeholder="password" id="newPassword" />
-                <input placeholder="email" id="newEmail" />
                 <button className="saveBttn" onClick={this.signUp.bind(this)} type="button">Register</button>
               </form>
             </div>
@@ -81,7 +80,6 @@ export default class Verification extends React.Component {
                 <h2>SIGNIN</h2>
                 <input placeholder="username" id="username" />
                 <input placeholder="password" id="password" />
-                <input placeholder="email" id="invisiblefillera" />
                 <button className="saveBttn" onClick={this.logIn.bind(this)} type="button">Login</button>
               </form>
             </div>
