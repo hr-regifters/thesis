@@ -140,12 +140,14 @@ nav {
 }
 
 #login input {
-  width: 80%;
+  width: 51%;
   margin: 5px 0;
-  padding: 5px;
   border: none;
   font-size: 20px;
   background-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
+  padding: 5px;
 }
 
 #login button {
@@ -185,12 +187,14 @@ nav {
 }
 
 #register input {
-  width: 80%;
+  width: 51%;
   margin: 5px 0;
   padding: 5px;
   border: none;
   font-size: 20px;
   background-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-color: #bbb;
 
 
 }
@@ -351,11 +355,10 @@ input {
   color: #11aaad;
   border-width: 4px;
   width: 200px;
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px; 
+  display: block;
   background-color: #333;
   text-align: center;
+  margin: 0 auto;
 }
 .saveBttn:hover {
   border-color: #bbb;
