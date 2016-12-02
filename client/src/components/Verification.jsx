@@ -6,7 +6,7 @@ import currUrl from './../../../currUrl';
 
 export default class Verification extends React.Component {
   componentDidMount() {
-    let authenticate = localStorage.getItem('regiftUsername');
+    let authenticate = localStorage.getItem('rippleUsername');
     if (authenticate) {
       this.props.changeState('user', authenticate);
       this.props.changeViewTo('home');
@@ -27,7 +27,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        localStorage.setItem('regiftUsername', username);
+        localStorage.setItem('rippleUsername', username);
         context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
@@ -50,7 +50,7 @@ export default class Verification extends React.Component {
     })
     .then(function(res) {
       if (res.status === 201) {
-        localStorage.setItem('regiftUsername', username);
+        localStorage.setItem('rippleUsername', username);
         context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
@@ -69,18 +69,18 @@ export default class Verification extends React.Component {
           <row>
             <div id="register" className="col-sm-5 animated fadeIn box">
               <form>
-                <h2>SIGNUP</h2>
+                <h2 id="registerText">SIGNUP</h2>
                 <input placeholder="username" id="newUsername" />
                 <input placeholder="password" id="newPassword" />
-                <button className="saveBttn" onClick={this.signUp.bind(this)} type="button">Register</button>
+                <button className="saveBttn verification" onClick={this.signUp.bind(this)} type="button">Register</button>
               </form>
             </div>
             <div id="login" className="col-sm-5 animated fadeIn box">
               <form>
-                <h2>SIGNIN</h2>
+                <h2 id="registerText">SIGNIN</h2>
                 <input placeholder="username" id="username" />
                 <input placeholder="password" id="password" />
-                <button className="saveBttn" onClick={this.logIn.bind(this)} type="button">Login</button>
+                <button className="saveBttn verification" onClick={this.logIn.bind(this)} type="button">Login</button>
               </form>
             </div>
           </row>

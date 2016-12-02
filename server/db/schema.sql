@@ -40,6 +40,3 @@ CREATE TABLE concoctions (
   description   VARCHAR(128),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
-
-

@@ -1,6 +1,5 @@
 "use strict"
 
-const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
 const saltRounds = 10;
@@ -53,15 +52,6 @@ exports.Signup = new LocalStrategy({
     });
   }
 );
-
-exports.queryUsers = (req, res) => {
-  pool.query({
-    text: 'SELECT * FROM users;'
-  }, (err, rows) => {
-    console.log(err, rows.rows)
-    res.status(201).send(rows.rows);
-  }); 
-}
 
 exports.addTokenAndId = (username, apiToken, token, api, apiId) => {
   pool.query({
@@ -120,4 +110,14 @@ exports.getUserConcoctions = (req, res) => {
       });
     }
   });
+}
+
+// for testing purposes
+exports.queryUsers = (req, res) => {
+  pool.query({
+    text: 'SELECT * FROM users;'
+  }, (err, rows) => {
+    console.log(err, rows.rows)
+    res.status(201).send(rows.rows);
+  }); 
 }

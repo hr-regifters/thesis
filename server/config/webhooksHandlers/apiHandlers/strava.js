@@ -4,7 +4,7 @@ const concCtrl = require('../../../db/controllers/concoctionController');
 const request = require('request');
 
 module.exports = {
-  verify: (req, res) => {
+  validate: (req, res) => {
     let query = {'hub.challenge' : req.query['hub.challenge']};
     res.status(200).send(query);
   },
@@ -27,7 +27,7 @@ module.exports = {
         }
       };
 
-      // query endpoint for update information
+      // query strava endpoint for update information
       request(options, (err, res, body) => {
         if (err) {
           console.log('err', err);
@@ -43,7 +43,7 @@ module.exports = {
             stravaReqObj.actionParams = JSON.parse(concoction.actionparams);
             stravaReqObj.actionToken = concoction.actiontoken;
 
-            // check which action apis we're dealing with and what corresponding action
+            // check which action apis we're dealing with and the corresponding action
             if (concoction.actionapi === 'googleSheets' && concoction.actionevent === 'create_sheet') {
               let sheetData = {
                 name: stravaData.name,

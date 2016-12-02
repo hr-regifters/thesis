@@ -1,29 +1,26 @@
-const slackHandler = require('./apiHandlers/slack');
 const evernoteHandler = require('./apiHandlers/evernote');
-const githubHandler = require('./apiHandlers/github');
-const twilioHandler = require('./apiHandlers/twilio');
-const instagramHandler = require('./apiHandlers/instagram');
+const fitbitHandler = require('./apiHandlers/fitbit');
 const gmailHandler = require('./apiHandlers/gmail');
 const googleSheetsHandler = require('./apiHandlers/googleSheets');
-const fitbitHandler = require('./apiHandlers/fitbit');
+const instagramHandler = require('./apiHandlers/instagram');
+const slackHandler = require('./apiHandlers/slack');
 const stravaHandler = require('./apiHandlers/strava');
+const twilioHandler = require('./apiHandlers/twilio');
 // import handler for each api here
 
 module.exports = {
-  slackTrigger: slackHandler.trigger,
-  slackAction: slackHandler.actions,
-  evernoteTrigger: evernoteHandler.trigger,
-  evernoteAction: evernoteHandler.actions,
-  githubTrigger: githubHandler.trigger,
-  githubAction: githubHandler.actions,
-  twilioAction: twilioHandler.actions,
-  instagramValidator: instagramHandler.validate,
+  fitbitTrigger: fitbitHandler.trigger,
   instagramTrigger: instagramHandler.trigger,
-  instagramAction: instagramHandler.actions,
+  slackTrigger: slackHandler.trigger,
+  stravaTrigger: stravaHandler.trigger,
+
+  evernoteAction: evernoteHandler.actions,
   googleMailAction: gmailHandler.actions,
   googleSheetsAction: googleSheetsHandler.actions,
-  fitbitVerify: fitbitHandler.verify,
-  fitbitTrigger: fitbitHandler.trigger,
-  stravaVerify: stravaHandler.verify,
-  stravaTrigger: stravaHandler.trigger
+  slackAction: slackHandler.actions,
+  twilioAction: twilioHandler.actions,
+
+  fitbitValidator: fitbitHandler.validate,
+  instagramValidator: instagramHandler.validate,
+  stravaValidator: stravaHandler.validate,
 };

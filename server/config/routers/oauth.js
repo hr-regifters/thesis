@@ -76,8 +76,8 @@ router.get('/strava/callback',
         username = session['user'];
       }
     }
-    console.log(stravaData.user, 'stravaData.user')
     userUtility.addTokenAndId(username, 'stravatoken', stravaData.user[0], 'strava', stravaData.user[1]);
+    concoctionUtility.updateConcoctionsToken(username, 'strava', stravaData.user[0]);
     res.redirect('/app');
   });
 
