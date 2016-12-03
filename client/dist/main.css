@@ -260,6 +260,7 @@ input:focus {
   height: 80%;
   width: 100%;
   min-height: 225px;
+  max-height: 225px;
   background-color: #111;
   color: #fff;
   font-size: 22px;

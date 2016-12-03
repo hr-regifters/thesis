@@ -27,9 +27,9 @@ exports.createConcoction = (req, res) => {
       description: concoction.description
     };
     getActionIdandToken(concObj, username, res)
-    .then((concObj) => getTriggerIdandToken(concObj, username, res))
-    .then((concObj) => { writeConcoction(concObj, res); })
-    .catch((error) => { res.status(405).send(error); });
+    .then((concObj) => { console.log('got action token', concObj); return getTriggerIdandToken(concObj, username, res);})
+    .then((updatedConc) => { console.log('about to write concoction', updatedConc); writeConcoction(updatedConc, res); })
+    .catch((error) => { console.log(error); });
   }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
@@ -42,7 +42,7 @@ const getActionIdandToken = (concObj, username, res) => {
         concObj['actiontoken'] = user.slacktoken;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else if (concObj['actionapi'] === 'evernote') {
@@ -52,7 +52,7 @@ const getActionIdandToken = (concObj, username, res) => {
         concObj['actiontoken'] = user.evernotetoken;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else if (concObj['actionapi'] === 'twilio') {
@@ -61,7 +61,7 @@ const getActionIdandToken = (concObj, username, res) => {
         concObj['userid'] = user.id;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else if (concObj['actionapi'] === 'googleMail') {
@@ -71,7 +71,7 @@ const getActionIdandToken = (concObj, username, res) => {
         concObj['actiontoken'] = user.googletoken;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else if (concObj['actionapi'] === 'googleSheets') {
@@ -81,11 +81,11 @@ const getActionIdandToken = (concObj, username, res) => {
         concObj['actiontoken'] = user.googletoken;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else {
-    res.status(405).send('cant find user');
+    console.log('cant find user');
   }
 }
 
@@ -96,7 +96,7 @@ const getTriggerIdandToken = (concObj, username, res) => {
         concObj['triggeruserid'] = user.slackid;
         return concObj;
       } else {
-        res.status(405).send('cant find user');
+        console.log('cant find user');
       }
     });
   } else if (concObj['triggerapi'] === 'fitbit') {
@@ -108,6 +108,7 @@ const getTriggerIdandToken = (concObj, username, res) => {
       }
     });
   } else if (concObj['triggerapi'] === 'instagram') {
+    console.log('inside getting IG trigger')
     return userController.getUserData('username', username).then((user) => {
       if (user.instagramid) {
         concObj['triggeruserid'] = user.instagramid;
@@ -141,10 +142,10 @@ const writeConcoction = (concObj, res) => {
     ]
   }, (err, rows) => {
     if (err) {
-      console.log(err);
+      console.log('error when writing concoction', err);
     } else {
       subscribeUser(concObj);
-      res.status(201).send(rows);
+      res.status(201).send();
     }
   });
 }
