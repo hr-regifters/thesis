@@ -22,7 +22,7 @@ export default class Verification extends React.Component {
     fetch(`${currUrl}/api/user/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({username: username, password: password, email: email}) //TODO: change to username in cookie 
+      body: JSON.stringify({username: username, password: password}) //TODO: change to username in cookie 
     })
     .then(function(res) {
       if (res.status === 201) {
@@ -30,12 +30,11 @@ export default class Verification extends React.Component {
         context.props.changeState('user', username);
         context.props.changeViewTo('home');
       } else {
-        console.log('username/email already taken'); // TODO: input error message saying username/email taken
+        console.log('username already taken'); // TODO: input error message saying username taken
       }
     });
     document.getElementById('newUsername').value = '';
     document.getElementById('newPassword').value = '';
-    document.getElementById('newEmail').value = '';
   }
 
   logIn() {

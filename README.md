@@ -22,6 +22,9 @@ Ripple is a client-facing app geared towards tech-oriented users to help them au
 
 Simply press [here](https://regifters48.herokuapp.com) to view Ripple's landing page, sign up, and then Ripple will walk you through the rest.
 
+[![ScreenShot](http://g.recordit.co/XkWMyLCKrA.gif)](http://g.recordit.co/XkWMyLCKrA.gif)
+(click gif for full demonstration video)
+
 ## Requirements
 
 - Node 0.10.x
