@@ -2,6 +2,8 @@
 
 Ripple is a client-facing app geared towards tech-oriented users to help them automate their use of web services.
 
+![alt tag](http://g.recordit.co/XkWMyLCKrA.gif)
+
 ## Team
 
   - __Product Owner__: Kyle Chun
