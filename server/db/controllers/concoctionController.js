@@ -27,9 +27,9 @@ exports.createConcoction = (req, res) => {
       description: concoction.description
     };
     getActionIdandToken(concObj, username, res)
-    .then((concObj) => { console.log('got action token', concObj); return getTriggerIdandToken(concObj, username, res);})
-    .then((updatedConc) => { console.log('about to write concoction', updatedConc); writeConcoction(updatedConc, res); })
-    .catch((error) => { console.log(error); });
+    .then((concObj) => getTriggerIdandToken(concObj, username, res))
+    .then((updatedConc) => { writeConcoction(updatedConc, res); })
+    .catch((error) => { res.status(405).send(error); });
   }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
 
@@ -108,7 +108,6 @@ const getTriggerIdandToken = (concObj, username, res) => {
       }
     });
   } else if (concObj['triggerapi'] === 'instagram') {
-    console.log('inside getting IG trigger')
     return userController.getUserData('username', username).then((user) => {
       if (user.instagramid) {
         concObj['triggeruserid'] = user.instagramid;
