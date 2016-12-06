@@ -12,10 +12,10 @@ CREATE TABLE users (
   evernoteToken VARCHAR(100),
   fitbitToken   VARCHAR(300),
   githubToken   VARCHAR(100),
-  googleToken   VARCHAR(100),
+  googleToken   VARCHAR(200),
   instagramToken VARCHAR(100),
-  slackToken    VARCHAR(80),
-  stravaToken   VARCHAR(80),
+  slackToken    VARCHAR(100),
+  stravaToken   VARCHAR(100),
   createdat TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE concoctions (
   actionApi     VARCHAR(20),
   actionEvent   VARCHAR(32),
   actionUserId  VARCHAR(20),
-  actionToken   VARCHAR(128),
+  actionToken   VARCHAR(300),
   actionParams  VARCHAR(500),
   enable        BOOLEAN,
   description   VARCHAR(300),
