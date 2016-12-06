@@ -24,7 +24,7 @@ module.exports = {
         noteContent += '<br/><br/><a href="' + link + '">' + link + '</a>';
       });
       paramObj.images.forEach((image) => {
-        noteContent += '<br/><img src="' + image + '"></img>';
+        noteContent += '<br><br/><img src="' + image + '"></img>';
       });
       noteContent += '</en-note>';
       ourNote.content = noteContent;

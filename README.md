@@ -21,6 +21,7 @@ Ripple is a client-facing app geared towards tech-oriented users to help them au
 ## Usage
 
 Simply press [here](https://regifters48.herokuapp.com) to view Ripple's landing page, sign up, and then Ripple will walk you through the rest.
+![alt tag](http://g.recordit.co/XkWMyLCKrA.gif)
 
 ## Requirements
 
