@@ -28,7 +28,7 @@ exports.createConcoction = (req, res) => {
     };
     getActionIdandToken(concObj, username, res)
     .then((concObj) => getTriggerIdandToken(concObj, username, res))
-    .then((concObj) => { writeConcoction(concObj, res); })
+    .then((updatedConc) => { writeConcoction(updatedConc, res); })
     .catch((error) => { res.status(405).send(error); });
   }, (error) => { error ? console.log(error) : console.log('Concoction list saved successfully'); });
 }
