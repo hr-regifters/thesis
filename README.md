@@ -2,7 +2,8 @@
 
 Ripple is a client-facing app geared towards tech-oriented users to help them automate their use of web services.
 
-![alt tag](http://g.recordit.co/XkWMyLCKrA.gif)
+(click gif for full demonstration video)
+[![ScreenShot](http://g.recordit.co/XkWMyLCKrA.gif)](http://recordit.co/XkWMyLCKrA)
 
 ## Team
 
