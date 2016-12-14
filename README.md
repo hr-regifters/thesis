@@ -13,8 +13,9 @@ Ripple is a client-facing app geared towards tech-oriented users to help them au
 1. [Usage](#Usage)
 2. [Requirements](#requirements)
 3. [Development](#development)
-    i. [Installing Dependencies](#installing-dependencies)
-    ii. [Tasks](#tasks)
+    1. [Installing Dependencies](#installing-dependencies)
+    1. [Documentation](#documentation)
+    1. [Roadmap](#roadmap)
 4. [Team](#team)
 5. [Contributing](#contributing)
 
@@ -41,6 +42,10 @@ From within the root directory:
 npm install
 npm start
 ```
+
+### Documentation
+
+Check out our API documentation [here](api_documentation.md) and our architecture diagram [here](Architecture.png)
 
 ### Roadmap
 
